@@ -1,113 +1,272 @@
-# Graph Report - .  (2026-07-26)
+# Graph Report - .  (2026-08-06)
 
 ## Corpus Check
-- Corpus is ~32,527 words - fits in a single context window. You may not need a graph.
+- 57 files · ~0 words
+- Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 75 nodes · 125 edges · 14 communities detected
-- Extraction: 50% EXTRACTED · 50% INFERRED · 0% AMBIGUOUS · INFERRED: 63 edges (avg confidence: 0.5)
+- 390 nodes · 596 edges · 46 communities detected
+- Extraction: 59% EXTRACTED · 41% INFERRED · 0% AMBIGUOUS · INFERRED: 247 edges (avg confidence: 0.5)
 - Token cost: 0 input · 0 output
 
 ## God Nodes (most connected - your core abstractions)
-1. `build_card()` - 9 edges
-2. `read_state()` - 8 edges
-3. `now()` - 7 edges
-4. `write_state()` - 7 edges
-5. `replace()` - 7 edges
-6. `cmd_mark_accepted()` - 7 edges
-7. `cmd_mark_sent()` - 6 edges
-8. `cmd_mark_failed()` - 6 edges
-9. `cmd_expire()` - 6 edges
-10. `main()` - 5 edges
+1. `Handler` - 12 edges
+2. `fill_job()` - 11 edges
+3. `_scan()` - 9 edges
+4. `build_card()` - 9 edges
+5. `LinkedInLoggedOut` - 8 edges
+6. `read_state()` - 8 edges
+7. `el()` - 8 edges
+8. `_fill_step()` - 7 edges
+9. `LLMError` - 7 edges
+10. `now()` - 7 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `cmd_expire()` --calls--> `setting()`  [INFERRED]
-  tools\invite_tracker.py → tools\invite_tracker.py  _Bridges community 3 → community 0_
+- `CLI entry point for the autopilot.      py -3 -m apps.autopilot.run fieldmap` --uses--> `LinkedInLoggedOut`  [INFERRED]
+  apps\autopilot\run.py → apps\autopilot\fill.py
+- `(url, company, job, fit) from the local mirror, best fit first, already-done exc` --uses--> `LinkedInLoggedOut`  [INFERRED]
+  apps\autopilot\run.py → apps\autopilot\fill.py
+- `Probe candidates until `wanted` postings actually show an Easy Apply button.` --uses--> `LinkedInLoggedOut`  [INFERRED]
+  apps\autopilot\run.py → apps\autopilot\fill.py
+- `Open the profile and wait for the OWNER to sign in by hand.      This is not an` --uses--> `LinkedInLoggedOut`  [INFERRED]
+  apps\autopilot\run.py → apps\autopilot\fill.py
+- `CLI entry point for the autopilot.      py -3 -m apps.autopilot.run fieldmap` --uses--> `FillResult`  [INFERRED]
+  apps\autopilot\run.py → apps\autopilot\fill.py
 
 ## Communities
 
-### Community 0 - "Two-Stage Invite Tracking"
-Cohesion: 0.33
-Nodes (16): cmd_add(), cmd_due(), cmd_expire(), cmd_list(), cmd_mark_accepted(), cmd_mark_failed(), cmd_mark_sent(), find() (+8 more)
+### Community 0 - "Community 0"
+Cohesion: 0.09
+Nodes (42): _apply(), _attr_q(), _capture_resume(), check_logged_in(), _close_modal(), Control, _current_value(), _deep_text() (+34 more)
 
-### Community 1 - "Slack Job Cards"
+### Community 1 - "Community 1"
+Cohesion: 0.06
+Nodes (27): execute_iterative_architecture_hero(), Iterative Architecture Diagram & 3D Enrichment Studio Step 1: Renders a clean co, render_edge_screenshot(), execute_2step_pipeline(), 2-Step AI 3D Command Center Slide 1 Hero Studio Step 1: Render clean, readable 5, render_edge_screenshot(), Ultimate Cybernetic HUD Architecture Generator (FLUX.1 & Gemini Engine) Combines, generate_upgraded_4slide_carousel() (+19 more)
+
+### Community 2 - "Community 2"
+Cohesion: 0.08
+Nodes (23): all_rows(), last_sync(), _parse_ts(), pending_notion(), Insert or update by Notion page id. Returns (inserted, updated, protected)., Change a job's status from the dashboard. Returns the updated row.      Record, Dashboard edits Notion has not been told about — one row per job, latest state., Notes say warm/alumni but the checkbox is unticked — a real data gap that     s (+15 more)
+
+### Community 3 - "Community 3"
+Cohesion: 0.18
+Nodes (16): BaseHTTPRequestHandler, all_zip(), bootstrap(), build_packets(), cv_paths(), discover_packets(), Handler, main() (+8 more)
+
+### Community 4 - "Community 4"
+Cohesion: 0.11
+Nodes (22): BankMissing, dump_field_map(), load_bank(), lookup(), match_field(), The answer bank and the FIELD_MAP — the only legal source of form values.  THE, First FIELD_MAP entry whose pattern appears in the label wins. Order = priority., Turn a Spec into the literal string to type, or None meaning LEAVE BLANK. (+14 more)
+
+### Community 5 - "Community 5"
+Cohesion: 0.14
+Nodes (20): ago(), api(), boot(), clear(), copy(), el(), esc(), fitCell() (+12 more)
+
+### Community 6 - "Community 6"
+Cohesion: 0.2
+Nodes (24): cmd_add(), cmd_due(), cmd_expire(), cmd_list(), cmd_mark_accepted(), cmd_mark_failed(), cmd_mark_sent(), find() (+16 more)
+
+### Community 7 - "Community 7"
+Cohesion: 0.18
+Nodes (12): Action, busy_linkedin_run(), catalogue(), get(), linkedin_servers(), preflight(), Count real MCP servers (python only — each session also spawns 2 uvx wrappers)., What the owner needs to know before firing a LinkedIn action. (+4 more)
+
+### Community 8 - "Community 8"
 Cohesion: 0.23
 Nodes (14): all_of(), build_card(), first(), first_blockquote(), load_env(), main(), post(), Role, score, recipient, the exact message the robot will send, marker. Nothing e (+6 more)
 
-### Community 2 - "ATS Keyword Audit"
+### Community 9 - "Community 9"
+Cohesion: 0.42
+Nodes (10): applyPanel(), buildPanel(), change(), cvPanel(), followBuild(), notionRow(), recount(), renderList() (+2 more)
+
+### Community 10 - "Community 10"
+Cohesion: 0.44
+Nodes (8): board_candidates(), cmd_fieldmap(), cmd_fill(), cmd_login(), main(), report(), select_live_jobs(), _user_data_dir()
+
+### Community 11 - "Community 11"
+Cohesion: 0.44
+Nodes (6): actionCard(), confirmPanel(), fire(), loadHistory(), renderRun(), watch()
+
+### Community 12 - "Community 12"
+Cohesion: 0.29
+Nodes (2): inviteUnit(), leg()
+
+### Community 13 - "Community 13"
 Cohesion: 0.52
 Nodes (6): keywords_from_jd(), main(), norm(), present(), Keyword is present if it appears as a token/phrase in the CV text., read_text()
 
-### Community 3 - "Follow-Up Delay Scheduling"
-Cohesion: 0.33
-Nodes (6): Nudge a timestamp into waking hours. Nobody sends a CV pitch at 4am except a rob, Random 3-20h after the accept, then pulled into business hours., Read an int knob from .env, falling back to the documented default., schedule_followup(), setting(), shift_into_business_hours()
+### Community 14 - "Community 14"
+Cohesion: 0.57
+Nodes (5): Enter-PipelineLock(), Get-PipelineLockOwner(), Read-PipelineLockText(), Remove-StalePipelineLock(), Write-LockLine()
 
-### Community 4 - "Slack Reaction Guard"
+### Community 15 - "Community 15"
+Cohesion: 0.6
+Nodes (5): call(), load_env(), main(), Map user/bot ids to display names so the export is readable., resolve_users()
+
+### Community 16 - "Community 16"
 Cohesion: 0.6
 Nodes (5): call(), find_ts(), load_env(), main(), Locate the newest card carrying `ref:<slug>`.
 
-### Community 5 - "Follow-Up Nudges"
+### Community 17 - "Community 17"
 Cohesion: 0.7
 Nodes (4): as_bool(), due_for(), main(), notify()
 
-### Community 6 - "Send Queue & Caps"
+### Community 18 - "Community 18"
 Cohesion: 0.7
 Nodes (4): cap(), fmt(), load_env(), main()
 
-### Community 7 - "Slack File Upload"
+### Community 19 - "Community 19"
+Cohesion: 0.67
+Nodes (3): generate_upgraded_post1_carousel(), Upgraded Post 1 Carousel Generator — Job Hunt Autopilot Features ZERO AI gibberi, render_edge_screenshot()
+
+### Community 20 - "Community 20"
+Cohesion: 0.5
+Nodes (3): HTML/CSS 3D Isometric Neon Architecture Infographic Generator, Renders HTML string into high-res PNG image via headless Edge., render_html_to_png()
+
+### Community 21 - "Community 21"
+Cohesion: 0.5
+Nodes (3): auto_post_to_linkedin(), Automated Playwright LinkedIn Post Dispatcher Uses Playwright browser automation, Automates posting to LinkedIn using Playwright Chromium with persistent user pro
+
+### Community 22 - "Community 22"
+Cohesion: 0.67
+Nodes (3): Distinct Slide 1 Hero Cover Generator Renders 2 distinct, highly detailed Slide, render_distinct_covers(), render_edge_screenshot()
+
+### Community 23 - "Community 23"
+Cohesion: 0.67
+Nodes (3): Hybrid Vector Composite Slide 1 Cover Studio Combines pristine 3D Command Center, render_edge_screenshot(), render_hybrid_slide1_covers()
+
+### Community 24 - "Community 24"
 Cohesion: 0.83
 Nodes (3): api(), load_env(), main()
 
-### Community 8 - "Slack Approval Gate"
+### Community 25 - "Community 25"
 Cohesion: 1.0
 Nodes (2): load_env(), main()
 
-### Community 9 - "Slack Notifications"
+### Community 26 - "Community 26"
+Cohesion: 0.67
+Nodes (1): Post 2 Packager — AI Visual Content Studio Packages the ALREADY-BUILT 4-slide ca
+
+### Community 27 - "Community 27"
+Cohesion: 0.67
+Nodes (1): Render High-Density, Ultra-Detailed Technical Architecture Visual (Slide 2 Upgra
+
+### Community 28 - "Community 28"
+Cohesion: 0.67
+Nodes (1): Test LinkedIn Post Dispatch & Verification Script Packages the exact 4-slide vis
+
+### Community 29 - "Community 29"
 Cohesion: 1.0
 Nodes (2): load_env(), main()
 
-### Community 10 - "Reply-Check Task"
+### Community 30 - "Community 30"
+Cohesion: 0.67
+Nodes (0): 
+
+### Community 31 - "Community 31"
+Cohesion: 1.0
+Nodes (1): Job Hunt Autopilot — the Python runtime that replaces the Claude-Code-as-server
+
+### Community 32 - "Community 32"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 11 - "Daily Discovery Task"
+### Community 33 - "Community 33"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 12 - "Flush Approved Task (stage 1)"
+### Community 34 - "Community 34"
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 13 - "Accept Watch Task (stage 2)"
+### Community 35 - "Community 35"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 36 - "Community 36"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 37 - "Community 37"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 38 - "Community 38"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 39 - "Community 39"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 40 - "Community 40"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 41 - "Community 41"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 42 - "Community 42"
+Cohesion: 1.0
+Nodes (1): Bundles post copy and high-res image into a complete publishing package.
+
+### Community 43 - "Community 43"
+Cohesion: 1.0
+Nodes (1): Simulates or executes publishing of the ready package to LinkedIn.         If Li
+
+### Community 44 - "Community 44"
+Cohesion: 1.0
+Nodes (1): Dynamically generates post copy and custom image prompt tailored to the given to
+
+### Community 45 - "Community 45"
 Cohesion: 1.0
 Nodes (0): 
 
 ## Knowledge Gaps
-- **10 isolated node(s):** `Keyword is present if it appears as a token/phrase in the CV text.`, `Read an int knob from .env, falling back to the documented default.`, `Return a new state with one invite swapped out — no in-place mutation.`, `Nudge a timestamp into waking hours. Nobody sends a CV pitch at 4am except a rob`, `Random 3-20h after the accept, then pulled into business hours.` (+5 more)
+- **72 isolated node(s):** `Job Hunt Autopilot — the Python runtime that replaces the Claude-Code-as-server`, `The answer bank and the FIELD_MAP — the only legal source of form values.  THE`, `Read a dotted path out of the bank. Returns None for missing OR null — both mean`, `One mappable question.      patterns  regexes matched (case-insensitive) again`, `First FIELD_MAP entry whose pattern appears in the label wins. Order = priority.` (+67 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **Thin community `Reply-Check Task`** (1 nodes): `check-replies.ps1`
+- **Thin community `Community 31`** (2 nodes): `__init__.py`, `Job Hunt Autopilot — the Python runtime that replaces the Claude-Code-as-server`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Daily Discovery Task`** (1 nodes): `daily-discovery.ps1`
+- **Thin community `Community 32`** (2 nodes): `run-pipeline.ps1`, `Say()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Flush Approved Task (stage 1)`** (1 nodes): `flush-approved.ps1`
+- **Thin community `Community 33`** (2 nodes): `sweep-packets.ps1`, `Say()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Accept Watch Task (stage 2)`** (1 nodes): `watch-accepts.ps1`
+- **Thin community `Community 34`** (2 nodes): `page-research.js`, `render()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 35`** (2 nodes): `page-slack.js`, `render()`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 36`** (1 nodes): `auto-apply.ps1`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 37`** (1 nodes): `build-packet.ps1`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 38`** (1 nodes): `check-replies.ps1`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 39`** (1 nodes): `daily-discovery.ps1`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 40`** (1 nodes): `flush-approved.ps1`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 41`** (1 nodes): `daily_post_scheduler.ps1`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 42`** (1 nodes): `Bundles post copy and high-res image into a complete publishing package.`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 43`** (1 nodes): `Simulates or executes publishing of the ready package to LinkedIn.         If Li`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 44`** (1 nodes): `Dynamically generates post copy and custom image prompt tailored to the given to`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 45`** (1 nodes): `watch-accepts.ps1`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `replace()` connect `Two-Stage Invite Tracking` to `Follow-Up Delay Scheduling`?**
-  _High betweenness centrality (0.009) - this node is a cross-community bridge._
-- **Why does `schedule_followup()` connect `Follow-Up Delay Scheduling` to `Two-Stage Invite Tracking`?**
-  _High betweenness centrality (0.009) - this node is a cross-community bridge._
+- **Why does `LinkedInLoggedOut` connect `Community 0` to `Community 4`?**
+  _High betweenness centrality (0.021) - this node is a cross-community bridge._
+- **Are the 9 inferred relationships involving `fill_job()` (e.g. with `FillResult` and `slug_for()`) actually correct?**
+  _`fill_job()` has 9 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 7 inferred relationships involving `_scan()` (e.g. with `Control` and `_group_label()`) actually correct?**
+  _`_scan()` has 7 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 7 inferred relationships involving `build_card()` (e.g. with `read()` and `first()`) actually correct?**
   _`build_card()` has 7 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 7 inferred relationships involving `read_state()` (e.g. with `cmd_add()` and `cmd_mark_accepted()`) actually correct?**
-  _`read_state()` has 7 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 6 inferred relationships involving `now()` (e.g. with `cmd_add()` and `cmd_mark_accepted()`) actually correct?**
-  _`now()` has 6 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 6 inferred relationships involving `write_state()` (e.g. with `replace()` and `cmd_add()`) actually correct?**
-  _`write_state()` has 6 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 5 inferred relationships involving `replace()` (e.g. with `write_state()` and `shift_into_business_hours()`) actually correct?**
-  _`replace()` has 5 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 5 inferred relationships involving `LinkedInLoggedOut` (e.g. with `check_logged_in()` and `CLI entry point for the autopilot.      py -3 -m apps.autopilot.run fieldmap`) actually correct?**
+  _`LinkedInLoggedOut` has 5 INFERRED edges - model-reasoned connections that need verification._
+- **What connects `Job Hunt Autopilot — the Python runtime that replaces the Claude-Code-as-server`, `The answer bank and the FIELD_MAP — the only legal source of form values.  THE`, `Read a dotted path out of the bank. Returns None for missing OR null — both mean` to the rest of the system?**
+  _72 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `Community 0` be split into smaller, more focused modules?**
+  _Cohesion score 0.09 - nodes in this community are weakly interconnected._

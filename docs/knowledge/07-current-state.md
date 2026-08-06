@@ -21,15 +21,18 @@ PowerShell + scheduled-task + headless-Claude stack.** New work goes into `apps/
 - **One-line summary:** we used an interactive IDE tool as a production runtime; that single choice caused
   D13, D17, D20, D24 and D25. A Python program will run the pipeline and call Claude Code as a subprocess
   for the one step a human actually reads — the tailored CV.
-- **Status (updated 2026-08-06, evening): Phase 0 IS WRITTEN AND HAS RUN.** `apps/autopilot/` now holds
+- **Status (updated 2026-08-06, evening): ✅ PHASE 0 IS CLOSED.** `apps/autopilot/` now holds
   `llm.py`, `answers.py`, `fill.py`, `run.py` (~1,050 lines). It drove the owner's real LinkedIn account and
   filled real Easy Apply forms, stopping before Submit, with **zero invented values**.
   Full write-up: **[[23-phase-0-results]]**.
   - **Measured: ~16.7s per form** (2 genuine fills in 33.3s). Five project to **~85s**, well inside the 180s
     target. Time goes to **page loads, not field mapping** — the good failure mode.
-  - **But the run was not a valid 5-job test:** 3 of 5 jobs did nothing (the dialog shell renders before its
-    contents; fixed with a footer-button sentinel) and the tool **printed PASS anyway**. The verdict logic now
-    counts only jobs that reach Review/Submit. **Phase 0 is not closed** — it needs one clean 5-fill run.
+  - **Closing run: 5 genuine fills in 72.1s** (three consecutive passes: 62.7s · 54.6s · 72.1s), 23 fields
+    filled, nothing submitted. It took **four attempts and three silent-blindness bugs** to get numbers that
+    meant anything: the dialog shell renders before its contents (3 of 5 jobs did nothing while the tool
+    printed PASS); **every `<fieldset>` question — all Yes/No radios and consent boxes — was skipped in
+    silence** because `inner_text()` omits LinkedIn's accessible-only legend; and a Yes/No question matched a
+    `years_*` spec, failing safe only by luck. All three fixed and verified against the live DOM.
   - **New answer-bank keys:** `identity.first_name`, `identity.last_name`, and a `consents` block
     (`data_processing: Yes`) — agreements, kept deliberately separate from facts.
   - ⚠️ **Owner action:** LinkedIn's verified email is `azamrizwanshah123@gmail.com`; the bank and every CV use
@@ -856,6 +859,47 @@ Applied dates are 07-26 (Infosys, CodeRound) and 07-29/07-30 (Recro, Innova ESI,
 **08-06**. Every row is past both its Day-3 and Day-7 nudge with `Follow-ups Sent` at 0 or null, and
 Infosys still carries a `Next Action` of **2026-07-29**. That is `followups.py`'s job, not this
 runbook's — but eleven days of silence across five applications is the board's loudest signal right now.
+
+## Accept watch — 2026-08-06 16:23 (nothing accepted; three NEW invites found unrecorded)
+
+Ran per [[13-accept-watch-runbook]]. `expire`: nothing over 14 days. `due`: **empty**. All three polled
+profiles still read `· 3rd`. **Nothing sent, nothing written to Notion, no Slack post** — runbook step 5's
+quiet exit. Auth verified the trustworthy way (three real `get_person_profile` calls succeeded).
+
+⚠️ **The tracker holds three `pending` invites that this file did not know about.** Sent **today**, 11:02 /
+11:32 / 11:34, by a session that never wrote them down — the exact failure mode this file exists to prevent
+(see the header note and [[05-decisions]] D7). Recorded now:
+
+| Who | Company · role | Invite sent | Status at 16:23 |
+|---|---|---|---|
+| **Recruiter-E** (CTO) | SkillsCapital · SWE Intern (AI/ML & Agentic AI) **93** | 08-06 11:02 | `pending`, 3rd |
+| **Recruiter-F** (Co-Founder) | Mirai Alpha · AI Engineering Intern (Agentic AI & MCP) | 08-06 11:32 | `pending`, 3rd |
+| **Recruiter-D** (Recruitment Consultant) | Hired · AI/ML Engineer — pitched as keep-on-file | 08-06 11:34 | `pending`, 3rd |
+
+So the stage-1 queue is **live again** for the first time since 08-01, and the ~4h watcher now has real work
+to poll. Five hours old is early; judge nothing from one quiet run.
+
+### Method note: the profile page states the invite status directly
+
+Each of the three rendered **`Message` / `Pending`** in the top card, next to the degree. The runbook's
+documented signal is the **degree flip** (2nd/3rd → 1st), and that remains the thing to act on — but
+`Pending` is strictly better evidence for the *negative* case, because it separates two states the degree
+alone conflates: **"sent, not yet accepted"** from **"the invite never actually went out."** That second
+state is not hypothetical here — it is exactly the D12 `custom_note_limit_reached` silent failure, where
+`connect_with_person` returns success and sends nothing. A row sitting `pending` for days with **no**
+`Pending` badge on the profile means stage 1 lied, not that the recruiter is ignoring us. Read the badge
+whenever a row looks stuck.
+
+⚠️ **`last_checked` stays `null` after a poll.** `invite_tracker.py` only stamps it inside `mark-accepted`,
+so a run that polls three profiles and finds nothing leaves no trace in the state file, and the next session
+cannot tell a polled row from a never-polled one. Minor, but it means "when was this last checked?" is
+currently only answerable from this file and the task logs.
+
+### PYMK trap, third confirmation
+`Arshid Hussain` and `Ahzam Mushtaq` (Kashmiri-sounding) appear in the scraped `references` of the
+SkillsCapital and Hired profiles respectively. Same class as the two names flagged in the Mirai Alpha and
+Hired packets: LinkedIn **"people you may know"** suggestions rendered against Azam's own account on every
+profile page, **not** employees. Never a warm path — see the Hired packet section above.
 
 ## Immediate next work
 

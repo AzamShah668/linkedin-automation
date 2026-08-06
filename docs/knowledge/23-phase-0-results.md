@@ -4,11 +4,24 @@ Back to [[00-INDEX]]. **Run date 2026-08-06.** First execution of `apps/autopilo
 from [[22-rewrite-architecture]]. Phase 0 goal: fill 5 LinkedIn Easy Apply forms in under 3 minutes,
 stopping before submit, with zero invented values.
 
-**Verdict: the architecture is proven. The run that "passed" was not a valid test.**
+> ## ✅ PHASE 0 IS CLOSED — 2026-08-06
+>
+> **5 genuine fills, 72.1s, target 180s.** Three consecutive passing runs: **62.7s · 54.6s · 72.1s**.
+> Zero invented values. Nothing submitted. It took **four attempts and three separate silent-blindness
+> bugs** to get a run whose numbers meant anything — §1 is the first attempt, kept because the way it
+> lied is the most useful thing in this file.
+>
+> | | First attempt | Closing run |
+> |---|---|---|
+> | Genuine fills | 2 of 5 | **5 of 5** |
+> | Fill time | 33.3s (of a claimed 49.1s) | **72.1s** |
+> | Fields filled | 9 | **23** |
+> | Silently skipped | every grouped question | **none** |
+> | Printed verdict | PASS (false) | **PASS (true)** |
 
 ---
 
-## 1. What the run printed, and why it was wrong
+## 1. What the first run printed, and why it was wrong
 
 ```
 launch 4.3s (not counted) · selection 34.6s (not counted) · FILL 49.1s / 5 jobs · VERDICT: PASS
@@ -78,6 +91,70 @@ would have blocked a real submit while the log showed nothing wrong.
 
 This is more dangerous than a blank: a blank appears in the unanswered report and gets fixed. An
 unscanned control is **invisible in both directions**. Standalone checkboxes are now scanned.
+
+---
+
+## 3b. The bug the checkbox fix uncovered — every grouped question was invisible
+
+Fixing §3 did **not** make the consent box work. The re-run showed it still unticked *and* still
+unreported. The DOM dump — not another guess — gave the real answer, and it was much bigger:
+
+```
+STEP 4
+  raw fieldset count : 1
+  raw checkbox count : 1
+    checkbox[0] visible=False inside_fieldset=1 label=''
+  _scan returned 1 control(s):
+    tag=group  match=None  label=''          <-- the question, missing
+```
+
+Three stacked causes, each hiding the next:
+
+1. **`inner_text()` omits visually-hidden text.** LinkedIn's `<legend>` is accessible-only, so the
+   group's label came back `''`. `_fill_step` then hit `if not label: continue` — **neither filled
+   nor reported**. Fixed with `text_content()` (`_deep_text`).
+2. **The question is not always inside the fieldset.** Energy Exemplar's consent fieldset contains
+   only the word *"Yes"*; the question sits in an **ancestor**. Fixed by climbing up to 4 levels
+   and subtracting the fieldset's own text.
+3. **"Is this text a question?" needed a real test.** A two-option radio yields `"YesNo"`, which is
+   not a bare token, so an early `^(yes|no)$` check let it through as if it were the question.
+   Fixed with `_looks_like_a_question()`: strip the answer tokens and require ≥8 characters left.
+
+**Scale of it:** this was never really about one checkbox. **Every `<fieldset>`-based question —
+all Yes/No radios and every consent box — was skipped in silence.** On the first run Energy
+Exemplar reported `filled=6, blank=0`, which read like a clean sweep; all six were plain inputs and
+every grouped question had vanished. `blank=0` did not mean "nothing was missed", it meant
+"nothing was *seen*".
+
+> **A zero in a report is only trustworthy if you know the thing that produces it can count.**
+
+The structural fix matters more than any of the three: `_fill_step` **no longer skips an unlabelled
+control**. It reports `(unlabelled <tag>, required=<bool>)`. Noisy beats invisible.
+
+And `_fill_group` now **verifies with `is_checked()`** rather than trusting that a click landed —
+reporting a tick that did not happen is the same class of lie as PASS-on-a-no-op.
+
+---
+
+## 3c. A wrong match that only failed safe by luck
+
+With grouped questions finally visible, one matched the wrong spec:
+
+> *"Do you have hands-on experience with MLOps and cloud platforms (Azure ML, AWS SageMaker, GCP),
+> including model deployment, monitoring, **Docker/Kubernetes**...?"* → matched **`years_docker`**
+> → tried to answer **"2"**.
+
+It reported blank rather than answering wrongly — but **only because no radio option reads "2"**.
+In a text input it would have typed `2` into a yes/no question on a real employer's form.
+
+**Fix:** `Spec.requires`. Every `years_*` spec must now *also* match a quantity cue
+(`how many|how much|how long|years|months|duration`). A skill name alone is not enough.
+
+> **A fail-safe that works by accident is not a fail-safe.** The blank was luck, not design.
+
+This question stays unanswered by design even now: it is **compound**, naming Azure ML and
+SageMaker, which are not in the bank. Answering "Yes" would claim tools he has not recorded. It
+goes to a human — correctly.
 
 ---
 
@@ -211,17 +288,86 @@ typing their own password is not, and it is what the working poster script has a
 - Field mapping is free; page loads are the only real cost.
 - Zero LLM calls were needed to fill a real form. Not one value was invented.
 
-**Not proved**
-- Five genuine fills in one run (best so far: two).
-- Anything about submitting — Phase 0 never clicks Submit.
-- The re-scan-after-validation path ([[17-auto-apply-runbook]] §numeric fields). No numeric
-  validation failure occurred, so the code that handles LinkedIn revealing hidden questions is
-  **written but unexercised**.
+- **Five genuine fills in 72.1s**, three consecutive passing runs. Phase 0's stated test is met.
 
-**Next:** re-run against 5 live Easy Apply jobs with the render fix in place. If it lands under
-180s with 5 real fills, Phase 0 closes and Phase 1 (own the data) begins.
+**Closing run, per job**
+
+| Job | Company | Status | Time | steps | filled | blank |
+|---|---|---|---|---|---|---|
+| 4444658927 | SkillsCapital | reached-**submit** | 10.1s | 1 | 2 | 0 |
+| 4442666851 | Infosys AI/ML | reached-review | 12.3s | 3 | 6 | 2 |
+| 4436200537 | Energy Exemplar | reached-review | 28.0s | 4 | **7** | 0 |
+| 4447280108 | VARITE INC | reached-review | 10.0s | 2 | 2 | 0 |
+| 4443245139 | InCommon | reached-review | 11.7s | 3 | 6 | 0 |
+
+`reached-submit` on SkillsCapital is **correct and safe**: that posting is a *single-step* Easy
+Apply where the primary button is Submit on page 1. The code records the status and **breaks
+without clicking**. Verified by screenshot — the modal is still open and unsubmitted.
+
+Run-to-run variance is real (Energy Exemplar: 12.9s → 28.0s) and is entirely **page load**, not
+logic. Budget for it before assuming a regression.
+
+**Still NOT proved**
+- Anything about submitting — Phase 0 never clicks Submit. The first real submission remains the
+  single riskiest untested step in the project.
+- **The re-scan-after-validation-failure branch.** Decision below.
+
+### The unexercised numeric path — decided, not left hanging
+
+Option (a) *did* happen naturally: Infosys asked three numeric screening questions and all three
+were filled and **passed validation** — `Current CTC 0`, `Expected CTC 840000`, `Notice Period 0`.
+
+So the [[17-auto-apply-runbook]] trap **did not fire, because the bank's values are correct**. That
+is the good outcome, and it is also why the recovery branch stays cold: the code that re-scans a
+step after a numeric field is rejected — and picks up the questions LinkedIn then reveals — has
+never had a rejection to recover from.
+
+**Resolution: (c), recorded as a known gap.** Option (b) was rejected too: a saved copy of the DOM
+cannot reproduce the behaviour that matters, which is LinkedIn's *client-side validation* and its
+*dynamic reveal* — the very things a static fixture lacks. Deliberately posting a wrong value to a
+live employer form to trigger it is out of the question.
+
+> **Known gap:** `stalled` / re-scan handling in `fill_job()` is written, reviewed, and unexecuted.
+> The first time it runs will be in production. When a job first reports `stalled-validation`,
+> treat that run as untrusted and read the screenshot before believing any of it.
+
+**Next:** Phase 1 (own the data) — see [[22-rewrite-architecture]] §7. Not started; the owner asked
+to see these numbers first.
+
+---
+
+---
+
+## 11. Brain 3 had been stale for 11 days, and every status line said otherwise
+
+Found while closing Phase 0. The graphify commit hook failed on every commit with
+`No module named 'graphify'`, yet `py -3 -m graphify hook status` reported **both hooks installed**.
+
+Both statements were true. git runs hooks in **Git Bash**, where the hook's
+`command -v python3` finds `/c/Users/<user>/AppData/Local/Microsoft/WindowsApps/python3` — the
+**Windows Store App Execution Alias stub**. It is a real executable, so `command -v` succeeds and
+the hook picks it, but it has no site-packages and cannot import graphify. Meanwhile `py -3`, which
+the human uses, resolves to the real interpreter where graphify is installed.
+
+**Fix:** hardcode the absolute interpreter path in `.git/hooks/post-commit` and `post-checkout`,
+with `py`/`python` kept only as a fallback. Then one manual rebuild to catch up:
+
+```
+graph.json  Jul 26:  75 nodes, 125 edges, 14 communities
+graph.json  Aug 06: 390 nodes, 596 edges, 46 communities
+```
+
+**Same family as D17 and D25.** The status line described *installation*; the artifact described
+*reality*, and nobody compared the two for eleven days. `graph.json` had a July 26 mtime while code
+changed on August 6 — one `ls` would have shown it.
+
+> **`hook status` tells you a hook is registered. It cannot tell you the hook works.**
+> Judge Brain 3 by `graph.json`'s mtime, never by a status subcommand.
+
+⚠️ **`.git/hooks/` is not version-controlled**, so this fix does not travel with a clone. Anyone
+setting the project up on another machine will hit it again. Worth folding into a setup script.
 
 ---
 
 Related: [[22-rewrite-architecture]] · [[17-auto-apply-runbook]] · [[05-decisions]] D15, D17, D23,
-**D29** · [[07-current-state]]
+D25, **D29** · [[07-current-state]]

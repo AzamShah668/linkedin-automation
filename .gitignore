@@ -51,3 +51,6 @@ Thumbs.db
 # Obsidian vault junk that landed in the repo folder by accident
 .obsidian/
 linkdin automation/
+
+# graphify derived cache - regenerates from source, no value in history
+graphify-out/cache/

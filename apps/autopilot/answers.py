@@ -104,6 +104,15 @@ class Spec:
     numeric: str | Callable[[bool], str | None] | None = None
     kind: str = TEXT
     note: str = ""
+    requires: str | None = None  # extra regex the label MUST also match, or it is not this field
+
+
+# A skill name in a label does not make it a quantity question. Proven 2026-08-06: "Do you have
+# hands-on experience with MLOps and cloud platforms ... Docker/Kubernetes ...?" is a Yes/No
+# radio, and it matched `years_docker`, which tried to answer "2". It failed safe only because
+# no radio option reads "2" — in a TEXT input it would have typed a nonsense answer into a real
+# employer's form. Every years_* spec must also carry a quantity cue.
+QUANTITY_CUE = r"how many|how much|how long|\byears?\b|\bmonths?\b|\bduration\b"
 
 
 def _expected_ctc(india: bool) -> str:
@@ -148,14 +157,14 @@ FIELD_MAP: dict[str, Spec] = {
     "city": Spec((r"^city", r"current (city|location)", r"\blocation\b"), text="identity.location_city"),
 
     # --- skill-specific experience (MUST precede the generic years catch-all) ------------
-    "years_python": Spec((r"python",), numeric="NEEDS_AZAM.years_with_python", text="NEEDS_AZAM.years_with_python", kind=NUMERIC),
-    "years_docker": Spec((r"docker",), numeric="NEEDS_AZAM.years_with_docker", text="NEEDS_AZAM.years_with_docker", kind=NUMERIC),
-    "years_kubernetes": Spec((r"kubernetes", r"\bk8s\b"), numeric="NEEDS_AZAM.years_with_kubernetes", text="NEEDS_AZAM.years_with_kubernetes", kind=NUMERIC),
-    "years_aws": Spec((r"\baws\b", r"amazon web services"), numeric="NEEDS_AZAM.years_with_aws", text="NEEDS_AZAM.years_with_aws", kind=NUMERIC),
-    "years_linux": Spec((r"linux",), numeric="NEEDS_AZAM.years_with_linux", text="NEEDS_AZAM.years_with_linux", kind=NUMERIC),
-    "years_mlops": Spec((r"mlops", r"machine learning ops"), numeric="NEEDS_AZAM.years_mlops", text="NEEDS_AZAM.years_mlops", kind=NUMERIC),
-    "years_speech": Spec((r"speech recognition", r"\basr\b"), numeric="NEEDS_AZAM.years_speech_recognition", text="NEEDS_AZAM.years_speech_recognition", kind=NUMERIC),
-    "years_production_dev": Spec((r"production (software )?development",), numeric="NEEDS_AZAM.years_production_development", text="NEEDS_AZAM.years_production_development", kind=NUMERIC),
+    "years_python": Spec((r"python",), numeric="NEEDS_AZAM.years_with_python", text="NEEDS_AZAM.years_with_python", kind=NUMERIC, requires=QUANTITY_CUE),
+    "years_docker": Spec((r"docker",), numeric="NEEDS_AZAM.years_with_docker", text="NEEDS_AZAM.years_with_docker", kind=NUMERIC, requires=QUANTITY_CUE),
+    "years_kubernetes": Spec((r"kubernetes", r"\bk8s\b"), numeric="NEEDS_AZAM.years_with_kubernetes", text="NEEDS_AZAM.years_with_kubernetes", kind=NUMERIC, requires=QUANTITY_CUE),
+    "years_aws": Spec((r"\baws\b", r"amazon web services"), numeric="NEEDS_AZAM.years_with_aws", text="NEEDS_AZAM.years_with_aws", kind=NUMERIC, requires=QUANTITY_CUE),
+    "years_linux": Spec((r"linux",), numeric="NEEDS_AZAM.years_with_linux", text="NEEDS_AZAM.years_with_linux", kind=NUMERIC, requires=QUANTITY_CUE),
+    "years_mlops": Spec((r"mlops", r"machine learning ops"), numeric="NEEDS_AZAM.years_mlops", text="NEEDS_AZAM.years_mlops", kind=NUMERIC, requires=QUANTITY_CUE),
+    "years_speech": Spec((r"speech recognition", r"\basr\b"), numeric="NEEDS_AZAM.years_speech_recognition", text="NEEDS_AZAM.years_speech_recognition", kind=NUMERIC, requires=QUANTITY_CUE),
+    "years_production_dev": Spec((r"production (software )?development",), numeric="NEEDS_AZAM.years_production_development", text="NEEDS_AZAM.years_production_development", kind=NUMERIC, requires=QUANTITY_CUE),
     "years_total": Spec(
         (r"years of (work )?experience", r"total experience", r"^experience \(years\)"),
         numeric="experience.total_professional_years", text="experience.total_professional_years",
@@ -253,12 +262,20 @@ _COMPILED: dict[str, tuple[re.Pattern[str], ...]] = {
 
 
 def match_field(label: str) -> tuple[str, Spec] | None:
-    """First FIELD_MAP entry whose pattern appears in the label wins. Order = priority."""
+    """First FIELD_MAP entry whose pattern appears in the label wins. Order = priority.
+
+    A spec carrying `requires` must ALSO match that regex — a skill name alone is not enough
+    to make a question a quantity question.
+    """
     if not label:
         return None
     for key, patterns in _COMPILED.items():
-        if any(p.search(label) for p in patterns):
-            return key, FIELD_MAP[key]
+        spec = FIELD_MAP[key]
+        if not any(p.search(label) for p in patterns):
+            continue
+        if spec.requires and not re.search(spec.requires, label, re.IGNORECASE):
+            continue
+        return key, spec
     return None
 
 

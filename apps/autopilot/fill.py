@@ -49,7 +49,22 @@ PRIMARY_BUTTON_RE = re.compile(
 
 # Controls that are real, answerable, and none of our business. Left exactly as LinkedIn set
 # them, and kept OUT of the unanswered report so that list stays all-signal.
-IGNORE_RE = re.compile(r"follow \S+ to stay up to date|stay up to date with their page", re.I)
+IGNORE_RE = re.compile(
+    r"follow \S+ to stay up to date|stay up to date with their page"
+    r"|\.(?:pdf|docx?)",  # the resume chooser group; Phase 0 reports the filename, never swaps it
+    re.I,
+)
+
+# Answer options are not a question. A fieldset's own text is often just its choices — "Yes",
+# or "YesNo" for a two-option radio group — and the real question sits in an ancestor.
+ANSWER_TOKEN_RE = re.compile(r"\b(yes|no|true|false|male|female|other|prefer not to say)\b", re.I)
+
+
+def _looks_like_a_question(text: str) -> bool:
+    """True if `text` carries content beyond the answer options themselves."""
+    if not text:
+        return False
+    return len(ANSWER_TOKEN_RE.sub("", text).strip(" *.,:?-")) >= 8
 
 
 class LinkedInLoggedOut(RuntimeError):
@@ -92,6 +107,64 @@ def _text_of(loc: Locator) -> str:
         return ""
 
 
+def _deep_text(loc: Locator) -> str:
+    """text_content(), which unlike inner_text() also returns visually-hidden text.
+
+    LinkedIn puts a fieldset's question in an accessible-only <legend>. inner_text() returns
+    '' for it, which is why every grouped question (Yes/No radios AND consent checkboxes) was
+    silently skipped on 2026-08-06 — no label meant `continue`, so it was never filled and
+    never reported. Proven by DOM dump, not guessed.
+    """
+    try:
+        return " ".join((loc.text_content(timeout=2000) or "").split())
+    except Exception:
+        return ""
+
+
+def _group_label(group: Locator) -> str:
+    """The question a fieldset is asking, however LinkedIn chose to hide it.
+
+    Three placements seen in production, in order of preference:
+      1. a <legend> — sometimes accessible-only, so read text_content as well as inner_text
+      2. inside the fieldset alongside the options
+      3. OUTSIDE the fieldset entirely, as a sibling paragraph (Energy Exemplar's consent
+         checkbox does this — the fieldset contains only the word "Yes")
+    In every case the answer options must be subtracted, or the "question" comes back as "Yes".
+    """
+    labels = group.locator("label")
+    options = [t for t in (_deep_text(labels.nth(i)) for i in range(labels.count())) if t]
+
+    legend = group.locator("legend")
+    if legend.count():
+        for reader in (_text_of, _deep_text):
+            text = reader(legend.first)
+            if text and text not in options:
+                return text
+
+    def subtract(text: str) -> str:
+        for option in options:
+            if option in text:
+                text = text.replace(option, " ")
+        return " ".join(text.split())
+
+    own = _deep_text(group)
+    inside = subtract(own)
+    # A fieldset whose whole text is "Yes" has NOT told us the question. Energy Exemplar's
+    # consent box has no <label> element at all, so there is nothing to subtract and this
+    # used to return "Yes" and stop before climbing.
+    if _looks_like_a_question(inside):
+        return inside
+
+    for level in range(1, 5):
+        ancestor = group.locator(f"xpath=ancestor::*[{level}]")
+        if not ancestor.count():
+            break
+        question = " ".join(_deep_text(ancestor.first).replace(own, " ").split())
+        if _looks_like_a_question(question):
+            return question
+    return inside or own
+
+
 def _label_for(scope: Locator, control: Locator) -> str:
     aria = control.get_attribute("aria-label")
     if aria and aria.strip():
@@ -115,11 +188,20 @@ def _label_for(scope: Locator, control: Locator) -> str:
             if text:
                 return text
 
+    control_id = control.get_attribute("id")
+    if control_id:
+        lab = scope.locator(f'label[for="{_attr_q(control_id)}"]').first
+        if lab.count():
+            deep = _deep_text(lab)
+            if deep:
+                return deep
+
     container = control.locator(
         "xpath=ancestor::div[@data-test-form-element or contains(@class,'form-component')][1]"
     )
     if container.count():
-        return _text_of(container.first).splitlines()[0] if _text_of(container.first) else ""
+        text = _text_of(container.first) or _deep_text(container.first)
+        return text.splitlines()[0] if text else ""
     return ""
 
 
@@ -154,8 +236,7 @@ def _scan(modal: Locator) -> list[Control]:
         group = groups.nth(i)
         if group.locator("input[type=radio], input[type=checkbox]").count() == 0:
             continue
-        legend = _text_of(group.locator("legend").first) if group.locator("legend").count() else ""
-        controls.append(Control(group, legend, "group", False, False))
+        controls.append(Control(group, _group_label(group), "group", False, _is_required(group)))
 
     singles = modal.locator(
         "input:not([type=hidden]):not([type=radio]):not([type=checkbox])"
@@ -219,14 +300,37 @@ def _fill_select(control: Control, value: str) -> bool:
 def _fill_group(control: Control, value: str) -> bool:
     wanted = value.strip().lower()
     inputs = control.loc.locator("input[type=radio], input[type=checkbox]")
-    for i in range(inputs.count()):
+    count = inputs.count()
+
+    for i in range(count):
         radio = inputs.nth(i)
         label_text = _label_for(control.loc, radio).strip().lower()
-        if label_text == wanted or (wanted and wanted in label_text):
+        if label_text and (label_text == wanted or wanted in label_text):
             rid = radio.get_attribute("id")
             target = control.loc.locator(f'label[for="{_attr_q(rid)}"]').first if rid else radio
             (target if target.count() else radio).click()
-            return True
+            return radio.is_checked()
+
+    # Single hidden checkbox with the visible box drawn in CSS and NO <label> element at all —
+    # Energy Exemplar's consent field. Nothing above can match it, so click the visible text
+    # and, failing that, force the input. Either way VERIFY with is_checked(): reporting a
+    # tick that did not happen is the same class of lie as the PASS-on-a-no-op.
+    if count == 1 and wanted in ("yes", "no", "true", "false"):
+        box = inputs.first
+        want_checked = wanted in ("yes", "true")
+        attempts = (
+            lambda: control.loc.get_by_text(
+                re.compile(rf"^\s*{re.escape(value.strip())}\s*$", re.I)
+            ).first.click(),
+            lambda: box.set_checked(want_checked, force=True),
+        )
+        for attempt in attempts:
+            try:
+                attempt()
+            except Exception:
+                continue
+            if box.is_checked() == want_checked:
+                return True
     return False
 
 
@@ -254,7 +358,16 @@ def _fill_step(bank: dict, modal: Locator, result: FillResult, seen: set[str]) -
 
     for control in controls:
         label = control.label
-        if not label or IGNORE_RE.search(label):
+        if not label:
+            # NEVER skip silently. An unlabelled control is the 2026-08-06 bug: `continue`
+            # meant it was neither filled nor reported, so a required consent checkbox
+            # vanished in both directions. Noisy beats invisible.
+            marker = f"(unlabelled {control.tag}, required={control.required})"
+            if marker not in seen:
+                seen.add(marker)
+                result.unanswered.append(marker)
+            continue
+        if IGNORE_RE.search(label):
             continue
         matched = match_field(label)
         if matched is None:

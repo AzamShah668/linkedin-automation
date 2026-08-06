@@ -241,12 +241,15 @@ Retrieval order each session: **Brain 2 → Brain 3 → raw files.**
   `run.py`. Playwright **library** + a 37-entry `FIELD_MAP` filled real Easy Apply forms at **~16.7s each**
   with **zero LLM calls and zero invented values** — five project to ~85s against a 180s target, and the time
   goes to **page loads, not field mapping**. Nothing was submitted.
-  Three things the run taught that no plan predicted: the Easy Apply **dialog becomes visible before its
-  contents render**, so 3 of 5 jobs did nothing and **the tool printed PASS anyway** (verdict logic now
-  ignores no-op jobs — *a metric that reports success for a no-op is worse than no metric*); **standalone
-  checkboxes were never scanned**, so a required consent box was invisible in both directions; and
-  **LinkedIn offers to save a draft on ~80% of jobs**, so a crash mid-wizard leaves a half-filled application
-  behind. Also: `.pw_browser/` is version-locked by the owner's real Chrome 150 (exits **code 21**) — the
+  **Four attempts and three silent-blindness bugs** were needed before the numbers meant anything, and that
+  is the lesson worth keeping: the Easy Apply **dialog becomes visible before its contents render**, so 3 of 5
+  jobs did nothing and **the tool printed PASS anyway** (*a metric that reports success for a no-op is worse
+  than no metric*); **every `<fieldset>` question — all Yes/No radios and every consent box — was skipped in
+  total silence**, because `inner_text()` omits LinkedIn's accessible-only `<legend>` and an unlabelled
+  control was `continue`d (so `blank=0` meant "nothing was *seen*", not "nothing was missed"); and a Yes/No
+  question containing "Docker" matched a `years_*` spec and tried to answer "2" — it failed safe **only
+  because no radio option reads "2"**, which is luck, not design. Also confirmed: **LinkedIn offers to save a
+  draft on 100% of jobs tested**, so a crash mid-wizard leaves a half-filled application behind. Also: `.pw_browser/` is version-locked by the owner's real Chrome 150 (exits **code 21**) — the
   live profile is `.pw_browser/linkedin_user_data/`, and a logged-out one is proven by a **missing `li_at`
   cookie**, never by an error string. **Phase 0 is NOT closed** — it needs one clean 5-fill run.
   ⚠️ **Owner action:** LinkedIn's verified email is not the canonical one on the CV; every application
@@ -258,11 +261,13 @@ Retrieval order each session: **Brain 2 → Brain 3 → raw files.**
      been sent. Run `followups.py`; email SkillsCapital; ping Recruiter-A about the Infosys "Junior AI
      Engineer" (90) — he is inside and already connected, and a *Junior* AI req is the rare shape that fits a
      final-year student.
-  2. 🔵 **Close Phase 0** — it is built and proven but not finished. Re-run
-     `py -3 -m apps.autopilot.run fill --from-board 5` with the render fix in place and get **5 genuine fills
-     under 180s**. Only then start Phase 1. The re-scan-after-numeric-validation path is written but has
-     **never been exercised** — no form failed validation yet, so the code handling LinkedIn's hidden
-     revealed questions is untested. Then `cv.py`, the ~20-line bridge to Claude Code.
+  2. ✅ **Phase 0 is CLOSED** (2026-08-06) — 5 genuine fills in **72.1s** against a 180s target, three
+     consecutive passing runs, zero invented values, nothing submitted. See [[23-phase-0-results]].
+     **Phase 1 (own the data) is NOT started** — the owner asked to see the numbers first.
+     Two known gaps carried forward: the **re-scan-after-numeric-validation** branch is written but has
+     never executed (Infosys' three numeric fields all *passed*, so there was nothing to recover from —
+     when a job first reports `stalled-validation`, distrust that run and read the screenshot); and
+     **nothing has ever been submitted**, still the riskiest untested step in the project.
 
   Also still true: **re-score before building** any packet — the 38 newest rows were scored from title only,
   no JD fetched — and **watch the first real Easy Apply submission closely**; the rewritten runner has never
