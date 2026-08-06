@@ -38,7 +38,18 @@ SETTLE_MS = 450  # brief settle after Next; every real wait is Playwright auto-w
 NEXT_LABELS = re.compile(r"continue to next step|^next$|^continue$", re.I)
 REVIEW_LABELS = re.compile(r"review your application|^review$", re.I)
 SUBMIT_LABELS = re.compile(r"submit application|^submit$", re.I)
-FILE_RE = re.compile(r"[\w\-. ()]+\.(?:pdf|docx?)", re.I)
+FILE_RE = re.compile(r"[\w\-.()]+\.(?:pdf|docx?)", re.I)  # no space in the class, or it eats the label
+
+# The primary footer button is the render sentinel: every wizard step has exactly one, and its
+# absence is precisely what broke the 2026-08-06 run.
+PRIMARY_BUTTON_RE = re.compile(
+    r"continue to next step|review your application|submit application|^next$|^review$|^submit$",
+    re.I,
+)
+
+# Controls that are real, answerable, and none of our business. Left exactly as LinkedIn set
+# them, and kept OUT of the unanswered report so that list stays all-signal.
+IGNORE_RE = re.compile(r"follow \S+ to stay up to date|stay up to date with their page", re.I)
 
 
 class LinkedInLoggedOut(RuntimeError):
@@ -61,6 +72,7 @@ class FillResult:
     steps: int = 0
     filled: list[Filled] = field(default_factory=list)
     unanswered: list[str] = field(default_factory=list)
+    prefilled: list[str] = field(default_factory=list)  # LinkedIn's own value, left untouched
     resume_filename: str | None = None
     draft_offered: bool | None = None
     note: str = ""
@@ -161,6 +173,19 @@ def _scan(modal: Locator) -> list[Control]:
         controls.append(
             Control(ctl, _label_for(modal, ctl), tag_name, _is_numeric(ctl), _is_required(ctl))
         )
+
+    # Standalone checkboxes — NOT inside a fieldset. Found 2026-08-06: these were excluded
+    # entirely, so a REQUIRED consent checkbox was invisible to the scanner and would have
+    # blocked a real submit while reporting nothing at all. Silent blindness, not a blank.
+    boxes = modal.locator("input[type=checkbox]")
+    for i in range(boxes.count()):
+        box = boxes.nth(i)
+        try:
+            if not box.is_visible() or box.locator("xpath=ancestor::fieldset").count():
+                continue
+        except Exception:
+            continue
+        controls.append(Control(box, _label_for(modal, box), "checkbox", False, _is_required(box)))
     return controls
 
 
@@ -208,6 +233,12 @@ def _fill_group(control: Control, value: str) -> bool:
 def _apply(control: Control, value: str) -> bool:
     if control.tag == "group":
         return _fill_group(control, value)
+    if control.tag == "checkbox":
+        if value.strip().lower() in ("yes", "true", "1"):
+            control.loc.check()
+        else:
+            control.loc.uncheck()
+        return True
     if control.tag == "select":
         return _fill_select(control, value)
     if _current_value(control) == value:
@@ -223,7 +254,7 @@ def _fill_step(bank: dict, modal: Locator, result: FillResult, seen: set[str]) -
 
     for control in controls:
         label = control.label
-        if not label:
+        if not label or IGNORE_RE.search(label):
             continue
         matched = match_field(label)
         if matched is None:
@@ -252,6 +283,13 @@ def _fill_step(bank: dict, modal: Locator, result: FillResult, seen: set[str]) -
             if _apply(control, value):
                 result.filled.append(Filled(control.label, key, value))
                 filled_now += 1
+            elif control.tag == "select" and _current_value(control):
+                # LinkedIn pre-selected one of ITS OWN verified values and our bank value is not
+                # among the options. Leaving it is correct — we must not blank a required field —
+                # but it is not an "unanswered" field either. Report it as a mismatch to notice.
+                if control.label not in seen:
+                    seen.add(control.label)
+                    result.prefilled.append(f"{control.label} = {_current_value(control)!r} (bank has {value!r})")
             elif control.label not in seen:
                 seen.add(control.label)
                 result.unanswered.append(f"{control.label}  (no option matched {value!r})")
@@ -265,6 +303,27 @@ def _fill_step(bank: dict, modal: Locator, result: FillResult, seen: set[str]) -
 # ---------------------------------------------------------------------------------------
 # wizard navigation
 # ---------------------------------------------------------------------------------------
+def _wait_for_step_content(modal: Locator, timeout: int = 15_000) -> bool:
+    """Wait for the step's CONTENTS, not just the dialog element.
+
+    Root cause of the 2026-08-06 run (3 of 5 jobs did nothing): LinkedIn makes the dialog
+    visible immediately — title bar, close button — and streams the form in afterwards. The
+    VARITE screenshot is a titled dialog wrapping a bare spinner. `modal.wait_for(visible)`
+    was satisfied by that shell, so the scan found zero controls and zero buttons, and the
+    job was written off in under four seconds.
+
+    The primary footer button is the sentinel: every step has exactly one, and it is the very
+    element whose absence caused the bug. This is an auto-wait, not a poll and not a sleep.
+    """
+    try:
+        modal.get_by_role("button", name=PRIMARY_BUTTON_RE).first.wait_for(
+            state="visible", timeout=timeout
+        )
+        return True
+    except PWTimeout:
+        return False
+
+
 def _primary_button(modal: Locator) -> tuple[Locator | None, str]:
     buttons = modal.locator("button")
     for i in range(buttons.count()):
@@ -360,12 +419,20 @@ def fill_job(page: Page, url: str, bank: dict) -> FillResult:
         page.get_by_role("button", name=re.compile(r"easy apply", re.I)).first.click()
         modal = page.get_by_role("dialog").first
         modal.wait_for(state="visible", timeout=15_000)
+        if not _wait_for_step_content(modal):
+            result.status = "modal-never-rendered"
+            result.note = "dialog shell appeared but the form never streamed in"
+            SHOT_DIR.mkdir(parents=True, exist_ok=True)
+            page.screenshot(path=str(SHOT_DIR / f"{result.slug}.png"))
+            _close_modal(page, modal, result)
+            return result
 
         seen: set[str] = set()
         stalled = 0
 
         for step in range(1, MAX_WIZARD_STEPS + 1):
             result.steps = step
+            _wait_for_step_content(modal)  # each new step streams in the same way
             before = _fingerprint(modal)
             _fill_step(bank, modal, result, seen)
             _capture_resume(modal, result)

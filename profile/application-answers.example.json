@@ -12,9 +12,11 @@
     "Two salary figures on purpose: domestic and international differ by ~40x, and sending",
     "the wrong one is an instant auto-reject. See `which_to_use` below."
   ],
-
   "identity": {
     "full_name": "Your Name",
+    "first_name": "<Your first name>",
+    "last_name": "<Your last name>",
+    "_name_note": "Keep these as explicit keys. LinkedIn does NOT reliably prefill first/last name - proven blank AND required on a real Easy Apply form 2026-08-06. Do not split full_name in code.",
     "email": "you@example.com",
     "phone": "0000000000",
     "phone_country_code": "+91",
@@ -26,7 +28,6 @@
     "cv_pdf": "output/pdf/your-cv.pdf",
     "cv_link": "https://example.com/link-to-one-general-cv.pdf"
   },
-
   "education": {
     "degree": "B.Tech",
     "field": "Computer Science & Engineering",
@@ -35,7 +36,6 @@
     "end_year": 2026,
     "status": "final year"
   },
-
   "compensation": {
     "current_ctc": "0",
     "current_ctc_note": "Fresher — no salaried employment.",
@@ -47,7 +47,6 @@
     "numeric_field_rule": "PROVEN 2026-07-29: LinkedIn Easy Apply numeric inputs REJECT words and decimals-as-LPA. '8.4' fails client-side validation and silently blocks the Next button. In a NUMERIC field answer the annual figure (e.g. 840000 for India, 30000 international). Only use the LPA form where the label itself says LPA and the field accepts text. IMPORTANT: once a failing numeric field validates, LinkedIn reveals additional questions that were hidden behind it — always re-snapshot after a correction.",
     "negotiable": "yes"
   },
-
   "availability": {
     "notice_period": "Immediate",
     "notice_period_days": "0",
@@ -57,19 +56,20 @@
     "work_type_preference": "Remote, hybrid or on-site — all acceptable",
     "preferred_locations": "Remote; any major tech hub"
   },
-
   "eligibility": {
     "work_authorization_india": "Citizen — authorised to work, no sponsorship required",
     "requires_visa_sponsorship_outside_india": "Yes",
     "nationality": "Your Nationality"
   },
-
   "experience": {
     "total_professional_years": "0",
     "total_professional_years_note": "Fresher. Substantial project and open-source work, but no salaried role — answer 0 or 'Fresher' honestly.",
     "notable": "One or two sentences of your strongest, verifiable, quantified work."
   },
-
+  "consents": {
+    "_note": "AGREEMENTS, not facts. Separate block on purpose - the 'never invent a value' rule governs factual claims (a guessed salary is a false statement); a consent tick states nothing false, it exercises authority you already gave by choosing to apply. NARROW BY DESIGN: data-processing consent for the application only. Marketing opt-ins, background-check authorisations and agency-representation terms are deliberately absent and must be answered by a human.",
+    "data_processing": "Yes"
+  },
   "NEEDS_ANSWERS": {
     "_note": "null = the filler leaves the field BLANK and appends the field name to output/apply-log/needs-answer.md. Fill these in as they come up so the robot stops stopping. Every null here is a form the robot may have to abandon.",
     "_blocks_most_often": "highest_qualification_percentage_or_cgpa, current_employer, reason_for_change, passport_number",
@@ -88,7 +88,6 @@
     "reason_for_change": null,
     "how_did_you_hear_about_us": "LinkedIn"
   },
-
   "_derivation_rule": [
     "Exactly ONE derivation is permitted, because it is a fact and not a guess:",
     "how_did_you_hear_about_us -> 'LinkedIn', when the role was discovered through LinkedIn.",

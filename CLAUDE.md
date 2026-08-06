@@ -36,7 +36,7 @@ A LinkedIn Easy Apply form is 19 dictionary lookups and one real question. Today
 
 - Plan: `docs/knowledge/22-rewrite-architecture.md`
 - Decisions: `docs/knowledge/05-decisions.md` **D26, D27, D28**
-- Status: decided and documented. `apps/autopilot/` **not written yet** — Phase 0 is the next code task.
+- Status: Phase 0 **written and run** (2026-08-06) — see `docs/knowledge/23-phase-0-results.md`. Not yet closed: needs one clean 5-fill run.
 - **Do not add features to the PowerShell + scheduled-task stack.** Fix bugs there; build new work in `apps/`.
 
 ## The one rule that shapes everything (READ THIS FIRST)
@@ -236,15 +236,33 @@ Retrieval order each session: **Brain 2 → Brain 3 → raw files.**
   gitignored because they hold real recruiter names and personal contact details; recruiters are referred to
   as `Recruiter-A/B/C` in all committed docs. **Never commit a real third party's name, email, or LinkedIn URL.**
 
+- **2026-08-06 (evening) — Phase 0 is written and has run against real forms.** Read
+  [[23-phase-0-results]] + D29 before touching `apps/autopilot/`. `llm.py` · `answers.py` · `fill.py` ·
+  `run.py`. Playwright **library** + a 37-entry `FIELD_MAP` filled real Easy Apply forms at **~16.7s each**
+  with **zero LLM calls and zero invented values** — five project to ~85s against a 180s target, and the time
+  goes to **page loads, not field mapping**. Nothing was submitted.
+  Three things the run taught that no plan predicted: the Easy Apply **dialog becomes visible before its
+  contents render**, so 3 of 5 jobs did nothing and **the tool printed PASS anyway** (verdict logic now
+  ignores no-op jobs — *a metric that reports success for a no-op is worse than no metric*); **standalone
+  checkboxes were never scanned**, so a required consent box was invisible in both directions; and
+  **LinkedIn offers to save a draft on ~80% of jobs**, so a crash mid-wizard leaves a half-filled application
+  behind. Also: `.pw_browser/` is version-locked by the owner's real Chrome 150 (exits **code 21**) — the
+  live profile is `.pw_browser/linkedin_user_data/`, and a logged-out one is proven by a **missing `li_at`
+  cookie**, never by an error string. **Phase 0 is NOT closed** — it needs one clean 5-fill run.
+  ⚠️ **Owner action:** LinkedIn's verified email is not the canonical one on the CV; every application
+  currently carries a mismatched address. And **~63% of the board is dead** — discovery rots in ~5 days.
+
 - **NEXT — two tracks, in this order:**
   1. 🔴 **The job hunt does not wait for the rewrite.** Five applications have been silent for 11 days with
      zero follow-ups sent, and the best row on the board (**SkillsCapital 93**, packet built 08-01) has never
      been sent. Run `followups.py`; email SkillsCapital; ping Recruiter-A about the Infosys "Junior AI
      Engineer" (90) — he is inside and already connected, and a *Junior* AI req is the rare shape that fits a
      final-year student.
-  2. 🔵 **Rewrite Phase 0** — `apps/autopilot/` with `llm.py` + `fill.py` (Playwright *library*, answer bank,
-     stop before submit). **Success test: 5 forms in under 3 minutes.** If it misses that, re-diagnose before
-     building Phase 1. Then `cv.py`, the ~20-line bridge to Claude Code.
+  2. 🔵 **Close Phase 0** — it is built and proven but not finished. Re-run
+     `py -3 -m apps.autopilot.run fill --from-board 5` with the render fix in place and get **5 genuine fills
+     under 180s**. Only then start Phase 1. The re-scan-after-numeric-validation path is written but has
+     **never been exercised** — no form failed validation yet, so the code handling LinkedIn's hidden
+     revealed questions is untested. Then `cv.py`, the ~20-line bridge to Claude Code.
 
   Also still true: **re-score before building** any packet — the 38 newest rows were scored from title only,
   no JD fetched — and **watch the first real Easy Apply submission closely**; the rewritten runner has never

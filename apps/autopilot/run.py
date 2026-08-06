@@ -92,26 +92,53 @@ def report(results: list[FillResult], launch_s: float, select_s: float) -> int:
     print("PHASE 0 RESULT")
     print("=" * 78)
 
-    fill_total = sum(r.seconds for r in results)
     for r in results:
         resume = r.resume_filename or "(none shown)"
         print(
-            f"  {r.seconds:>6.1f}s  {r.status:<20} steps={r.steps}  "
+            f"  {r.seconds:>6.1f}s  {r.status:<22} steps={r.steps}  "
             f"filled={len(r.filled):<3} blank={len(r.unanswered):<3} resume={resume}"
         )
         print(f"          {r.url}")
         if r.note:
             print(f"          note: {r.note}")
 
+    # A job that reached neither Review nor Submit did NOT get filled. Counting it toward the
+    # target is how the 2026-08-06 run printed PASS while 3 of 5 jobs did nothing at all
+    # (filled=0, blank=0, steps=1, ~4s each). A metric that reports success for a no-op is
+    # worse than no metric, because it stops you looking.
+    real = [r for r in results if r.status in ("reached-review", "reached-submit")]
+    noop = [r for r in results if r not in real]
+    real_total = sum(r.seconds for r in real)
+    wall_total = sum(r.seconds for r in results)
+
     print("-" * 78)
-    print(f"  browser launch (not counted) : {launch_s:6.1f}s")
-    print(f"  job selection  (not counted) : {select_s:6.1f}s")
-    print(f"  FILL TIME, {len(results)} jobs{'':<12}: {fill_total:6.1f}s   target {TARGET_SECONDS:.0f}s")
-    verdict = "PASS" if fill_total <= TARGET_SECONDS and results else "FAIL"
-    print(f"  VERDICT                      : {verdict}")
+    print(f"  browser launch (not counted)  : {launch_s:6.1f}s")
+    print(f"  job selection  (not counted)  : {select_s:6.1f}s")
+    print(f"  wall time, all {len(results)} attempts  : {wall_total:6.1f}s")
+    print(f"  FILL TIME, {len(real)} REAL fills{'':<7}: {real_total:6.1f}s   target {TARGET_SECONDS:.0f}s")
+    if noop:
+        print(f"  !! {len(noop)} job(s) DID NO WORK, excluded from the verdict:")
+        for r in noop:
+            print(f"       {r.status:<22} {r.url}")
+
+    if not real:
+        verdict = "INVALID - nothing was filled"
+    elif len(real) < len(results):
+        pace = real_total / len(real)
+        verdict = (f"{'PASS' if real_total <= TARGET_SECONDS else 'FAIL'} on {len(real)} jobs "
+                   f"- INCOMPLETE SAMPLE ({pace:.1f}s/job, 5 would be ~{pace * 5:.0f}s)")
+    else:
+        verdict = "PASS" if real_total <= TARGET_SECONDS else "FAIL"
+    print(f"  VERDICT                       : {verdict}")
 
     every_value = {f.value for r in results for f in r.filled}
-    print(f"\n  values typed, all distinct   : {len(every_value)} (every one from the answer bank)")
+    print(f"\n  values typed, all distinct    : {len(every_value)} (every one from the answer bank)")
+
+    pre = [p for r in results for p in r.prefilled]
+    if pre:
+        print("\n  LINKEDIN'S OWN VALUE KEPT (bank differs) - check these:")
+        for p in sorted(set(pre)):
+            print(f"    {p}")
 
     drafts = [r for r in results if r.draft_offered]
     if drafts:

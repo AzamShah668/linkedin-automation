@@ -21,11 +21,30 @@ PowerShell + scheduled-task + headless-Claude stack.** New work goes into `apps/
 - **One-line summary:** we used an interactive IDE tool as a production runtime; that single choice caused
   D13, D17, D20, D24 and D25. A Python program will run the pipeline and call Claude Code as a subprocess
   for the one step a human actually reads — the tailored CV.
-- **Status:** decided and documented; `apps/autopilot/` **not yet written**. Phase 0 is the next code task.
+- **Status (updated 2026-08-06, evening): Phase 0 IS WRITTEN AND HAS RUN.** `apps/autopilot/` now holds
+  `llm.py`, `answers.py`, `fill.py`, `run.py` (~1,050 lines). It drove the owner's real LinkedIn account and
+  filled real Easy Apply forms, stopping before Submit, with **zero invented values**.
+  Full write-up: **[[23-phase-0-results]]**.
+  - **Measured: ~16.7s per form** (2 genuine fills in 33.3s). Five project to **~85s**, well inside the 180s
+    target. Time goes to **page loads, not field mapping** — the good failure mode.
+  - **But the run was not a valid 5-job test:** 3 of 5 jobs did nothing (the dialog shell renders before its
+    contents; fixed with a footer-button sentinel) and the tool **printed PASS anyway**. The verdict logic now
+    counts only jobs that reach Review/Submit. **Phase 0 is not closed** — it needs one clean 5-fill run.
+  - **New answer-bank keys:** `identity.first_name`, `identity.last_name`, and a `consents` block
+    (`data_processing: Yes`) — agreements, kept deliberately separate from facts.
+  - ⚠️ **Owner action:** LinkedIn's verified email is `azamrizwanshah123@gmail.com`; the bank and every CV use
+    `azamshah25809@gmail.com`. Applications currently carry an address that does not match the attached CV.
+  - ⚠️ **The board is ~63% dead** — of the top 32 rows, ~20 are closed and 6 are external-ATS. Discovery data
+    rots in about five days. Every Infosys row is `external-or-none`; Easy Apply will never reach that company.
 - **Nothing below has been deleted or disabled by this decision.** The six scheduled tasks, the runbooks and
   the skills all still work and are still the way to get a packet built today.
 
 ---
+
+> **Browser profile trap (2026-08-06):** the Playwright profile is `.pw_browser/linkedin_user_data/`, NOT
+> `.pw_browser/` itself. The parent was opened by the owner's real Chrome 150 and Chromium refuses a profile
+> written by a newer build — it exits **code 21 instantly**, before any error is meaningful. And a logged-out
+> profile is identified by a **missing `li_at` cookie**, never by an error string. See [[23-phase-0-results]] §9.
 
 ## How this project actually runs today (MCP-first, not custom code)
 

@@ -676,3 +676,54 @@ put the guards we already paid for:
 
 **Consequence for the product plan:** the same code runs on free keys for the owner today and on paid keys
 for users later. Nothing in the pipeline knows or cares which is in use.
+
+---
+
+## D29 — A mirror can be WRONG, not merely stale, and wrong is undetectable without comparison (2026-08-06)
+
+**What happened.** Before the first Phase 0 run, the SQLite mirror was re-synced against Notion. Three rows
+disagreed. One mattered enormously:
+
+| Row | Mirror said | Notion said |
+|---|---|---|
+| **SkillsCapital — Software Engineer Intern, fit 93** | `Applied` | `Invite sent` |
+| Mirai Alpha, fit 92 | `Skipped` | `Invite sent` |
+| Hired, fit 62 | `Skipped` | `Invite sent` |
+
+**The single best row on the board had been carrying a false `Applied` flag since 2026-08-01.** It was never
+applied to. Every status filter — `sweep-packets`, the dashboard, and the brand-new `board_candidates()`
+written that same morning — correctly excluded it, for a reason that was false. The row Azam's own `CLAUDE.md`
+flags as *"apply this week, cannot wait"* was invisible to the entire pipeline, and the pipeline was working
+exactly as designed.
+
+**Why this is not D23.** D23 said the mirror goes **stale**: it held 24 rows against Notion's 94, and the
+missing rows were simply absent. That is detectable from one side — compare `sync_log.synced_at` to now, or
+count rows, and staleness announces itself.
+
+**Wrong announces nothing.** The row was present, recently touched, well-formed, and plausible. Nothing about
+the mirror in isolation could reveal it. A timestamp check passes. A row count passes. Only a
+**field-by-field comparison against the source of truth** finds it — which nothing was doing.
+
+> **Stale is detectable from one side. Wrong is only detectable by comparison.**
+
+**Probable origin:** a status write that landed locally and was never pushed, or was pushed and rejected, with
+no reconciliation afterwards. Two writers, one truth, no arbiter — the structural flaw, not the specific bad
+value.
+
+**What catches it next time**
+
+1. **Phase 1 removes the class.** Own the data: one database is authoritative and Notion becomes a *view*.
+   Two writers with no arbiter is the actual bug; re-syncing is a treatment, not a cure.
+2. **Until then, reconcile before trusting a status filter.** Any run that *excludes* rows on status must
+   first diff against Notion and print what changed. Cheap, and it was how this was found at all.
+3. **Log every correction loudly.** The re-sync printed `status 'Applied' -> 'Invite sent'` per row. That one
+   line is what turned a silent 5-day hole into a finding.
+4. **Treat a terminal status as the highest-risk value in the store.** `Applied` and `Skipped` are the only
+   values that cause a row to be *ignored forever*. A false `New` costs one wasted look; a false `Applied`
+   costs the job. Verify terminal statuses against the source, not the mirror.
+
+**The wider lesson, consistent with D17 and D25:** the failure was silent and every log looked plausible. Ask
+not "did anything error?" but "**what would this look like if it were quietly wrong?**" — and then go and
+compare. Here, the answer had been sitting in Notion for five days.
+
+Related: [[23-phase-0-results]] · D23 (the stale mirror) · D17 (judge by the log, not the exit code)

@@ -13,9 +13,11 @@ are stored facts:
     expected CTC       India 840000 INR   /  international 30000 USD
     visa sponsorship   India "No"         /  international "Yes"
 
-NOT MAPPED ON PURPOSE — first_name / last_name. Splitting "Azam Shah" would be inventing a
-field shape the bank does not define. LinkedIn pre-fills these from the profile; if one ever
-turns up blank it lands in the unanswered report, which is where a new bank key belongs.
+first_name / last_name were unmapped until 2026-08-06, on the theory that LinkedIn pre-fills
+them. It does not — they came back blank and REQUIRED on a real form. They are now explicit
+bank keys (owner-supplied), not a split of full_name in code.
+
+CONSENTS are a separate category from facts, deliberately. See CONSENT_NOTE below.
 """
 
 from __future__ import annotations
@@ -36,6 +38,28 @@ TEXT = "text"
 NUMERIC = "numeric"
 CHOICE = "choice"
 DATE = "date"
+CONSENT = "consent"
+
+CONSENT_NOTE = """
+A consent checkbox is NOT a fact about Azam, so the "never invent a value" rule does not decide
+it. That rule exists to stop FALSE STATEMENTS — a guessed salary or notice period is a lie sent
+under his name. Ticking "this company may process my data" states nothing false.
+
+It is an act of agreement, so the question is authority, not truth: has the owner authorised it?
+He has, twice over — he authorised the application itself, and consenting to process the CV you
+are in the act of sending them is instrumental to that. Withholding it while submitting the
+application is incoherent: the data is going to them either way.
+
+The risk is also lopsided. Not ticking it blocks a required field and the application silently
+dies (recoverable, but that is the failure we are here to fix). Ticking it means a company he
+chose to apply to may process the CV he chose to send. That is the transaction.
+
+SCOPE IS DELIBERATELY NARROW. Only data-processing / privacy-policy consent tied to THIS
+application is mapped. Anything that binds him beyond it — marketing opt-ins, background-check
+authorisations, agency representation, terms of engagement, "I agree to be contacted by
+partners" — is NOT mapped and lands in the unanswered report for a human. If a pattern here
+ever starts matching one of those, narrow the pattern; do not widen the value.
+"""
 
 
 class BankMissing(RuntimeError):
@@ -114,8 +138,13 @@ FIELD_MAP: dict[str, Spec] = {
         (r"mobile phone number", r"phone number", r"\bphone\b", r"\bmobile\b"),
         text="identity.phone", numeric="identity.phone",
     ),
+    "first_name": Spec((r"first name", r"given name"), text="identity.first_name",
+                       note="proven REQUIRED and blank on a real form 2026-08-06; owner-supplied bank key"),
+    "last_name": Spec((r"last name", r"surname", r"family name"), text="identity.last_name"),
     "linkedin_url": Spec((r"linkedin (profile|url)", r"linkedin\.com"), text="identity.linkedin"),
     "github_url": Spec((r"\bgithub\b", r"portfolio (url|link)"), text="identity.github"),
+    "website": Spec((r"^website", r"personal website", r"\bportfolio\b"), text="identity.github",
+                    note="owner: the GitHub URL is the right value for a 'Website' field"),
     "city": Spec((r"^city", r"current (city|location)", r"\blocation\b"), text="identity.location_city"),
 
     # --- skill-specific experience (MUST precede the generic years catch-all) ------------
@@ -181,6 +210,15 @@ FIELD_MAP: dict[str, Spec] = {
         text="education.end_year", numeric="education.end_year", kind=NUMERIC,
     ),
     "institution": Spec((r"university", r"college", r"institution", r"school name"), text="education.institution"),
+
+    # --- consent: an act of agreement, not a fact. Read CONSENT_NOTE before touching. -------
+    "consent_data_processing": Spec(
+        (r"consent to collect", r"consent to (the )?(process|stor)", r"may (collect|process|store) .*(my|your) data",
+         r"agree to the processing of", r"agree to (the )?privacy (policy|notice)"),
+        text="consents.data_processing", kind=CONSENT,
+        note="ONLY data-processing consent for THIS application. Marketing/background-check/"
+             "agency-representation consents are deliberately NOT mapped — they go to a human.",
+    ),
 
     # --- the single permitted derivation ---------------------------------------------------
     "how_heard": Spec(
