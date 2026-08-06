@@ -296,6 +296,31 @@ def resolve(bank: dict, spec: Spec, *, numeric_control: bool, india: bool = INDI
     return lookup(bank, path)
 
 
+def all_values(bank: dict) -> set[str]:
+    """Every scalar in the bank, plus the synthetic answers, as comparable strings.
+
+    Used by the pre-submit check to prove that nothing on the review screen came from anywhere
+    but this file. Keys starting with '_' are prose notes, not answers, and are excluded.
+    """
+    found: set[str] = set(SYNTHETIC.values())
+
+    def walk(node: object) -> None:
+        if isinstance(node, dict):
+            for key, value in node.items():
+                if not str(key).startswith("_"):
+                    walk(value)
+        elif isinstance(node, list):
+            for item in node:
+                walk(item)
+        elif node is not None:
+            text = str(node).strip()
+            if text:
+                found.add(text)
+
+    walk(bank)
+    return found
+
+
 def dump_field_map(bank: dict | None = None, india: bool = INDIA_DEFAULT) -> str:
     """Human-readable FIELD_MAP for review before any run touches a real posting."""
     bank = bank if bank is not None else load_bank()

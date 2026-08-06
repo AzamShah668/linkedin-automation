@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import argparse
 import os
+import re
 import sqlite3
 import sys
 import time
@@ -111,6 +112,8 @@ def report(results: list[FillResult], launch_s: float, select_s: float) -> int:
             f"resume={resume} [{mark}]"
         )
         print(f"          {r.url}")
+        for blocker in r.blockers:
+            print(f"          BLOCKED: {blocker}")
         if r.note:
             print(f"          note: {r.note}")
 
@@ -172,6 +175,17 @@ def report(results: list[FillResult], launch_s: float, select_s: float) -> int:
 
 
 def cmd_fill(args: argparse.Namespace) -> int:
+    # Submitting is irreversible. It stays one job at a time until the owner says otherwise,
+    # and a batch flag must never be able to turn one real application into five.
+    if args.submit:
+        if args.from_board:
+            print("REFUSING: --submit with --from-board. Submit one job at a time:")
+            print("  py -3 -m apps.autopilot.run fill --job-id <id> --submit")
+            return 2
+        if args.urls_file or (args.job_id and len(args.job_id) > 1):
+            print("REFUSING: --submit accepts exactly one job.")
+            return 2
+
     bank = answers.load_bank()
     user_dir = _user_data_dir()
     print(f"browser profile: {user_dir}")
@@ -231,7 +245,13 @@ def cmd_fill(args: argparse.Namespace) -> int:
         for i, cand in enumerate(jobs, 1):
             print(f"[{i}/{len(jobs)}] {cand.url}")
             try:
-                result = fill_job(page, cand.url, bank, cv_pdf=pdfs[cand.url])
+                result = fill_job(
+                    page, cand.url, bank,
+                    cv_pdf=pdfs[cand.url],
+                    submit=args.submit,
+                    company=cand.company,
+                    role=cand.job,
+                )
             except LinkedInLoggedOut as exc:
                 print(f"  ABORTING WHOLE RUN: {exc}")
                 break
@@ -292,6 +312,146 @@ def cmd_packet(args: argparse.Namespace) -> int:
     return 0 if not failed else 1
 
 
+JD_DIR = REPO / "output" / "jd"
+
+# LinkedIn has renamed this container repeatedly; try them in order and fall back to <main>.
+JD_SELECTORS = (
+    "#job-details",
+    ".jobs-description__content",
+    ".jobs-box__html-content",
+    ".jobs-description",
+)
+
+# Page chrome that appears in every LinkedIn page. If the "JD" contains these, it is the nav
+# bar and footer, not a job description. A `main` fallback returned exactly this and sailed
+# past a naive length check, making 14 of 15 captures look successful.
+CHROME_MARKERS = ("Talent Solutions", "Community Guidelines", "Ad Choices", "Post a job")
+
+
+def _job_description(page) -> str:
+    """The JD text, or '' if no real description was found. Never returns chrome."""
+    try:  # the description is usually collapsed behind a "see more" control
+        more = page.get_by_role("button", name=re.compile(r"see more|show more", re.I)).first
+        if more.count():
+            more.click(timeout=3000)
+    except Exception:
+        pass
+
+    for selector in JD_SELECTORS:
+        target = page.locator(selector).first
+        try:
+            if not target.count():
+                continue
+            text = " ".join(target.inner_text(timeout=4000).split())
+        except Exception:
+            continue
+        if len(text) > 400 and sum(m in text for m in CHROME_MARKERS) < 2:
+            return text
+    return ""
+
+
+def cmd_prune(args: argparse.Namespace) -> int:
+    """Probe every board row for liveness; mark dead ones and save survivors' job descriptions.
+
+    ~63% of this board was found dead on 2026-08-06. Building packets at ~7 min each against
+    closed postings is the most expensive possible mistake, so liveness is checked BEFORE any
+    re-scoring effort is spent.
+    """
+    from apps.autopilot.fill import has_easy_apply
+
+    conn = sqlite3.connect(BOARD_DB)
+    rows = conn.execute(
+        "SELECT id, url, company, job, fit, status FROM jobs "
+        "WHERE url LIKE '%linkedin.com/jobs/view/%' ORDER BY fit DESC"
+    ).fetchall()
+
+    live: list[tuple] = []
+    dead: list[tuple] = []
+    jd_ok = jd_fail = 0
+    JD_DIR.mkdir(parents=True, exist_ok=True)
+
+    with sync_playwright() as pw:
+        context = open_browser(pw, _user_data_dir(), headless=False)
+        page = context.pages[0] if context.pages else context.new_page()
+        try:
+            check_logged_in(page)
+        except LinkedInLoggedOut as exc:
+            print(f"ABORTING: {exc}")
+            context.close()
+            return 2
+
+        print(f"probing {len(rows)} rows...\n")
+        for row_id, url, company, job, fit, status in rows:
+            if (status or "").lower() in BLOCKED_STATUSES:
+                continue
+            try:
+                ok, why = has_easy_apply(page, url)
+            except Exception as exc:
+                ok, why = False, f"probe-error {type(exc).__name__}"
+
+            # `external-or-none` is NOT dead — it just is not Easy Apply. Only a closed or
+            # vanished posting is dead. Conflating the two would delete usable rows.
+            if why in ("closed", "no-buttons", "removed"):
+                dead.append((row_id, company, job, fit, why))
+                print(f"  DEAD [{fit:>3}] {company[:24]:<24} {why}")
+                continue
+
+            live.append((row_id, company, job, fit, why, url))
+            saved = ""
+            if args.save_jd and len(live) <= args.save_jd_limit:
+                text = _job_description(page)
+                if text:
+                    (JD_DIR / f"{row_id}.txt").write_text(text, encoding="utf-8")
+                    saved = f"jd {len(text)}b"
+                    jd_ok += 1
+                else:
+                    # Reported, never swallowed. A silent `except: pass` here saved 1 JD out of
+                    # 52 on the first run and looked like a success.
+                    saved = "JD CAPTURE FAILED"
+                    jd_fail += 1
+            print(f"  live [{fit:>3}] {company[:24]:<24} {why:<18} {saved}")
+
+    if not args.dry_run:
+        for row_id, company, job, fit, why in dead:
+            conn.execute(
+                "UPDATE jobs SET status='Skipped', "
+                "notes=COALESCE(notes,'') || ?, updated_at=? WHERE id=?",
+                (f"\n\nCLOSED {answers_today()}: posting no longer accepting applications "
+                 f"(probe: {why}). Marked by `run prune`.", answers_today(), row_id),
+            )
+        conn.commit()
+    conn.close()
+
+    print("\n" + "=" * 70)
+    print(f"  live    : {len(live)}")
+    print(f"  dead    : {len(dead)}  {'(marked Skipped)' if not args.dry_run else '(dry run)'}")
+    print(f"  survival: {len(live) / max(len(live) + len(dead), 1):.0%}")
+    if args.save_jd:
+        print(f"  JDs     : {jd_ok} saved, {jd_fail} FAILED to capture")
+    print("\n  TOP 5 SURVIVING BY FIT")
+    for row_id, company, job, fit, why, url in sorted(live, key=lambda r: -r[3])[:5]:
+        print(f"    [{fit:>3}] {company[:22]:<22} {job[:40]:<40} {why}")
+        print(f"          {url}")
+    return 0
+
+
+def answers_today() -> str:
+    from apps.autopilot import ledger
+    return ledger.today()
+
+
+def cmd_ledger(args: argparse.Namespace) -> int:
+    """Show or seed the never-resubmit ledger."""
+    from apps.autopilot import ledger
+
+    if args.seed:
+        added, skipped = ledger.seed()
+        print(f"seeded: {added} added, {skipped} already present\n")
+    print(ledger.describe())
+    print(f"\nfile: {ledger.LEDGER_PATH}")
+    return 0
+
+
 def cmd_fieldmap(_: argparse.Namespace) -> int:
     print(answers.dump_field_map())
     return 0
@@ -303,6 +463,15 @@ def main(argv: list[str] | None = None) -> int:
 
     sub.add_parser("fieldmap", help="print the FIELD_MAP and the value each entry resolves to")
     sub.add_parser("login", help="open the browser so YOU can sign into LinkedIn by hand")
+
+    pr = sub.add_parser("prune", help="probe every board row for liveness; mark the dead ones")
+    pr.add_argument("--dry-run", action="store_true", help="report only, change nothing")
+    pr.add_argument("--save-jd", action="store_true", help="save survivors' JD text for re-scoring")
+    pr.add_argument("--save-jd-limit", type=int, default=15,
+                    help="only fetch JDs for the top N survivors (default 15)")
+
+    lg = sub.add_parser("ledger", help="show the never-resubmit ledger")
+    lg.add_argument("--seed", action="store_true", help="add the pre-ledger applications")
 
     pk = sub.add_parser("packet", help="build tailored CV packet(s) via Claude Code; sends nothing")
     pk.add_argument("--job-id", action="append", required=True, help="board/Notion row id (repeatable)")
@@ -316,12 +485,18 @@ def main(argv: list[str] | None = None) -> int:
     src.add_argument("--job-id", action="append",
                      help="board row id (repeatable) - resolves the URL AND its tailored CV")
     f.add_argument("--headless", action="store_true", help="not recommended; LinkedIn flags it")
+    f.add_argument("--submit", action="store_true",
+                   help="ACTUALLY SUBMIT. Off by default. One job at a time; not with --from-board.")
 
     args = parser.parse_args(argv)
     if args.cmd == "fieldmap":
         return cmd_fieldmap(args)
     if args.cmd == "login":
         return cmd_login(args)
+    if args.cmd == "prune":
+        return cmd_prune(args)
+    if args.cmd == "ledger":
+        return cmd_ledger(args)
     if args.cmd == "packet":
         return cmd_packet(args)
     return cmd_fill(args)

@@ -14,6 +14,7 @@ rules). Everything below is ordinary locator reads.
 
 from __future__ import annotations
 
+import os
 import re
 import time
 from dataclasses import dataclass, field
@@ -21,7 +22,16 @@ from pathlib import Path
 
 from playwright.sync_api import Locator, Page, TimeoutError as PWTimeout, sync_playwright
 
-from apps.autopilot.answers import NUMERIC, REPO, load_bank, lookup, match_field, resolve
+from apps.autopilot import ledger
+from apps.autopilot.answers import (
+    NUMERIC,
+    REPO,
+    all_values,
+    load_bank,
+    lookup,
+    match_field,
+    resolve,
+)
 
 # The LinkedIn-logged-in profile is the SUBDIRECTORY, not .pw_browser itself.
 # .pw_browser/ was opened by the owner's real Chrome 150 on 2026-08-01; Chromium refuses to
@@ -29,7 +39,8 @@ from apps.autopilot.answers import NUMERIC, REPO, load_bank, lookup, match_field
 # is on 145, older than Playwright's build, which upgrades forward cleanly. Override with
 # PW_USER_DATA_DIR.
 DEFAULT_USER_DATA_DIR = REPO / ".pw_browser" / "linkedin_user_data"
-SHOT_DIR = REPO / "output" / "apply-log" / "phase0"
+APPLY_LOG_DIR = REPO / "output" / "apply-log"
+SHOT_DIR = APPLY_LOG_DIR / "phase0"
 
 MAX_WIZARD_STEPS = 10
 MAX_STALLED_ROUNDS = 2
@@ -39,6 +50,10 @@ NEXT_LABELS = re.compile(r"continue to next step|^next$|^continue$", re.I)
 REVIEW_LABELS = re.compile(r"review your application|^review$", re.I)
 SUBMIT_LABELS = re.compile(r"submit application|^submit$", re.I)
 FILE_RE = re.compile(r"[\w\-.()]+\.(?:pdf|docx?)", re.I)  # no space in the class, or it eats the label
+
+# LinkedIn's own confirmation that an application landed. The artifact, not the exit code.
+CONFIRMED_RE = re.compile(r"application (was )?sent|your application was sent|application submitted", re.I)
+ERROR_RE = re.compile(r"required|please enter|enter a valid|must be|cannot be (empty|blank)", re.I)
 
 # The primary footer button is the render sentinel: every wizard step has exactly one, and its
 # absence is precisely what broke the 2026-08-06 run.
@@ -92,6 +107,8 @@ class FillResult:
     resume_expected: str | None = None
     resume_verified: bool | None = None  # None = no packet supplied, so nothing to verify
     draft_offered: bool | None = None
+    blockers: list[str] = field(default_factory=list)
+    submitted: bool = False  # True once Submit has been CLICKED, confirmed or not
     note: str = ""
 
 
@@ -509,6 +526,70 @@ def _attach_resume(page: Page, modal: Locator, pdf: Path, result: FillResult) ->
     return result.resume_filename == pdf.name
 
 
+def _review_blockers(modal: Locator, bank: dict, result: FillResult, cv_pdf: Path | None) -> list[str]:
+    """Everything wrong with this form right now. Empty list = safe to submit.
+
+    Runbook §6. Checked on the review step, by re-reading what is ACTUALLY in the fields rather
+    than trusting what we believe we typed.
+    """
+    blockers: list[str] = []
+
+    if cv_pdf is not None:
+        if result.resume_filename != cv_pdf.name:
+            blockers.append(
+                f"resume shows {result.resume_filename!r}, expected {cv_pdf.name!r} — "
+                f"this is how a company receives another company's CV"
+            )
+    elif result.resume_filename:
+        blockers.append(
+            f"no tailored CV supplied; the form carries {result.resume_filename!r}, "
+            f"which is the generic CV"
+        )
+
+    # Nothing may be on the form that did not come from the answer bank.
+    allowed = all_values(bank)
+    allowed.update(f.value for f in result.filled)
+    allowed.update(_current_value(c) for c in _scan(modal) if c.tag == "select")
+    for control in _scan(modal):
+        if control.tag in ("group", "checkbox"):
+            continue
+        value = _current_value(control)
+        if value and value not in allowed:
+            blockers.append(f"{control.label[:60]!r} holds {value!r}, which is not in the answer bank")
+
+    errors = modal.locator("[role=alert]")
+    for i in range(errors.count()):
+        text = _text_of(errors.nth(i))
+        if text and ERROR_RE.search(text):
+            blockers.append(f"validation error on the form: {text[:90]!r}")
+
+    return blockers
+
+
+def _submit(page: Page, modal: Locator, button: Locator, result: FillResult) -> bool:
+    """Click Submit and confirm by ARTIFACT. Returns True only on real confirmation.
+
+    NEVER retries. An unconfirmed submission may well have landed; a duplicate application is
+    worse than an uncertain one (runbook §8).
+    """
+    button.click()
+    try:
+        page.get_by_text(CONFIRMED_RE).first.wait_for(state="visible", timeout=25_000)
+        return True
+    except PWTimeout:
+        pass
+    try:
+        # The modal closing is LinkedIn's other success signal.
+        modal.wait_for(state="hidden", timeout=10_000)
+        return True
+    except PWTimeout:
+        result.note = (
+            "clicked Submit but saw no confirmation. It may have landed. "
+            "DO NOT retry this job — check LinkedIn's My Jobs > Applied by hand."
+        )
+        return False
+
+
 def _close_modal(page: Page, modal: Locator, result: FillResult) -> None:
     """Dismiss and DISCARD, so no half-filled application is left sitting in LinkedIn's UI."""
     try:
@@ -527,6 +608,28 @@ def _close_modal(page: Page, modal: Locator, result: FillResult) -> None:
             page.wait_for_timeout(SETTLE_MS)
     except Exception as exc:
         result.note = (result.note + f" close-modal: {type(exc).__name__}").strip()
+
+
+def _append_monthly_log(
+    result: FillResult, company: str, role: str, receipt: Path, confirmed: bool
+) -> None:
+    """One line per application in output/apply-log/<YYYY-MM>.md (runbook §9).
+
+    ⚠️ LinkedIn's "your application was sent to X" email is an AUTO-ACKNOWLEDGEMENT, not a
+    reply. It must NEVER tick the Notion `Reply` field — doing so cancels the Day-3/Day-7
+    follow-up cadence and the application goes quiet forever.
+    """
+    log = APPLY_LOG_DIR / f"{ledger.today()[:7]}.md"
+    log.parent.mkdir(parents=True, exist_ok=True)
+    state = "Applied" if confirmed else "Submitted - UNCONFIRMED (verify by hand, never retry)"
+    line = (
+        f"- {ledger.today()} | {company} | {role} | {state} | "
+        f"{result.url} | {receipt.name}\n"
+    )
+    with open(log, "a", encoding="utf-8") as handle:
+        handle.write(line)
+        handle.flush()
+        os.fsync(handle.fileno())
 
 
 def slug_for(url: str) -> str:
@@ -551,6 +654,10 @@ def has_easy_apply(page: Page, url: str, timeout_ms: int = 20_000) -> tuple[bool
     except PWTimeout:
         return False, "no-buttons"
     body = _text_of(page.locator("body"))
+    # A REMOVED posting still renders buttons, so button-presence alone reads as live. Found
+    # 2026-08-06: a row counted as live had a page body saying the posting no longer exists.
+    if re.search(r"job id provided may not be valid|posting has been removed|unable to load the page", body, re.I):
+        return False, "removed"
     if re.search(r"no longer accepting applications", body, re.I):
         return False, "closed"
     if page.get_by_role("button", name=re.compile(r"easy apply", re.I)).count():
@@ -560,7 +667,15 @@ def has_easy_apply(page: Page, url: str, timeout_ms: int = 20_000) -> tuple[bool
     return False, "external-or-none"
 
 
-def fill_job(page: Page, url: str, bank: dict, cv_pdf: Path | None = None) -> FillResult:
+def fill_job(
+    page: Page,
+    url: str,
+    bank: dict,
+    cv_pdf: Path | None = None,
+    submit: bool = False,
+    company: str = "",
+    role: str = "",
+) -> FillResult:
     """Fill one Easy Apply wizard and stop at Review/Submit. Never clicks Submit.
 
     `cv_pdf` is the TAILORED CV from a built packet. When supplied it is uploaded and the
@@ -570,7 +685,30 @@ def fill_job(page: Page, url: str, bank: dict, cv_pdf: Path | None = None) -> Fi
     result = FillResult(url=url, slug=slug_for(url), status="error")
     started = time.perf_counter()
     try:
+        # GUARD 1 — the ledger. Checked BEFORE the page is even opened, and independent of any
+        # board status (D29: the mirror said Applied for a job nothing had been sent to).
+        prior = ledger.already_applied(company, role, url) if (company or role) else None
+        if prior and submit:
+            result.status = "blocked-already-applied"
+            result.note = f"LEDGER: {prior}"
+            return result
+        if prior:
+            result.note = f"ledger says already applied: {prior}"
+
         ok, why = has_easy_apply(page, url)
+
+        # GUARD 2 — LinkedIn's own indicator, an entirely separate mechanism (D30). Either one
+        # blocks; a DISAGREEMENT between them is reported rather than quietly resolved.
+        if why == "already-applied" and not prior:
+            result.note = (
+                "DISAGREEMENT: LinkedIn shows this as Applied but the ledger has no record. "
+                "Something was submitted outside this tool — reconcile before trusting either."
+            ).strip()
+        elif prior and why != "already-applied":
+            result.note += (
+                " | DISAGREEMENT: the ledger has a record but LinkedIn does not show Applied."
+            )
+
         if not ok:
             result.status = why
             return result
@@ -611,6 +749,50 @@ def fill_job(page: Page, url: str, bank: dict, cv_pdf: Path | None = None) -> Fi
                     result.resume_verified = True
 
             button, kind = _primary_button(modal)
+            if kind == "review" and submit:
+                # Advance to the real review screen so the checks read the FINAL state.
+                button.click()
+                page.wait_for_timeout(SETTLE_MS)
+                _wait_for_step_content(modal)
+                _capture_resume(modal, result)
+                button, kind = _primary_button(modal)
+
+            if kind == "submit" and submit:
+                result.blockers = _review_blockers(modal, bank, result, cv_pdf)
+                if result.blockers:
+                    result.status = "submit-blocked"
+                    break
+                result.submitted = True  # a click is about to happen; record intent before it
+                confirmed = _submit(page, modal, button, result)
+                result.status = "submitted" if confirmed else "submitted-unconfirmed"
+
+                SHOT_DIR.mkdir(parents=True, exist_ok=True)
+                receipt = SHOT_DIR / f"{result.slug}-{ledger.today()}-submitted.png"
+                page.screenshot(path=str(receipt))
+
+                # RECORDED EVEN WHEN UNCONFIRMED — deliberate deviation from "write after a
+                # confirmed submission". An unconfirmed submission may well have landed, and the
+                # rule is NEVER RETRY. If only confirmed ones were recorded, the next run would
+                # find no record and re-apply, producing the exact duplicate this guard exists to
+                # prevent. The ledger records "Submit was clicked", which is what makes a repeat
+                # unsafe. Confirmation state is kept in the entry so it can be reconciled by hand.
+                ledger.record(
+                    ledger.Entry(
+                        company=company or "?",
+                        role=role or "?",
+                        submitted_at=ledger.today(),
+                        channel="linkedin-easy-apply" if confirmed
+                        else "linkedin-easy-apply-UNCONFIRMED",
+                        linkedin_id=ledger.linkedin_job_id(url),
+                        url=url,
+                        screenshot=str(receipt.relative_to(REPO)),
+                        note="" if confirmed else "No confirmation seen. Verify by hand in "
+                                                  "LinkedIn > My Jobs > Applied. Do NOT retry.",
+                    )
+                )
+                _append_monthly_log(result, company, role, receipt, confirmed)
+                break
+
             if kind in ("review", "submit"):
                 result.status = f"reached-{kind}"
                 break
@@ -636,7 +818,10 @@ def fill_job(page: Page, url: str, bank: dict, cv_pdf: Path | None = None) -> Fi
         SHOT_DIR.mkdir(parents=True, exist_ok=True)
         page.screenshot(path=str(SHOT_DIR / f"{result.slug}.png"))
         _capture_resume(modal, result)
-        _close_modal(page, modal, result)
+        # Never discard a modal we just submitted — Discard on a sent application is at best
+        # pointless and at worst destroys the confirmation state we still want to screenshot.
+        if not result.submitted:
+            _close_modal(page, modal, result)
 
     except LinkedInLoggedOut:
         raise
