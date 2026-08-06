@@ -9,7 +9,7 @@
       "source_file": "apps\\autopilot\\__init__.py",
       "source_location": "L1",
       "id": "init",
-      "community": 31
+      "community": 34
     },
     {
       "label": "Job Hunt Autopilot \u2014 the Python runtime that replaces the Claude-Code-as-server",
@@ -17,7 +17,7 @@
       "source_file": "apps\\autopilot\\__init__.py",
       "source_location": "L1",
       "id": "init_rationale_1",
-      "community": 31
+      "community": 34
     },
     {
       "label": "answers.py",
@@ -25,7 +25,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L1",
       "id": "answers",
-      "community": 4
+      "community": 9
     },
     {
       "label": "BankMissing",
@@ -33,7 +33,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L65",
       "id": "answers_bankmissing",
-      "community": 4
+      "community": 9
     },
     {
       "label": "RuntimeError",
@@ -41,7 +41,7 @@
       "source_file": "",
       "source_location": "",
       "id": "runtimeerror",
-      "community": 4
+      "community": 2
     },
     {
       "label": "load_bank()",
@@ -49,7 +49,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L69",
       "id": "answers_load_bank",
-      "community": 4
+      "community": 9
     },
     {
       "label": "lookup()",
@@ -57,7 +57,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L78",
       "id": "answers_lookup",
-      "community": 4
+      "community": 9
     },
     {
       "label": "Spec",
@@ -65,7 +65,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L92",
       "id": "answers_spec",
-      "community": 4
+      "community": 9
     },
     {
       "label": "_expected_ctc()",
@@ -73,7 +73,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L118",
       "id": "answers_expected_ctc",
-      "community": 4
+      "community": 9
     },
     {
       "label": "_sponsorship()",
@@ -81,7 +81,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L126",
       "id": "answers_sponsorship",
-      "community": 4
+      "community": 9
     },
     {
       "label": "match_field()",
@@ -89,7 +89,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L264",
       "id": "answers_match_field",
-      "community": 4
+      "community": 9
     },
     {
       "label": "resolve()",
@@ -97,7 +97,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L282",
       "id": "answers_resolve",
-      "community": 4
+      "community": 9
     },
     {
       "label": "dump_field_map()",
@@ -105,7 +105,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L299",
       "id": "answers_dump_field_map",
-      "community": 4
+      "community": 9
     },
     {
       "label": "The answer bank and the FIELD_MAP \u2014 the only legal source of form values.\r \r THE",
@@ -113,7 +113,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L1",
       "id": "answers_rationale_1",
-      "community": 4
+      "community": 9
     },
     {
       "label": "Read a dotted path out of the bank. Returns None for missing OR null \u2014 both mean",
@@ -121,7 +121,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L79",
       "id": "answers_rationale_79",
-      "community": 4
+      "community": 9
     },
     {
       "label": "One mappable question.\r \r     patterns  regexes matched (case-insensitive) again",
@@ -129,7 +129,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L93",
       "id": "answers_rationale_93",
-      "community": 4
+      "community": 9
     },
     {
       "label": "First FIELD_MAP entry whose pattern appears in the label wins. Order = priority.",
@@ -137,7 +137,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L265",
       "id": "answers_rationale_265",
-      "community": 4
+      "community": 9
     },
     {
       "label": "Turn a Spec into the literal string to type, or None meaning LEAVE BLANK.",
@@ -145,7 +145,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L283",
       "id": "answers_rationale_283",
-      "community": 4
+      "community": 9
     },
     {
       "label": "Human-readable FIELD_MAP for review before any run touches a real posting.",
@@ -153,7 +153,127 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L300",
       "id": "answers_rationale_300",
-      "community": 4
+      "community": 9
+    },
+    {
+      "label": "cv.py",
+      "file_type": "code",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L1",
+      "id": "cv",
+      "community": 2
+    },
+    {
+      "label": "UsageLimitHit",
+      "file_type": "code",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L45",
+      "id": "cv_usagelimithit",
+      "community": 2
+    },
+    {
+      "label": "PacketBuildFailed",
+      "file_type": "code",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L52",
+      "id": "cv_packetbuildfailed",
+      "community": 2
+    },
+    {
+      "label": "Packet",
+      "file_type": "code",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L57",
+      "id": "cv_packet",
+      "community": 2
+    },
+    {
+      "label": "pdf()",
+      "file_type": "code",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L67",
+      "id": "cv_pdf",
+      "community": 2
+    },
+    {
+      "label": "find_packet()",
+      "file_type": "code",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L71",
+      "id": "cv_find_packet",
+      "community": 2
+    },
+    {
+      "label": "_to_packet()",
+      "file_type": "code",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L87",
+      "id": "cv_to_packet",
+      "community": 2
+    },
+    {
+      "label": "build_packet()",
+      "file_type": "code",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L102",
+      "id": "cv_build_packet",
+      "community": 2
+    },
+    {
+      "label": "build_many()",
+      "file_type": "code",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L163",
+      "id": "cv_build_many",
+      "community": 2
+    },
+    {
+      "label": "The bridge to Claude Code \u2014 the one step that keeps a full agent session.  Every",
+      "file_type": "rationale",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L1",
+      "id": "cv_rationale_1",
+      "community": 2
+    },
+    {
+      "label": "Claude Code refused because of a quota. NOT this job's fault \u2014 stop the whole ba",
+      "file_type": "rationale",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L46",
+      "id": "cv_rationale_46",
+      "community": 2
+    },
+    {
+      "label": "This job genuinely failed. Safe to record against the job.",
+      "file_type": "rationale",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L53",
+      "id": "cv_rationale_53",
+      "community": 2
+    },
+    {
+      "label": "Locate an already-built packet by job id. Packets are discovered, never hardcode",
+      "file_type": "rationale",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L72",
+      "id": "cv_rationale_72",
+      "community": 2
+    },
+    {
+      "label": "Run Claude Code against the packet runbook for one job. Sends nothing.      Rais",
+      "file_type": "rationale",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L103",
+      "id": "cv_rationale_103",
+      "community": 2
+    },
+    {
+      "label": "Build several packets. Returns (built, [(job_id, error)], usage_limit_message).",
+      "file_type": "rationale",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L164",
+      "id": "cv_rationale_164",
+      "community": 2
     },
     {
       "label": "fill.py",
@@ -161,7 +281,7 @@
       "source_file": "apps\\autopilot\\fill.py",
       "source_location": "L1",
       "id": "fill",
-      "community": 0
+      "community": 1
     },
     {
       "label": "_looks_like_a_question()",
@@ -169,7 +289,7 @@
       "source_file": "apps\\autopilot\\fill.py",
       "source_location": "L63",
       "id": "fill_looks_like_a_question",
-      "community": 0
+      "community": 1
     },
     {
       "label": "LinkedInLoggedOut",
@@ -177,7 +297,7 @@
       "source_file": "apps\\autopilot\\fill.py",
       "source_location": "L70",
       "id": "fill_linkedinloggedout",
-      "community": 0
+      "community": 2
     },
     {
       "label": "Filled",
@@ -185,7 +305,7 @@
       "source_file": "apps\\autopilot\\fill.py",
       "source_location": "L75",
       "id": "fill_filled",
-      "community": 0
+      "community": 1
     },
     {
       "label": "FillResult",
@@ -193,199 +313,207 @@
       "source_file": "apps\\autopilot\\fill.py",
       "source_location": "L82",
       "id": "fill_fillresult",
-      "community": 0
+      "community": 2
     },
     {
       "label": "_attr_q()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L99",
+      "source_location": "L101",
       "id": "fill_attr_q",
-      "community": 0
+      "community": 1
     },
     {
       "label": "_text_of()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L103",
+      "source_location": "L105",
       "id": "fill_text_of",
-      "community": 0
+      "community": 1
     },
     {
       "label": "_deep_text()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L110",
+      "source_location": "L112",
       "id": "fill_deep_text",
-      "community": 0
+      "community": 1
     },
     {
       "label": "_group_label()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L124",
+      "source_location": "L126",
       "id": "fill_group_label",
-      "community": 0
+      "community": 1
     },
     {
       "label": "_label_for()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L168",
+      "source_location": "L170",
       "id": "fill_label_for",
-      "community": 0
+      "community": 1
     },
     {
       "label": "_is_required()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L208",
+      "source_location": "L210",
       "id": "fill_is_required",
-      "community": 0
+      "community": 1
     },
     {
       "label": "_is_numeric()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L215",
+      "source_location": "L217",
       "id": "fill_is_numeric",
-      "community": 0
+      "community": 1
     },
     {
       "label": "Control",
       "file_type": "code",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L222",
+      "source_location": "L224",
       "id": "fill_control",
-      "community": 0
+      "community": 1
     },
     {
       "label": "_scan()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L230",
+      "source_location": "L232",
       "id": "fill_scan",
-      "community": 0
+      "community": 1
     },
     {
       "label": "_current_value()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L273",
+      "source_location": "L275",
       "id": "fill_current_value",
-      "community": 0
+      "community": 1
     },
     {
       "label": "_fill_select()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L283",
+      "source_location": "L285",
       "id": "fill_fill_select",
-      "community": 0
+      "community": 1
     },
     {
       "label": "_fill_group()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L300",
+      "source_location": "L302",
       "id": "fill_fill_group",
-      "community": 0
+      "community": 1
     },
     {
       "label": "_apply()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L337",
+      "source_location": "L339",
       "id": "fill_apply",
-      "community": 0
+      "community": 1
     },
     {
       "label": "_fill_step()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L354",
+      "source_location": "L356",
       "id": "fill_fill_step",
-      "community": 0
+      "community": 1
     },
     {
       "label": "_wait_for_step_content()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L419",
+      "source_location": "L421",
       "id": "fill_wait_for_step_content",
-      "community": 0
+      "community": 1
     },
     {
       "label": "_primary_button()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L440",
+      "source_location": "L442",
       "id": "fill_primary_button",
-      "community": 0
+      "community": 1
     },
     {
       "label": "_fingerprint()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L456",
+      "source_location": "L458",
       "id": "fill_fingerprint",
-      "community": 0
+      "community": 1
     },
     {
       "label": "_capture_resume()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L463",
+      "source_location": "L465",
       "id": "fill_capture_resume",
-      "community": 0
+      "community": 1
+    },
+    {
+      "label": "_attach_resume()",
+      "file_type": "code",
+      "source_file": "apps\\autopilot\\fill.py",
+      "source_location": "L471",
+      "id": "fill_attach_resume",
+      "community": 1
     },
     {
       "label": "_close_modal()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L471",
+      "source_location": "L501",
       "id": "fill_close_modal",
-      "community": 0
+      "community": 1
     },
     {
       "label": "slug_for()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L491",
+      "source_location": "L521",
       "id": "fill_slug_for",
-      "community": 0
+      "community": 1
     },
     {
       "label": "check_logged_in()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L496",
+      "source_location": "L526",
       "id": "fill_check_logged_in",
-      "community": 0
+      "community": 1
     },
     {
       "label": "has_easy_apply()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L505",
+      "source_location": "L535",
       "id": "fill_has_easy_apply",
-      "community": 0
+      "community": 1
     },
     {
       "label": "fill_job()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L522",
+      "source_location": "L552",
       "id": "fill_fill_job",
-      "community": 0
+      "community": 1
     },
     {
       "label": "open_browser()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L591",
+      "source_location": "L640",
       "id": "fill_open_browser",
-      "community": 0
+      "community": 1
     },
     {
       "label": "Open a LinkedIn Easy Apply job, fill the form from the answer bank, STOP BEFORE",
@@ -393,7 +521,7 @@
       "source_file": "apps\\autopilot\\fill.py",
       "source_location": "L1",
       "id": "fill_rationale_1",
-      "community": 0
+      "community": 1
     },
     {
       "label": "True if `text` carries content beyond the answer options themselves.",
@@ -401,7 +529,7 @@
       "source_file": "apps\\autopilot\\fill.py",
       "source_location": "L64",
       "id": "fill_rationale_64",
-      "community": 0
+      "community": 1
     },
     {
       "label": "The persistent profile is not signed in. Abort the WHOLE run; never attempt a lo",
@@ -409,71 +537,79 @@
       "source_file": "apps\\autopilot\\fill.py",
       "source_location": "L71",
       "id": "fill_rationale_71",
-      "community": 0
+      "community": 2
     },
     {
       "label": "text_content(), which unlike inner_text() also returns visually-hidden text.",
       "file_type": "rationale",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L111",
-      "id": "fill_rationale_111",
-      "community": 0
+      "source_location": "L113",
+      "id": "fill_rationale_113",
+      "community": 1
     },
     {
       "label": "The question a fieldset is asking, however LinkedIn chose to hide it.      Three",
       "file_type": "rationale",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L125",
-      "id": "fill_rationale_125",
-      "community": 0
+      "source_location": "L127",
+      "id": "fill_rationale_127",
+      "community": 1
     },
     {
       "label": "Enumerate every answerable control on the current wizard step.",
       "file_type": "rationale",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L231",
-      "id": "fill_rationale_231",
-      "community": 0
+      "source_location": "L233",
+      "id": "fill_rationale_233",
+      "community": 1
     },
     {
       "label": "Map the WHOLE step first, then fill. Returns how many fields were newly filled.",
       "file_type": "rationale",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L355",
-      "id": "fill_rationale_355",
-      "community": 0
+      "source_location": "L357",
+      "id": "fill_rationale_357",
+      "community": 1
     },
     {
       "label": "Wait for the step's CONTENTS, not just the dialog element.      Root cause of th",
       "file_type": "rationale",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L420",
-      "id": "fill_rationale_420",
-      "community": 0
+      "source_location": "L422",
+      "id": "fill_rationale_422",
+      "community": 1
+    },
+    {
+      "label": "Upload the TAILORED CV and read the filename back off the page to prove it lande",
+      "file_type": "rationale",
+      "source_file": "apps\\autopilot\\fill.py",
+      "source_location": "L472",
+      "id": "fill_rationale_472",
+      "community": 1
     },
     {
       "label": "Dismiss and DISCARD, so no half-filled application is left sitting in LinkedIn's",
       "file_type": "rationale",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L472",
-      "id": "fill_rationale_472",
-      "community": 0
+      "source_location": "L502",
+      "id": "fill_rationale_502",
+      "community": 1
     },
     {
       "label": "Open a posting and report whether a real Easy Apply button is there.",
       "file_type": "rationale",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L506",
-      "id": "fill_rationale_506",
-      "community": 0
+      "source_location": "L536",
+      "id": "fill_rationale_536",
+      "community": 1
     },
     {
       "label": "Fill one Easy Apply wizard and stop at Review/Submit. Never clicks Submit.",
       "file_type": "rationale",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L523",
-      "id": "fill_rationale_523",
-      "community": 0
+      "source_location": "L553",
+      "id": "fill_rationale_553",
+      "community": 1
     },
     {
       "label": "llm.py",
@@ -481,7 +617,7 @@
       "source_file": "apps\\autopilot\\llm.py",
       "source_location": "L1",
       "id": "llm",
-      "community": 4
+      "community": 13
     },
     {
       "label": "LLMError",
@@ -489,7 +625,7 @@
       "source_file": "apps\\autopilot\\llm.py",
       "source_location": "L30",
       "id": "llm_llmerror",
-      "community": 4
+      "community": 13
     },
     {
       "label": "_require_env()",
@@ -497,7 +633,7 @@
       "source_file": "apps\\autopilot\\llm.py",
       "source_location": "L34",
       "id": "llm_require_env",
-      "community": 4
+      "community": 13
     },
     {
       "label": "_ask_anthropic()",
@@ -505,7 +641,7 @@
       "source_file": "apps\\autopilot\\llm.py",
       "source_location": "L44",
       "id": "llm_ask_anthropic",
-      "community": 4
+      "community": 13
     },
     {
       "label": "_ask_openai_compatible()",
@@ -513,7 +649,7 @@
       "source_file": "apps\\autopilot\\llm.py",
       "source_location": "L62",
       "id": "llm_ask_openai_compatible",
-      "community": 4
+      "community": 13
     },
     {
       "label": "ask()",
@@ -521,7 +657,7 @@
       "source_file": "apps\\autopilot\\llm.py",
       "source_location": "L86",
       "id": "llm_ask",
-      "community": 4
+      "community": 13
     },
     {
       "label": "The single LLM entry point for the whole app.  One function: ask(prompt, max_tok",
@@ -529,7 +665,7 @@
       "source_file": "apps\\autopilot\\llm.py",
       "source_location": "L1",
       "id": "llm_rationale_1",
-      "community": 4
+      "community": 13
     },
     {
       "label": "Any failure to get usable text out of a provider. Always carries the raw respons",
@@ -537,7 +673,7 @@
       "source_file": "apps\\autopilot\\llm.py",
       "source_location": "L31",
       "id": "llm_rationale_31",
-      "community": 4
+      "community": 13
     },
     {
       "label": "Send one prompt, get one string back. Raises LLMError rather than returning junk",
@@ -545,7 +681,7 @@
       "source_file": "apps\\autopilot\\llm.py",
       "source_location": "L87",
       "id": "llm_rationale_87",
-      "community": 4
+      "community": 13
     },
     {
       "label": "run.py",
@@ -553,71 +689,87 @@
       "source_file": "apps\\autopilot\\run.py",
       "source_location": "L1",
       "id": "run",
-      "community": 10
+      "community": 2
     },
     {
       "label": "_user_data_dir()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L43",
+      "source_location": "L44",
       "id": "run_user_data_dir",
-      "community": 10
+      "community": 2
+    },
+    {
+      "label": "Candidate",
+      "file_type": "code",
+      "source_file": "apps\\autopilot\\run.py",
+      "source_location": "L50",
+      "id": "run_candidate",
+      "community": 2
     },
     {
       "label": "board_candidates()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L48",
+      "source_location": "L58",
       "id": "run_board_candidates",
-      "community": 10
+      "community": 2
     },
     {
       "label": "select_live_jobs()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L72",
+      "source_location": "L82",
       "id": "run_select_live_jobs",
-      "community": 10
+      "community": 2
     },
     {
       "label": "report()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L90",
+      "source_location": "L100",
       "id": "run_report",
-      "community": 10
+      "community": 2
     },
     {
       "label": "cmd_fill()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L162",
+      "source_location": "L174",
       "id": "run_cmd_fill",
-      "community": 10
+      "community": 2
     },
     {
       "label": "cmd_login()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L217",
+      "source_location": "L237",
       "id": "run_cmd_login",
-      "community": 10
+      "community": 2
+    },
+    {
+      "label": "cmd_packet()",
+      "file_type": "code",
+      "source_file": "apps\\autopilot\\run.py",
+      "source_location": "L264",
+      "id": "run_cmd_packet",
+      "community": 2
     },
     {
       "label": "cmd_fieldmap()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L244",
+      "source_location": "L287",
       "id": "run_cmd_fieldmap",
-      "community": 10
+      "community": 2
     },
     {
       "label": "main()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L249",
+      "source_location": "L292",
       "id": "run_main",
-      "community": 10
+      "community": 2
     },
     {
       "label": "CLI entry point for the autopilot.      py -3 -m apps.autopilot.run fieldmap",
@@ -625,31 +777,255 @@
       "source_file": "apps\\autopilot\\run.py",
       "source_location": "L1",
       "id": "run_rationale_1",
-      "community": 0
+      "community": 2
     },
     {
-      "label": "(url, company, job, fit) from the local mirror, best fit first, already-done exc",
+      "label": "Best-fit-first board rows, already-done excluded.",
       "file_type": "rationale",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L49",
-      "id": "run_rationale_49",
-      "community": 0
+      "source_location": "L59",
+      "id": "run_rationale_59",
+      "community": 2
     },
     {
       "label": "Probe candidates until `wanted` postings actually show an Easy Apply button.",
       "file_type": "rationale",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L73",
-      "id": "run_rationale_73",
-      "community": 0
+      "source_location": "L83",
+      "id": "run_rationale_83",
+      "community": 2
     },
     {
       "label": "Open the profile and wait for the OWNER to sign in by hand.      This is not an",
       "file_type": "rationale",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L218",
-      "id": "run_rationale_218",
-      "community": 0
+      "source_location": "L238",
+      "id": "run_rationale_238",
+      "community": 2
+    },
+    {
+      "label": "Build tailored CV packets via Claude Code. Sends nothing.",
+      "file_type": "rationale",
+      "source_file": "apps\\autopilot\\run.py",
+      "source_location": "L265",
+      "id": "run_rationale_265",
+      "community": 2
+    },
+    {
+      "label": "setup-hooks.py",
+      "file_type": "code",
+      "source_file": "scripts\\setup-hooks.py",
+      "source_location": "L1",
+      "id": "setup_hooks",
+      "community": 12
+    },
+    {
+      "label": "_bash_path()",
+      "file_type": "code",
+      "source_file": "scripts\\setup-hooks.py",
+      "source_location": "L39",
+      "id": "setup_hooks_bash_path",
+      "community": 12
+    },
+    {
+      "label": "_selector()",
+      "file_type": "code",
+      "source_file": "scripts\\setup-hooks.py",
+      "source_location": "L47",
+      "id": "setup_hooks_selector",
+      "community": 12
+    },
+    {
+      "label": "find_interpreter()",
+      "file_type": "code",
+      "source_file": "scripts\\setup-hooks.py",
+      "source_location": "L61",
+      "id": "setup_hooks_find_interpreter",
+      "community": 12
+    },
+    {
+      "label": "hook_status()",
+      "file_type": "code",
+      "source_file": "scripts\\setup-hooks.py",
+      "source_location": "L88",
+      "id": "setup_hooks_hook_status",
+      "community": 12
+    },
+    {
+      "label": "install()",
+      "file_type": "code",
+      "source_file": "scripts\\setup-hooks.py",
+      "source_location": "L108",
+      "id": "setup_hooks_install",
+      "community": 12
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "scripts\\setup-hooks.py",
+      "source_location": "L130",
+      "id": "setup_hooks_main",
+      "community": 12
+    },
+    {
+      "label": "C:\\\\Foo\\\\python.exe -> /c/Foo/python.exe, which is what Git Bash needs.",
+      "file_type": "rationale",
+      "source_file": "scripts\\setup-hooks.py",
+      "source_location": "L40",
+      "id": "setup_hooks_rationale_40",
+      "community": 12
+    },
+    {
+      "label": "An interpreter that can actually import graphify. Prefer the one running this sc",
+      "file_type": "rationale",
+      "source_file": "scripts\\setup-hooks.py",
+      "source_location": "L62",
+      "id": "setup_hooks_rationale_62",
+      "community": 12
+    },
+    {
+      "label": "(name, ok, detail) per hook. `ok` means it names an interpreter that has graphif",
+      "file_type": "rationale",
+      "source_file": "scripts\\setup-hooks.py",
+      "source_location": "L89",
+      "id": "setup_hooks_rationale_89",
+      "community": 12
+    },
+    {
+      "label": "test_cv_bridge.py",
+      "file_type": "code",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L1",
+      "id": "test_cv_bridge",
+      "community": 8
+    },
+    {
+      "label": "_fake_run()",
+      "file_type": "code",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L19",
+      "id": "test_cv_bridge_fake_run",
+      "community": 8
+    },
+    {
+      "label": "no_packet()",
+      "file_type": "code",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L26",
+      "id": "test_cv_bridge_no_packet",
+      "community": 8
+    },
+    {
+      "label": "test_usage_limit_raises_its_own_error_not_a_job_failure()",
+      "file_type": "code",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L31",
+      "id": "test_cv_bridge_test_usage_limit_raises_its_own_error_not_a_job_failure",
+      "community": 8
+    },
+    {
+      "label": "test_usage_limit_detected_even_when_exit_code_is_nonzero()",
+      "file_type": "code",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L42",
+      "id": "test_cv_bridge_test_usage_limit_detected_even_when_exit_code_is_nonzero",
+      "community": 8
+    },
+    {
+      "label": "test_exit_zero_with_no_artifact_is_a_failure()",
+      "file_type": "code",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L52",
+      "id": "test_cv_bridge_test_exit_zero_with_no_artifact_is_a_failure",
+      "community": 8
+    },
+    {
+      "label": "test_failure_reports_stdout_because_claude_prints_errors_there()",
+      "file_type": "code",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L59",
+      "id": "test_cv_bridge_test_failure_reports_stdout_because_claude_prints_errors_there",
+      "community": 8
+    },
+    {
+      "label": "test_missing_cli_is_a_clear_message_not_a_filenotfound()",
+      "file_type": "code",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L68",
+      "id": "test_cv_bridge_test_missing_cli_is_a_clear_message_not_a_filenotfound",
+      "community": 8
+    },
+    {
+      "label": "test_existing_packet_is_reused_and_claude_is_never_invoked()",
+      "file_type": "code",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L76",
+      "id": "test_cv_bridge_test_existing_packet_is_reused_and_claude_is_never_invoked",
+      "community": 8
+    },
+    {
+      "label": "test_batch_stops_on_usage_limit_and_leaves_the_rest_untouched()",
+      "file_type": "code",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L87",
+      "id": "test_cv_bridge_test_batch_stops_on_usage_limit_and_leaves_the_rest_untouched",
+      "community": 8
+    },
+    {
+      "label": "test_batch_records_a_real_failure_against_its_own_job()",
+      "file_type": "code",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L106",
+      "id": "test_cv_bridge_test_batch_records_a_real_failure_against_its_own_job",
+      "community": 8
+    },
+    {
+      "label": "Tests for the Claude Code bridge \u2014 specifically the two rules that cost real day",
+      "file_type": "rationale",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L1",
+      "id": "test_cv_bridge_rationale_1",
+      "community": 8
+    },
+    {
+      "label": "find_packet always returns None \u2014 i.e. Claude wrote no artifact.",
+      "file_type": "rationale",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L27",
+      "id": "test_cv_bridge_rationale_27",
+      "community": 8
+    },
+    {
+      "label": "The limit must win over the returncode, or it gets filed as a per-job failure (D",
+      "file_type": "rationale",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L43",
+      "id": "test_cv_bridge_rationale_43",
+      "community": 8
+    },
+    {
+      "label": "D17 \u2014 the whole point. A clean exit that wrote nothing is not a success.",
+      "file_type": "rationale",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L53",
+      "id": "test_cv_bridge_rationale_53",
+      "community": 8
+    },
+    {
+      "label": "Runbook \u00a72 \u2014 rebuilding silently overwrites drafts the owner may have approved.",
+      "file_type": "rationale",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L77",
+      "id": "test_cv_bridge_rationale_77",
+      "community": 8
+    },
+    {
+      "label": "The remaining jobs must NOT appear in `failed` \u2014 that is the D25 mistake.",
+      "file_type": "rationale",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L88",
+      "id": "test_cv_bridge_rationale_88",
+      "community": 8
     },
     {
       "label": "ats_audit.py",
@@ -657,7 +1033,7 @@
       "source_file": "tools\\ats_audit.py",
       "source_location": "L1",
       "id": "ats_audit",
-      "community": 13
+      "community": 16
     },
     {
       "label": "read_text()",
@@ -665,7 +1041,7 @@
       "source_file": "tools\\ats_audit.py",
       "source_location": "L26",
       "id": "ats_audit_read_text",
-      "community": 13
+      "community": 16
     },
     {
       "label": "norm()",
@@ -673,7 +1049,7 @@
       "source_file": "tools\\ats_audit.py",
       "source_location": "L35",
       "id": "ats_audit_norm",
-      "community": 13
+      "community": 16
     },
     {
       "label": "present()",
@@ -681,7 +1057,7 @@
       "source_file": "tools\\ats_audit.py",
       "source_location": "L39",
       "id": "ats_audit_present",
-      "community": 13
+      "community": 16
     },
     {
       "label": "keywords_from_jd()",
@@ -689,7 +1065,7 @@
       "source_file": "tools\\ats_audit.py",
       "source_location": "L46",
       "id": "ats_audit_keywords_from_jd",
-      "community": 13
+      "community": 16
     },
     {
       "label": "main()",
@@ -697,7 +1073,7 @@
       "source_file": "tools\\ats_audit.py",
       "source_location": "L56",
       "id": "ats_audit_main",
-      "community": 13
+      "community": 16
     },
     {
       "label": "Keyword is present if it appears as a token/phrase in the CV text.",
@@ -705,7 +1081,7 @@
       "source_file": "tools\\ats_audit.py",
       "source_location": "L40",
       "id": "ats_audit_rationale_40",
-      "community": 13
+      "community": 16
     },
     {
       "label": "auto-apply.ps1",
@@ -713,7 +1089,7 @@
       "source_file": "tools\\auto-apply.ps1",
       "source_location": "L1",
       "id": "auto_apply",
-      "community": 36
+      "community": 39
     },
     {
       "label": "board_db.py",
@@ -721,7 +1097,7 @@
       "source_file": "tools\\board_db.py",
       "source_location": "L1",
       "id": "board_db",
-      "community": 2
+      "community": 3
     },
     {
       "label": "_parse_ts()",
@@ -729,7 +1105,7 @@
       "source_file": "tools\\board_db.py",
       "source_location": "L86",
       "id": "board_db_parse_ts",
-      "community": 2
+      "community": 3
     },
     {
       "label": "connect()",
@@ -737,7 +1113,7 @@
       "source_file": "tools\\board_db.py",
       "source_location": "L105",
       "id": "board_db_connect",
-      "community": 2
+      "community": 3
     },
     {
       "label": "upsert_rows()",
@@ -745,7 +1121,7 @@
       "source_file": "tools\\board_db.py",
       "source_location": "L114",
       "id": "board_db_upsert_rows",
-      "community": 2
+      "community": 3
     },
     {
       "label": "log_sync()",
@@ -753,7 +1129,7 @@
       "source_file": "tools\\board_db.py",
       "source_location": "L178",
       "id": "board_db_log_sync",
-      "community": 2
+      "community": 3
     },
     {
       "label": "set_status()",
@@ -761,7 +1137,7 @@
       "source_file": "tools\\board_db.py",
       "source_location": "L192",
       "id": "board_db_set_status",
-      "community": 2
+      "community": 3
     },
     {
       "label": "pending_notion()",
@@ -769,7 +1145,7 @@
       "source_file": "tools\\board_db.py",
       "source_location": "L233",
       "id": "board_db_pending_notion",
-      "community": 2
+      "community": 3
     },
     {
       "label": "mark_pushed()",
@@ -777,7 +1153,7 @@
       "source_file": "tools\\board_db.py",
       "source_location": "L253",
       "id": "board_db_mark_pushed",
-      "community": 2
+      "community": 3
     },
     {
       "label": "all_rows()",
@@ -785,7 +1161,7 @@
       "source_file": "tools\\board_db.py",
       "source_location": "L267",
       "id": "board_db_all_rows",
-      "community": 2
+      "community": 3
     },
     {
       "label": "last_sync()",
@@ -793,7 +1169,7 @@
       "source_file": "tools\\board_db.py",
       "source_location": "L277",
       "id": "board_db_last_sync",
-      "community": 2
+      "community": 3
     },
     {
       "label": "stats()",
@@ -801,7 +1177,7 @@
       "source_file": "tools\\board_db.py",
       "source_location": "L283",
       "id": "board_db_stats",
-      "community": 2
+      "community": 3
     },
     {
       "label": "_warm_hinted()",
@@ -809,7 +1185,7 @@
       "source_file": "tools\\board_db.py",
       "source_location": "L298",
       "id": "board_db_warm_hinted",
-      "community": 2
+      "community": 3
     },
     {
       "label": "Parse an ISO timestamp, tolerating a trailing Z and dropping the timezone.",
@@ -817,7 +1193,7 @@
       "source_file": "tools\\board_db.py",
       "source_location": "L87",
       "id": "board_db_rationale_87",
-      "community": 2
+      "community": 3
     },
     {
       "label": "Insert or update by Notion page id. Returns (inserted, updated, protected).",
@@ -825,7 +1201,7 @@
       "source_file": "tools\\board_db.py",
       "source_location": "L116",
       "id": "board_db_rationale_116",
-      "community": 2
+      "community": 3
     },
     {
       "label": "Change a job's status from the dashboard. Returns the updated row.\r \r     Record",
@@ -833,7 +1209,7 @@
       "source_file": "tools\\board_db.py",
       "source_location": "L194",
       "id": "board_db_rationale_194",
-      "community": 2
+      "community": 3
     },
     {
       "label": "Dashboard edits Notion has not been told about \u2014 one row per job, latest state.",
@@ -841,7 +1217,7 @@
       "source_file": "tools\\board_db.py",
       "source_location": "L234",
       "id": "board_db_rationale_234",
-      "community": 2
+      "community": 3
     },
     {
       "label": "Notes say warm/alumni but the checkbox is unticked \u2014 a real data gap that\r     s",
@@ -849,7 +1225,7 @@
       "source_file": "tools\\board_db.py",
       "source_location": "L299",
       "id": "board_db_rationale_299",
-      "community": 2
+      "community": 3
     },
     {
       "label": "build-packet.ps1",
@@ -857,7 +1233,7 @@
       "source_file": "tools\\build-packet.ps1",
       "source_location": "L1",
       "id": "build_packet",
-      "community": 37
+      "community": 40
     },
     {
       "label": "check-replies.ps1",
@@ -865,7 +1241,7 @@
       "source_file": "tools\\check-replies.ps1",
       "source_location": "L1",
       "id": "check_replies",
-      "community": 38
+      "community": 41
     },
     {
       "label": "check_approvals.py",
@@ -873,7 +1249,7 @@
       "source_file": "tools\\check_approvals.py",
       "source_location": "L1",
       "id": "check_approvals",
-      "community": 25
+      "community": 28
     },
     {
       "label": "load_env()",
@@ -881,7 +1257,7 @@
       "source_file": "tools\\check_approvals.py",
       "source_location": "L32",
       "id": "check_approvals_load_env",
-      "community": 25
+      "community": 28
     },
     {
       "label": "main()",
@@ -889,7 +1265,7 @@
       "source_file": "tools\\check_approvals.py",
       "source_location": "L43",
       "id": "check_approvals_main",
-      "community": 25
+      "community": 28
     },
     {
       "label": "daily-discovery.ps1",
@@ -897,7 +1273,7 @@
       "source_file": "tools\\daily-discovery.ps1",
       "source_location": "L1",
       "id": "daily_discovery",
-      "community": 39
+      "community": 42
     },
     {
       "label": "flush-approved.ps1",
@@ -905,7 +1281,7 @@
       "source_file": "tools\\flush-approved.ps1",
       "source_location": "L1",
       "id": "flush_approved",
-      "community": 40
+      "community": 43
     },
     {
       "label": "followups.py",
@@ -913,7 +1289,7 @@
       "source_file": "tools\\followups.py",
       "source_location": "L1",
       "id": "followups",
-      "community": 17
+      "community": 20
     },
     {
       "label": "as_bool()",
@@ -921,7 +1297,7 @@
       "source_file": "tools\\followups.py",
       "source_location": "L42",
       "id": "followups_as_bool",
-      "community": 17
+      "community": 20
     },
     {
       "label": "due_for()",
@@ -929,7 +1305,7 @@
       "source_file": "tools\\followups.py",
       "source_location": "L46",
       "id": "followups_due_for",
-      "community": 17
+      "community": 20
     },
     {
       "label": "notify()",
@@ -937,7 +1313,7 @@
       "source_file": "tools\\followups.py",
       "source_location": "L69",
       "id": "followups_notify",
-      "community": 17
+      "community": 20
     },
     {
       "label": "main()",
@@ -945,7 +1321,7 @@
       "source_file": "tools\\followups.py",
       "source_location": "L77",
       "id": "followups_main",
-      "community": 17
+      "community": 20
     },
     {
       "label": "invite_tracker.py",
@@ -1153,7 +1529,7 @@
       "source_file": "tools\\notion_push.py",
       "source_location": "L1",
       "id": "notion_push",
-      "community": 2
+      "community": 3
     },
     {
       "label": "load_token()",
@@ -1161,7 +1537,7 @@
       "source_file": "tools\\notion_push.py",
       "source_location": "L37",
       "id": "notion_push_load_token",
-      "community": 2
+      "community": 3
     },
     {
       "label": "patch_page()",
@@ -1169,7 +1545,7 @@
       "source_file": "tools\\notion_push.py",
       "source_location": "L48",
       "id": "notion_push_patch_page",
-      "community": 2
+      "community": 3
     },
     {
       "label": "refresh_seed()",
@@ -1177,7 +1553,7 @@
       "source_file": "tools\\notion_push.py",
       "source_location": "L76",
       "id": "notion_push_refresh_seed",
-      "community": 2
+      "community": 3
     },
     {
       "label": "main()",
@@ -1185,7 +1561,7 @@
       "source_file": "tools\\notion_push.py",
       "source_location": "L98",
       "id": "notion_push_main",
-      "community": 2
+      "community": 3
     },
     {
       "label": "PATCH one page. Status may be a `status` or a `select` property, so try both.",
@@ -1193,7 +1569,7 @@
       "source_file": "tools\\notion_push.py",
       "source_location": "L49",
       "id": "notion_push_rationale_49",
-      "community": 2
+      "community": 3
     },
     {
       "label": "Keep the local Notion capture in step so a later sync cannot revert a change.",
@@ -1201,7 +1577,7 @@
       "source_file": "tools\\notion_push.py",
       "source_location": "L77",
       "id": "notion_push_rationale_77",
-      "community": 2
+      "community": 3
     },
     {
       "label": "notion_queue.py",
@@ -1209,7 +1585,7 @@
       "source_file": "tools\\notion_queue.py",
       "source_location": "L1",
       "id": "notion_queue",
-      "community": 2
+      "community": 3
     },
     {
       "label": "main()",
@@ -1217,7 +1593,7 @@
       "source_file": "tools\\notion_queue.py",
       "source_location": "L23",
       "id": "notion_queue_main",
-      "community": 2
+      "community": 3
     },
     {
       "label": "pipeline-lock.ps1",
@@ -1225,7 +1601,7 @@
       "source_file": "tools\\pipeline-lock.ps1",
       "source_location": "L1",
       "id": "pipeline_lock",
-      "community": 14
+      "community": 17
     },
     {
       "label": "Enter-PipelineLock()",
@@ -1233,7 +1609,7 @@
       "source_file": "tools\\pipeline-lock.ps1",
       "source_location": "L27",
       "id": "pipeline_lock_enter_pipelinelock",
-      "community": 14
+      "community": 17
     },
     {
       "label": "Exit-PipelineLock()",
@@ -1241,7 +1617,7 @@
       "source_file": "tools\\pipeline-lock.ps1",
       "source_location": "L80",
       "id": "pipeline_lock_exit_pipelinelock",
-      "community": 14
+      "community": 17
     },
     {
       "label": "Read-PipelineLockText()",
@@ -1249,7 +1625,7 @@
       "source_file": "tools\\pipeline-lock.ps1",
       "source_location": "L88",
       "id": "pipeline_lock_read_pipelinelocktext",
-      "community": 14
+      "community": 17
     },
     {
       "label": "Get-PipelineLockOwner()",
@@ -1257,7 +1633,7 @@
       "source_file": "tools\\pipeline-lock.ps1",
       "source_location": "L105",
       "id": "pipeline_lock_get_pipelinelockowner",
-      "community": 14
+      "community": 17
     },
     {
       "label": "Remove-StalePipelineLock()",
@@ -1265,7 +1641,7 @@
       "source_file": "tools\\pipeline-lock.ps1",
       "source_location": "L113",
       "id": "pipeline_lock_remove_stalepipelinelock",
-      "community": 14
+      "community": 17
     },
     {
       "label": "Write-LockLine()",
@@ -1273,7 +1649,7 @@
       "source_file": "tools\\pipeline-lock.ps1",
       "source_location": "L168",
       "id": "pipeline_lock_write_lockline",
-      "community": 14
+      "community": 17
     },
     {
       "label": "pipeline_runner.py",
@@ -1425,7 +1801,7 @@
       "source_file": "tools\\post_creator\\create_iterative_architecture_hero.py",
       "source_location": "L1",
       "id": "create_iterative_architecture_hero",
-      "community": 1
+      "community": 0
     },
     {
       "label": "render_edge_screenshot()",
@@ -1433,7 +1809,7 @@
       "source_file": "tools\\post_creator\\create_iterative_architecture_hero.py",
       "source_location": "L149",
       "id": "create_iterative_architecture_hero_render_edge_screenshot",
-      "community": 1
+      "community": 0
     },
     {
       "label": "execute_iterative_architecture_hero()",
@@ -1441,7 +1817,7 @@
       "source_file": "tools\\post_creator\\create_iterative_architecture_hero.py",
       "source_location": "L158",
       "id": "create_iterative_architecture_hero_execute_iterative_architecture_hero",
-      "community": 1
+      "community": 0
     },
     {
       "label": "Iterative Architecture Diagram & 3D Enrichment Studio Step 1: Renders a clean co",
@@ -1449,7 +1825,7 @@
       "source_file": "tools\\post_creator\\create_iterative_architecture_hero.py",
       "source_location": "L1",
       "id": "create_iterative_architecture_hero_rationale_1",
-      "community": 1
+      "community": 0
     },
     {
       "label": "daily_post_scheduler.ps1",
@@ -1457,7 +1833,7 @@
       "source_file": "tools\\post_creator\\daily_post_scheduler.ps1",
       "source_location": "L1",
       "id": "daily_post_scheduler",
-      "community": 41
+      "community": 44
     },
     {
       "label": "execute_2step_ai_3d_hero_pipeline.py",
@@ -1465,7 +1841,7 @@
       "source_file": "tools\\post_creator\\execute_2step_ai_3d_hero_pipeline.py",
       "source_location": "L1",
       "id": "execute_2step_ai_3d_hero_pipeline",
-      "community": 1
+      "community": 0
     },
     {
       "label": "render_edge_screenshot()",
@@ -1473,7 +1849,7 @@
       "source_file": "tools\\post_creator\\execute_2step_ai_3d_hero_pipeline.py",
       "source_location": "L148",
       "id": "execute_2step_ai_3d_hero_pipeline_render_edge_screenshot",
-      "community": 1
+      "community": 0
     },
     {
       "label": "execute_2step_pipeline()",
@@ -1481,7 +1857,7 @@
       "source_file": "tools\\post_creator\\execute_2step_ai_3d_hero_pipeline.py",
       "source_location": "L157",
       "id": "execute_2step_ai_3d_hero_pipeline_execute_2step_pipeline",
-      "community": 1
+      "community": 0
     },
     {
       "label": "2-Step AI 3D Command Center Slide 1 Hero Studio Step 1: Render clean, readable 5",
@@ -1489,7 +1865,7 @@
       "source_file": "tools\\post_creator\\execute_2step_ai_3d_hero_pipeline.py",
       "source_location": "L1",
       "id": "execute_2step_ai_3d_hero_pipeline_rationale_1",
-      "community": 1
+      "community": 0
     },
     {
       "label": "generate_3d_infographic.py",
@@ -1497,7 +1873,7 @@
       "source_file": "tools\\post_creator\\generate_3d_infographic.py",
       "source_location": "L1",
       "id": "generate_3d_infographic",
-      "community": 1
+      "community": 0
     },
     {
       "label": "run_generation()",
@@ -1505,7 +1881,7 @@
       "source_file": "tools\\post_creator\\generate_3d_infographic.py",
       "source_location": "L28",
       "id": "generate_3d_infographic_run_generation",
-      "community": 1
+      "community": 0
     },
     {
       "label": "Ultimate Cybernetic HUD Architecture Generator (FLUX.1 & Gemini Engine) Combines",
@@ -1513,7 +1889,7 @@
       "source_file": "tools\\post_creator\\generate_3d_infographic.py",
       "source_location": "L1",
       "id": "generate_3d_infographic_rationale_1",
-      "community": 1
+      "community": 0
     },
     {
       "label": "generate_4slide_carousel.py",
@@ -1521,7 +1897,7 @@
       "source_file": "tools\\post_creator\\generate_4slide_carousel.py",
       "source_location": "L1",
       "id": "generate_4slide_carousel",
-      "community": 1
+      "community": 0
     },
     {
       "label": "render_edge_screenshot()",
@@ -1529,7 +1905,7 @@
       "source_file": "tools\\post_creator\\generate_4slide_carousel.py",
       "source_location": "L463",
       "id": "generate_4slide_carousel_render_edge_screenshot",
-      "community": 1
+      "community": 0
     },
     {
       "label": "generate_upgraded_4slide_carousel()",
@@ -1537,7 +1913,7 @@
       "source_file": "tools\\post_creator\\generate_4slide_carousel.py",
       "source_location": "L472",
       "id": "generate_4slide_carousel_generate_upgraded_4slide_carousel",
-      "community": 1
+      "community": 0
     },
     {
       "label": "Master Dynamic 4-Slide LinkedIn Carousel Generator Takes ANY topic / genre and a",
@@ -1545,7 +1921,7 @@
       "source_file": "tools\\post_creator\\generate_4slide_carousel.py",
       "source_location": "L1",
       "id": "generate_4slide_carousel_rationale_1",
-      "community": 1
+      "community": 0
     },
     {
       "label": "generate_post1_job_hunt_carousel.py",
@@ -1553,7 +1929,7 @@
       "source_file": "tools\\post_creator\\generate_post1_job_hunt_carousel.py",
       "source_location": "L1",
       "id": "generate_post1_job_hunt_carousel",
-      "community": 19
+      "community": 22
     },
     {
       "label": "render_edge_screenshot()",
@@ -1561,7 +1937,7 @@
       "source_file": "tools\\post_creator\\generate_post1_job_hunt_carousel.py",
       "source_location": "L360",
       "id": "generate_post1_job_hunt_carousel_render_edge_screenshot",
-      "community": 19
+      "community": 22
     },
     {
       "label": "generate_upgraded_post1_carousel()",
@@ -1569,7 +1945,7 @@
       "source_file": "tools\\post_creator\\generate_post1_job_hunt_carousel.py",
       "source_location": "L369",
       "id": "generate_post1_job_hunt_carousel_generate_upgraded_post1_carousel",
-      "community": 19
+      "community": 22
     },
     {
       "label": "Upgraded Post 1 Carousel Generator \u2014 Job Hunt Autopilot Features ZERO AI gibberi",
@@ -1577,7 +1953,7 @@
       "source_file": "tools\\post_creator\\generate_post1_job_hunt_carousel.py",
       "source_location": "L1",
       "id": "generate_post1_job_hunt_carousel_rationale_1",
-      "community": 19
+      "community": 22
     },
     {
       "label": "generate_true_3d_slide1_images.py",
@@ -1585,7 +1961,7 @@
       "source_file": "tools\\post_creator\\generate_true_3d_slide1_images.py",
       "source_location": "L1",
       "id": "generate_true_3d_slide1_images",
-      "community": 1
+      "community": 0
     },
     {
       "label": "generate_true_3d_slide1_covers()",
@@ -1593,7 +1969,7 @@
       "source_file": "tools\\post_creator\\generate_true_3d_slide1_images.py",
       "source_location": "L21",
       "id": "generate_true_3d_slide1_images_generate_true_3d_slide1_covers",
-      "community": 1
+      "community": 0
     },
     {
       "label": "True 3D AI Command Center Slide 1 Image Generator Follows the master skill viral",
@@ -1601,7 +1977,7 @@
       "source_file": "tools\\post_creator\\generate_true_3d_slide1_images.py",
       "source_location": "L1",
       "id": "generate_true_3d_slide1_images_rationale_1",
-      "community": 1
+      "community": 0
     },
     {
       "label": "html_infographic_studio.py",
@@ -1609,7 +1985,7 @@
       "source_file": "tools\\post_creator\\html_infographic_studio.py",
       "source_location": "L1",
       "id": "html_infographic_studio",
-      "community": 20
+      "community": 23
     },
     {
       "label": "render_html_to_png()",
@@ -1617,7 +1993,7 @@
       "source_file": "tools\\post_creator\\html_infographic_studio.py",
       "source_location": "L262",
       "id": "html_infographic_studio_render_html_to_png",
-      "community": 20
+      "community": 23
     },
     {
       "label": "HTML/CSS 3D Isometric Neon Architecture Infographic Generator",
@@ -1625,7 +2001,7 @@
       "source_file": "tools\\post_creator\\html_infographic_studio.py",
       "source_location": "L1",
       "id": "html_infographic_studio_rationale_1",
-      "community": 20
+      "community": 23
     },
     {
       "label": "Renders HTML string into high-res PNG image via headless Edge.",
@@ -1633,7 +2009,7 @@
       "source_file": "tools\\post_creator\\html_infographic_studio.py",
       "source_location": "L263",
       "id": "html_infographic_studio_rationale_263",
-      "community": 20
+      "community": 23
     },
     {
       "label": "image_studio.py",
@@ -1641,7 +2017,7 @@
       "source_file": "tools\\post_creator\\image_studio.py",
       "source_location": "L1",
       "id": "image_studio",
-      "community": 1
+      "community": 0
     },
     {
       "label": "generate_image_pollinations()",
@@ -1649,7 +2025,7 @@
       "source_file": "tools\\post_creator\\image_studio.py",
       "source_location": "L27",
       "id": "image_studio_generate_image_pollinations",
-      "community": 1
+      "community": 0
     },
     {
       "label": "generate_image_google_imagen()",
@@ -1657,7 +2033,7 @@
       "source_file": "tools\\post_creator\\image_studio.py",
       "source_location": "L51",
       "id": "image_studio_generate_image_google_imagen",
-      "community": 1
+      "community": 0
     },
     {
       "label": "create_high_res_image()",
@@ -1665,7 +2041,7 @@
       "source_file": "tools\\post_creator\\image_studio.py",
       "source_location": "L76",
       "id": "image_studio_create_high_res_image",
-      "community": 1
+      "community": 0
     },
     {
       "label": "High-Resolution Image Generation Studio Engine A: FLUX.1 via Pollinations REST A",
@@ -1673,7 +2049,7 @@
       "source_file": "tools\\post_creator\\image_studio.py",
       "source_location": "L1",
       "id": "image_studio_rationale_1",
-      "community": 1
+      "community": 0
     },
     {
       "label": "Generates high-res image using Pollinations FLUX.1 REST API.     Zero API key re",
@@ -1681,7 +2057,7 @@
       "source_file": "tools\\post_creator\\image_studio.py",
       "source_location": "L28",
       "id": "image_studio_rationale_28",
-      "community": 1
+      "community": 0
     },
     {
       "label": "Generates image using Google AI Studio Imagen 3 API.     Requires GEMINI_API_KEY",
@@ -1689,7 +2065,7 @@
       "source_file": "tools\\post_creator\\image_studio.py",
       "source_location": "L52",
       "id": "image_studio_rationale_52",
-      "community": 1
+      "community": 0
     },
     {
       "label": "Main entry point for generating high quality images.     Returns dictionary with",
@@ -1697,7 +2073,7 @@
       "source_file": "tools\\post_creator\\image_studio.py",
       "source_location": "L84",
       "id": "image_studio_rationale_84",
-      "community": 1
+      "community": 0
     },
     {
       "label": "linkedin_publisher.py",
@@ -1705,7 +2081,7 @@
       "source_file": "tools\\post_creator\\linkedin_publisher.py",
       "source_location": "L1",
       "id": "linkedin_publisher",
-      "community": 1
+      "community": 0
     },
     {
       "label": "LinkedInPublisher",
@@ -1713,7 +2089,7 @@
       "source_file": "tools\\post_creator\\linkedin_publisher.py",
       "source_location": "L13",
       "id": "linkedin_publisher_linkedinpublisher",
-      "community": 1
+      "community": 0
     },
     {
       "label": "package_post()",
@@ -1721,7 +2097,7 @@
       "source_file": "tools\\post_creator\\linkedin_publisher.py",
       "source_location": "L19",
       "id": "linkedin_publisher_package_post",
-      "community": 1
+      "community": 0
     },
     {
       "label": "publish_package()",
@@ -1729,7 +2105,7 @@
       "source_file": "tools\\post_creator\\linkedin_publisher.py",
       "source_location": "L49",
       "id": "linkedin_publisher_publish_package",
-      "community": 1
+      "community": 0
     },
     {
       "label": "LinkedIn Publisher Engine Handles packaging post copy with generated high-res im",
@@ -1737,7 +2113,7 @@
       "source_file": "tools\\post_creator\\linkedin_publisher.py",
       "source_location": "L1",
       "id": "linkedin_publisher_rationale_1",
-      "community": 1
+      "community": 0
     },
     {
       "label": "Manages packaging post bundles with rendered images and executing publishing act",
@@ -1745,7 +2121,7 @@
       "source_file": "tools\\post_creator\\linkedin_publisher.py",
       "source_location": "L14",
       "id": "linkedin_publisher_rationale_14",
-      "community": 1
+      "community": 0
     },
     {
       "label": "Bundles post copy and high-res image into a complete publishing package.",
@@ -1753,7 +2129,7 @@
       "source_file": "tools\\post_creator\\linkedin_publisher.py",
       "source_location": "L20",
       "id": "linkedin_publisher_rationale_20",
-      "community": 42
+      "community": 45
     },
     {
       "label": "Simulates or executes publishing of the ready package to LinkedIn.         If Li",
@@ -1761,7 +2137,7 @@
       "source_file": "tools\\post_creator\\linkedin_publisher.py",
       "source_location": "L50",
       "id": "linkedin_publisher_rationale_50",
-      "community": 43
+      "community": 46
     },
     {
       "label": "mcp_server.py",
@@ -1769,7 +2145,7 @@
       "source_file": "tools\\post_creator\\mcp_server.py",
       "source_location": "L1",
       "id": "mcp_server",
-      "community": 1
+      "community": 0
     },
     {
       "label": "handle_request()",
@@ -1777,7 +2153,7 @@
       "source_file": "tools\\post_creator\\mcp_server.py",
       "source_location": "L67",
       "id": "mcp_server_handle_request",
-      "community": 1
+      "community": 0
     },
     {
       "label": "main()",
@@ -1785,7 +2161,7 @@
       "source_file": "tools\\post_creator\\mcp_server.py",
       "source_location": "L219",
       "id": "mcp_server_main",
-      "community": 1
+      "community": 0
     },
     {
       "label": "MCP Server: LinkedIn Content & High-Res Image Studio (mcp-post-studio) Protocol:",
@@ -1793,7 +2169,7 @@
       "source_file": "tools\\post_creator\\mcp_server.py",
       "source_location": "L1",
       "id": "mcp_server_rationale_1",
-      "community": 1
+      "community": 0
     },
     {
       "label": "package_post2_content_studio.py",
@@ -1801,7 +2177,7 @@
       "source_file": "tools\\post_creator\\package_post2_content_studio.py",
       "source_location": "L1",
       "id": "package_post2_content_studio",
-      "community": 26
+      "community": 29
     },
     {
       "label": "package_post_2()",
@@ -1809,7 +2185,7 @@
       "source_file": "tools\\post_creator\\package_post2_content_studio.py",
       "source_location": "L53",
       "id": "package_post2_content_studio_package_post_2",
-      "community": 26
+      "community": 29
     },
     {
       "label": "Post 2 Packager \u2014 AI Visual Content Studio Packages the ALREADY-BUILT 4-slide ca",
@@ -1817,7 +2193,7 @@
       "source_file": "tools\\post_creator\\package_post2_content_studio.py",
       "source_location": "L1",
       "id": "package_post2_content_studio_rationale_1",
-      "community": 26
+      "community": 29
     },
     {
       "label": "playwright_linkedin_poster.py",
@@ -1825,7 +2201,7 @@
       "source_file": "tools\\post_creator\\playwright_linkedin_poster.py",
       "source_location": "L1",
       "id": "playwright_linkedin_poster",
-      "community": 21
+      "community": 24
     },
     {
       "label": "auto_post_to_linkedin()",
@@ -1833,7 +2209,7 @@
       "source_file": "tools\\post_creator\\playwright_linkedin_poster.py",
       "source_location": "L16",
       "id": "playwright_linkedin_poster_auto_post_to_linkedin",
-      "community": 21
+      "community": 24
     },
     {
       "label": "Automated Playwright LinkedIn Post Dispatcher Uses Playwright browser automation",
@@ -1841,7 +2217,7 @@
       "source_file": "tools\\post_creator\\playwright_linkedin_poster.py",
       "source_location": "L1",
       "id": "playwright_linkedin_poster_rationale_1",
-      "community": 21
+      "community": 24
     },
     {
       "label": "Automates posting to LinkedIn using Playwright Chromium with persistent user pro",
@@ -1849,7 +2225,7 @@
       "source_file": "tools\\post_creator\\playwright_linkedin_poster.py",
       "source_location": "L21",
       "id": "playwright_linkedin_poster_rationale_21",
-      "community": 21
+      "community": 24
     },
     {
       "label": "post_generator.py",
@@ -1857,7 +2233,7 @@
       "source_file": "tools\\post_creator\\post_generator.py",
       "source_location": "L1",
       "id": "post_generator",
-      "community": 1
+      "community": 0
     },
     {
       "label": "DynamicPostGenerator",
@@ -1865,7 +2241,7 @@
       "source_file": "tools\\post_creator\\post_generator.py",
       "source_location": "L23",
       "id": "post_generator_dynamicpostgenerator",
-      "community": 1
+      "community": 0
     },
     {
       "label": "generate_full_linkedin_post_bundle()",
@@ -1873,7 +2249,7 @@
       "source_file": "tools\\post_creator\\post_generator.py",
       "source_location": "L29",
       "id": "post_generator_generate_full_linkedin_post_bundle",
-      "community": 1
+      "community": 0
     },
     {
       "label": "Dynamic LLM-Powered LinkedIn Post & Custom Prompt Generator Takes any topic/cont",
@@ -1881,7 +2257,7 @@
       "source_file": "tools\\post_creator\\post_generator.py",
       "source_location": "L1",
       "id": "post_generator_rationale_1",
-      "community": 1
+      "community": 0
     },
     {
       "label": "LLM-powered post copy & dynamic prompt generator.",
@@ -1889,7 +2265,7 @@
       "source_file": "tools\\post_creator\\post_generator.py",
       "source_location": "L24",
       "id": "post_generator_rationale_24",
-      "community": 1
+      "community": 0
     },
     {
       "label": "Dynamically generates post copy and custom image prompt tailored to the given to",
@@ -1897,7 +2273,7 @@
       "source_file": "tools\\post_creator\\post_generator.py",
       "source_location": "L35",
       "id": "post_generator_rationale_35",
-      "community": 44
+      "community": 47
     },
     {
       "label": "render_distinct_slide1_covers.py",
@@ -1905,7 +2281,7 @@
       "source_file": "tools\\post_creator\\render_distinct_slide1_covers.py",
       "source_location": "L1",
       "id": "render_distinct_slide1_covers",
-      "community": 22
+      "community": 25
     },
     {
       "label": "render_edge_screenshot()",
@@ -1913,7 +2289,7 @@
       "source_file": "tools\\post_creator\\render_distinct_slide1_covers.py",
       "source_location": "L424",
       "id": "render_distinct_slide1_covers_render_edge_screenshot",
-      "community": 22
+      "community": 25
     },
     {
       "label": "render_distinct_covers()",
@@ -1921,7 +2297,7 @@
       "source_file": "tools\\post_creator\\render_distinct_slide1_covers.py",
       "source_location": "L433",
       "id": "render_distinct_slide1_covers_render_distinct_covers",
-      "community": 22
+      "community": 25
     },
     {
       "label": "Distinct Slide 1 Hero Cover Generator Renders 2 distinct, highly detailed Slide",
@@ -1929,7 +2305,7 @@
       "source_file": "tools\\post_creator\\render_distinct_slide1_covers.py",
       "source_location": "L1",
       "id": "render_distinct_slide1_covers_rationale_1",
-      "community": 22
+      "community": 25
     },
     {
       "label": "render_hybrid_slide1_covers.py",
@@ -1937,7 +2313,7 @@
       "source_file": "tools\\post_creator\\render_hybrid_slide1_covers.py",
       "source_location": "L1",
       "id": "render_hybrid_slide1_covers",
-      "community": 23
+      "community": 26
     },
     {
       "label": "render_edge_screenshot()",
@@ -1945,7 +2321,7 @@
       "source_file": "tools\\post_creator\\render_hybrid_slide1_covers.py",
       "source_location": "L462",
       "id": "render_hybrid_slide1_covers_render_edge_screenshot",
-      "community": 23
+      "community": 26
     },
     {
       "label": "render_hybrid_slide1_covers()",
@@ -1953,7 +2329,7 @@
       "source_file": "tools\\post_creator\\render_hybrid_slide1_covers.py",
       "source_location": "L471",
       "id": "render_hybrid_slide1_covers_render_hybrid_slide1_covers",
-      "community": 23
+      "community": 26
     },
     {
       "label": "Hybrid Vector Composite Slide 1 Cover Studio Combines pristine 3D Command Center",
@@ -1961,7 +2337,7 @@
       "source_file": "tools\\post_creator\\render_hybrid_slide1_covers.py",
       "source_location": "L1",
       "id": "render_hybrid_slide1_covers_rationale_1",
-      "community": 23
+      "community": 26
     },
     {
       "label": "render_readable_architecture.py",
@@ -1969,7 +2345,7 @@
       "source_file": "tools\\post_creator\\render_readable_architecture.py",
       "source_location": "L1",
       "id": "render_readable_architecture",
-      "community": 27
+      "community": 30
     },
     {
       "label": "render_image()",
@@ -1977,7 +2353,7 @@
       "source_file": "tools\\post_creator\\render_readable_architecture.py",
       "source_location": "L343",
       "id": "render_readable_architecture_render_image",
-      "community": 27
+      "community": 30
     },
     {
       "label": "Render High-Density, Ultra-Detailed Technical Architecture Visual (Slide 2 Upgra",
@@ -1985,7 +2361,7 @@
       "source_file": "tools\\post_creator\\render_readable_architecture.py",
       "source_location": "L1",
       "id": "render_readable_architecture_rationale_1",
-      "community": 27
+      "community": 30
     },
     {
       "label": "test_linkedin_post_dispatch.py",
@@ -1993,7 +2369,7 @@
       "source_file": "tools\\post_creator\\test_linkedin_post_dispatch.py",
       "source_location": "L1",
       "id": "test_linkedin_post_dispatch",
-      "community": 28
+      "community": 31
     },
     {
       "label": "create_ready_to_publish_bundle()",
@@ -2001,7 +2377,7 @@
       "source_file": "tools\\post_creator\\test_linkedin_post_dispatch.py",
       "source_location": "L19",
       "id": "test_linkedin_post_dispatch_create_ready_to_publish_bundle",
-      "community": 28
+      "community": 31
     },
     {
       "label": "Test LinkedIn Post Dispatch & Verification Script Packages the exact 4-slide vis",
@@ -2009,7 +2385,7 @@
       "source_file": "tools\\post_creator\\test_linkedin_post_dispatch.py",
       "source_location": "L1",
       "id": "test_linkedin_post_dispatch_rationale_1",
-      "community": 28
+      "community": 31
     },
     {
       "label": "run-pipeline.ps1",
@@ -2017,7 +2393,7 @@
       "source_file": "tools\\run-pipeline.ps1",
       "source_location": "L1",
       "id": "run_pipeline",
-      "community": 32
+      "community": 35
     },
     {
       "label": "Say()",
@@ -2025,7 +2401,7 @@
       "source_file": "tools\\run-pipeline.ps1",
       "source_location": "L35",
       "id": "run_pipeline_say",
-      "community": 32
+      "community": 35
     },
     {
       "label": "send_queue.py",
@@ -2033,7 +2409,7 @@
       "source_file": "tools\\send_queue.py",
       "source_location": "L1",
       "id": "send_queue",
-      "community": 18
+      "community": 21
     },
     {
       "label": "load_env()",
@@ -2041,7 +2417,7 @@
       "source_file": "tools\\send_queue.py",
       "source_location": "L37",
       "id": "send_queue_load_env",
-      "community": 18
+      "community": 21
     },
     {
       "label": "cap()",
@@ -2049,7 +2425,7 @@
       "source_file": "tools\\send_queue.py",
       "source_location": "L49",
       "id": "send_queue_cap",
-      "community": 18
+      "community": 21
     },
     {
       "label": "fmt()",
@@ -2057,7 +2433,7 @@
       "source_file": "tools\\send_queue.py",
       "source_location": "L56",
       "id": "send_queue_fmt",
-      "community": 18
+      "community": 21
     },
     {
       "label": "main()",
@@ -2065,7 +2441,7 @@
       "source_file": "tools\\send_queue.py",
       "source_location": "L61",
       "id": "send_queue_main",
-      "community": 18
+      "community": 21
     },
     {
       "label": "serve_dashboard.py",
@@ -2073,7 +2449,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L1",
       "id": "serve_dashboard",
-      "community": 3
+      "community": 4
     },
     {
       "label": "discover_packets()",
@@ -2081,7 +2457,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L63",
       "id": "serve_dashboard_discover_packets",
-      "community": 3
+      "community": 4
     },
     {
       "label": "read()",
@@ -2089,7 +2465,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L100",
       "id": "serve_dashboard_read",
-      "community": 3
+      "community": 4
     },
     {
       "label": "cv_paths()",
@@ -2097,7 +2473,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L107",
       "id": "serve_dashboard_cv_paths",
-      "community": 3
+      "community": 4
     },
     {
       "label": "parse_contact()",
@@ -2105,7 +2481,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L121",
       "id": "serve_dashboard_parse_contact",
-      "community": 3
+      "community": 4
     },
     {
       "label": "build_packets()",
@@ -2113,7 +2489,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L149",
       "id": "serve_dashboard_build_packets",
-      "community": 3
+      "community": 4
     },
     {
       "label": "slack_feed()",
@@ -2121,7 +2497,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L173",
       "id": "serve_dashboard_slack_feed",
-      "community": 3
+      "community": 4
     },
     {
       "label": "bootstrap()",
@@ -2129,7 +2505,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L195",
       "id": "serve_dashboard_bootstrap",
-      "community": 3
+      "community": 4
     },
     {
       "label": "zip_bytes()",
@@ -2137,7 +2513,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L226",
       "id": "serve_dashboard_zip_bytes",
-      "community": 3
+      "community": 4
     },
     {
       "label": "packet_zip()",
@@ -2145,7 +2521,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L234",
       "id": "serve_dashboard_packet_zip",
-      "community": 3
+      "community": 4
     },
     {
       "label": "all_zip()",
@@ -2153,7 +2529,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L257",
       "id": "serve_dashboard_all_zip",
-      "community": 3
+      "community": 4
     },
     {
       "label": "Handler",
@@ -2161,7 +2537,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L271",
       "id": "serve_dashboard_handler",
-      "community": 3
+      "community": 4
     },
     {
       "label": "BaseHTTPRequestHandler",
@@ -2169,7 +2545,7 @@
       "source_file": "",
       "source_location": "",
       "id": "basehttprequesthandler",
-      "community": 3
+      "community": 4
     },
     {
       "label": ".log_message()",
@@ -2177,7 +2553,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L274",
       "id": "serve_dashboard_handler_log_message",
-      "community": 3
+      "community": 4
     },
     {
       "label": "._send()",
@@ -2185,7 +2561,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L278",
       "id": "serve_dashboard_handler_send",
-      "community": 3
+      "community": 4
     },
     {
       "label": "._json()",
@@ -2193,7 +2569,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L289",
       "id": "serve_dashboard_handler_json",
-      "community": 3
+      "community": 4
     },
     {
       "label": "._fail()",
@@ -2201,7 +2577,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L293",
       "id": "serve_dashboard_handler_fail",
-      "community": 3
+      "community": 4
     },
     {
       "label": "._attachment()",
@@ -2209,7 +2585,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L296",
       "id": "serve_dashboard_handler_attachment",
-      "community": 3
+      "community": 4
     },
     {
       "label": ".do_HEAD()",
@@ -2217,7 +2593,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L313",
       "id": "serve_dashboard_handler_do_head",
-      "community": 3
+      "community": 4
     },
     {
       "label": ".do_GET()",
@@ -2225,7 +2601,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L316",
       "id": "serve_dashboard_handler_do_get",
-      "community": 3
+      "community": 4
     },
     {
       "label": ".do_POST()",
@@ -2233,7 +2609,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L339",
       "id": "serve_dashboard_handler_do_post",
-      "community": 3
+      "community": 4
     },
     {
       "label": "._static()",
@@ -2241,7 +2617,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L392",
       "id": "serve_dashboard_handler_static",
-      "community": 3
+      "community": 4
     },
     {
       "label": "._download()",
@@ -2249,7 +2625,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L405",
       "id": "serve_dashboard_handler_download",
-      "community": 3
+      "community": 4
     },
     {
       "label": "main()",
@@ -2257,7 +2633,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L435",
       "id": "serve_dashboard_main",
-      "community": 3
+      "community": 4
     },
     {
       "label": "Find packets by scanning disk, so one built five minutes ago shows up.\r \r     Ea",
@@ -2265,7 +2641,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L64",
       "id": "serve_dashboard_rationale_64",
-      "community": 3
+      "community": 4
     },
     {
       "label": "Tailored CVs live under cv/tailored; the general one sits in cv/.",
@@ -2273,7 +2649,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L108",
       "id": "serve_dashboard_rationale_108",
-      "community": 3
+      "community": 4
     },
     {
       "label": "Pull the headline contact facts out of contact.md.\r \r     contact.md is written",
@@ -2281,7 +2657,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L122",
       "id": "serve_dashboard_rationale_122",
-      "community": 3
+      "community": 4
     },
     {
       "label": "set_status.py",
@@ -2289,7 +2665,7 @@
       "source_file": "tools\\set_status.py",
       "source_location": "L1",
       "id": "set_status",
-      "community": 2
+      "community": 3
     },
     {
       "label": "main()",
@@ -2297,7 +2673,7 @@
       "source_file": "tools\\set_status.py",
       "source_location": "L32",
       "id": "set_status_main",
-      "community": 2
+      "community": 3
     },
     {
       "label": "slack_action_card.py",
@@ -2305,7 +2681,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L1",
       "id": "slack_action_card",
-      "community": 8
+      "community": 10
     },
     {
       "label": "load_env()",
@@ -2313,7 +2689,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L37",
       "id": "slack_action_card_load_env",
-      "community": 8
+      "community": 10
     },
     {
       "label": "read()",
@@ -2321,7 +2697,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L48",
       "id": "slack_action_card_read",
-      "community": 8
+      "community": 10
     },
     {
       "label": "first()",
@@ -2329,7 +2705,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L52",
       "id": "slack_action_card_first",
-      "community": 8
+      "community": 10
     },
     {
       "label": "all_of()",
@@ -2337,7 +2713,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L57",
       "id": "slack_action_card_all_of",
-      "community": 8
+      "community": 10
     },
     {
       "label": "first_blockquote()",
@@ -2345,7 +2721,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L61",
       "id": "slack_action_card_first_blockquote",
-      "community": 8
+      "community": 10
     },
     {
       "label": "section_quote()",
@@ -2353,7 +2729,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L78",
       "id": "slack_action_card_section_quote",
-      "community": 8
+      "community": 10
     },
     {
       "label": "resolve_slots()",
@@ -2361,7 +2737,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L87",
       "id": "slack_action_card_resolve_slots",
-      "community": 8
+      "community": 10
     },
     {
       "label": "build_card()",
@@ -2369,7 +2745,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L110",
       "id": "slack_action_card_build_card",
-      "community": 8
+      "community": 10
     },
     {
       "label": "post()",
@@ -2377,7 +2753,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L150",
       "id": "slack_action_card_post",
-      "community": 8
+      "community": 10
     },
     {
       "label": "main()",
@@ -2385,7 +2761,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L169",
       "id": "slack_action_card_main",
-      "community": 8
+      "community": 10
     },
     {
       "label": "Return the first contiguous block of '> ' lines, cleaned, as one string.",
@@ -2393,7 +2769,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L62",
       "id": "slack_action_card_rationale_62",
-      "community": 8
+      "community": 10
     },
     {
       "label": "The blockquote directly under the first heading matching heading_re.",
@@ -2401,7 +2777,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L79",
       "id": "slack_action_card_rationale_79",
-      "community": 8
+      "community": 10
     },
     {
       "label": "Fill the drafting slots so the preview reads exactly as the recipient will see i",
@@ -2409,7 +2785,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L88",
       "id": "slack_action_card_rationale_88",
-      "community": 8
+      "community": 10
     },
     {
       "label": "Role, score, recipient, the exact message the robot will send, marker. Nothing e",
@@ -2417,7 +2793,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L111",
       "id": "slack_action_card_rationale_111",
-      "community": 8
+      "community": 10
     },
     {
       "label": "slack_export.py",
@@ -2425,7 +2801,7 @@
       "source_file": "tools\\slack_export.py",
       "source_location": "L1",
       "id": "slack_export",
-      "community": 15
+      "community": 18
     },
     {
       "label": "load_env()",
@@ -2433,7 +2809,7 @@
       "source_file": "tools\\slack_export.py",
       "source_location": "L26",
       "id": "slack_export_load_env",
-      "community": 15
+      "community": 18
     },
     {
       "label": "call()",
@@ -2441,7 +2817,7 @@
       "source_file": "tools\\slack_export.py",
       "source_location": "L40",
       "id": "slack_export_call",
-      "community": 15
+      "community": 18
     },
     {
       "label": "resolve_users()",
@@ -2449,7 +2825,7 @@
       "source_file": "tools\\slack_export.py",
       "source_location": "L53",
       "id": "slack_export_resolve_users",
-      "community": 15
+      "community": 18
     },
     {
       "label": "main()",
@@ -2457,7 +2833,7 @@
       "source_file": "tools\\slack_export.py",
       "source_location": "L66",
       "id": "slack_export_main",
-      "community": 15
+      "community": 18
     },
     {
       "label": "Map user/bot ids to display names so the export is readable.",
@@ -2465,7 +2841,7 @@
       "source_file": "tools\\slack_export.py",
       "source_location": "L54",
       "id": "slack_export_rationale_54",
-      "community": 15
+      "community": 18
     },
     {
       "label": "slack_notify.py",
@@ -2473,7 +2849,7 @@
       "source_file": "tools\\slack_notify.py",
       "source_location": "L1",
       "id": "slack_notify",
-      "community": 29
+      "community": 32
     },
     {
       "label": "load_env()",
@@ -2481,7 +2857,7 @@
       "source_file": "tools\\slack_notify.py",
       "source_location": "L28",
       "id": "slack_notify_load_env",
-      "community": 29
+      "community": 32
     },
     {
       "label": "main()",
@@ -2489,7 +2865,7 @@
       "source_file": "tools\\slack_notify.py",
       "source_location": "L40",
       "id": "slack_notify_main",
-      "community": 29
+      "community": 32
     },
     {
       "label": "slack_react.py",
@@ -2497,7 +2873,7 @@
       "source_file": "tools\\slack_react.py",
       "source_location": "L1",
       "id": "slack_react",
-      "community": 16
+      "community": 19
     },
     {
       "label": "load_env()",
@@ -2505,7 +2881,7 @@
       "source_file": "tools\\slack_react.py",
       "source_location": "L35",
       "id": "slack_react_load_env",
-      "community": 16
+      "community": 19
     },
     {
       "label": "call()",
@@ -2513,7 +2889,7 @@
       "source_file": "tools\\slack_react.py",
       "source_location": "L46",
       "id": "slack_react_call",
-      "community": 16
+      "community": 19
     },
     {
       "label": "find_ts()",
@@ -2521,7 +2897,7 @@
       "source_file": "tools\\slack_react.py",
       "source_location": "L59",
       "id": "slack_react_find_ts",
-      "community": 16
+      "community": 19
     },
     {
       "label": "main()",
@@ -2529,7 +2905,7 @@
       "source_file": "tools\\slack_react.py",
       "source_location": "L72",
       "id": "slack_react_main",
-      "community": 16
+      "community": 19
     },
     {
       "label": "Locate the newest card carrying `ref:<slug>`.",
@@ -2537,7 +2913,7 @@
       "source_file": "tools\\slack_react.py",
       "source_location": "L60",
       "id": "slack_react_rationale_60",
-      "community": 16
+      "community": 19
     },
     {
       "label": "slack_upload.py",
@@ -2545,7 +2921,7 @@
       "source_file": "tools\\slack_upload.py",
       "source_location": "L1",
       "id": "slack_upload",
-      "community": 24
+      "community": 27
     },
     {
       "label": "load_env()",
@@ -2553,7 +2929,7 @@
       "source_file": "tools\\slack_upload.py",
       "source_location": "L25",
       "id": "slack_upload_load_env",
-      "community": 24
+      "community": 27
     },
     {
       "label": "api()",
@@ -2561,7 +2937,7 @@
       "source_file": "tools\\slack_upload.py",
       "source_location": "L36",
       "id": "slack_upload_api",
-      "community": 24
+      "community": 27
     },
     {
       "label": "main()",
@@ -2569,7 +2945,7 @@
       "source_file": "tools\\slack_upload.py",
       "source_location": "L49",
       "id": "slack_upload_main",
-      "community": 24
+      "community": 27
     },
     {
       "label": "sweep-packets.ps1",
@@ -2577,7 +2953,7 @@
       "source_file": "tools\\sweep-packets.ps1",
       "source_location": "L1",
       "id": "sweep_packets",
-      "community": 33
+      "community": 36
     },
     {
       "label": "Say()",
@@ -2585,7 +2961,7 @@
       "source_file": "tools\\sweep-packets.ps1",
       "source_location": "L28",
       "id": "sweep_packets_say",
-      "community": 33
+      "community": 36
     },
     {
       "label": "sync_board.py",
@@ -2593,7 +2969,7 @@
       "source_file": "tools\\sync_board.py",
       "source_location": "L1",
       "id": "sync_board",
-      "community": 2
+      "community": 3
     },
     {
       "label": "from_notion()",
@@ -2601,7 +2977,7 @@
       "source_file": "tools\\sync_board.py",
       "source_location": "L32",
       "id": "sync_board_from_notion",
-      "community": 2
+      "community": 3
     },
     {
       "label": "load()",
@@ -2609,7 +2985,7 @@
       "source_file": "tools\\sync_board.py",
       "source_location": "L54",
       "id": "sync_board_load",
-      "community": 2
+      "community": 3
     },
     {
       "label": "main()",
@@ -2617,7 +2993,7 @@
       "source_file": "tools\\sync_board.py",
       "source_location": "L74",
       "id": "sync_board_main",
-      "community": 2
+      "community": 3
     },
     {
       "label": "Translate the raw MCP row shape into the canonical one.",
@@ -2625,7 +3001,7 @@
       "source_file": "tools\\sync_board.py",
       "source_location": "L33",
       "id": "sync_board_rationale_33",
-      "community": 2
+      "community": 3
     },
     {
       "label": "watch-accepts.ps1",
@@ -2633,7 +3009,7 @@
       "source_file": "tools\\watch-accepts.ps1",
       "source_location": "L1",
       "id": "watch_accepts",
-      "community": 45
+      "community": 48
     },
     {
       "label": "common.js",
@@ -2849,7 +3225,7 @@
       "source_file": "web\\static\\page-board.js",
       "source_location": "L1",
       "id": "page_board",
-      "community": 12
+      "community": 15
     },
     {
       "label": "stage()",
@@ -2857,7 +3233,7 @@
       "source_file": "web\\static\\page-board.js",
       "source_location": "L27",
       "id": "page_board_stage",
-      "community": 12
+      "community": 15
     },
     {
       "label": "task()",
@@ -2865,7 +3241,7 @@
       "source_file": "web\\static\\page-board.js",
       "source_location": "L38",
       "id": "page_board_task",
-      "community": 12
+      "community": 15
     },
     {
       "label": "leg()",
@@ -2873,7 +3249,7 @@
       "source_file": "web\\static\\page-board.js",
       "source_location": "L47",
       "id": "page_board_leg",
-      "community": 12
+      "community": 15
     },
     {
       "label": "inviteUnit()",
@@ -2881,7 +3257,7 @@
       "source_file": "web\\static\\page-board.js",
       "source_location": "L53",
       "id": "page_board_inviteunit",
-      "community": 12
+      "community": 15
     },
     {
       "label": "grab()",
@@ -2889,7 +3265,7 @@
       "source_file": "web\\static\\page-board.js",
       "source_location": "L152",
       "id": "page_board_grab",
-      "community": 12
+      "community": 15
     },
     {
       "label": "match()",
@@ -2897,7 +3273,7 @@
       "source_file": "web\\static\\page-board.js",
       "source_location": "L182",
       "id": "page_board_match",
-      "community": 12
+      "community": 15
     },
     {
       "label": "renderTable()",
@@ -2905,7 +3281,7 @@
       "source_file": "web\\static\\page-board.js",
       "source_location": "L193",
       "id": "page_board_rendertable",
-      "community": 12
+      "community": 15
     },
     {
       "label": "page-controls.js",
@@ -2913,7 +3289,7 @@
       "source_file": "web\\static\\page-controls.js",
       "source_location": "L1",
       "id": "page_controls",
-      "community": 11
+      "community": 14
     },
     {
       "label": "renderPreflight()",
@@ -2921,7 +3297,7 @@
       "source_file": "web\\static\\page-controls.js",
       "source_location": "L23",
       "id": "page_controls_renderpreflight",
-      "community": 11
+      "community": 14
     },
     {
       "label": "loadPreflight()",
@@ -2929,7 +3305,7 @@
       "source_file": "web\\static\\page-controls.js",
       "source_location": "L45",
       "id": "page_controls_loadpreflight",
-      "community": 11
+      "community": 14
     },
     {
       "label": "actionCard()",
@@ -2937,7 +3313,7 @@
       "source_file": "web\\static\\page-controls.js",
       "source_location": "L53",
       "id": "page_controls_actioncard",
-      "community": 11
+      "community": 14
     },
     {
       "label": "confirmPanel()",
@@ -2945,7 +3321,7 @@
       "source_file": "web\\static\\page-controls.js",
       "source_location": "L76",
       "id": "page_controls_confirmpanel",
-      "community": 11
+      "community": 14
     },
     {
       "label": "fire()",
@@ -2953,7 +3329,7 @@
       "source_file": "web\\static\\page-controls.js",
       "source_location": "L101",
       "id": "page_controls_fire",
-      "community": 11
+      "community": 14
     },
     {
       "label": "renderRun()",
@@ -2961,7 +3337,7 @@
       "source_file": "web\\static\\page-controls.js",
       "source_location": "L113",
       "id": "page_controls_renderrun",
-      "community": 11
+      "community": 14
     },
     {
       "label": "watch()",
@@ -2969,7 +3345,7 @@
       "source_file": "web\\static\\page-controls.js",
       "source_location": "L140",
       "id": "page_controls_watch",
-      "community": 11
+      "community": 14
     },
     {
       "label": "loadHistory()",
@@ -2977,7 +3353,7 @@
       "source_file": "web\\static\\page-controls.js",
       "source_location": "L158",
       "id": "page_controls_loadhistory",
-      "community": 11
+      "community": 14
     },
     {
       "label": "page-downloads.js",
@@ -2985,7 +3361,7 @@
       "source_file": "web\\static\\page-downloads.js",
       "source_location": "L1",
       "id": "page_downloads",
-      "community": 30
+      "community": 33
     },
     {
       "label": "section()",
@@ -2993,7 +3369,7 @@
       "source_file": "web\\static\\page-downloads.js",
       "source_location": "L7",
       "id": "page_downloads_section",
-      "community": 30
+      "community": 33
     },
     {
       "label": "card()",
@@ -3001,7 +3377,7 @@
       "source_file": "web\\static\\page-downloads.js",
       "source_location": "L14",
       "id": "page_downloads_card",
-      "community": 30
+      "community": 33
     },
     {
       "label": "page-jobs.js",
@@ -3009,7 +3385,7 @@
       "source_file": "web\\static\\page-jobs.js",
       "source_location": "L1",
       "id": "page_jobs",
-      "community": 9
+      "community": 11
     },
     {
       "label": "renderList()",
@@ -3017,7 +3393,7 @@
       "source_file": "web\\static\\page-jobs.js",
       "source_location": "L7",
       "id": "page_jobs_renderlist",
-      "community": 9
+      "community": 11
     },
     {
       "label": "statusControl()",
@@ -3025,7 +3401,7 @@
       "source_file": "web\\static\\page-jobs.js",
       "source_location": "L33",
       "id": "page_jobs_statuscontrol",
-      "community": 9
+      "community": 11
     },
     {
       "label": "notionRow()",
@@ -3033,7 +3409,7 @@
       "source_file": "web\\static\\page-jobs.js",
       "source_location": "L78",
       "id": "page_jobs_notionrow",
-      "community": 9
+      "community": 11
     },
     {
       "label": "change()",
@@ -3041,7 +3417,7 @@
       "source_file": "web\\static\\page-jobs.js",
       "source_location": "L112",
       "id": "page_jobs_change",
-      "community": 9
+      "community": 11
     },
     {
       "label": "recount()",
@@ -3049,7 +3425,7 @@
       "source_file": "web\\static\\page-jobs.js",
       "source_location": "L134",
       "id": "page_jobs_recount",
-      "community": 9
+      "community": 11
     },
     {
       "label": "applyPanel()",
@@ -3057,7 +3433,7 @@
       "source_file": "web\\static\\page-jobs.js",
       "source_location": "L142",
       "id": "page_jobs_applypanel",
-      "community": 9
+      "community": 11
     },
     {
       "label": "cvPanel()",
@@ -3065,7 +3441,7 @@
       "source_file": "web\\static\\page-jobs.js",
       "source_location": "L200",
       "id": "page_jobs_cvpanel",
-      "community": 9
+      "community": 11
     },
     {
       "label": "show()",
@@ -3073,7 +3449,7 @@
       "source_file": "web\\static\\page-jobs.js",
       "source_location": "L249",
       "id": "page_jobs_show",
-      "community": 9
+      "community": 11
     },
     {
       "label": "buildPanel()",
@@ -3081,7 +3457,7 @@
       "source_file": "web\\static\\page-jobs.js",
       "source_location": "L305",
       "id": "page_jobs_buildpanel",
-      "community": 9
+      "community": 11
     },
     {
       "label": "followBuild()",
@@ -3089,7 +3465,7 @@
       "source_file": "web\\static\\page-jobs.js",
       "source_location": "L355",
       "id": "page_jobs_followbuild",
-      "community": 9
+      "community": 11
     },
     {
       "label": "page-research.js",
@@ -3097,7 +3473,7 @@
       "source_file": "web\\static\\page-research.js",
       "source_location": "L1",
       "id": "page_research",
-      "community": 34
+      "community": 37
     },
     {
       "label": "render()",
@@ -3105,7 +3481,7 @@
       "source_file": "web\\static\\page-research.js",
       "source_location": "L36",
       "id": "page_research_render",
-      "community": 34
+      "community": 37
     },
     {
       "label": "page-slack.js",
@@ -3113,7 +3489,7 @@
       "source_file": "web\\static\\page-slack.js",
       "source_location": "L1",
       "id": "page_slack",
-      "community": 35
+      "community": 38
     },
     {
       "label": "render()",
@@ -3121,7 +3497,7 @@
       "source_file": "web\\static\\page-slack.js",
       "source_location": "L7",
       "id": "page_slack_render",
-      "community": 35
+      "community": 38
     }
   ],
   "links": [
@@ -3284,6 +3660,30 @@
     {
       "relation": "inherits",
       "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L45",
+      "weight": 1.0,
+      "_src": "cv_usagelimithit",
+      "_tgt": "runtimeerror",
+      "source": "runtimeerror",
+      "target": "cv_usagelimithit",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L52",
+      "weight": 1.0,
+      "_src": "cv_packetbuildfailed",
+      "_tgt": "runtimeerror",
+      "source": "runtimeerror",
+      "target": "cv_packetbuildfailed",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\fill.py",
       "source_location": "L70",
       "weight": 1.0,
@@ -3404,6 +3804,258 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L45",
+      "weight": 1.0,
+      "_src": "cv",
+      "_tgt": "cv_usagelimithit",
+      "source": "cv",
+      "target": "cv_usagelimithit",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L52",
+      "weight": 1.0,
+      "_src": "cv",
+      "_tgt": "cv_packetbuildfailed",
+      "source": "cv",
+      "target": "cv_packetbuildfailed",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L57",
+      "weight": 1.0,
+      "_src": "cv",
+      "_tgt": "cv_packet",
+      "source": "cv",
+      "target": "cv_packet",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L67",
+      "weight": 1.0,
+      "_src": "cv",
+      "_tgt": "cv_pdf",
+      "source": "cv",
+      "target": "cv_pdf",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L71",
+      "weight": 1.0,
+      "_src": "cv",
+      "_tgt": "cv_find_packet",
+      "source": "cv",
+      "target": "cv_find_packet",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L87",
+      "weight": 1.0,
+      "_src": "cv",
+      "_tgt": "cv_to_packet",
+      "source": "cv",
+      "target": "cv_to_packet",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L102",
+      "weight": 1.0,
+      "_src": "cv",
+      "_tgt": "cv_build_packet",
+      "source": "cv",
+      "target": "cv_build_packet",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L163",
+      "weight": 1.0,
+      "_src": "cv",
+      "_tgt": "cv_build_many",
+      "source": "cv",
+      "target": "cv_build_many",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L1",
+      "weight": 1.0,
+      "_src": "cv_rationale_1",
+      "_tgt": "cv",
+      "source": "cv",
+      "target": "cv_rationale_1",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L137",
+      "weight": 0.8,
+      "_src": "cv_build_packet",
+      "_tgt": "cv_usagelimithit",
+      "source": "cv_usagelimithit",
+      "target": "cv_build_packet",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L46",
+      "weight": 1.0,
+      "_src": "cv_rationale_46",
+      "_tgt": "cv_usagelimithit",
+      "source": "cv_usagelimithit",
+      "target": "cv_rationale_46",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L90",
+      "weight": 0.8,
+      "_src": "cv_to_packet",
+      "_tgt": "cv_packetbuildfailed",
+      "source": "cv_packetbuildfailed",
+      "target": "cv_to_packet",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L123",
+      "weight": 0.8,
+      "_src": "cv_build_packet",
+      "_tgt": "cv_packetbuildfailed",
+      "source": "cv_packetbuildfailed",
+      "target": "cv_build_packet",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L53",
+      "weight": 1.0,
+      "_src": "cv_rationale_53",
+      "_tgt": "cv_packetbuildfailed",
+      "source": "cv_packetbuildfailed",
+      "target": "cv_rationale_53",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L91",
+      "weight": 0.8,
+      "_src": "cv_to_packet",
+      "_tgt": "cv_packet",
+      "source": "cv_packet",
+      "target": "cv_to_packet",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L83",
+      "weight": 0.8,
+      "_src": "cv_find_packet",
+      "_tgt": "cv_to_packet",
+      "source": "cv_find_packet",
+      "target": "cv_to_packet",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L107",
+      "weight": 0.8,
+      "_src": "cv_build_packet",
+      "_tgt": "cv_find_packet",
+      "source": "cv_find_packet",
+      "target": "cv_build_packet",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L72",
+      "weight": 1.0,
+      "_src": "cv_rationale_72",
+      "_tgt": "cv_find_packet",
+      "source": "cv_find_packet",
+      "target": "cv_rationale_72",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L173",
+      "weight": 0.8,
+      "_src": "cv_build_many",
+      "_tgt": "cv_build_packet",
+      "source": "cv_build_packet",
+      "target": "cv_build_many",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L103",
+      "weight": 1.0,
+      "_src": "cv_rationale_103",
+      "_tgt": "cv_build_packet",
+      "source": "cv_build_packet",
+      "target": "cv_rationale_103",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L164",
+      "weight": 1.0,
+      "_src": "cv_rationale_164",
+      "_tgt": "cv_build_many",
+      "source": "cv_build_many",
+      "target": "cv_rationale_164",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\fill.py",
       "source_location": "L63",
       "weight": 1.0,
@@ -3453,7 +4105,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L99",
+      "source_location": "L101",
       "weight": 1.0,
       "_src": "fill",
       "_tgt": "fill_attr_q",
@@ -3465,7 +4117,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L103",
+      "source_location": "L105",
       "weight": 1.0,
       "_src": "fill",
       "_tgt": "fill_text_of",
@@ -3477,7 +4129,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L110",
+      "source_location": "L112",
       "weight": 1.0,
       "_src": "fill",
       "_tgt": "fill_deep_text",
@@ -3489,7 +4141,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L124",
+      "source_location": "L126",
       "weight": 1.0,
       "_src": "fill",
       "_tgt": "fill_group_label",
@@ -3501,7 +4153,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L168",
+      "source_location": "L170",
       "weight": 1.0,
       "_src": "fill",
       "_tgt": "fill_label_for",
@@ -3513,7 +4165,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L208",
+      "source_location": "L210",
       "weight": 1.0,
       "_src": "fill",
       "_tgt": "fill_is_required",
@@ -3525,7 +4177,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L215",
+      "source_location": "L217",
       "weight": 1.0,
       "_src": "fill",
       "_tgt": "fill_is_numeric",
@@ -3537,7 +4189,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L222",
+      "source_location": "L224",
       "weight": 1.0,
       "_src": "fill",
       "_tgt": "fill_control",
@@ -3549,7 +4201,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L230",
+      "source_location": "L232",
       "weight": 1.0,
       "_src": "fill",
       "_tgt": "fill_scan",
@@ -3561,7 +4213,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L273",
+      "source_location": "L275",
       "weight": 1.0,
       "_src": "fill",
       "_tgt": "fill_current_value",
@@ -3573,7 +4225,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L283",
+      "source_location": "L285",
       "weight": 1.0,
       "_src": "fill",
       "_tgt": "fill_fill_select",
@@ -3585,7 +4237,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L300",
+      "source_location": "L302",
       "weight": 1.0,
       "_src": "fill",
       "_tgt": "fill_fill_group",
@@ -3597,7 +4249,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L337",
+      "source_location": "L339",
       "weight": 1.0,
       "_src": "fill",
       "_tgt": "fill_apply",
@@ -3609,7 +4261,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L354",
+      "source_location": "L356",
       "weight": 1.0,
       "_src": "fill",
       "_tgt": "fill_fill_step",
@@ -3621,7 +4273,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L419",
+      "source_location": "L421",
       "weight": 1.0,
       "_src": "fill",
       "_tgt": "fill_wait_for_step_content",
@@ -3633,7 +4285,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L440",
+      "source_location": "L442",
       "weight": 1.0,
       "_src": "fill",
       "_tgt": "fill_primary_button",
@@ -3645,7 +4297,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L456",
+      "source_location": "L458",
       "weight": 1.0,
       "_src": "fill",
       "_tgt": "fill_fingerprint",
@@ -3657,7 +4309,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L463",
+      "source_location": "L465",
       "weight": 1.0,
       "_src": "fill",
       "_tgt": "fill_capture_resume",
@@ -3672,6 +4324,18 @@
       "source_location": "L471",
       "weight": 1.0,
       "_src": "fill",
+      "_tgt": "fill_attach_resume",
+      "source": "fill",
+      "target": "fill_attach_resume",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\fill.py",
+      "source_location": "L501",
+      "weight": 1.0,
+      "_src": "fill",
       "_tgt": "fill_close_modal",
       "source": "fill",
       "target": "fill_close_modal",
@@ -3681,7 +4345,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L491",
+      "source_location": "L521",
       "weight": 1.0,
       "_src": "fill",
       "_tgt": "fill_slug_for",
@@ -3693,7 +4357,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L496",
+      "source_location": "L526",
       "weight": 1.0,
       "_src": "fill",
       "_tgt": "fill_check_logged_in",
@@ -3705,7 +4369,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L505",
+      "source_location": "L535",
       "weight": 1.0,
       "_src": "fill",
       "_tgt": "fill_has_easy_apply",
@@ -3717,7 +4381,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L522",
+      "source_location": "L552",
       "weight": 1.0,
       "_src": "fill",
       "_tgt": "fill_fill_job",
@@ -3729,7 +4393,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L591",
+      "source_location": "L640",
       "weight": 1.0,
       "_src": "fill",
       "_tgt": "fill_open_browser",
@@ -3753,7 +4417,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L155",
+      "source_location": "L157",
       "weight": 0.8,
       "_src": "fill_group_label",
       "_tgt": "fill_looks_like_a_question",
@@ -3777,7 +4441,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L500",
+      "source_location": "L530",
       "weight": 0.8,
       "_src": "fill_check_logged_in",
       "_tgt": "fill_linkedinloggedout",
@@ -3801,7 +4465,19 @@
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L23",
+      "source_location": "L24",
+      "weight": 0.8,
+      "_src": "run_candidate",
+      "_tgt": "fill_linkedinloggedout",
+      "source": "fill_linkedinloggedout",
+      "target": "run_candidate",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\run.py",
+      "source_location": "L24",
       "weight": 0.8,
       "_src": "run_rationale_1",
       "_tgt": "fill_linkedinloggedout",
@@ -3813,43 +4489,55 @@
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L23",
+      "source_location": "L24",
       "weight": 0.8,
-      "_src": "run_rationale_49",
+      "_src": "run_rationale_59",
       "_tgt": "fill_linkedinloggedout",
       "source": "fill_linkedinloggedout",
-      "target": "run_rationale_49",
+      "target": "run_rationale_59",
       "confidence_score": 0.5
     },
     {
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L23",
+      "source_location": "L24",
       "weight": 0.8,
-      "_src": "run_rationale_73",
+      "_src": "run_rationale_83",
       "_tgt": "fill_linkedinloggedout",
       "source": "fill_linkedinloggedout",
-      "target": "run_rationale_73",
+      "target": "run_rationale_83",
       "confidence_score": 0.5
     },
     {
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L23",
+      "source_location": "L24",
       "weight": 0.8,
-      "_src": "run_rationale_218",
+      "_src": "run_rationale_238",
       "_tgt": "fill_linkedinloggedout",
       "source": "fill_linkedinloggedout",
-      "target": "run_rationale_218",
+      "target": "run_rationale_238",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\run.py",
+      "source_location": "L24",
+      "weight": 0.8,
+      "_src": "run_rationale_265",
+      "_tgt": "fill_linkedinloggedout",
+      "source": "fill_linkedinloggedout",
+      "target": "run_rationale_265",
       "confidence_score": 0.5
     },
     {
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L397",
+      "source_location": "L399",
       "weight": 0.8,
       "_src": "fill_fill_step",
       "_tgt": "fill_filled",
@@ -3861,7 +4549,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L524",
+      "source_location": "L559",
       "weight": 0.8,
       "_src": "fill_fill_job",
       "_tgt": "fill_fillresult",
@@ -3873,7 +4561,19 @@
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L23",
+      "source_location": "L24",
+      "weight": 0.8,
+      "_src": "run_candidate",
+      "_tgt": "fill_fillresult",
+      "source": "fill_fillresult",
+      "target": "run_candidate",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\run.py",
+      "source_location": "L24",
       "weight": 0.8,
       "_src": "run_rationale_1",
       "_tgt": "fill_fillresult",
@@ -3885,43 +4585,55 @@
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L23",
+      "source_location": "L24",
       "weight": 0.8,
-      "_src": "run_rationale_49",
+      "_src": "run_rationale_59",
       "_tgt": "fill_fillresult",
       "source": "fill_fillresult",
-      "target": "run_rationale_49",
+      "target": "run_rationale_59",
       "confidence_score": 0.5
     },
     {
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L23",
+      "source_location": "L24",
       "weight": 0.8,
-      "_src": "run_rationale_73",
+      "_src": "run_rationale_83",
       "_tgt": "fill_fillresult",
       "source": "fill_fillresult",
-      "target": "run_rationale_73",
+      "target": "run_rationale_83",
       "confidence_score": 0.5
     },
     {
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L23",
+      "source_location": "L24",
       "weight": 0.8,
-      "_src": "run_rationale_218",
+      "_src": "run_rationale_238",
       "_tgt": "fill_fillresult",
       "source": "fill_fillresult",
-      "target": "run_rationale_218",
+      "target": "run_rationale_238",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\run.py",
+      "source_location": "L24",
+      "weight": 0.8,
+      "_src": "run_rationale_265",
+      "_tgt": "fill_fillresult",
+      "source": "fill_fillresult",
+      "target": "run_rationale_265",
       "confidence_score": 0.5
     },
     {
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L176",
+      "source_location": "L178",
       "weight": 0.8,
       "_src": "fill_label_for",
       "_tgt": "fill_attr_q",
@@ -3933,7 +4645,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L310",
+      "source_location": "L312",
       "weight": 0.8,
       "_src": "fill_fill_group",
       "_tgt": "fill_attr_q",
@@ -3945,7 +4657,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L176",
+      "source_location": "L178",
       "weight": 0.8,
       "_src": "fill_label_for",
       "_tgt": "fill_text_of",
@@ -3957,7 +4669,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L285",
+      "source_location": "L287",
       "weight": 0.8,
       "_src": "fill_fill_select",
       "_tgt": "fill_text_of",
@@ -3969,7 +4681,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L444",
+      "source_location": "L446",
       "weight": 0.8,
       "_src": "fill_primary_button",
       "_tgt": "fill_text_of",
@@ -3993,7 +4705,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L512",
+      "source_location": "L542",
       "weight": 0.8,
       "_src": "fill_has_easy_apply",
       "_tgt": "fill_text_of",
@@ -4005,7 +4717,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L135",
+      "source_location": "L137",
       "weight": 0.8,
       "_src": "fill_group_label",
       "_tgt": "fill_deep_text",
@@ -4017,7 +4729,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L195",
+      "source_location": "L197",
       "weight": 0.8,
       "_src": "fill_label_for",
       "_tgt": "fill_deep_text",
@@ -4026,22 +4738,34 @@
       "confidence_score": 0.5
     },
     {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\fill.py",
+      "source_location": "L466",
+      "weight": 0.8,
+      "_src": "fill_capture_resume",
+      "_tgt": "fill_deep_text",
+      "source": "fill_deep_text",
+      "target": "fill_capture_resume",
+      "confidence_score": 0.5
+    },
+    {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L111",
+      "source_location": "L113",
       "weight": 1.0,
-      "_src": "fill_rationale_111",
+      "_src": "fill_rationale_113",
       "_tgt": "fill_deep_text",
       "source": "fill_deep_text",
-      "target": "fill_rationale_111",
+      "target": "fill_rationale_113",
       "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L239",
+      "source_location": "L241",
       "weight": 0.8,
       "_src": "fill_scan",
       "_tgt": "fill_group_label",
@@ -4053,19 +4777,19 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L125",
+      "source_location": "L127",
       "weight": 1.0,
-      "_src": "fill_rationale_125",
+      "_src": "fill_rationale_127",
       "_tgt": "fill_group_label",
       "source": "fill_group_label",
-      "target": "fill_rationale_125",
+      "target": "fill_rationale_127",
       "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L255",
+      "source_location": "L257",
       "weight": 0.8,
       "_src": "fill_scan",
       "_tgt": "fill_label_for",
@@ -4077,7 +4801,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L307",
+      "source_location": "L309",
       "weight": 0.8,
       "_src": "fill_fill_group",
       "_tgt": "fill_label_for",
@@ -4089,7 +4813,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L239",
+      "source_location": "L241",
       "weight": 0.8,
       "_src": "fill_scan",
       "_tgt": "fill_is_required",
@@ -4101,7 +4825,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L255",
+      "source_location": "L257",
       "weight": 0.8,
       "_src": "fill_scan",
       "_tgt": "fill_is_numeric",
@@ -4113,7 +4837,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L239",
+      "source_location": "L241",
       "weight": 0.8,
       "_src": "fill_scan",
       "_tgt": "fill_control",
@@ -4125,7 +4849,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L356",
+      "source_location": "L358",
       "weight": 0.8,
       "_src": "fill_fill_step",
       "_tgt": "fill_scan",
@@ -4137,7 +4861,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L459",
+      "source_location": "L461",
       "weight": 0.8,
       "_src": "fill_fingerprint",
       "_tgt": "fill_scan",
@@ -4149,19 +4873,19 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L231",
+      "source_location": "L233",
       "weight": 1.0,
-      "_src": "fill_rationale_231",
+      "_src": "fill_rationale_233",
       "_tgt": "fill_scan",
       "source": "fill_scan",
-      "target": "fill_rationale_231",
+      "target": "fill_rationale_233",
       "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L348",
+      "source_location": "L350",
       "weight": 0.8,
       "_src": "fill_apply",
       "_tgt": "fill_current_value",
@@ -4173,7 +4897,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L399",
+      "source_location": "L401",
       "weight": 0.8,
       "_src": "fill_fill_step",
       "_tgt": "fill_current_value",
@@ -4185,7 +4909,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L347",
+      "source_location": "L349",
       "weight": 0.8,
       "_src": "fill_apply",
       "_tgt": "fill_fill_select",
@@ -4197,7 +4921,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L339",
+      "source_location": "L341",
       "weight": 0.8,
       "_src": "fill_apply",
       "_tgt": "fill_fill_group",
@@ -4209,7 +4933,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L396",
+      "source_location": "L398",
       "weight": 0.8,
       "_src": "fill_fill_step",
       "_tgt": "fill_apply",
@@ -4221,7 +4945,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L550",
+      "source_location": "L585",
       "weight": 0.8,
       "_src": "fill_fill_job",
       "_tgt": "fill_fill_step",
@@ -4233,19 +4957,19 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L355",
+      "source_location": "L357",
       "weight": 1.0,
-      "_src": "fill_rationale_355",
+      "_src": "fill_rationale_357",
       "_tgt": "fill_fill_step",
       "source": "fill_fill_step",
-      "target": "fill_rationale_355",
+      "target": "fill_rationale_357",
       "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L535",
+      "source_location": "L570",
       "weight": 0.8,
       "_src": "fill_fill_job",
       "_tgt": "fill_wait_for_step_content",
@@ -4257,19 +4981,19 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L420",
+      "source_location": "L422",
       "weight": 1.0,
-      "_src": "fill_rationale_420",
+      "_src": "fill_rationale_422",
       "_tgt": "fill_wait_for_step_content",
       "source": "fill_wait_for_step_content",
-      "target": "fill_rationale_420",
+      "target": "fill_rationale_422",
       "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L553",
+      "source_location": "L602",
       "weight": 0.8,
       "_src": "fill_fill_job",
       "_tgt": "fill_primary_button",
@@ -4281,7 +5005,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L549",
+      "source_location": "L584",
       "weight": 0.8,
       "_src": "fill_fill_job",
       "_tgt": "fill_fingerprint",
@@ -4293,7 +5017,19 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L551",
+      "source_location": "L497",
+      "weight": 0.8,
+      "_src": "fill_attach_resume",
+      "_tgt": "fill_capture_resume",
+      "source": "fill_capture_resume",
+      "target": "fill_attach_resume",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\fill.py",
+      "source_location": "L586",
       "weight": 0.8,
       "_src": "fill_fill_job",
       "_tgt": "fill_capture_resume",
@@ -4305,7 +5041,31 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L540",
+      "source_location": "L589",
+      "weight": 0.8,
+      "_src": "fill_fill_job",
+      "_tgt": "fill_attach_resume",
+      "source": "fill_attach_resume",
+      "target": "fill_fill_job",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\fill.py",
+      "source_location": "L472",
+      "weight": 1.0,
+      "_src": "fill_rationale_472",
+      "_tgt": "fill_attach_resume",
+      "source": "fill_attach_resume",
+      "target": "fill_rationale_472",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\fill.py",
+      "source_location": "L575",
       "weight": 0.8,
       "_src": "fill_fill_job",
       "_tgt": "fill_close_modal",
@@ -4317,19 +5077,19 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L472",
+      "source_location": "L502",
       "weight": 1.0,
-      "_src": "fill_rationale_472",
+      "_src": "fill_rationale_502",
       "_tgt": "fill_close_modal",
       "source": "fill_close_modal",
-      "target": "fill_rationale_472",
+      "target": "fill_rationale_502",
       "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L524",
+      "source_location": "L559",
       "weight": 0.8,
       "_src": "fill_fill_job",
       "_tgt": "fill_slug_for",
@@ -4341,7 +5101,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L527",
+      "source_location": "L562",
       "weight": 0.8,
       "_src": "fill_fill_job",
       "_tgt": "fill_has_easy_apply",
@@ -4353,24 +5113,24 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L506",
+      "source_location": "L536",
       "weight": 1.0,
-      "_src": "fill_rationale_506",
+      "_src": "fill_rationale_536",
       "_tgt": "fill_has_easy_apply",
       "source": "fill_has_easy_apply",
-      "target": "fill_rationale_506",
+      "target": "fill_rationale_536",
       "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\fill.py",
-      "source_location": "L523",
+      "source_location": "L553",
       "weight": 1.0,
-      "_src": "fill_rationale_523",
+      "_src": "fill_rationale_553",
       "_tgt": "fill_fill_job",
       "source": "fill_fill_job",
-      "target": "fill_rationale_523",
+      "target": "fill_rationale_553",
       "confidence_score": 1.0
     },
     {
@@ -4557,7 +5317,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L43",
+      "source_location": "L44",
       "weight": 1.0,
       "_src": "run",
       "_tgt": "run_user_data_dir",
@@ -4569,7 +5329,19 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L48",
+      "source_location": "L50",
+      "weight": 1.0,
+      "_src": "run",
+      "_tgt": "run_candidate",
+      "source": "run",
+      "target": "run_candidate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\run.py",
+      "source_location": "L58",
       "weight": 1.0,
       "_src": "run",
       "_tgt": "run_board_candidates",
@@ -4581,7 +5353,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L72",
+      "source_location": "L82",
       "weight": 1.0,
       "_src": "run",
       "_tgt": "run_select_live_jobs",
@@ -4593,7 +5365,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L90",
+      "source_location": "L100",
       "weight": 1.0,
       "_src": "run",
       "_tgt": "run_report",
@@ -4605,7 +5377,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L162",
+      "source_location": "L174",
       "weight": 1.0,
       "_src": "run",
       "_tgt": "run_cmd_fill",
@@ -4617,7 +5389,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L217",
+      "source_location": "L237",
       "weight": 1.0,
       "_src": "run",
       "_tgt": "run_cmd_login",
@@ -4629,7 +5401,19 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L244",
+      "source_location": "L264",
+      "weight": 1.0,
+      "_src": "run",
+      "_tgt": "run_cmd_packet",
+      "source": "run",
+      "target": "run_cmd_packet",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\run.py",
+      "source_location": "L287",
       "weight": 1.0,
       "_src": "run",
       "_tgt": "run_cmd_fieldmap",
@@ -4641,7 +5425,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L249",
+      "source_location": "L292",
       "weight": 1.0,
       "_src": "run",
       "_tgt": "run_main",
@@ -4665,7 +5449,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L164",
+      "source_location": "L176",
       "weight": 0.8,
       "_src": "run_cmd_fill",
       "_tgt": "run_user_data_dir",
@@ -4677,7 +5461,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L225",
+      "source_location": "L245",
       "weight": 0.8,
       "_src": "run_cmd_login",
       "_tgt": "run_user_data_dir",
@@ -4691,6 +5475,30 @@
       "source_file": "apps\\autopilot\\run.py",
       "source_location": "L76",
       "weight": 0.8,
+      "_src": "run_board_candidates",
+      "_tgt": "run_candidate",
+      "source": "run_candidate",
+      "target": "run_board_candidates",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\run.py",
+      "source_location": "L198",
+      "weight": 0.8,
+      "_src": "run_cmd_fill",
+      "_tgt": "run_candidate",
+      "source": "run_candidate",
+      "target": "run_cmd_fill",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\run.py",
+      "source_location": "L86",
+      "weight": 0.8,
       "_src": "run_select_live_jobs",
       "_tgt": "run_board_candidates",
       "source": "run_board_candidates",
@@ -4701,19 +5509,19 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L49",
+      "source_location": "L59",
       "weight": 1.0,
-      "_src": "run_rationale_49",
+      "_src": "run_rationale_59",
       "_tgt": "run_board_candidates",
       "source": "run_board_candidates",
-      "target": "run_rationale_49",
+      "target": "run_rationale_59",
       "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L184",
+      "source_location": "L196",
       "weight": 0.8,
       "_src": "run_cmd_fill",
       "_tgt": "run_select_live_jobs",
@@ -4725,19 +5533,19 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L73",
+      "source_location": "L83",
       "weight": 1.0,
-      "_src": "run_rationale_73",
+      "_src": "run_rationale_83",
       "_tgt": "run_select_live_jobs",
       "source": "run_select_live_jobs",
-      "target": "run_rationale_73",
+      "target": "run_rationale_83",
       "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L214",
+      "source_location": "L234",
       "weight": 0.8,
       "_src": "run_cmd_fill",
       "_tgt": "run_report",
@@ -4749,7 +5557,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L268",
+      "source_location": "L317",
       "weight": 0.8,
       "_src": "run_main",
       "_tgt": "run_cmd_fill",
@@ -4761,7 +5569,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L267",
+      "source_location": "L314",
       "weight": 0.8,
       "_src": "run_main",
       "_tgt": "run_cmd_login",
@@ -4773,25 +5581,469 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L218",
+      "source_location": "L238",
       "weight": 1.0,
-      "_src": "run_rationale_218",
+      "_src": "run_rationale_238",
       "_tgt": "run_cmd_login",
       "source": "run_cmd_login",
-      "target": "run_rationale_218",
+      "target": "run_rationale_238",
       "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\run.py",
+      "source_location": "L316",
+      "weight": 0.8,
+      "_src": "run_main",
+      "_tgt": "run_cmd_packet",
+      "source": "run_cmd_packet",
+      "target": "run_main",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\run.py",
       "source_location": "L265",
+      "weight": 1.0,
+      "_src": "run_rationale_265",
+      "_tgt": "run_cmd_packet",
+      "source": "run_cmd_packet",
+      "target": "run_rationale_265",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\run.py",
+      "source_location": "L312",
       "weight": 0.8,
       "_src": "run_main",
       "_tgt": "run_cmd_fieldmap",
       "source": "run_cmd_fieldmap",
       "target": "run_main",
       "confidence_score": 0.5
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts\\setup-hooks.py",
+      "source_location": "L39",
+      "weight": 1.0,
+      "_src": "setup_hooks",
+      "_tgt": "setup_hooks_bash_path",
+      "source": "setup_hooks",
+      "target": "setup_hooks_bash_path",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts\\setup-hooks.py",
+      "source_location": "L47",
+      "weight": 1.0,
+      "_src": "setup_hooks",
+      "_tgt": "setup_hooks_selector",
+      "source": "setup_hooks",
+      "target": "setup_hooks_selector",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts\\setup-hooks.py",
+      "source_location": "L61",
+      "weight": 1.0,
+      "_src": "setup_hooks",
+      "_tgt": "setup_hooks_find_interpreter",
+      "source": "setup_hooks",
+      "target": "setup_hooks_find_interpreter",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts\\setup-hooks.py",
+      "source_location": "L88",
+      "weight": 1.0,
+      "_src": "setup_hooks",
+      "_tgt": "setup_hooks_hook_status",
+      "source": "setup_hooks",
+      "target": "setup_hooks_hook_status",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts\\setup-hooks.py",
+      "source_location": "L108",
+      "weight": 1.0,
+      "_src": "setup_hooks",
+      "_tgt": "setup_hooks_install",
+      "source": "setup_hooks",
+      "target": "setup_hooks_install",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts\\setup-hooks.py",
+      "source_location": "L130",
+      "weight": 1.0,
+      "_src": "setup_hooks",
+      "_tgt": "setup_hooks_main",
+      "source": "setup_hooks",
+      "target": "setup_hooks_main",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "scripts\\setup-hooks.py",
+      "source_location": "L54",
+      "weight": 0.8,
+      "_src": "setup_hooks_selector",
+      "_tgt": "setup_hooks_bash_path",
+      "source": "setup_hooks_bash_path",
+      "target": "setup_hooks_selector",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "scripts\\setup-hooks.py",
+      "source_location": "L117",
+      "weight": 0.8,
+      "_src": "setup_hooks_install",
+      "_tgt": "setup_hooks_bash_path",
+      "source": "setup_hooks_bash_path",
+      "target": "setup_hooks_install",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts\\setup-hooks.py",
+      "source_location": "L40",
+      "weight": 1.0,
+      "_src": "setup_hooks_rationale_40",
+      "_tgt": "setup_hooks_bash_path",
+      "source": "setup_hooks_bash_path",
+      "target": "setup_hooks_rationale_40",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "scripts\\setup-hooks.py",
+      "source_location": "L116",
+      "weight": 0.8,
+      "_src": "setup_hooks_install",
+      "_tgt": "setup_hooks_selector",
+      "source": "setup_hooks_selector",
+      "target": "setup_hooks_install",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "scripts\\setup-hooks.py",
+      "source_location": "L150",
+      "weight": 0.8,
+      "_src": "setup_hooks_main",
+      "_tgt": "setup_hooks_find_interpreter",
+      "source": "setup_hooks_find_interpreter",
+      "target": "setup_hooks_main",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts\\setup-hooks.py",
+      "source_location": "L62",
+      "weight": 1.0,
+      "_src": "setup_hooks_rationale_62",
+      "_tgt": "setup_hooks_find_interpreter",
+      "source": "setup_hooks_find_interpreter",
+      "target": "setup_hooks_rationale_62",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "scripts\\setup-hooks.py",
+      "source_location": "L141",
+      "weight": 0.8,
+      "_src": "setup_hooks_main",
+      "_tgt": "setup_hooks_hook_status",
+      "source": "setup_hooks_hook_status",
+      "target": "setup_hooks_main",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts\\setup-hooks.py",
+      "source_location": "L89",
+      "weight": 1.0,
+      "_src": "setup_hooks_rationale_89",
+      "_tgt": "setup_hooks_hook_status",
+      "source": "setup_hooks_hook_status",
+      "target": "setup_hooks_rationale_89",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "scripts\\setup-hooks.py",
+      "source_location": "L156",
+      "weight": 0.8,
+      "_src": "setup_hooks_main",
+      "_tgt": "setup_hooks_install",
+      "source": "setup_hooks_install",
+      "target": "setup_hooks_main",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L19",
+      "weight": 1.0,
+      "_src": "test_cv_bridge",
+      "_tgt": "test_cv_bridge_fake_run",
+      "source": "test_cv_bridge",
+      "target": "test_cv_bridge_fake_run",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L26",
+      "weight": 1.0,
+      "_src": "test_cv_bridge",
+      "_tgt": "test_cv_bridge_no_packet",
+      "source": "test_cv_bridge",
+      "target": "test_cv_bridge_no_packet",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L31",
+      "weight": 1.0,
+      "_src": "test_cv_bridge",
+      "_tgt": "test_cv_bridge_test_usage_limit_raises_its_own_error_not_a_job_failure",
+      "source": "test_cv_bridge",
+      "target": "test_cv_bridge_test_usage_limit_raises_its_own_error_not_a_job_failure",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L42",
+      "weight": 1.0,
+      "_src": "test_cv_bridge",
+      "_tgt": "test_cv_bridge_test_usage_limit_detected_even_when_exit_code_is_nonzero",
+      "source": "test_cv_bridge",
+      "target": "test_cv_bridge_test_usage_limit_detected_even_when_exit_code_is_nonzero",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L52",
+      "weight": 1.0,
+      "_src": "test_cv_bridge",
+      "_tgt": "test_cv_bridge_test_exit_zero_with_no_artifact_is_a_failure",
+      "source": "test_cv_bridge",
+      "target": "test_cv_bridge_test_exit_zero_with_no_artifact_is_a_failure",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L59",
+      "weight": 1.0,
+      "_src": "test_cv_bridge",
+      "_tgt": "test_cv_bridge_test_failure_reports_stdout_because_claude_prints_errors_there",
+      "source": "test_cv_bridge",
+      "target": "test_cv_bridge_test_failure_reports_stdout_because_claude_prints_errors_there",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L68",
+      "weight": 1.0,
+      "_src": "test_cv_bridge",
+      "_tgt": "test_cv_bridge_test_missing_cli_is_a_clear_message_not_a_filenotfound",
+      "source": "test_cv_bridge",
+      "target": "test_cv_bridge_test_missing_cli_is_a_clear_message_not_a_filenotfound",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L76",
+      "weight": 1.0,
+      "_src": "test_cv_bridge",
+      "_tgt": "test_cv_bridge_test_existing_packet_is_reused_and_claude_is_never_invoked",
+      "source": "test_cv_bridge",
+      "target": "test_cv_bridge_test_existing_packet_is_reused_and_claude_is_never_invoked",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L87",
+      "weight": 1.0,
+      "_src": "test_cv_bridge",
+      "_tgt": "test_cv_bridge_test_batch_stops_on_usage_limit_and_leaves_the_rest_untouched",
+      "source": "test_cv_bridge",
+      "target": "test_cv_bridge_test_batch_stops_on_usage_limit_and_leaves_the_rest_untouched",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L106",
+      "weight": 1.0,
+      "_src": "test_cv_bridge",
+      "_tgt": "test_cv_bridge_test_batch_records_a_real_failure_against_its_own_job",
+      "source": "test_cv_bridge",
+      "target": "test_cv_bridge_test_batch_records_a_real_failure_against_its_own_job",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L1",
+      "weight": 1.0,
+      "_src": "test_cv_bridge_rationale_1",
+      "_tgt": "test_cv_bridge",
+      "source": "test_cv_bridge",
+      "target": "test_cv_bridge_rationale_1",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L34",
+      "weight": 0.8,
+      "_src": "test_cv_bridge_test_usage_limit_raises_its_own_error_not_a_job_failure",
+      "_tgt": "test_cv_bridge_fake_run",
+      "source": "test_cv_bridge_fake_run",
+      "target": "test_cv_bridge_test_usage_limit_raises_its_own_error_not_a_job_failure",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L46",
+      "weight": 0.8,
+      "_src": "test_cv_bridge_test_usage_limit_detected_even_when_exit_code_is_nonzero",
+      "_tgt": "test_cv_bridge_fake_run",
+      "source": "test_cv_bridge_fake_run",
+      "target": "test_cv_bridge_test_usage_limit_detected_even_when_exit_code_is_nonzero",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L54",
+      "weight": 0.8,
+      "_src": "test_cv_bridge_test_exit_zero_with_no_artifact_is_a_failure",
+      "_tgt": "test_cv_bridge_fake_run",
+      "source": "test_cv_bridge_fake_run",
+      "target": "test_cv_bridge_test_exit_zero_with_no_artifact_is_a_failure",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L62",
+      "weight": 0.8,
+      "_src": "test_cv_bridge_test_failure_reports_stdout_because_claude_prints_errors_there",
+      "_tgt": "test_cv_bridge_fake_run",
+      "source": "test_cv_bridge_fake_run",
+      "target": "test_cv_bridge_test_failure_reports_stdout_because_claude_prints_errors_there",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L27",
+      "weight": 1.0,
+      "_src": "test_cv_bridge_rationale_27",
+      "_tgt": "test_cv_bridge_no_packet",
+      "source": "test_cv_bridge_no_packet",
+      "target": "test_cv_bridge_rationale_27",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L43",
+      "weight": 1.0,
+      "_src": "test_cv_bridge_rationale_43",
+      "_tgt": "test_cv_bridge_test_usage_limit_detected_even_when_exit_code_is_nonzero",
+      "source": "test_cv_bridge_test_usage_limit_detected_even_when_exit_code_is_nonzero",
+      "target": "test_cv_bridge_rationale_43",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L53",
+      "weight": 1.0,
+      "_src": "test_cv_bridge_rationale_53",
+      "_tgt": "test_cv_bridge_test_exit_zero_with_no_artifact_is_a_failure",
+      "source": "test_cv_bridge_test_exit_zero_with_no_artifact_is_a_failure",
+      "target": "test_cv_bridge_rationale_53",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L77",
+      "weight": 1.0,
+      "_src": "test_cv_bridge_rationale_77",
+      "_tgt": "test_cv_bridge_test_existing_packet_is_reused_and_claude_is_never_invoked",
+      "source": "test_cv_bridge_test_existing_packet_is_reused_and_claude_is_never_invoked",
+      "target": "test_cv_bridge_rationale_77",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_cv_bridge.py",
+      "source_location": "L88",
+      "weight": 1.0,
+      "_src": "test_cv_bridge_rationale_88",
+      "_tgt": "test_cv_bridge_test_batch_stops_on_usage_limit_and_leaves_the_rest_untouched",
+      "source": "test_cv_bridge_test_batch_stops_on_usage_limit_and_leaves_the_rest_untouched",
+      "target": "test_cv_bridge_rationale_88",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",

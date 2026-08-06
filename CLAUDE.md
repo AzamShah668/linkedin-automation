@@ -255,6 +255,23 @@ Retrieval order each session: **Brain 2 → Brain 3 → raw files.**
   ⚠️ **Owner action:** LinkedIn's verified email is not the canonical one on the CV; every application
   currently carries a mismatched address. And **~63% of the board is dead** — discovery rots in ~5 days.
 
+- **2026-08-06 (later) — the CV bridge is built; phase order changed.** `apps/autopilot/cv.py` +
+  [[24-cv-bridge]]. **The CV step was moved ahead of the database** ([[22-rewrite-architecture]] §7) because
+  Phase 0 succeeded in a way that created a new problem: `fill.py` fills a form in ~14s and attached the
+  **generic** CV on every job tested. Fast + generic is precisely the mass-automation failure this project
+  exists to avoid, so speed made the CV bridge *more* urgent, not less. The database unblocks nothing a
+  recruiter sees.
+  `cv.py` is ~20 lines — `claude -p "read 15-build-packet-runbook.md ... Send nothing"` — reusing the
+  runbook and skills unchanged. **One packet ≈ 7 minutes** (Energy Exemplar, ATS 90, PDF + 4 documents).
+  `fill.py` uploads that PDF and **reads the filename back**; a mismatch aborts the job, because a wrong
+  filename means a company receives another company's CV and nothing downstream would notice.
+  Two traps paid for: LinkedIn has **no `input[type=file]`** — "Upload resume" opens a native chooser, so
+  `set_input_files` silently does nothing (use `page.expect_file_chooser()`); and **D30 struck a third time
+  in the D25 port itself** — the packet built completely, Claude hit its session limit a second later, and
+  `cv.py` reported the job untouched while the 105KB PDF sat on disk. **Check the artifact first; only when
+  there is no artifact does the log get to explain why.**
+  ⚠️ Packets exist for **8 of ~90 rows** — every other row still attaches the generic CV. Nothing submits.
+
 - **NEXT — two tracks, in this order:**
   1. 🔴 **The job hunt does not wait for the rewrite.** Five applications have been silent for 11 days with
      zero follow-ups sent, and the best row on the board (**SkillsCapital 93**, packet built 08-01) has never

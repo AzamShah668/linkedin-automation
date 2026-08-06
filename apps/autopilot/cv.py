@@ -24,7 +24,7 @@ from __future__ import annotations
 import json
 import re
 import subprocess
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 
 from apps.autopilot.answers import REPO
@@ -62,10 +62,18 @@ class Packet:
     ats: int | None
     job_id: str
     path: Path
+    # Set when the build SUCCEEDED but a usage-limit message also appeared — i.e. the limit was
+    # reached at the end. This job is fine; the next one will not be. Stops the batch without
+    # discarding work that actually completed.
+    limit_notice: str | None = None
 
     @property
     def pdf(self) -> Path:
         return PDF_DIR / f"{self.cv_stem}.pdf"
+
+    def complete(self) -> bool:
+        """A packet without its PDF is half-built (runbook §4) and cannot be attached."""
+        return self.pdf.exists()
 
 
 def find_packet(job_id: str) -> Packet | None:
@@ -129,14 +137,28 @@ def build_packet(job_id: str, timeout: int = DEFAULT_TIMEOUT, force: bool = Fals
 
     # Claude Code prints its errors to STDOUT, not stderr. Read both, always.
     blob = f"{result.stdout or ''}\n{result.stderr or ''}"
+    limit_match = LIMIT_LINE_RE.search(blob) if USAGE_LIMIT_RE.search(blob) else None
+    limit_text = limit_match.group(0).strip() if limit_match else "usage limit reported"
 
-    # D25 BEFORE the returncode check: a usage limit can surface with either exit code, and
-    # misfiling it as a per-job failure is the expensive mistake.
-    if USAGE_LIMIT_RE.search(blob):
-        line = LIMIT_LINE_RE.search(blob)
+    # THE ARTIFACT IS CHECKED FIRST, BEFORE ANY MESSAGE IN THE LOG.
+    #
+    # Learned the hard way 2026-08-06, on this very function's first real run. The Energy
+    # Exemplar packet built completely — packet.json, a 105KB tailored PDF, four outreach
+    # documents — and Claude Code hit its session limit immediately AFTER finishing. Because
+    # the limit check ran first, cv.py threw UsageLimitHit and reported the job as untouched
+    # while the finished work sat on disk.
+    #
+    # That is precisely the mistake D30 names: a string in a log outranked an artifact on
+    # disk. D25 is still right that a limit must never be filed as a per-job FAILURE — but a
+    # limit is also not a reason to disown work that demonstrably completed.
+    packet = find_packet(job_id)
+    if packet is not None and packet.complete():
+        return replace(packet, limit_notice=limit_text) if limit_match else packet
+
+    # No usable artifact. NOW the log gets to explain why.
+    if limit_match:
         raise UsageLimitHit(
-            f"Claude usage limit — NOT a problem with job {job_id}: "
-            f"{line.group(0).strip() if line else 'limit message in output'}"
+            f"Claude usage limit — NOT a problem with job {job_id}: {limit_text}"
         )
 
     if result.returncode != 0:
@@ -144,20 +166,15 @@ def build_packet(job_id: str, timeout: int = DEFAULT_TIMEOUT, force: bool = Fals
             f"claude exited {result.returncode} for job {job_id}\n"
             f"--- STDOUT ---\n{result.stdout}\n--- STDERR ---\n{result.stderr}"
         )
-
-    # D17: exit 0 proves nothing. The artifact is the verdict.
-    packet = find_packet(job_id)
     if packet is None:
         raise PacketBuildFailed(
             f"claude exited 0 but wrote no packet.json for job {job_id}\n"
             f"--- STDOUT ---\n{result.stdout[-2000:]}"
         )
-    if not packet.pdf.exists():
-        raise PacketBuildFailed(
-            f"packet {packet.slug} exists but its PDF is missing: {packet.pdf}\n"
-            f"A packet without a PDF is half-built (runbook §4) and cannot be attached."
-        )
-    return packet
+    raise PacketBuildFailed(
+        f"packet {packet.slug} exists but its PDF is missing: {packet.pdf}\n"
+        f"A packet without a PDF is half-built (runbook §4) and cannot be attached."
+    )
 
 
 def build_many(job_ids: list[str], timeout: int = DEFAULT_TIMEOUT) -> tuple[list[Packet], list[tuple[str, str]], str | None]:
@@ -170,9 +187,18 @@ def build_many(job_ids: list[str], timeout: int = DEFAULT_TIMEOUT) -> tuple[list
     failed: list[tuple[str, str]] = []
     for job_id in job_ids:
         try:
-            built.append(build_packet(job_id, timeout=timeout))
+            packet = build_packet(job_id, timeout=timeout)
         except UsageLimitHit as exc:
             return built, failed, str(exc)
         except PacketBuildFailed as exc:
             failed.append((job_id, str(exc)))
+            continue
+
+        built.append(packet)
+        if packet.limit_notice:
+            # This one finished; the limit landed at the end. Keep the success, stop the batch.
+            return built, failed, (
+                f"Claude usage limit reached AFTER {packet.slug} completed "
+                f"(that packet is good): {packet.limit_notice}"
+            )
     return built, failed, None

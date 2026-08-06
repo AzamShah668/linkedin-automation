@@ -776,6 +776,26 @@ log can lie too, when its counters cannot distinguish absence from success. Ask 
 number: *what would this read if the check never ran?* If the answer is "the same", it is not
 evidence.
 
+### Third instance, hours later, in the code written to honour D25
+
+`cv.py`'s first real run built the Energy Exemplar packet **completely** — `packet.json`, a 105 KB
+tailored PDF, four outreach documents — and Claude Code hit its session limit *immediately after
+finishing*. `cv.py` checked the limit string **before** looking for the artifact, so it raised
+`UsageLimitHit` and reported the job as untouched while the finished work sat on disk.
+
+The bug was in the D25 port itself. D25 says *a usage limit is not a job failure*; the
+over-correction was to let a **message in a log** outrank a **file on disk**. Both rules are
+needed, and their order matters:
+
+> **Check the artifact first. Only when there is no artifact does the log get to explain why.**
+
+`build_packet` now returns the completed packet carrying a `limit_notice`, so the batch still stops
+(the next job *would* fail) without disowning work that demonstrably succeeded.
+
+Note how it was caught: the run printed `** STOPPED: Claude usage limit ... 1 job(s) untouched`
+while `ls` showed the PDF. **The report and the filesystem disagreed, and the filesystem was
+right.** That is the whole of D30 in one line.
+
 ### Corollary — a fail-safe that works by accident is not a fail-safe
 
 Found the same day. The question *"Do you have hands-on experience with MLOps and cloud platforms

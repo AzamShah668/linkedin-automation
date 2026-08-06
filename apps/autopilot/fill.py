@@ -468,7 +468,7 @@ def _capture_resume(modal: Locator, result: FillResult) -> None:
         result.resume_filename = match.group(0).strip()
 
 
-def _attach_resume(modal: Locator, pdf: Path, result: FillResult) -> bool | None:
+def _attach_resume(page: Page, modal: Locator, pdf: Path, result: FillResult) -> bool | None:
     """Upload the TAILORED CV and read the filename back off the page to prove it landed.
 
     Runbook §5: LinkedIn pre-fills the résumé slot with whatever was uploaded last, which is
@@ -481,16 +481,27 @@ def _attach_resume(modal: Locator, pdf: Path, result: FillResult) -> bool | None
     Returns True (verified), False (mismatch), or None (no résumé step on this page).
     """
     file_input = modal.locator("input[type=file]")
-    if not file_input.count():
-        return None
+    upload_button = modal.get_by_role("button", name=re.compile(r"upload (resume|cv)", re.I))
+
+    if not file_input.count() and not upload_button.count():
+        return None  # not the resume step
 
     result.resume_expected = pdf.name
     if result.resume_filename == pdf.name:
         return True  # already the right one; re-uploading just costs time
 
-    file_input.first.set_input_files(str(pdf))
+    if file_input.count():
+        file_input.first.set_input_files(str(pdf))
+    else:
+        # There is NO input[type=file] anywhere in the DOM — verified 2026-08-06 by counting it
+        # on every step of a live form. "Upload resume" opens a NATIVE file chooser via JS, so
+        # set_input_files has nothing to target and the upload silently never happens.
+        with page.expect_file_chooser() as chooser_info:
+            upload_button.first.click()
+        chooser_info.value.set_files(str(pdf))
+
     try:
-        modal.get_by_text(pdf.stem, exact=False).first.wait_for(state="visible", timeout=15_000)
+        modal.get_by_text(pdf.stem, exact=False).first.wait_for(state="visible", timeout=20_000)
     except PWTimeout:
         pass
 
@@ -586,7 +597,7 @@ def fill_job(page: Page, url: str, bank: dict, cv_pdf: Path | None = None) -> Fi
             _capture_resume(modal, result)
 
             if cv_pdf is not None:
-                verified = _attach_resume(modal, cv_pdf, result)
+                verified = _attach_resume(page, modal, cv_pdf, result)
                 if verified is False:
                     result.status = "resume-mismatch"
                     result.note = (

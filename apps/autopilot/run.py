@@ -194,6 +194,14 @@ def cmd_fill(args: argparse.Namespace) -> int:
         t1 = time.perf_counter()
         if args.from_board:
             jobs = select_live_jobs(page, args.from_board)
+        elif args.job_id:
+            by_id = {c.row_id: c for c in board_candidates(limit=10_000)}
+            jobs = []
+            for jid in args.job_id:
+                if jid in by_id:
+                    jobs.append(by_id[jid])
+                else:
+                    print(f"  row {jid} not on the board (or excluded as Applied/Skipped)")
         elif args.urls_file:
             jobs = [Candidate(u.strip(), "?", "?", 0, "")
                     for u in Path(args.urls_file).read_text().splitlines() if u.strip()]
@@ -305,6 +313,8 @@ def main(argv: list[str] | None = None) -> int:
     src.add_argument("--url", help="one LinkedIn job URL")
     src.add_argument("--urls-file", help="file with one job URL per line")
     src.add_argument("--from-board", type=int, metavar="N", help="pick N live jobs from the mirror")
+    src.add_argument("--job-id", action="append",
+                     help="board row id (repeatable) - resolves the URL AND its tailored CV")
     f.add_argument("--headless", action="store_true", help="not recommended; LinkedIn flags it")
 
     args = parser.parse_args(argv)

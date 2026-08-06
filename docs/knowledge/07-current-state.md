@@ -39,6 +39,17 @@ PowerShell + scheduled-task + headless-Claude stack.** New work goes into `apps/
     `azamshah25809@gmail.com`. Applications currently carry an address that does not match the attached CV.
   - ⚠️ **The board is ~63% dead** — of the top 32 rows, ~20 are closed and 6 are external-ATS. Discovery data
     rots in about five days. Every Infosys row is `external-or-none`; Easy Apply will never reach that company.
+- **Phase 1 (the CV bridge) is BUILT and proven end to end** — `apps/autopilot/cv.py`, see [[24-cv-bridge]].
+  Phase order was changed to put it before the database ([[22-rewrite-architecture]] §7): `fill.py` fills a
+  form in ~14s but attached the **generic** CV on every job tested, and fast + generic is the mass-automation
+  failure this project exists to avoid.
+  - `claude -p "read 15-build-packet-runbook.md ... Send nothing"` → **one packet ≈ 7 min**, ATS 90, PDF +
+    4 outreach documents. Energy Exemplar built this way 2026-08-06.
+  - `fill.py` now uploads the packet's PDF and **reads the filename back**; a mismatch aborts the job.
+    Verified live: `resume=8-Energy-Exemplar-DevOps-Engineer.pdf [OK]`, 14.5s including the upload.
+  - LinkedIn has **no `input[type=file]`** — "Upload resume" opens a native chooser, so `set_input_files`
+    silently does nothing. Use `page.expect_file_chooser()`.
+  - ⚠️ **Packets exist for only 8 of ~90 rows.** Any row without one still attaches the generic CV.
 - **Nothing below has been deleted or disabled by this decision.** The six scheduled tasks, the runbooks and
   the skills all still work and are still the way to get a packet built today.
 

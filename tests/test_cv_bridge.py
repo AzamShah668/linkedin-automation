@@ -28,6 +28,52 @@ def no_packet(monkeypatch):
     monkeypatch.setattr(cv, "find_packet", lambda job_id: None)
 
 
+def test_completed_packet_wins_over_a_usage_limit_message(monkeypatch, tmp_path):
+    """Regression, 2026-08-06 first real run.
+
+    The Energy Exemplar packet built completely and Claude hit its session limit immediately
+    after. Checking the limit string before the artifact made cv.py disown finished work.
+    The artifact on disk outranks any message in the log (D30).
+    """
+    pdf = tmp_path / "8-Energy-Exemplar-DevOps-Engineer.pdf"
+    pdf.write_bytes(b"%PDF-1.4 fake")
+    monkeypatch.setattr(cv, "PDF_DIR", tmp_path)
+
+    # Matches the real sequence: no packet before the build, a complete one after.
+    calls = {"n": 0}
+
+    def find(job_id):
+        calls["n"] += 1
+        if calls["n"] == 1:
+            return None
+        return cv.Packet("energy-exemplar", "Energy Exemplar", "DevOps Engineer",
+                         "8-Energy-Exemplar-DevOps-Engineer", 92, job_id, tmp_path)
+
+    monkeypatch.setattr(cv, "find_packet", find)
+    monkeypatch.setattr(
+        subprocess, "run",
+        _fake_run(stdout="done\nYou've hit your session limit - resets 9:10pm (Asia/Calcutta)\n"),
+    )
+
+    packet = cv.build_packet("job-1")           # must NOT raise
+    assert packet.slug == "energy-exemplar"
+    assert packet.limit_notice is not None      # but the limit is still surfaced
+    assert "9:10pm" in packet.limit_notice
+
+
+def test_batch_keeps_the_finished_packet_then_stops(monkeypatch, tmp_path):
+    """A late limit stops the batch without throwing away the job that completed."""
+    good = cv.Packet("a", "A", "R", "stem", 90, "a", tmp_path)
+    late = cv.Packet("b", "B", "R", "stem", 90, "b", tmp_path, limit_notice="limit at 9:10pm")
+
+    monkeypatch.setattr(cv, "build_packet", lambda job_id, timeout=None: {"a": good, "b": late}[job_id])
+    built, failed, limit = cv.build_many(["a", "b", "c"])
+
+    assert [p.slug for p in built] == ["a", "b"]   # 'b' is kept, not discarded
+    assert failed == []
+    assert limit is not None and "b completed" in limit
+
+
 def test_usage_limit_raises_its_own_error_not_a_job_failure(monkeypatch, no_packet):
     monkeypatch.setattr(
         subprocess, "run",

@@ -19,6 +19,7 @@ relevant topic file. Cross-link with `[[file]]`. Keep it distilled — skip cosm
 - [[07-current-state]] — **⭐ live snapshot: what's really built, the Notion job store, per-job status.** Read 2nd.
 - [[22-rewrite-architecture]] — **⭐ the plan as of 2026-08-06: agent-as-tool, not agent-as-runtime.** Read 3rd.
 - [[23-phase-0-results]] — **the rewrite's first real run.** Playwright + a dict filled forms ~16.7s each with zero invented values, but the tool printed PASS while 3 of 5 jobs did nothing. Draft persistence confirmed; ~63% of the board found dead.
+- [[24-cv-bridge]] — **Claude Code as a subprocess.** The tailored CV is now attached and its filename verified before anything proceeds. Includes the day's third instance of D30: a usage-limit string outranked a finished PDF on disk.
   Why an IDE was the wrong runtime, the free-model / Claude-Code split, the target module layout, phases 0-5.
 - [[01-vision-and-goals]] — what we're building, the owner's 6 steps, success metrics, non-goals
 - [[02-architecture]] — modules, data model, tech stack, the human-in-the-loop review queue
