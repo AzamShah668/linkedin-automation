@@ -17,9 +17,10 @@ import os
 import sqlite3
 import sys
 import time
+from dataclasses import dataclass
 from pathlib import Path
 
-from apps.autopilot import answers
+from apps.autopilot import answers, cv
 from apps.autopilot.fill import (
     DEFAULT_USER_DATA_DIR,
     FillResult,
@@ -45,45 +46,54 @@ def _user_data_dir() -> Path:
     return Path(override) if override else DEFAULT_USER_DATA_DIR
 
 
-def board_candidates(limit: int = 40) -> list[tuple[str, str, str, int]]:
-    """(url, company, job, fit) from the local mirror, best fit first, already-done excluded."""
+@dataclass(frozen=True)
+class Candidate:
+    url: str
+    company: str
+    job: str
+    fit: int
+    row_id: str  # the board/Notion id, used to find an already-built packet
+
+
+def board_candidates(limit: int = 40) -> list[Candidate]:
+    """Best-fit-first board rows, already-done excluded."""
     if not BOARD_DB.exists():
         raise SystemExit(f"board mirror not found: {BOARD_DB}")
 
     conn = sqlite3.connect(BOARD_DB)
     rows = conn.execute(
-        "SELECT url, company, job, fit, status FROM jobs "
+        "SELECT url, company, job, fit, status, id FROM jobs "
         "WHERE url LIKE '%linkedin.com/jobs/view/%' ORDER BY fit DESC"
     ).fetchall()
     conn.close()
 
-    out = []
-    for url, company, job, fit, status in rows:
+    out: list[Candidate] = []
+    for url, company, job, fit, status, row_id in rows:
         if (status or "").strip().lower() in BLOCKED_STATUSES:
             continue
         if any(b in (company or "").lower() for b in BLOCKED_COMPANIES):
             continue
-        out.append((url, company or "?", job or "?", fit or 0))
+        out.append(Candidate(url, company or "?", job or "?", fit or 0, str(row_id)))
         if len(out) >= limit:
             break
     return out
 
 
-def select_live_jobs(page, wanted: int) -> list[tuple[str, str, str, int]]:
+def select_live_jobs(page, wanted: int) -> list[Candidate]:
     """Probe candidates until `wanted` postings actually show an Easy Apply button."""
-    chosen: list[tuple[str, str, str, int]] = []
+    chosen: list[Candidate] = []
     print(f"\nSelecting {wanted} live Easy Apply jobs from the board mirror...")
-    for url, company, job, fit in board_candidates():
+    for cand in board_candidates():
         if len(chosen) >= wanted:
             break
         try:
-            ok, why = has_easy_apply(page, url)
+            ok, why = has_easy_apply(page, cand.url)
         except Exception as exc:
             ok, why = False, f"probe-error {type(exc).__name__}"
         mark = "OK  " if ok else "skip"
-        print(f"  {mark} [{fit:>3}] {company[:26]:<26} {why:<18} {url}")
+        print(f"  {mark} [{cand.fit:>3}] {cand.company[:26]:<26} {why:<18} {cand.url}")
         if ok:
-            chosen.append((url, company, job, fit))
+            chosen.append(cand)
     return chosen
 
 
@@ -94,9 +104,11 @@ def report(results: list[FillResult], launch_s: float, select_s: float) -> int:
 
     for r in results:
         resume = r.resume_filename or "(none shown)"
+        mark = {True: "OK", False: "MISMATCH", None: "unverified"}[r.resume_verified]
         print(
             f"  {r.seconds:>6.1f}s  {r.status:<22} steps={r.steps}  "
-            f"filled={len(r.filled):<3} blank={len(r.unanswered):<3} resume={resume}"
+            f"filled={len(r.filled):<3} blank={len(r.unanswered):<3} "
+            f"resume={resume} [{mark}]"
         )
         print(f"          {r.url}")
         if r.note:
@@ -182,28 +194,36 @@ def cmd_fill(args: argparse.Namespace) -> int:
         t1 = time.perf_counter()
         if args.from_board:
             jobs = select_live_jobs(page, args.from_board)
-            urls = [j[0] for j in jobs]
         elif args.urls_file:
-            urls = [u.strip() for u in Path(args.urls_file).read_text().splitlines() if u.strip()]
+            jobs = [Candidate(u.strip(), "?", "?", 0, "")
+                    for u in Path(args.urls_file).read_text().splitlines() if u.strip()]
         else:
-            urls = [args.url]
+            jobs = [Candidate(args.url, "?", "?", 0, "")]
         select_s = time.perf_counter() - t1
 
-        if not urls:
+        if not jobs:
             print("no jobs to fill")
             context.close()
             return 1
 
-        print(f"\nfilling {len(urls)} job(s):")
-        for u in urls:
-            print(f"  {u}")
+        # Resolve the tailored CV per job. A job with no packet keeps LinkedIn's pre-filled
+        # resume, which is the GENERIC cv - fine while nothing submits, fatal once it does.
+        print(f"\nfilling {len(jobs)} job(s):")
+        pdfs: dict[str, Path | None] = {}
+        for cand in jobs:
+            packet = cv.find_packet(cand.row_id) if cand.row_id else None
+            pdf = packet.pdf if packet and packet.pdf.exists() else None
+            pdfs[cand.url] = pdf
+            tag = f"CV {pdf.name}" if pdf else "NO PACKET - generic CV stays attached"
+            print(f"  {cand.company[:22]:<22} {tag}")
+            print(f"    {cand.url}")
         print()
 
         results = []
-        for i, url in enumerate(urls, 1):
-            print(f"[{i}/{len(urls)}] {url}")
+        for i, cand in enumerate(jobs, 1):
+            print(f"[{i}/{len(jobs)}] {cand.url}")
             try:
-                result = fill_job(page, url, bank)
+                result = fill_job(page, cand.url, bank, cv_pdf=pdfs[cand.url])
             except LinkedInLoggedOut as exc:
                 print(f"  ABORTING WHOLE RUN: {exc}")
                 break
@@ -241,6 +261,29 @@ def cmd_login(_: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_packet(args: argparse.Namespace) -> int:
+    """Build tailored CV packets via Claude Code. Sends nothing."""
+    job_ids = args.job_id
+    print(f"building {len(job_ids)} packet(s) via Claude Code (this takes minutes each)\n")
+
+    built, failed, limit = cv.build_many(job_ids, timeout=args.timeout)
+
+    for packet in built:
+        print(f"  OK    {packet.company} — {packet.role}")
+        print(f"          {packet.path}")
+        print(f"          PDF {packet.pdf.name} (ATS {packet.ats})")
+    for job_id, error in failed:
+        print(f"  FAIL  {job_id}\n          {error.splitlines()[0]}")
+
+    if limit:
+        # D25: the remaining jobs are NOT failures. Say so, loudly, and record nothing.
+        remaining = len(job_ids) - len(built) - len(failed)
+        print(f"\n  ** STOPPED: {limit}")
+        print(f"  ** {remaining} job(s) untouched. They are NOT failures — retry after the reset.")
+        return 3
+    return 0 if not failed else 1
+
+
 def cmd_fieldmap(_: argparse.Namespace) -> int:
     print(answers.dump_field_map())
     return 0
@@ -252,6 +295,10 @@ def main(argv: list[str] | None = None) -> int:
 
     sub.add_parser("fieldmap", help="print the FIELD_MAP and the value each entry resolves to")
     sub.add_parser("login", help="open the browser so YOU can sign into LinkedIn by hand")
+
+    pk = sub.add_parser("packet", help="build tailored CV packet(s) via Claude Code; sends nothing")
+    pk.add_argument("--job-id", action="append", required=True, help="board/Notion row id (repeatable)")
+    pk.add_argument("--timeout", type=int, default=cv.DEFAULT_TIMEOUT)
 
     f = sub.add_parser("fill", help="fill Easy Apply forms, stopping before submit")
     src = f.add_mutually_exclusive_group(required=True)
@@ -265,6 +312,8 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_fieldmap(args)
     if args.cmd == "login":
         return cmd_login(args)
+    if args.cmd == "packet":
+        return cmd_packet(args)
     return cmd_fill(args)
 
 

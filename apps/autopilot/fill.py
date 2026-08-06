@@ -89,6 +89,8 @@ class FillResult:
     unanswered: list[str] = field(default_factory=list)
     prefilled: list[str] = field(default_factory=list)  # LinkedIn's own value, left untouched
     resume_filename: str | None = None
+    resume_expected: str | None = None
+    resume_verified: bool | None = None  # None = no packet supplied, so nothing to verify
     draft_offered: bool | None = None
     note: str = ""
 
@@ -461,11 +463,39 @@ def _fingerprint(modal: Locator) -> str:
 
 
 def _capture_resume(modal: Locator, result: FillResult) -> None:
-    if result.resume_filename:
-        return
-    match = FILE_RE.search(_text_of(modal))
+    match = FILE_RE.search(_text_of(modal) or _deep_text(modal))
     if match:
         result.resume_filename = match.group(0).strip()
+
+
+def _attach_resume(modal: Locator, pdf: Path, result: FillResult) -> bool | None:
+    """Upload the TAILORED CV and read the filename back off the page to prove it landed.
+
+    Runbook §5: LinkedIn pre-fills the résumé slot with whatever was uploaded last, which is
+    almost always another company's CV. Confirmed in production on every job tested — the slot
+    showed the generic `azam-shah-devops-cv.pdf` every time.
+
+    The read-back is not optional. A wrong filename here means a company receives a CV written
+    for a different company, and nothing downstream would ever notice.
+
+    Returns True (verified), False (mismatch), or None (no résumé step on this page).
+    """
+    file_input = modal.locator("input[type=file]")
+    if not file_input.count():
+        return None
+
+    result.resume_expected = pdf.name
+    if result.resume_filename == pdf.name:
+        return True  # already the right one; re-uploading just costs time
+
+    file_input.first.set_input_files(str(pdf))
+    try:
+        modal.get_by_text(pdf.stem, exact=False).first.wait_for(state="visible", timeout=15_000)
+    except PWTimeout:
+        pass
+
+    _capture_resume(modal, result)
+    return result.resume_filename == pdf.name
 
 
 def _close_modal(page: Page, modal: Locator, result: FillResult) -> None:
@@ -519,8 +549,13 @@ def has_easy_apply(page: Page, url: str, timeout_ms: int = 20_000) -> tuple[bool
     return False, "external-or-none"
 
 
-def fill_job(page: Page, url: str, bank: dict) -> FillResult:
-    """Fill one Easy Apply wizard and stop at Review/Submit. Never clicks Submit."""
+def fill_job(page: Page, url: str, bank: dict, cv_pdf: Path | None = None) -> FillResult:
+    """Fill one Easy Apply wizard and stop at Review/Submit. Never clicks Submit.
+
+    `cv_pdf` is the TAILORED CV from a built packet. When supplied it is uploaded and the
+    filename is read back; a mismatch aborts the job rather than leaving the wrong company's
+    CV attached.
+    """
     result = FillResult(url=url, slug=slug_for(url), status="error")
     started = time.perf_counter()
     try:
@@ -549,6 +584,20 @@ def fill_job(page: Page, url: str, bank: dict) -> FillResult:
             before = _fingerprint(modal)
             _fill_step(bank, modal, result, seen)
             _capture_resume(modal, result)
+
+            if cv_pdf is not None:
+                verified = _attach_resume(modal, cv_pdf, result)
+                if verified is False:
+                    result.status = "resume-mismatch"
+                    result.note = (
+                        f"expected {cv_pdf.name!r}, page shows {result.resume_filename!r}. "
+                        f"Refusing to continue — this is how a company receives another "
+                        f"company's CV."
+                    )
+                    result.resume_verified = False
+                    break
+                if verified is True:
+                    result.resume_verified = True
 
             button, kind = _primary_button(modal)
             if kind in ("review", "submit"):

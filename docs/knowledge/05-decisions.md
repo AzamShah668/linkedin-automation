@@ -727,3 +727,72 @@ not "did anything error?" but "**what would this look like if it were quietly wr
 compare. Here, the answer had been sitting in Notion for five days.
 
 Related: [[23-phase-0-results]] · D23 (the stale mirror) · D17 (judge by the log, not the exit code)
+
+---
+
+## D30 — A metric that cannot tell "nothing wrong" from "nothing observed" is not a metric (2026-08-06)
+
+**Two instances in one day, on the same code, hours apart. Both read as clean. Both were blind.**
+
+| # | What it printed | What was true |
+|---|---|---|
+| 1 | `VERDICT: PASS` for 5 jobs | 3 of them did nothing at all — `filled=0`, `steps=1`, out in ~4s |
+| 2 | `blank=0` on Energy Exemplar | **every** `<fieldset>` question was invisible to the scanner |
+
+The second is the more instructive. `filled=6, blank=0` reads as a clean sweep: six answered,
+nothing missed. In fact all six were plain `<input>` elements, and every grouped question — the
+Yes/No radios and the required consent checkbox — had been skipped by `if not label: continue`
+because `inner_text()` does not return LinkedIn's accessible-only `<legend>`. Nothing was filled.
+Nothing was reported. **`blank=0` did not mean "nothing was missed"; it meant "nothing was seen".**
+
+A blank in a report is a *claim about an observation*. If the observation never happened, the
+report is not merely incomplete — it is confidently wrong, and it points away from the bug. Both
+times, the number that should have raised the alarm was the number that suppressed it.
+
+### The rule
+
+> **Every count needs a denominator it did not choose for itself.**
+
+`filled=7` says nothing. `filled=7 of 9 controls seen, 9 of 9 present` says three separate things,
+and any of them going wrong is now visible. A zero is only trustworthy when the thing producing it
+can demonstrate it was able to count — so report the population alongside the tally, and take the
+population from a *different* mechanism than the one being measured. Here: the raw
+`modal.locator("fieldset").count()` is independent of whether labelling worked, and one line of it
+in the debug dump is what finally exposed the bug after two wrong theories.
+
+Three concrete forms this takes in the code now:
+
+1. **Verdicts exclude no-ops and name them.** `report()` counts only jobs that reached
+   Review/Submit, prints the ones that did nothing, and labels a partial run `INCOMPLETE SAMPLE`
+   with a projection rather than a pass.
+2. **Nothing is skipped silently.** An unlabelled control is reported as
+   `(unlabelled <tag>, required=<bool>)`. Noisy beats invisible — a noisy report gets read, a
+   silent one gets trusted.
+3. **Actions are verified, not assumed.** `_fill_group` returns `is_checked()`, not "I clicked".
+   Reporting a tick that did not land is the same lie in miniature.
+
+**Relationship to D17.** D17 says judge by the log, not the exit code. D30 is the next layer: the
+log can lie too, when its counters cannot distinguish absence from success. Ask of every green
+number: *what would this read if the check never ran?* If the answer is "the same", it is not
+evidence.
+
+### Corollary — a fail-safe that works by accident is not a fail-safe
+
+Found the same day. The question *"Do you have hands-on experience with MLOps and cloud platforms
+(Azure ML, AWS SageMaker, GCP), including ... **Docker/Kubernetes** ...?"* matched the
+`years_with_docker` spec on the bare word "docker", and tried to answer **"2"**.
+
+It came out blank, which looks like the "blank beats wrong" rule working. It was not. It was blank
+**only because no radio option happens to read "2"**. Presented as a text input — which the same
+question is, on other forms — it would have typed `2` into a yes/no question on a real employer's
+form, and the mapping would have looked correct in every log.
+
+Fixed with `Spec.requires`: a `years_*` spec must also match a quantity cue
+(`how many|how much|how long|years|months|duration`). A skill name in a label does not make the
+question a quantity question.
+
+> **When something dangerous does not happen, establish whether that was the design or the
+> circumstances.** "It failed safe" is a claim requiring the same evidence as "it worked".
+
+Related: [[23-phase-0-results]] §1, §3b, §3c · D17 (judge by the log) · D25 (read the child's log) ·
+D29 (stale vs wrong)

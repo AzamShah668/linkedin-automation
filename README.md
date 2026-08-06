@@ -120,7 +120,26 @@ cd linkedin-automation
 
 cp .env.example .env          # then fill in your own keys
 cp profile/application-answers.example.json profile/application-answers.json
+
+py -3 scripts/setup-hooks.py  # required on a fresh clone — see below
 ```
+
+### Why `setup-hooks.py` is a required step
+
+`.git/hooks/` is not version-controlled, so the knowledge graph's auto-rebuild hooks do not
+survive a clone. The default installer also picks its interpreter with `command -v python3`,
+which on Windows finds the **Windows Store App Execution Alias stub** — a real executable with no
+site-packages. Every commit then fails with `No module named 'graphify'` while
+`graphify hook status` reports the hooks installed. Both statements are true; they describe
+different shells. That went unnoticed for eleven days.
+
+```bash
+py -3 scripts/setup-hooks.py           # install / repair
+py -3 scripts/setup-hooks.py --check   # verify, non-zero exit if broken
+```
+
+Verify by committing and checking `graphify-out/graph.json`'s mtime. **Judge it by the artifact,
+never by a status line** — that is decision D17, and it applies to the tooling too.
 
 You will also need to create `profile/master-profile.md` and `profile/projects-catalog.md` — see
 [`profile/README.md`](profile/README.md) for what goes in them.

@@ -269,17 +269,41 @@ limit"*, stop the batch and say so — do **not** record each job as an individu
 
 ## 7. Phased plan
 
-| Phase | Goal | Success test |
-|---|---|---|
-| **0** | Prove the thesis. `fill.py`: Playwright + answer bank, stop before submit | **5 forms in under 3 minutes** |
-| **1** | Own the data. Postgres/SQLite + Alembic; Notion becomes a *view*, not the source | the stale-mirror bug (D23) is structurally impossible |
-| **2** | Real queue (`arq`/RQ + Redis). Idempotency keys; retries; backoff | delete `pipeline-lock.ps1`, `run-pipeline.ps1`, all 6 scheduled tasks |
-| **3** | `cv.py` wired to Claude Code; batch CVs offline/overnight | packets build unattended without a human present |
-| **4** | ATS source adapters (Greenhouse / Lever / Ashby / Workable) | LinkedIn becomes 1 adapter of 5, not the foundation |
-| **5** | Product: FastAPI + Next.js, Stripe, per-user credentials | someone other than the owner can run it |
+> **⚠️ REORDERED 2026-08-06, after Phase 0 closed.** The CV bridge (was Phase 3) now comes
+> **before** the database (was Phase 1). Reasoning below — the reorder is recorded, not just done.
+
+| Phase | Goal | Success test | State |
+|---|---|---|---|
+| **0** | Prove the thesis. `fill.py`: Playwright + answer bank, stop before submit | **5 forms in under 3 minutes** | ✅ **CLOSED** — 5 fills, 72.1s ([[23-phase-0-results]]) |
+| **1** ⭐ | `cv.py` → Claude Code. Tailored CV attached and **filename verified** before any submit | a real application carries the CV written for *that* company | ← next |
+| **2** | Own the data. SQLite/Postgres + Alembic; Notion becomes a *view*, not the source | the stale-mirror bug (D23) and the wrong-status bug (D29) are structurally impossible | |
+| **3** | Real queue (`arq`/RQ + Redis). Idempotency keys; retries; backoff | delete `pipeline-lock.ps1`, `run-pipeline.ps1`, all 6 scheduled tasks | |
+| **4** | ATS source adapters (Greenhouse / Lever / Ashby / Workable) | LinkedIn becomes 1 adapter of 5, not the foundation | |
+| **5** | Product: FastAPI + Next.js, Stripe, per-user credentials | someone other than the owner can run it | |
+
+### Why the CV bridge jumped the queue (owner's call, 2026-08-06)
+
+Phase 0 succeeded in a way that created a new problem. `fill.py` now completes a form in ~14
+seconds — **and attaches whatever CV LinkedIn pre-filled**, which production confirmed is the
+generic `azam-shah-devops-cv.pdf` on every job tested ([[23-phase-0-results]] §7).
+
+Speed without the tailored CV is not a partial win, it is the **failure mode this project exists to
+avoid**. Submitting a generic CV to ten companies in two minutes is precisely the mass automation
+forbidden by the core rule in `CLAUDE.md` and [[05-decisions]] D1/D2 — recruiters bin it, and the
+volume is what gets an account restricted. **The faster `fill.py` gets, the more urgent `cv.py`
+becomes.**
+
+Against that, the database unblocks nothing a recruiter would ever see. D23 and D29 are real and
+the mirror genuinely needs replacing, but both are mitigated today by reconciling before trusting a
+status filter, and neither stops an application going out. **Infrastructure that unblocks nothing
+user-visible does not outrank the one artifact a human reads.**
+
+So the ordering rule is: *fix what blocks a correct application first; fix what blocks a tidy
+codebase after.*
 
 **Phase 0 first, and measure it.** If 5 applications take under 3 minutes, the design is proven and
 everything after is plumbing. If it does not, stop and re-diagnose before building more.
+*(Done: 72.1s. Three consecutive passes.)*
 
 ---
 
