@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Slack — Job Hunt</title>
+<link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brand" href="/">
+    <span class="mark">JH</span>
+    <div>
+      <div class="eyebrow">Job Hunt Autopilot</div>
+      <h1>Slack</h1>
+    </div>
+  </a>
+  <nav class="tabs" id="nav"></nav>
+  <div class="topbar-right">
+    <a class="btn btn-primary" href="/download/all.zip">Download everything</a>
+    <span class="stamp" id="stamp">loading</span>
+  </div>
+</header>
+
+<main id="main">
+
+  <p class="pagelede">Every job-hunt message the channel got, newest first. A ✅ released a send; 📤 marks it gone so nobody is messaged twice.</p>
+  <div class="toolbar">
+    <div class="filters" id="slackFilters">
+      <button class="chipbtn" data-f="all" aria-pressed="true">All</button>
+      <button class="chipbtn" data-f="cards">Action cards</button>
+      <button class="chipbtn" data-f="sent">Sent</button>
+      <button class="chipbtn" data-f="alerts">Alerts</button>
+      <button class="chipbtn" data-f="approved">Approved ✅</button>
+    </div>
+    <input class="search" id="slackSearch" type="search" placeholder="Search Slack" aria-label="Search Slack" />
+  </div>
+  <div class="feed" id="slackFeed"></div>
+</main>
+
+<div class="toast" id="toast" hidden></div>
+<script src="/static/common.js"></script>
+<script src="/static/page-slack.js"></script>
+</body>
+</html>

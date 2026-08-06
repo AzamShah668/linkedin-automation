@@ -1,0 +1,97 @@
+{
+  "_README": [
+    "TEMPLATE. Copy to `application-answers.json` (gitignored) and fill in your own values.",
+    "",
+    "THE ONE HARD RULE: the form filler may only put values from this file into a real",
+    "employer's form. If a field asks something whose value here is null, it MUST leave the",
+    "field blank and report it. Never invent an answer — a guessed notice period or salary is",
+    "a false statement sent to a real company under your name.",
+    "",
+    "Blank beats wrong. Skip beats invent.",
+    "",
+    "Two salary figures on purpose: domestic and international differ by ~40x, and sending",
+    "the wrong one is an instant auto-reject. See `which_to_use` below."
+  ],
+
+  "identity": {
+    "full_name": "Your Name",
+    "email": "you@example.com",
+    "phone": "0000000000",
+    "phone_country_code": "+91",
+    "location_city": "Your City",
+    "location_state": "Your State",
+    "location_country": "Your Country",
+    "linkedin": "https://www.linkedin.com/in/your-handle",
+    "github": "https://github.com/your-handle",
+    "cv_pdf": "output/pdf/your-cv.pdf",
+    "cv_link": "https://example.com/link-to-one-general-cv.pdf"
+  },
+
+  "education": {
+    "degree": "B.Tech",
+    "field": "Computer Science & Engineering",
+    "institution": "Your University",
+    "start_year": 2022,
+    "end_year": 2026,
+    "status": "final year"
+  },
+
+  "compensation": {
+    "current_ctc": "0",
+    "current_ctc_note": "Fresher — no salaried employment.",
+    "expected_ctc_india_lpa": "0.0",
+    "expected_ctc_india_annual_inr": "000000",
+    "expected_ctc_india_monthly_inr": "00000",
+    "expected_ctc_international_usd_year": "00000",
+    "which_to_use": "Use the LPA figure for Indian employers (Indian ATS ask in LPA). Use the USD/year figure for remote/international employers. Decide from the employer's country; if unclear, use the India figure.",
+    "numeric_field_rule": "PROVEN 2026-07-29: LinkedIn Easy Apply numeric inputs REJECT words and decimals-as-LPA. '8.4' fails client-side validation and silently blocks the Next button. In a NUMERIC field answer the annual figure (e.g. 840000 for India, 30000 international). Only use the LPA form where the label itself says LPA and the field accepts text. IMPORTANT: once a failing numeric field validates, LinkedIn reveals additional questions that were hidden behind it — always re-snapshot after a correction.",
+    "negotiable": "yes"
+  },
+
+  "availability": {
+    "notice_period": "Immediate",
+    "notice_period_days": "0",
+    "notice_period_note": "Use notice_period_days ('0') in any NUMERIC field. PROVEN 2026-07-29: LinkedIn rejects the word 'Immediate' in a number input. The word form is only for free-text fields or dropdowns.",
+    "earliest_start_date": "Immediate",
+    "willing_to_relocate": "Yes",
+    "work_type_preference": "Remote, hybrid or on-site — all acceptable",
+    "preferred_locations": "Remote; any major tech hub"
+  },
+
+  "eligibility": {
+    "work_authorization_india": "Citizen — authorised to work, no sponsorship required",
+    "requires_visa_sponsorship_outside_india": "Yes",
+    "nationality": "Your Nationality"
+  },
+
+  "experience": {
+    "total_professional_years": "0",
+    "total_professional_years_note": "Fresher. Substantial project and open-source work, but no salaried role — answer 0 or 'Fresher' honestly.",
+    "notable": "One or two sentences of your strongest, verifiable, quantified work."
+  },
+
+  "NEEDS_ANSWERS": {
+    "_note": "null = the filler leaves the field BLANK and appends the field name to output/apply-log/needs-answer.md. Fill these in as they come up so the robot stops stopping. Every null here is a form the robot may have to abandon.",
+    "_blocks_most_often": "highest_qualification_percentage_or_cgpa, current_employer, reason_for_change, passport_number",
+    "years_production_development": null,
+    "years_mlops": null,
+    "years_with_python": null,
+    "years_with_docker": null,
+    "years_with_kubernetes": null,
+    "years_with_aws": null,
+    "years_with_linux": null,
+    "date_of_birth": null,
+    "gender": null,
+    "current_employer": null,
+    "highest_qualification_percentage_or_cgpa": null,
+    "passport_number": null,
+    "reason_for_change": null,
+    "how_did_you_hear_about_us": "LinkedIn"
+  },
+
+  "_derivation_rule": [
+    "Exactly ONE derivation is permitted, because it is a fact and not a guess:",
+    "how_did_you_hear_about_us -> 'LinkedIn', when the role was discovered through LinkedIn.",
+    "Nothing else may be derived. Everything else is a lookup or a blank."
+  ]
+}

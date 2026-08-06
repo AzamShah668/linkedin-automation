@@ -1,0 +1,95 @@
+<!--
+  CV Architect — reusable visual template (stat-tile look).
+  Self-contained, ATS-graceful (single-column body, linear-text tiles, no content tables).
+  Replace {{TOKENS}} and the sample sections, then print to PDF (Ctrl/Cmd+P → Save as PDF).
+-->
+<meta charset="utf-8" />
+<title>{{FULL_NAME}} — {{ROLE}}</title>
+<style>
+  :root {
+    --navy:#1b2a4a; --accent:#2c5aa0; --text:#24292f; --muted:#5b6672;
+    --tile-bg:#f7f9fc; --tile-border:#e2e8f0; --page:#ffffff;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:#eef1f5; color:var(--text);
+    font:400 11pt/1.45 -apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  .page {
+    max-width:820px; margin:24px auto; background:var(--page);
+    padding:48px 52px; box-shadow:0 2px 18px rgba(20,30,60,.10);
+  }
+  header { text-align:center; }
+  .name { font-size:30px; font-weight:800; letter-spacing:2px; color:var(--navy); text-transform:uppercase; margin:0; }
+  .tagline { font-size:13px; color:var(--accent); font-weight:600; margin:6px 0 8px; }
+  .contact { font-size:10.5px; color:var(--muted); }
+  .contact a { color:var(--accent); text-decoration:none; }
+  .rule { height:2px; background:var(--navy); border:0; margin:14px 0 18px; }
+  .stats { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:20px; }
+  .tile { background:var(--tile-bg); border:1px solid var(--tile-border); border-radius:6px; padding:12px 8px; text-align:center; }
+  .tile .num { font-size:21px; font-weight:800; color:var(--navy); line-height:1.1; }
+  .tile .lbl { font-size:9px; text-transform:uppercase; letter-spacing:.6px; color:var(--muted); margin-top:3px; }
+  .summary { font-size:11pt; margin:0 0 6px; }
+  h2 { font-size:12px; text-transform:uppercase; letter-spacing:1.2px; color:var(--accent);
+       border-bottom:1px solid var(--tile-border); padding-bottom:5px; margin:20px 0 10px; font-weight:800; }
+  .job { display:flex; justify-content:space-between; align-items:baseline; gap:12px; margin-top:12px; }
+  .job h3 { font-size:12.5px; color:var(--navy); margin:0; font-weight:700; }
+  .job .date { font-size:10px; color:var(--muted); white-space:nowrap; }
+  .sub { font-size:10.5px; color:var(--muted); margin:1px 0 4px; }
+  ul { margin:4px 0 0; padding-left:18px; }
+  li { margin:3px 0; }
+  .skills p { margin:4px 0; }
+  .skills strong { color:var(--navy); }
+  footer { text-align:center; color:var(--muted); font-size:10px; margin-top:22px; font-style:italic; }
+  @page { margin:14mm; }
+  @media print {
+    body { background:#fff; }
+    .page { box-shadow:none; margin:0; max-width:none; padding:0; }
+    * { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  }
+</style>
+
+<div class="page">
+  <header>
+    <h1 class="name">{{FULL_NAME}}</h1>
+    <div class="tagline">{{ROLE_LINE}}</div>
+    <div class="contact">
+      {{EMAIL}} &nbsp;|&nbsp; {{PHONE}} &nbsp;|&nbsp; {{LOCATION}} &nbsp;|&nbsp;
+      <a href="{{GITHUB_URL}}">{{GITHUB}}</a> &nbsp;|&nbsp; <a href="{{PORTFOLIO_URL}}">{{PORTFOLIO}}</a>
+    </div>
+  </header>
+  <hr class="rule" />
+
+  <div class="stats">
+    <div class="tile"><div class="num">{{S1_NUM}}</div><div class="lbl">{{S1_LBL}}</div></div>
+    <div class="tile"><div class="num">{{S2_NUM}}</div><div class="lbl">{{S2_LBL}}</div></div>
+    <div class="tile"><div class="num">{{S3_NUM}}</div><div class="lbl">{{S3_LBL}}</div></div>
+    <div class="tile"><div class="num">{{S4_NUM}}</div><div class="lbl">{{S4_LBL}}</div></div>
+    <div class="tile"><div class="num">{{S5_NUM}}</div><div class="lbl">{{S5_LBL}}</div></div>
+    <div class="tile"><div class="num">{{S6_NUM}}</div><div class="lbl">{{S6_LBL}}</div></div>
+  </div>
+
+  <h2>Summary</h2>
+  <p class="summary">{{SUMMARY}}</p>
+
+  <h2>Technical Skills</h2>
+  <div class="skills">
+    <p><strong>{{SKILL_GROUP_1}}</strong> — {{SKILL_LIST_1}}</p>
+    <!-- repeat skill lines -->
+  </div>
+
+  <h2>Experience</h2>
+  <div class="job">
+    <h3>{{JOB_TITLE}}</h3><span class="date">{{JOB_DATE}}</span>
+  </div>
+  <div class="sub">{{JOB_ORG_STACK}}</div>
+  <ul>
+    <li>{{BULLET}}</li>
+  </ul>
+
+  <h2>Education</h2>
+  <div class="job"><h3>{{DEGREE}}</h3><span class="date">{{EDU_DATE}}</span></div>
+  <div class="sub">{{SCHOOL}}</div>
+
+  <footer>References available on request.</footer>
+</div>

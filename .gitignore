@@ -1,0 +1,53 @@
+# Secrets — NEVER commit
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+credentials.json
+token.json
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ── PERSONAL DATA — never commit to the public repo ──────────────────────────
+# This repo is PUBLIC. `output/` and `profile/` hold real job-hunt data: the
+# owner's CV and contact details, and the names, emails and LinkedIn URLs of
+# real recruiters who never agreed to appear in a public repository.
+# Everything the code needs is generated at runtime; nothing here is required
+# to run the pipeline. See README.md → "What is not in this repo".
+output/
+# NOTE: use `profile/*` not `profile/` — git cannot re-include a file whose
+# parent DIRECTORY is excluded, so the two `!` lines below would silently fail.
+profile/*
+!profile/README.md
+!profile/application-answers.example.json
+
+# Data / generated artifacts
+data/*.db
+data/*.sqlite
+data/generated/
+data/cache/
+
+# Claude Code local settings (machine-specific permission allowlist)
+.claude/settings.local.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.pw_browser/
+.pw-output/
+
+# Obsidian vault junk that landed in the repo folder by accident
+.obsidian/
+linkdin automation/

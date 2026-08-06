@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Azam Rizwan Shah — [ROLE TITLE]</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #1a1a1a;
+    line-height: 1.45;
+    font-size: 9.5pt;
+    max-width: 8.5in;
+    margin: 0 auto;
+    padding: 0.45in 0.55in;
+    background: #fff;
+  }
+
+  /* ── Header ──────────────────────────────────── */
+  .header {
+    text-align: center;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #1a3a5c;
+  }
+  .header h1 {
+    font-size: 22pt;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+    color: #1a1a1a;
+  }
+  .header .tagline {
+    font-size: 10pt;
+    color: #1a3a5c;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .header .contact {
+    font-size: 9pt;
+    color: #555;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .header .contact a { color: #555; text-decoration: none; }
+  .header .contact .sep { color: #ccc; font-size: 8pt; }
+  .header .contact .label { color: #888; font-size: 8pt; margin-right: 2px; }
+
+  /* ── Sections ────────────────────────────────── */
+  .section { margin-bottom: 15px; }
+  .section-title {
+    font-size: 9.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #1a3a5c;
+    border-bottom: 1.5px solid #1a3a5c;
+    padding-bottom: 3px;
+    margin-bottom: 8px;
+  }
+
+  /* ── Highlights strip ────────────────────────── */
+  .highlights {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px 12px;
+    margin-bottom: 14px;
+  }
+  .highlights .card {
+    border: 1px solid #d1d5db;
+    border-radius: 5px;
+    padding: 6px 10px;
+    text-align: center;
+    background: #f8fafc;
+  }
+  .highlights .num {
+    font-weight: 700;
+    font-size: 14pt;
+    color: #1a3a5c;
+    display: block;
+    line-height: 1.2;
+  }
+  .highlights .desc {
+    color: #555;
+    font-size: 8pt;
+    display: block;
+    margin-top: 1px;
+  }
+
+  /* ── Summary ─────────────────────────────────── */
+  .summary {
+    font-size: 9.5pt;
+    color: #333;
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+
+  /* ── Education ───────────────────────────────── */
+  .edu-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .edu-row .degree { font-weight: 600; font-size: 9.5pt; }
+  .edu-row .date { font-size: 8.5pt; color: #666; }
+  .edu-detail { font-size: 8.5pt; color: #555; margin-top: 1px; }
+
+  /* ── Experience ──────────────────────────────── */
+  .exp-block { margin-bottom: 9px; }
+  .exp-title {
+    font-weight: 600;
+    font-size: 9.5pt;
+    margin-bottom: 3px;
+    color: #222;
+  }
+  ul { padding-left: 14px; }
+  li {
+    margin-bottom: 2.5px;
+    font-size: 9pt;
+    line-height: 1.4;
+  }
+
+  /* ── Skills grid ─────────────────────────────── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 5px 12px;
+    font-size: 9pt;
+  }
+  .skills-grid .label { font-weight: 600; color: #1a3a5c; }
+  .skills-grid .value { color: #444; }
+
+  /* ── Print ───────────────────────────────────── */
+  @media print {
+    body { padding: 0.5in 0.5in; }
+    .section { break-inside: avoid; }
+    .highlights .card {
+      background: #f8fafc !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      border-color: #d1d5db !important;
+    }
+    a { color: #444 !important; }
+  }
+  @page { margin: 0; size: letter; }
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══════════════════════════════════════
+     INSTRUCTIONS:
+     - Replace [ROLE TAGLINE] with 3-4 role-specific keywords separated by ·
+     - Contact details are FIXED — do not change
+═══════════════════════════════════════════════════ -->
+<div class="header">
+  <h1>AZAM RIZWAN SHAH</h1>
+  <div class="tagline">[ROLE TAGLINE] · [Keyword 2] · [Keyword 3] · [Keyword 4]</div>
+  <div class="contact">
+    <span>azamshah25809@gmail.com</span>
+    <span class="sep">|</span>
+    <span>+91 <YOUR-PHONE></span>
+    <span class="sep">|</span>
+    <span><span class="label">GitHub</span> <a href="https://github.com/AzamShah668">AzamShah668</a></span>
+    <span class="sep">|</span>
+    <span><span class="label">LinkedIn</span> <a href="https://www.linkedin.com/in/azam-shah-4ba6752ba">azam-shah</a></span>
+    <span class="sep">|</span>
+    <span>India (Remote)</span>
+  </div>
+</div>
+
+<!-- ═══ KEY METRICS ══════════════════════════════════
+     INSTRUCTIONS:
+     - Pick the 6 most impressive numbers relevant to the target role
+     - Number must be large and bold
+     - Description must be 3-5 words max
+     - See SKILL.md "Available Metrics" table for the full list
+═══════════════════════════════════════════════════ -->
+<div class="highlights">
+  <div class="card"><span class="num">[NUM]</span><span class="desc">[Short Description]</span></div>
+  <div class="card"><span class="num">[NUM]</span><span class="desc">[Short Description]</span></div>
+  <div class="card"><span class="num">[NUM]</span><span class="desc">[Short Description]</span></div>
+  <div class="card"><span class="num">[NUM]</span><span class="desc">[Short Description]</span></div>
+  <div class="card"><span class="num">[NUM]</span><span class="desc">[Short Description]</span></div>
+  <div class="card"><span class="num">[NUM]</span><span class="desc">[Short Description]</span></div>
+</div>
+
+<!-- ═══ SUMMARY ══════════════════════════════════════
+     INSTRUCTIONS:
+     - 3-4 sentences MAX
+     - First sentence: who you are + what you do (role-specific)
+     - Mention the target role's core keywords in bold
+     - Name 3-5 specific technologies or achievements
+═══════════════════════════════════════════════════ -->
+<div class="summary">
+  [ROLE-SPECIFIC SUMMARY. Bold key terms with &lt;strong&gt;. 3-4 sentences only.]
+</div>
+
+<!-- ═══ EDUCATION (FIXED — DO NOT CHANGE) ════════════ -->
+<div class="section">
+  <div class="section-title">Education</div>
+  <div class="edu-row">
+    <span class="degree">B.Tech in Computer Science &amp; Engineering</span>
+    <span class="date">2022 – 2026</span>
+  </div>
+  <div class="edu-detail">Central University of Kashmir, Capstone: Self-Hosted VM Management Platform (6-sprint agile project)</div>
+</div>
+
+<!-- ═══ EXPERIENCE SECTION 1 ════════════════════════
+     INSTRUCTIONS:
+     - Create 3-5 experience sections relevant to the target role
+     - Each section has a section-title and exp-blocks
+     - Each exp-block has an exp-title and bullet points
+     - Every bullet must fit on ONE line when printed
+     - Bold all numbers
+     - Start every bullet with a strong action verb
+═══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">[Section Title — Role Relevant]</div>
+
+  <div class="exp-block">
+    <div class="exp-title">[Project or Achievement Name]</div>
+    <ul>
+      <li>[Action verb] + [what you built] + [quantified result with <strong>bold numbers</strong>]</li>
+      <li>[Action verb] + [what you built] + [quantified result]</li>
+    </ul>
+  </div>
+
+  <div class="exp-block">
+    <div class="exp-title">[Project or Achievement Name]</div>
+    <ul>
+      <li>[Bullet point]</li>
+      <li>[Bullet point]</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══ EXPERIENCE SECTION 2 ════════════════════════ -->
+<div class="section">
+  <div class="section-title">[Section Title]</div>
+  <ul>
+    <li>[Bullet point]</li>
+    <li>[Bullet point]</li>
+    <li>[Bullet point]</li>
+  </ul>
+</div>
+
+<!-- ═══ ADD MORE SECTIONS AS NEEDED ═════════════════ -->
+
+<!-- ═══ SKILLS ══════════════════════════════════════
+     INSTRUCTIONS:
+     - Use commas to separate items (NOT middots)
+     - Include every keyword from the job listing that Azam actually knows
+     - Category labels should match the role (e.g., "DevOps" for DevOps roles)
+═══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Technical Skills</div>
+  <div class="skills-grid">
+    <span class="label">[Category]</span>
+    <span class="value">[Tech 1], [Tech 2], [Tech 3], [Tech 4]</span>
+
+    <span class="label">[Category]</span>
+    <span class="value">[Tech 1], [Tech 2], [Tech 3], [Tech 4]</span>
+
+    <span class="label">[Category]</span>
+    <span class="value">[Tech 1], [Tech 2], [Tech 3], [Tech 4]</span>
+
+    <span class="label">[Category]</span>
+    <span class="value">[Tech 1], [Tech 2], [Tech 3], [Tech 4]</span>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ══════════════════════════════════════ -->
+<div style="text-align: center; font-size: 8.5pt; color: #888; margin-top: 14px; border-top: 1px solid #eee; padding-top: 6px;">
+  Available for remote, asynchronous project work · Based in India
+</div>
+
+</body>
+</html>

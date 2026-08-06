@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Run it — Job Hunt</title>
+<link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brand" href="/">
+    <span class="mark">JH</span>
+    <div>
+      <div class="eyebrow">Job Hunt Autopilot</div>
+      <h1>Run it</h1>
+    </div>
+  </a>
+  <nav class="tabs" id="nav"></nav>
+  <div class="topbar-right">
+    <a class="btn btn-primary" href="/download/all.zip">Download everything</a>
+    <span class="stamp" id="stamp">loading</span>
+  </div>
+</header>
+
+<main id="main">
+
+  <p class="pagelede">Every step of the pipeline, on a button. Read-only steps run on one click; anything that reaches a real person asks first.</p>
+  <div id="preflight"></div>
+  <h2 class="sec">The pipeline, in order</h2>
+  <div id="actions"></div>
+  <h2 class="sec">Output</h2>
+  <div id="runPane"><div class="empty-state">Run something and its output appears here, live.</div></div>
+  <h2 class="sec">Recent runs</h2>
+  <div id="runHistory"></div>
+</main>
+
+<div class="toast" id="toast" hidden></div>
+<script src="/static/common.js"></script>
+<script src="/static/page-controls.js"></script>
+</body>
+</html>

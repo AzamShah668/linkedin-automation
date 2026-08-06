@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Jobs & CV — Job Hunt</title>
+<link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brand" href="/">
+    <span class="mark">JH</span>
+    <div>
+      <div class="eyebrow">Job Hunt Autopilot</div>
+      <h1>Jobs &amp; CV</h1>
+    </div>
+  </a>
+  <nav class="tabs" id="nav"></nav>
+  <div class="topbar-right">
+    <a class="btn btn-primary" href="/download/all.zip">Download everything</a>
+    <span class="stamp" id="stamp">loading</span>
+  </div>
+</header>
+
+<main id="main">
+
+  <p class="pagelede">Pick a role: the job and its apply link on the left, the tailored CV ready to download on the right.</p>
+  <div class="masterdetail">
+    <aside class="master">
+      <div class="master-head">
+        <input class="search" id="jobSearch" type="search" placeholder="Find a role" aria-label="Find a role" />
+        <span class="count" id="jobCount"></span>
+      </div>
+      <ul class="joblist" id="jobList"></ul>
+    </aside>
+    <div class="detail" id="jobDetail">
+      <div class="empty-state">Pick a role on the left.</div>
+    </div>
+  </div>
+</main>
+
+<div class="toast" id="toast" hidden></div>
+<script src="/static/common.js"></script>
+<script src="/static/page-jobs.js"></script>
+</body>
+</html>

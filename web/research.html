@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Research — Job Hunt</title>
+<link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brand" href="/">
+    <span class="mark">JH</span>
+    <div>
+      <div class="eyebrow">Job Hunt Autopilot</div>
+      <h1>Research</h1>
+    </div>
+  </a>
+  <nav class="tabs" id="nav"></nav>
+  <div class="topbar-right">
+    <a class="btn btn-primary" href="/download/all.zip">Download everything</a>
+    <span class="stamp" id="stamp">loading</span>
+  </div>
+</header>
+
+<main id="main">
+
+  <p class="pagelede">What was found out about each company, and the rules that decide what gets said to whom.</p>
+  <h2 class="sec">How a target gets chosen and written to</h2>
+  <p class="lede">Every message on this page follows these six rules. Only the evidence changes per company.</p>
+  <div class="basis" id="basis"></div>
+  <h2 class="sec">The shared basis — Highlight Reel</h2>
+  <p class="lede">Every first message opens with one line from this, matched to the role. Not the CV: the ten-second, numbers-first skim.</p>
+  <div class="doc" id="reelDoc"></div>
+  <h2 class="sec">Per-company research and the exact messages</h2>
+  <div class="toolbar"><div class="filters" id="researchTabs"></div></div>
+  <div id="researchBody"></div>
+</main>
+
+<div class="toast" id="toast" hidden></div>
+<script src="/static/common.js"></script>
+<script src="/static/page-research.js"></script>
+</body>
+</html>

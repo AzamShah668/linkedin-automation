@@ -1,0 +1,32 @@
+{
+  "mcpServers": {
+    "mcp-server-linkedin": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["mcp-server-linkedin@latest"],
+      "env": {
+        "UV_HTTP_TIMEOUT": "300"
+      }
+    },
+    "playwright": {
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "@playwright/mcp@latest",
+        "--user-data-dir",
+        "D:\\linkdin automation\\.pw_browser",
+        "--output-dir",
+        "D:\\linkdin automation\\.pw-output"
+      ],
+      "description": "Headed Chromium for EXTERNAL application forms (Greenhouse/Lever/Ashby/Workday) - navigate/click/type/upload CV/screenshot. Its own profile: MUST NOT be pointed at LinkedIn or at the mcp-server-linkedin profile (two Playwright instances contending for one LinkedIn login is the D13 browser-profile-lock bug). Fills forms; a human submits."
+    },
+    "mcp-post-studio": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["d:\\linkdin automation\\tools\\post_creator\\mcp_server.py"],
+      "description": "Daily LinkedIn Post & High-Res FLUX.1 / Imagen 3 Image Studio MCP Server."
+    }
+  }
+}

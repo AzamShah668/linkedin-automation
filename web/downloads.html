@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Downloads — Job Hunt</title>
+<link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brand" href="/">
+    <span class="mark">JH</span>
+    <div>
+      <div class="eyebrow">Job Hunt Autopilot</div>
+      <h1>Downloads</h1>
+    </div>
+  </a>
+  <nav class="tabs" id="nav"></nav>
+  <div class="topbar-right">
+    <a class="btn btn-primary" href="/download/all.zip">Download everything</a>
+    <span class="stamp" id="stamp">loading</span>
+  </div>
+</header>
+
+<main id="main">
+
+  <p class="pagelede">Every file this pipeline has produced, in one place. Real files — click and they land in your downloads folder.</p>
+  <div id="downloadsBody"></div>
+</main>
+
+<div class="toast" id="toast" hidden></div>
+<script src="/static/common.js"></script>
+<script src="/static/page-downloads.js"></script>
+</body>
+</html>
