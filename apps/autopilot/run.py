@@ -483,6 +483,16 @@ def cmd_applyall(args: argparse.Namespace) -> int:
         if choice.pdf is None:
             skipped.append((f"{cand.company} - {cand.job}", choice.label))
             continue
+
+        # ONE ROLE PER COMPANY PER RUN. Three applications to the same staffing agency inside
+        # ten minutes lands on ONE recruiter's desk and reads as scattershot rather than
+        # interested - the board notes already say one contact covers all of an agency's rows
+        # (D8). The highest-fit role goes first because the plan is sorted by fit.
+        seen_count = sum(1 for c, _ in plan if c.company.lower() == cand.company.lower())
+        if seen_count >= args.max_per_company:
+            skipped.append((f"{cand.company} - {cand.job}",
+                            f"already applying to {seen_count} role(s) at this company this run"))
+            continue
         plan.append((cand, choice))
 
     plan = plan[: args.limit]
@@ -633,6 +643,8 @@ def main(argv: list[str] | None = None) -> int:
     aa.add_argument("--limit", type=int, default=50, help="max applications this run")
     aa.add_argument("--min-gap", type=int, default=40, help="min seconds between applications")
     aa.add_argument("--max-gap", type=int, default=180, help="max seconds between applications")
+    aa.add_argument("--max-per-company", type=int, default=1,
+                    help="max roles per company per run (default 1; highest fit wins)")
 
     lg = sub.add_parser("ledger", help="show the never-resubmit ledger")
     lg.add_argument("--seed", action="store_true", help="add the pre-ledger applications")

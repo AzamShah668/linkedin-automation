@@ -28,6 +28,7 @@ from apps.autopilot.answers import (
     REPO,
     all_values,
     load_bank,
+    located_in_answer,
     lookup,
     match_field,
     resolve,
@@ -289,6 +290,45 @@ def _scan(modal: Locator) -> list[Control]:
     return controls
 
 
+def _group_options(control: Control) -> list[str]:
+    """The choices actually on offer, read however LinkedIn rendered them."""
+    seen: list[str] = []
+    for selector in ("label", "span", "input"):
+        nodes = control.loc.locator(selector)
+        for i in range(min(nodes.count(), 12)):
+            text = _deep_text(nodes.nth(i)) or (nodes.nth(i).get_attribute("value") or "")
+            text = text.strip()
+            if text and text not in seen and len(text) < 40:
+                seen.append(text)
+        if seen:
+            break
+    return seen[:8]
+
+
+def _required_errors(modal: Locator) -> list[str]:
+    """Questions still showing a validation error AFTER we finished filling the step.
+
+    This is the check that makes a failed click visible at the moment it happens. Without it a
+    radio that would not take looks identical to a radio nobody tried, and the run simply
+    stalls later with no explanation.
+    """
+    out: list[str] = []
+    errors = modal.locator("[role=alert], .artdeco-inline-feedback--error")
+    for i in range(errors.count()):
+        node = errors.nth(i)
+        try:
+            if not node.is_visible():
+                continue
+        except Exception:
+            continue
+        text = _text_of(node) or _deep_text(node)
+        if text and ERROR_RE.search(text):
+            container = node.locator("xpath=ancestor::*[3]")
+            question = _deep_text(container.first)[:90] if container.count() else ""
+            out.append(f"{text[:40]} <- {question}")
+    return out
+
+
 def _current_value(control: Control) -> str:
     try:
         return (control.loc.input_value(timeout=1500) or "").strip()
@@ -330,26 +370,39 @@ def _fill_group(control: Control, value: str) -> bool:
             (target if target.count() else radio).click()
             return radio.is_checked()
 
-    # Single hidden checkbox with the visible box drawn in CSS and NO <label> element at all —
-    # Energy Exemplar's consent field. Nothing above can match it, so click the visible text
-    # and, failing that, force the input. Either way VERIFY with is_checked(): reporting a
-    # tick that did not happen is the same class of lie as the PASS-on-a-no-op.
+    # NOTHING MATCHED BY LABEL. LinkedIn hides the option labels exactly as it hides the
+    # question, so a Yes/No radio pair reads as two unlabelled inputs.
+    #
+    # ⚠️ 2026-08-09: this fallback used to require `count == 1`, which covered a lone consent
+    # checkbox and NOTHING ELSE. Every two-option Yes/No group silently went unclicked - the
+    # owner watched forms sit at "This field is required" on questions the bank could answer
+    # perfectly well ("Are you comfortable working in a remote setting?" -> Yes). Text inputs
+    # filled fine, which is what made it look like the form was mostly working.
+    #
+    # Now: click the option by its VISIBLE text, then verify with is_checked(). Verification is
+    # the point - an unverified click is how this stayed invisible.
+    if count >= 1:
+        by_text = control.loc.get_by_text(
+            re.compile(rf"^\s*{re.escape(value.strip())}\s*$", re.I)
+        )
+        try:
+            if by_text.count():
+                by_text.first.click()
+                for i in range(inputs.count()):
+                    if inputs.nth(i).is_checked():
+                        return True
+        except Exception:
+            pass
+
+    # Last resort for a single control: force the input directly.
     if count == 1 and wanted in ("yes", "no", "true", "false"):
         box = inputs.first
         want_checked = wanted in ("yes", "true")
-        attempts = (
-            lambda: control.loc.get_by_text(
-                re.compile(rf"^\s*{re.escape(value.strip())}\s*$", re.I)
-            ).first.click(),
-            lambda: box.set_checked(want_checked, force=True),
-        )
-        for attempt in attempts:
-            try:
-                attempt()
-            except Exception:
-                continue
-            if box.is_checked() == want_checked:
-                return True
+        try:
+            box.set_checked(want_checked, force=True)
+            return box.is_checked() == want_checked
+        except Exception:
+            return False
     return False
 
 
@@ -396,7 +449,10 @@ def _fill_step(bank: dict, modal: Locator, result: FillResult, seen: set[str]) -
             continue
 
         key, spec = matched
-        value = resolve(bank, spec, numeric_control=control.numeric or spec.kind == NUMERIC)
+        if key == "located_in_city":
+            value = located_in_answer(bank, label)
+        else:
+            value = resolve(bank, spec, numeric_control=control.numeric or spec.kind == NUMERIC)
 
         # Bank rule: the LPA form is legal only when the label says LPA and the field takes text.
         if key == "expected_ctc" and not control.numeric and "lpa" in label.lower():
@@ -415,6 +471,16 @@ def _fill_step(bank: dict, modal: Locator, result: FillResult, seen: set[str]) -
             if _apply(control, value):
                 result.filled.append(Filled(control.label, key, value))
                 filled_now += 1
+            elif control.tag in ("group", "checkbox"):
+                # A radio/checkbox that would not take the click. Report WHAT WAS THERE, not
+                # just that it failed - "could not click Yes" is undiagnosable, "wanted 'Yes',
+                # options were ['Yes','No']" says the click is broken, and "options were
+                # ['0-1','2-3']" says the bank value does not fit the choices offered.
+                if control.label not in seen:
+                    seen.add(control.label)
+                    result.unanswered.append(
+                        f"{control.label}  (wanted {value!r}, options seen: {_group_options(control)})"
+                    )
             elif control.tag == "select" and _current_value(control):
                 # LinkedIn pre-selected one of ITS OWN verified values and our bank value is not
                 # among the options. Leaving it is correct — we must not blank a required field —
@@ -745,6 +811,15 @@ def fill_job(
             _wait_for_step_content(modal)  # each new step streams in the same way
             before = _fingerprint(modal)
             _fill_step(bank, modal, result, seen)
+
+            # Catch a click that did not take, AT THE MOMENT it happens. Without this a radio
+            # that refused the click is indistinguishable from one nobody tried, and the only
+            # symptom is a stall several steps later with no explanation.
+            for problem in _required_errors(modal):
+                if problem not in seen:
+                    seen.add(problem)
+                    result.unanswered.append(f"STILL REQUIRED after filling: {problem}")
+
             _capture_resume(modal, result)
 
             if cv_pdf is not None:

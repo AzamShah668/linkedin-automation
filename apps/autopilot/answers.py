@@ -155,6 +155,16 @@ FIELD_MAP: dict[str, Spec] = {
     "website": Spec((r"^website", r"personal website", r"\bportfolio\b"), text="identity.github",
                     note="owner: the GitHub URL is the right value for a 'Website' field"),
     "city": Spec((r"^city", r"current (city|location)", r"\blocation\b"), text="identity.location_city"),
+    # "Are you currently located in <city>?" is answerable from the bank and it is a FACT, not a
+    # guess: the bank states the city he lives in. Answered by comparing, never assumed - see
+    # located_in_answer() and the resolver in fill.py. Truthful "No" is required even when it
+    # may cost the application; willingness to relocate is a separate question the bank answers Yes.
+    "located_in_city": Spec(
+        (r"currently (located|based|residing) in", r"are you (located|based) in",
+         r"do you (currently )?(live|reside) in"),
+        text="_dynamic.located_in", kind=CHOICE,
+        note="compares the city named in the question against identity.location_city",
+    ),
 
     # --- skill-specific experience (MUST precede the generic years catch-all) ------------
     "years_python": Spec((r"python",), numeric="NEEDS_AZAM.years_with_python", text="NEEDS_AZAM.years_with_python", kind=NUMERIC, requires=QUANTITY_CUE),
@@ -259,6 +269,35 @@ _COMPILED: dict[str, tuple[re.Pattern[str], ...]] = {
     key: tuple(re.compile(p, re.IGNORECASE) for p in spec.patterns)
     for key, spec in FIELD_MAP.items()
 }
+
+
+def located_in_answer(bank: dict, label: str) -> str | None:
+    """Answer 'Are you currently located in <city>?' by COMPARING, never by assuming.
+
+    The bank states where he lives. If the question names that place (or his state, or country
+    for a country-level question), the truthful answer is Yes; otherwise No. This is a
+    comparison against a recorded fact, not an inference about something unknown.
+
+    Returns None when the question does not name a place we hold, so it goes to a human.
+    """
+    home = {
+        _norm_place(lookup(bank, "identity.location_city")),
+        _norm_place(lookup(bank, "identity.location_state")),
+        _norm_place(lookup(bank, "identity.location_country")),
+    }
+    home.discard("")
+    if not home:
+        return None
+
+    text = _norm_place(label)
+    if any(place and place in text for place in home):
+        return "Yes"
+    # Only answer No when the question actually names somewhere — otherwise we know nothing.
+    return "No" if re.search(r"\b(in|at)\s+[A-Z]", label) else None
+
+
+def _norm_place(value: str | None) -> str:
+    return re.sub(r"[^a-z]", "", (value or "").lower())
 
 
 def match_field(label: str) -> tuple[str, Spec] | None:
