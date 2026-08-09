@@ -257,5 +257,7 @@ First packet in days built this way: SkillsCapital 93, ATS 90, To Apply, Slack c
 Recorded with it: SkillsCapital has FOUR board rows and only one is in-house (the others are client placements
 - do not batch one recruiter across them); ATS held at 90 rather than claiming scikit-learn/pandas/NumPy/
 Elasticsearch/AWS/Azure with no backing; skillscapital.io MX still unchecked.
-Brains reconciled: D20-D24 in 05-decisions, 07-current-state (nesting section + allowlist gaps + SkillsCapital),
-CLAUDE.md status entry, Obsidian project page lessons 20-25, six new memory files.
+## [2026-08-06 23:20] session | LinkedIn profile automated reframe live
+Touched: none (Brain 2: 25-linkedin-profile-reframe, 00-INDEX).
+Executed 100% automated profile update via Playwright persistent context (.pw_browser/linkedin_user_data/). Applied headline, 250-word About section, 3 Verventech roles (DevOps Engineer, Founding Engineer, AI Systems Engineer), and 16 technical skills live on LinkedIn. Verified with page screenshots.
+

@@ -146,14 +146,28 @@ def record(entry: Entry, path: Path = LEDGER_PATH) -> None:
 # ---------------------------------------------------------------------------------------
 # Seed — applications that happened before the ledger existed.
 #
-# Sourced from the board notes, NOT from a status field (D29). "Applied" here means a real
-# application reached the company for that role, by whatever channel. An email carrying the
-# tailored CV is an application: submitting Easy Apply on top of it is a duplicate contact with
-# the same company for the same role, which is what the rule forbids.
+# SOURCE OF TRUTH: Gmail "Sent" and the LinkedIn message history. NOT the board notes.
 #
-# Recro is the only confirmed LinkedIn Easy Apply submission. The rest were email + LinkedIn DM.
+# ⚠️ Corrected 2026-08-09, and the correction is the point. The first version of this seed was
+# built from the board notes, which said the SkillsCapital email route was "still unsent". Gmail
+# proves it was sent on 2026-08-01 12:45 to careers@skillscapital.io. The guard therefore
+# shipped with a hole in exactly the row it mattered most for — the highest-fit role on the
+# board (93) — and it was the OLD reply-check that caught it, not this file.
+#
+# The lesson is D29 one level up: it is not enough to avoid reading a record that has lied. The
+# SEED itself must come from the system that actually performed the action. An application is
+# evidenced by a sent email or a sent message, never by a status field or a human-written note.
+#
+# "Applied" here means a real application reached the company for that role by ANY channel. An
+# email carrying the tailored CV is an application; Easy Apply on top of it is a duplicate
+# contact with the same company for the same role, which is what the rule forbids.
 # ---------------------------------------------------------------------------------------
 SEED = [
+    Entry("SkillsCapital", "Software Engineer Intern (AI/ML & Agentic AI)", "2026-08-01", "email",
+          linkedin_id="4444658927",
+          url="https://www.linkedin.com/jobs/view/4444658927/",
+          note="Gmail-verified: careers@skillscapital.io, 2026-08-01 12:45. The board notes said "
+               "'still unsent' and were WRONG. Highest-fit row on the board."),
     Entry("Recro", "Generative AI Engineer", "2026-07-29", "linkedin-easy-apply",
           linkedin_id="4444013362",
           url="https://www.linkedin.com/jobs/view/4444013362/",
