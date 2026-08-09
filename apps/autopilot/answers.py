@@ -154,7 +154,19 @@ FIELD_MAP: dict[str, Spec] = {
     "github_url": Spec((r"\bgithub\b", r"portfolio (url|link)"), text="identity.github"),
     "website": Spec((r"^website", r"personal website", r"\bportfolio\b"), text="identity.github",
                     note="owner: the GitHub URL is the right value for a 'Website' field"),
-    "city": Spec((r"^city", r"current (city|location)", r"\blocation\b"), text="identity.location_city"),
+    # ⚠️ 2026-08-09: this pattern used to include a bare `\blocation\b`, which matched
+    # "Have you ever appeared for an Interview at any Exl LOCATION during the last 90 days?"
+    # and typed "Srinagar" into it. That is a FALSE STATEMENT on a real employer's form - the
+    # precise harm the answer-bank rule exists to prevent, caused by an over-broad pattern
+    # rather than by a guess. A pattern that can match a question about something else is as
+    # dangerous as inventing a value.
+    # Every pattern here must be anchored to the CANDIDATE'S OWN location.
+    "city": Spec(
+        (r"^city\b", r"^location\b", r"your (current )?location", r"current (city|location)",
+         r"city of residence", r"where are you (currently )?(located|based)"),
+        text="identity.location_city",
+        note="anchored to the candidate's own city; a bare 'location' match caused a wrong answer",
+    ),
     # "Are you currently located in <city>?" is answerable from the bank and it is a FACT, not a
     # guess: the bank states the city he lives in. Answered by comparing, never assumed - see
     # located_in_answer() and the resolver in fill.py. Truthful "No" is required even when it

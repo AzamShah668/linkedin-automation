@@ -82,3 +82,45 @@ def test_missing_family_cv_is_reported_not_silently_skipped(monkeypatch, tmp_pat
     assert choice.kind == "none"
     assert choice.pdf is None
     assert "NO CV" in choice.label
+
+
+# ---------------------------------------------------------------------------------------
+# Regression: patterns that must NOT match, taken from real employer forms.
+#
+# 2026-08-09: a bare `\blocation\b` in the `city` spec matched "Have you ever appeared for an
+# Interview at any Exl LOCATION during the last 90 days?" and typed "Srinagar" into it. A wrong
+# answer on a real employer's form - the exact harm the answer bank exists to prevent, caused by
+# an over-broad pattern rather than by a guess.
+#
+# An over-broad pattern is as dangerous as inventing a value, and it is HARDER to catch: the
+# value is genuinely from the bank, so the "no value outside the bank" check passes it.
+# ---------------------------------------------------------------------------------------
+import pytest as _pytest
+
+from apps.autopilot.answers import match_field as _match
+
+
+@_pytest.mark.parametrize("question", [
+    "Have you ever appeared for an Interview at any Exl location during the last 90 days?"
+    " If 'Yes' then please mention the date :*",
+    "Are you willing to work in shifts (Including Night Shifts) ?*",
+    "Have you worked at any of our client locations before?",
+    "Which location would you prefer to be interviewed at?",
+])
+def test_questions_that_must_not_be_answered_with_the_candidates_city(question):
+    matched = _match(question)
+    assert matched is None or matched[0] != "city", (
+        f"{question!r} matched 'city' and would receive the candidate's home town"
+    )
+
+
+@_pytest.mark.parametrize("question,expected", [
+    ("City", "city"),
+    ("Current location", "city"),
+    ("Your current location", "city"),
+    ("Where are you currently based?", "city"),
+    ("City of residence", "city"),
+])
+def test_real_location_questions_still_match(question, expected):
+    matched = _match(question)
+    assert matched is not None and matched[0] == expected
