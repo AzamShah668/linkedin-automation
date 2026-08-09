@@ -456,6 +456,111 @@ def answers_today() -> str:
     return ledger.today()
 
 
+def cmd_applyall(args: argparse.Namespace) -> int:
+    """Apply to every eligible live row using tailored packets first, family CVs otherwise.
+
+    THROTTLED ON PURPOSE. LinkedIn watches application velocity, and fifty submissions inside a
+    few minutes is the clearest bot signal there is - a restriction would cost the account where
+    the warm insider and every recruiter connection lives. The runbook mandates randomised
+    40-180s gaps for exactly this reason, so the batch takes about an hour rather than a minute.
+    Same applications, no ban.
+    """
+    import random
+
+    from apps.autopilot import families, ledger
+
+    bank = answers.load_bank()
+    candidates = board_candidates(limit=10_000)
+
+    plan: list[tuple[Candidate, families.CvChoice]] = []
+    skipped: list[tuple[str, str]] = []
+    for cand in candidates:
+        blocked = ledger.already_applied(cand.company, cand.job, cand.url)
+        if blocked:
+            skipped.append((f"{cand.company} - {cand.job}", f"ledger: {blocked}"))
+            continue
+        choice = families.pick_cv(cand.row_id, cand.company, cand.job)
+        if choice.pdf is None:
+            skipped.append((f"{cand.company} - {cand.job}", choice.label))
+            continue
+        plan.append((cand, choice))
+
+    plan = plan[: args.limit]
+
+    print(f"\nPLAN: {len(plan)} application(s), {len(skipped)} skipped")
+    for cand, choice in plan:
+        print(f"  [{cand.fit:>3}] {cand.company[:22]:<22} {cand.job[:34]:<34} {choice.label}")
+    if skipped:
+        print(f"\n  skipped ({len(skipped)}):")
+        for what, why in skipped[:10]:
+            print(f"    {what[:44]:<44} {why[:60]}")
+
+    if args.dry_run:
+        print("\nDRY RUN - nothing was opened or submitted.")
+        return 0
+
+    est = len(plan) * ((args.min_gap + args.max_gap) / 2 + 45) / 60
+    print(f"\nSUBMITTING FOR REAL. Estimated {est:.0f} minutes with {args.min_gap}-{args.max_gap}s gaps.\n")
+
+    results: list[FillResult] = []
+    with sync_playwright() as pw:
+        context = open_browser(pw, _user_data_dir(), headless=False)
+        page = context.pages[0] if context.pages else context.new_page()
+        try:
+            check_logged_in(page)
+        except LinkedInLoggedOut as exc:
+            print(f"ABORTING: {exc}")
+            context.close()
+            return 2
+
+        for i, (cand, choice) in enumerate(plan, 1):
+            print(f"[{i}/{len(plan)}] {cand.company} - {cand.job}")
+            try:
+                result = fill_job(page, cand.url, bank, cv_pdf=choice.pdf,
+                                  submit=True, company=cand.company, role=cand.job)
+            except LinkedInLoggedOut as exc:
+                print(f"  ABORTING WHOLE RUN: {exc}")
+                break
+            results.append(result)
+            print(f"  -> {result.status} ({choice.kind} CV) in {result.seconds:.0f}s")
+            for blocker in result.blockers:
+                print(f"     BLOCKED: {blocker}")
+
+            if result.status in ("submitted", "submitted-unconfirmed"):
+                _mark_applied(cand, result)
+
+            if i < len(plan):
+                gap = random.randint(args.min_gap, args.max_gap)
+                print(f"  ... waiting {gap}s before the next one")
+                page.wait_for_timeout(gap * 1000)
+
+        context.close()
+
+    sent = [r for r in results if r.status == "submitted"]
+    unconfirmed = [r for r in results if r.status == "submitted-unconfirmed"]
+    print("\n" + "=" * 70)
+    print(f"  SUBMITTED (confirmed) : {len(sent)}")
+    print(f"  unconfirmed           : {len(unconfirmed)}  <- verify by hand, NEVER retry")
+    print(f"  not submitted         : {len(results) - len(sent) - len(unconfirmed)}")
+    for r in results:
+        if r.status not in ("submitted", "submitted-unconfirmed"):
+            print(f"    {r.status:<24} {r.url}")
+    return 0
+
+
+def _mark_applied(cand: Candidate, result: FillResult) -> None:
+    conn = sqlite3.connect(BOARD_DB)
+    conn.execute(
+        "UPDATE jobs SET status='Applied', applied=?, notes=COALESCE(notes,'')||?, updated_at=? WHERE id=?",
+        (answers_today(),
+         f"\n\n{answers_today()} APPLIED via apps/autopilot batch. status={result.status}. "
+         f"CV: {result.resume_filename}. Receipt: {result.slug}-{answers_today()}-submitted.png",
+         answers_today(), cand.row_id),
+    )
+    conn.commit()
+    conn.close()
+
+
 def cmd_ledger(args: argparse.Namespace) -> int:
     """Show or seed the never-resubmit ledger."""
     from apps.autopilot import ledger
@@ -486,6 +591,12 @@ def main(argv: list[str] | None = None) -> int:
     pr.add_argument("--save-jd-limit", type=int, default=15,
                     help="only fetch JDs for the top N survivors (default 15)")
 
+    aa = sub.add_parser("apply-all", help="apply to every eligible live row, throttled")
+    aa.add_argument("--dry-run", action="store_true", help="show the plan, open nothing")
+    aa.add_argument("--limit", type=int, default=50, help="max applications this run")
+    aa.add_argument("--min-gap", type=int, default=40, help="min seconds between applications")
+    aa.add_argument("--max-gap", type=int, default=180, help="max seconds between applications")
+
     lg = sub.add_parser("ledger", help="show the never-resubmit ledger")
     lg.add_argument("--seed", action="store_true", help="add the pre-ledger applications")
 
@@ -509,6 +620,8 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_fieldmap(args)
     if args.cmd == "login":
         return cmd_login(args)
+    if args.cmd == "apply-all":
+        return cmd_applyall(args)
     if args.cmd == "prune":
         return cmd_prune(args)
     if args.cmd == "ledger":

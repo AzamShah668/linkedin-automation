@@ -158,10 +158,10 @@ SLIDE1_OVERLAY_HTML = """<!DOCTYPE html>
     </div>
 
     <div class="stats-banner">
-      <div class="stat-card"><div class="sc-val">62 Jobs</div><div class="sc-lbl">Discovered</div></div>
-      <div class="stat-card"><div class="sc-val">5 Applied</div><div class="sc-lbl">Submitted</div></div>
-      <div class="stat-card"><div class="sc-val">0 Bounces</div><div class="sc-lbl">Verified Mail</div></div>
-      <div class="stat-card"><div class="sc-val">~2 min</div><div class="sc-lbl">Human Effort</div></div>
+      <div class="stat-card"><div class="sc-val">FLUX.1</div><div class="sc-lbl">Visual Engine</div></div>
+      <div class="stat-card"><div class="sc-val">MCP</div><div class="sc-lbl">Protocol Server</div></div>
+      <div class="stat-card"><div class="sc-val">Playwright</div><div class="sc-lbl">Browser Engine</div></div>
+      <div class="stat-card"><div class="sc-val">SQLite</div><div class="sc-lbl">State Store</div></div>
     </div>
 
     <div class="footer-cta">🚀 JOB HUNT AUTOPILOT + AI CONTENT STUDIO • ONE PLATFORM</div>
@@ -301,10 +301,10 @@ SLIDE2_HTML = """<!DOCTYPE html>
       </div>
     </div>
     <div class="footer-bar">
-      <div class="f-box"><div class="f-val">62 Jobs Found</div><div class="f-lbl">Automated Discovery</div></div>
-      <div class="f-box"><div class="f-val">0 Bounces</div><div class="f-lbl">Verified Delivery</div></div>
+      <div class="f-box"><div class="f-val">Python + PS1</div><div class="f-lbl">Dual Runtime</div></div>
       <div class="f-box"><div class="f-val">100% Free</div><div class="f-lbl">No Cloud Bills</div></div>
       <div class="f-box"><div class="f-val">Ban-Safe</div><div class="f-lbl">Human-in-the-Loop</div></div>
+      <div class="f-box"><div class="f-val">5 Tasks</div><div class="f-lbl">Scheduled 24/7</div></div>
     </div>
   </div>
 </body>
@@ -538,7 +538,6 @@ SLIDE4_HTML = """<!DOCTYPE html>
 
   .s-tag {{ font-family: 'Fira Code', monospace; font-size: 11px; font-weight: 800; background: #040814; padding: 3px 8px; border-radius: 6px; border: 1.5px solid rgba(255,255,255,0.25); color: #fff; }}
   .s-desc {{ font-size: 14px; color: #e2e8f0; font-weight: 700; line-height: 1.3; }}
-  .s-result {{ font-size: 13px; color: #00e676; font-weight: 800; }}
 
   .cta-banner {{
     background: #0d1733;
@@ -577,8 +576,7 @@ SLIDE4_HTML = """<!DOCTYPE html>
             <div class="s-title">🔍 Daily Job Discovery</div>
             <div class="s-tag">DAILY 08:00</div>
           </div>
-          <div class="s-desc">Scrapes DevOps + AI roles, dedupes, scores, pushes to Notion + Slack digest.</div>
-          <div class="s-result">RESULT: Board grew 24 → 62 jobs in one run</div>
+          <div class="s-desc">Scrapes DevOps + AI roles, dedupes against board, scores fit 0-100, pushes to Notion + Slack digest.</div>
         </div>
       </div>
       <div class="step-card sc-2">
@@ -588,8 +586,7 @@ SLIDE4_HTML = """<!DOCTYPE html>
             <div class="s-title">📤 Flush Approved Queue</div>
             <div class="s-tag">EVERY 30 MIN</div>
           </div>
-          <div class="s-desc">Drains Slack ✅ queue. Sends bare connection requests (throttled, jittered, capped).</div>
-          <div class="s-result">RESULT: 3 outreach dispatched, 0 bans</div>
+          <div class="s-desc">Drains Slack ✅ queue. Sends bare connection requests with randomized jitter, throttling, and daily caps.</div>
         </div>
       </div>
       <div class="step-card sc-3">
@@ -599,8 +596,7 @@ SLIDE4_HTML = """<!DOCTYPE html>
             <div class="s-title">👁️ Watch Accepts</div>
             <div class="s-tag">EVERY 4 HOURS</div>
           </div>
-          <div class="s-desc">Detects connection accept → waits 3-20h → auto-sends tailored CV + pitch.</div>
-          <div class="s-result">RESULT: Swaleha Pathan (Innova ESI) accepted</div>
+          <div class="s-desc">Detects connection accept → waits 3-20h → auto-sends tailored CV + personalized recruiter pitch.</div>
         </div>
       </div>
       <div class="step-card sc-4">
@@ -610,8 +606,7 @@ SLIDE4_HTML = """<!DOCTYPE html>
             <div class="s-title">📧 Reply & Bounce Check</div>
             <div class="s-tag">4X / DAY</div>
           </div>
-          <div class="s-desc">Gmail read-only scan for recruiter replies and bounces across all domains.</div>
-          <div class="s-result">RESULT: 0 bounces — all 3 emails delivered</div>
+          <div class="s-desc">Gmail read-only scan for recruiter replies and bounces across all engaged domains.</div>
         </div>
       </div>
       <div class="step-card sc-5">
@@ -621,8 +616,7 @@ SLIDE4_HTML = """<!DOCTYPE html>
             <div class="s-title">📦 Sweep & Build Packets</div>
             <div class="s-tag">EVERY 6 HOURS</div>
           </div>
-          <div class="s-desc">Drains unprocessed board rows. Builds tailored CV + outreach packet, max 2/cycle.</div>
-          <div class="s-result">RESULT: 4 packets built, 56 in queue</div>
+          <div class="s-desc">Drains unprocessed board rows. AI researches the company, generates tailored CV + pitch packet, max 2/cycle.</div>
         </div>
       </div>
     </div>
@@ -639,52 +633,33 @@ SLIDE4_HTML = """<!DOCTYPE html>
 
 POST_BODY = """I automated my entire LinkedIn — job hunting, recruiter outreach, content creation, and posting — with one platform that runs while I sleep.
 
-Here is the full architecture:
-
-THE PROBLEM:
-I was spending 3+ hours a day on LinkedIn manually — scrolling job boards, copy-pasting the same CV everywhere, writing generic outreach messages, and posting content with stock images. The reply rate was below 2%. The burnout was real.
-
-So I stopped doing it manually and engineered a system instead.
-
-WHAT IT DOES:
+Here is what I built:
 
 🔍 ENGINE 1: JOB HUNT AUTOPILOT
 → Scheduled task fires at 08:00 every morning
-→ Scrapes target DevOps + AI/MLOps roles via Playwright
-→ Deduplicates against 62 board rows, scores each role 0-100
-→ AI reads the JD, researches the company, generates a tailored CV
-→ Drafts personalized recruiter pitch (email + LinkedIn message)
-→ Everything hits my Slack queue — I tap ✅ on my phone to approve
+→ Playwright scrapes target DevOps + AI/MLOps roles
+→ Deduplicates against the board, scores each role 0-100 against my profile
+→ AI reads the JD, researches the company stack, generates a tailored CV
+→ Drafts a personalized recruiter pitch: formal email (Touch 1) + LinkedIn DM (Touch 2)
+→ Everything lands in a Slack review queue on my phone — I tap ✅ to approve
 → Nothing sends without that tap. Ever.
-→ Connection accepted? → Waits 3-20 hours → sends full CV + pitch automatically
+→ Connection accepted? Waits 3-20 hours → auto-sends full CV + pitch
+→ Day 3 and Day 7 follow-up nudges, then stops
 
 🎨 ENGINE 2: AI CONTENT STUDIO
 → Takes any engineering topic as input
-→ Generates LinkedIn post copy in a proven 5-part framework
+→ Generates LinkedIn post copy in a 5-part framework (Hook → Problem → Architecture → Takeaways → CTA)
 → Renders 4-slide visual carousel with FLUX.1 + Imagen 3 (8K resolution)
-→ Packages everything into a ready-to-publish bundle via MCP protocol
+→ HTML-to-PNG rendering for pixel-perfect vector text on 3D backgrounds
+→ Packages everything into a ready-to-publish JSON bundle via MCP protocol
 → This very post and its carousel were generated by this system
 
-THE HARD ENGINEERING PROBLEMS:
-• Browser profile lock: 3 Chromium instances fighting for one LinkedIn session. Cost me an hour debugging fake "session expired" errors.
-• Headless permission cliff: Claude running unattended silently refuses any tool not in the allowlist. 58 entries now.
-• AI text rendering: AI image generators produce gibberish text. Solved with hybrid HTML vector overlays on 3D backgrounds.
-• Ban safety: Randomized jitter on every action, daily caps, no headless scraping. Zero bans in 30+ days.
-
 THE STACK:
-5 Windows Scheduled Tasks • 2 MCP Protocol Servers • Playwright Chromium • SQLite3 + Notion DB • Slack Webhooks • FLUX.1 + Imagen 3 • Python + PowerShell
+5 Windows Scheduled Tasks • 2 MCP Protocol Servers (Stdio JSON-RPC 2.0) • Playwright Chromium • SQLite3 + Notion DB (two-way sync) • Slack Webhooks • FLUX.1 + Google Imagen 3 • Edge Headless HTML-to-PNG • Python + PowerShell
 
-RESULTS:
-→ 62 jobs discovered automatically
-→ 5 applications submitted
-→ 3 tailored CVs delivered to real recruiters (0 bounces)
-→ 4-slide carousels generated in under 60 seconds
-→ Total human effort per application: ~2 minutes of phone review
-→ Total cloud bill: $0. Runs entirely on my laptop.
+Everything runs on my laptop. No cloud deployment. No monthly bill.
 
-The whole thing is 39 scripts, 5 scheduled tasks, and zero excuses.
-
-What repetitive workflow are you still doing manually? Drop it in the comments — I'll tell you how I'd automate it.
+What repetitive workflow are you still doing manually? Drop it in the comments — I'd love to brainstorm how to automate it.
 
 #SoftwareEngineering #Automation #AI #Python #LinkedIn #JobSearch #MCP #SystemDesign #DevOps #CareerGrowth"""
 
