@@ -22,3 +22,10 @@ It generates structured LinkedIn post copy paired with photorealistic visuals co
 ## MCP Ecosystem Integration
 - **`mcp-post-studio`**: Generates post copy & 4-slide visual carousel pack (`tools/post_creator/mcp_server.py`).
 - **`mcp-server-linkedin`**: Receives ready post packages from `mcp-post-studio` and dispatches live posts onto LinkedIn via the stdio MCP protocol (`mcp-server-linkedin@latest`). Zero standalone Playwright script overhead required!
+
+## Unified Post Generator (2026-08-09)
+- **Script**: [`generate_unified_post.py`](file:///d:/linkdin%20automation/tools/post_creator/generate_unified_post.py) — self-contained, generates all 4 slides + JSON package in one run.
+- **Output**: `output/posts/unified_post/` (slide_1_hero.png through slide_4_roadmap.png + unified_post_package.json).
+- **Design rule**: Post copy showcases *what was built* only — no personal metrics, results, or debugging war stories. User directive (2026-08-09).
+- **Slide 1 approach**: Reuses existing 3D artwork + overlays vector text via Edge headless HTML-to-PNG (hybrid method). Stats banner shows tech stack pills (FLUX.1 / MCP / Playwright / SQLite), not job metrics.
+- **Slide 4 approach**: 5 scheduled task cards describe *what each task does*, no RESULT lines.
