@@ -297,14 +297,27 @@ def cmd_packet(args: argparse.Namespace) -> int:
     job_ids = args.job_id
     print(f"building {len(job_ids)} packet(s) via Claude Code (this takes minutes each)\n")
 
-    built, failed, limit = cv.build_many(job_ids, timeout=args.timeout)
+    # Company name per job id, so a build that the runbook is guaranteed to refuse fails in
+    # milliseconds instead of burning ~7 minutes of a session-limited resource.
+    conn = sqlite3.connect(BOARD_DB)
+    companies = {
+        jid: (conn.execute("SELECT company FROM jobs WHERE id=?", (jid,)).fetchone() or [""])[0]
+        for jid in job_ids
+    }
+    conn.close()
+
+    built, failed, limit = cv.build_many(job_ids, timeout=args.timeout, companies=companies)
 
     for packet in built:
         print(f"  OK    {packet.company} — {packet.role}")
         print(f"          {packet.path}")
         print(f"          PDF {packet.pdf.name} (ATS {packet.ats})")
     for job_id, error in failed:
-        print(f"  FAIL  {job_id}\n          {error.splitlines()[0]}")
+        # Print the WHOLE error. D17 says report both streams; showing only the first line
+        # threw away the STDOUT that explains the failure (2026-08-09).
+        print(f"  FAIL  {job_id}")
+        for line in error.splitlines():
+            print(f"          {line}")
 
     if limit:
         # D25: the remaining jobs are NOT failures. Say so, loudly, and record nothing.

@@ -66,7 +66,7 @@ def test_batch_keeps_the_finished_packet_then_stops(monkeypatch, tmp_path):
     good = cv.Packet("a", "A", "R", "stem", 90, "a", tmp_path)
     late = cv.Packet("b", "B", "R", "stem", 90, "b", tmp_path, limit_notice="limit at 9:10pm")
 
-    monkeypatch.setattr(cv, "build_packet", lambda job_id, timeout=None: {"a": good, "b": late}[job_id])
+    monkeypatch.setattr(cv, "build_packet", lambda job_id, timeout=None, company="": {"a": good, "b": late}[job_id])
     built, failed, limit = cv.build_many(["a", "b", "c"])
 
     assert [p.slug for p in built] == ["a", "b"]   # 'b' is kept, not discarded
@@ -134,7 +134,7 @@ def test_batch_stops_on_usage_limit_and_leaves_the_rest_untouched(monkeypatch):
     """The remaining jobs must NOT appear in `failed` — that is the D25 mistake."""
     calls = []
 
-    def build(job_id, timeout=None):
+    def build(job_id, timeout=None, company=""):
         calls.append(job_id)
         if job_id == "b":
             raise cv.UsageLimitHit("limit reached")
@@ -150,7 +150,7 @@ def test_batch_stops_on_usage_limit_and_leaves_the_rest_untouched(monkeypatch):
 
 
 def test_batch_records_a_real_failure_against_its_own_job(monkeypatch):
-    def build(job_id, timeout=None):
+    def build(job_id, timeout=None, company=""):
         if job_id == "b":
             raise cv.PacketBuildFailed("genuinely broken")
         return cv.Packet(job_id, "C", "R", "stem", 90, job_id, cv.OUTREACH_DIR)

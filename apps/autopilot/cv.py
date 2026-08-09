@@ -76,6 +76,34 @@ class Packet:
         return self.pdf.exists()
 
 
+def find_company_packet(company: str) -> Packet | None:
+    """Any packet already built for this COMPANY, whatever role it was for.
+
+    ⚠️ The runbook (§2, §3) works per COMPANY: one packet per company, because messaging the
+    same recruiter twice is the fastest way to look automated (D8). It refuses to rebuild when
+    `output/outreach/<slug>/packet.json` exists.
+
+    `find_packet` works per JOB ID. For a company's SECOND role the two disagree permanently:
+    Claude refuses to build, cv.py sees no packet for that job id, and the build reports FAIL
+    forever. Proven on Infosys AI/ML Engineer, 2026-08-09.
+
+    This function exposes the collision so a caller can say so plainly instead of retrying.
+    It is NOT a fix: the existing packet's CV is tailored to a DIFFERENT ROLE, so it must not
+    be attached to this one. Outreach is per company; a CV is per role. The packet layout
+    currently conflates them, and that is the thing to resolve.
+    """
+    slug = re.sub(r"[^a-z0-9]+", "-", (company or "").lower()).strip("-")
+    if not slug:
+        return None
+    candidate = OUTREACH_DIR / slug / "packet.json"
+    if not candidate.exists():
+        return None
+    try:
+        return _to_packet(json.loads(candidate.read_text(encoding="utf-8")), candidate)
+    except (OSError, json.JSONDecodeError, PacketBuildFailed):
+        return None
+
+
 def find_packet(job_id: str) -> Packet | None:
     """Locate an already-built packet by job id. Packets are discovered, never hardcoded.
 
@@ -107,7 +135,9 @@ def _to_packet(data: dict, path: Path) -> Packet:
     )
 
 
-def build_packet(job_id: str, timeout: int = DEFAULT_TIMEOUT, force: bool = False) -> Packet:
+def build_packet(
+    job_id: str, timeout: int = DEFAULT_TIMEOUT, force: bool = False, company: str = ""
+) -> Packet:
     """Run Claude Code against the packet runbook for one job. Sends nothing.
 
     Raises UsageLimitHit (stop the batch, blame nobody) or PacketBuildFailed (this job).
@@ -115,6 +145,21 @@ def build_packet(job_id: str, timeout: int = DEFAULT_TIMEOUT, force: bool = Fals
     existing = find_packet(job_id)
     if existing and not force:
         return existing  # runbook §2: rebuilding silently overwrites approved drafts
+
+    # Fail fast and EXPLAIN, rather than burning ~7 minutes of a session-limited resource on a
+    # build the runbook is guaranteed to refuse.
+    if company:
+        clash = find_company_packet(company)
+        if clash:
+            raise PacketBuildFailed(
+                f"{company} already has a packet at {clash.path} (built for "
+                f"{clash.role!r}, cv_stem {clash.cv_stem}).\n"
+                f"The runbook builds ONE packet per company and will refuse to overwrite it, so "
+                f"this build cannot succeed as-is.\n"
+                f"Its CV is tailored to a different role and must NOT be attached to this one.\n"
+                f"Resolve by hand: build the CV under a new stem for this role, or retire the "
+                f"old packet first."
+            )
 
     prompt = (
         f"Read {RUNBOOK} and follow it for job id {job_id}. Send nothing."
@@ -177,7 +222,11 @@ def build_packet(job_id: str, timeout: int = DEFAULT_TIMEOUT, force: bool = Fals
     )
 
 
-def build_many(job_ids: list[str], timeout: int = DEFAULT_TIMEOUT) -> tuple[list[Packet], list[tuple[str, str]], str | None]:
+def build_many(
+    job_ids: list[str],
+    timeout: int = DEFAULT_TIMEOUT,
+    companies: dict[str, str] | None = None,
+) -> tuple[list[Packet], list[tuple[str, str]], str | None]:
     """Build several packets. Returns (built, [(job_id, error)], usage_limit_message).
 
     On a usage limit the batch STOPS and the remaining jobs are left untouched — they are not
@@ -187,7 +236,9 @@ def build_many(job_ids: list[str], timeout: int = DEFAULT_TIMEOUT) -> tuple[list
     failed: list[tuple[str, str]] = []
     for job_id in job_ids:
         try:
-            packet = build_packet(job_id, timeout=timeout)
+            packet = build_packet(
+                job_id, timeout=timeout, company=(companies or {}).get(job_id, "")
+            )
         except UsageLimitHit as exc:
             return built, failed, str(exc)
         except PacketBuildFailed as exc:

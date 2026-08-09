@@ -277,3 +277,13 @@ stays on the MCP. It has NEVER EXECUTED - it is not allowlisted and an AI is blo
 Owner needs one line: "Bash(py -3 tools/poll_invites.py:*)". Treat the tool as unverified until it runs once.
 Sent nothing, wrote nothing to Notion, posted nothing to Slack.
 
+## [2026-08-09 15:15] session | build-packet halted: Infosys already packeted
+Touched: none
+Job 3a829d9d-9c6e-814a-a4d7-dd35097e1aba = Infosys "AI/ML Engineer" (fit 88, Hybrid, Bengaluru). Runbook 15
+step 2 AND step 3 both stop the run: output/outreach/infosys/packet.json already exists (built 2026-07-25 for
+the sibling role "AI Application Engineer", ATS 94, CV + PDF both present), and packets are one-per-COMPANY,
+not per-role. The Infosys contact chain is already spent: warm insider connected 07-26 13:15, accepted 16:15,
+CV + pitch delivered 16:43. A second packet would be a duplicate approach to the same person - the exact
+"looks automated" failure D8 exists to prevent.
+Nothing built, nothing sent, no Notion/Slack/status writes. Row left at status New.
+

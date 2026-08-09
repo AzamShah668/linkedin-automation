@@ -1,12 +1,12 @@
 # Graph Report - .  (2026-08-09)
 
 ## Corpus Check
-- 67 files · ~0 words
+- 68 files · ~0 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 517 nodes · 776 edges · 57 communities detected
-- Extraction: 60% EXTRACTED · 40% INFERRED · 0% AMBIGUOUS · INFERRED: 308 edges (avg confidence: 0.5)
+- 522 nodes · 782 edges · 57 communities detected
+- Extraction: 60% EXTRACTED · 40% INFERRED · 0% AMBIGUOUS · INFERRED: 310 edges (avg confidence: 0.5)
 - Token cost: 0 input · 0 output
 
 ## God Nodes (most connected - your core abstractions)
@@ -48,32 +48,32 @@ Cohesion: 0.08
 Nodes (23): all_rows(), last_sync(), _parse_ts(), pending_notion(), Insert or update by Notion page id. Returns (inserted, updated, protected)., Change a job's status from the dashboard. Returns the updated row.      Record, Dashboard edits Notion has not been told about — one row per job, latest state., Notes say warm/alumni but the checkbox is unticked — a real data gap that     s (+15 more)
 
 ### Community 3 - "Community 3"
-Cohesion: 0.18
-Nodes (16): BaseHTTPRequestHandler, all_zip(), bootstrap(), build_packets(), cv_paths(), discover_packets(), Handler, main() (+8 more)
+Cohesion: 0.12
+Nodes (23): build_many(), build_packet(), find_packet(), Packet, PacketBuildFailed, The bridge to Claude Code — the one step that keeps a full agent session.  Every, Run Claude Code against the packet runbook for one job. Sends nothing.      Rais, Build several packets. Returns (built, [(job_id, error)], usage_limit_message). (+15 more)
 
 ### Community 4 - "Community 4"
 Cohesion: 0.18
-Nodes (25): FillResult, LinkedInLoggedOut, The persistent profile is not signed in. Abort the WHOLE run; never attempt a lo, answers_today(), board_candidates(), Candidate, cmd_fieldmap(), cmd_fill() (+17 more)
+Nodes (16): BaseHTTPRequestHandler, all_zip(), bootstrap(), build_packets(), cv_paths(), discover_packets(), Handler, main() (+8 more)
 
 ### Community 5 - "Community 5"
+Cohesion: 0.18
+Nodes (25): FillResult, LinkedInLoggedOut, The persistent profile is not signed in. Abort the WHOLE run; never attempt a lo, answers_today(), board_candidates(), Candidate, cmd_fieldmap(), cmd_fill() (+17 more)
+
+### Community 6 - "Community 6"
 Cohesion: 0.14
 Nodes (20): ago(), api(), boot(), clear(), copy(), el(), esc(), fitCell() (+12 more)
 
-### Community 6 - "Community 6"
+### Community 7 - "Community 7"
 Cohesion: 0.2
 Nodes (24): cmd_add(), cmd_due(), cmd_expire(), cmd_list(), cmd_mark_accepted(), cmd_mark_failed(), cmd_mark_sent(), find() (+16 more)
 
-### Community 7 - "Community 7"
+### Community 8 - "Community 8"
 Cohesion: 0.12
 Nodes (18): _fake_run(), no_packet(), Tests for the Claude Code bridge — specifically the two rules that cost real day, Runbook §2 — rebuilding silently overwrites drafts the owner may have approved., The remaining jobs must NOT appear in `failed` — that is the D25 mistake., find_packet always returns None — i.e. Claude wrote no artifact., Regression, 2026-08-06 first real run.      The Energy Exemplar packet built com, A late limit stops the batch without throwing away the job that completed. (+10 more)
 
-### Community 8 - "Community 8"
+### Community 9 - "Community 9"
 Cohesion: 0.14
 Nodes (15): all_values(), BankMissing, dump_field_map(), load_bank(), lookup(), match_field(), The answer bank and the FIELD_MAP — the only legal source of form values.  THE, First FIELD_MAP entry whose pattern appears in the label wins. Order = priority. (+7 more)
-
-### Community 9 - "Community 9"
-Cohesion: 0.17
-Nodes (15): build_many(), build_packet(), find_packet(), Packet, PacketBuildFailed, The bridge to Claude Code — the one step that keeps a full agent session.  Every, Run Claude Code against the packet runbook for one job. Sends nothing.      Rais, Build several packets. Returns (built, [(job_id, error)], usage_limit_message). (+7 more)
 
 ### Community 10 - "Community 10"
 Cohesion: 0.17
@@ -100,44 +100,44 @@ Cohesion: 0.33
 Nodes (9): _bash_path(), find_interpreter(), hook_status(), install(), main(), C:\\Foo\\python.exe -> /c/Foo/python.exe, which is what Git Bash needs., An interpreter that can actually import graphify. Prefer the one running this sc, (name, ok, detail) per hook. `ok` means it names an interpreter that has graphif (+1 more)
 
 ### Community 16 - "Community 16"
-Cohesion: 0.42
-Nodes (8): ask(), _ask_anthropic(), _ask_openai_compatible(), LLMError, The single LLM entry point for the whole app.  One function: ask(prompt, max_tok, Any failure to get usable text out of a provider. Always carries the raw respons, Send one prompt, get one string back. Raises LLMError rather than returning junk, _require_env()
-
-### Community 17 - "Community 17"
 Cohesion: 0.31
 Nodes (8): delete_all_experience(), fill_position(), main(), navigate_to_add_position(), LinkedIn Experience Cleanup + Re-add v6 Step 1: Delete the 3 empty experience en, Add section -> Core -> Add position., Fill the experience form using POSITION-BASED field indexing., Delete all existing experience entries by navigating to the experience section.
 
-### Community 18 - "Community 18"
+### Community 17 - "Community 17"
 Cohesion: 0.44
 Nodes (6): actionCard(), confirmPanel(), fire(), loadHistory(), renderRun(), watch()
 
-### Community 19 - "Community 19"
+### Community 18 - "Community 18"
 Cohesion: 0.29
 Nodes (2): inviteUnit(), leg()
 
-### Community 20 - "Community 20"
+### Community 19 - "Community 19"
 Cohesion: 0.52
 Nodes (6): keywords_from_jd(), main(), norm(), present(), Keyword is present if it appears as a token/phrase in the CV text., read_text()
 
-### Community 21 - "Community 21"
+### Community 20 - "Community 20"
 Cohesion: 0.57
 Nodes (5): Enter-PipelineLock(), Get-PipelineLockOwner(), Read-PipelineLockText(), Remove-StalePipelineLock(), Write-LockLine()
 
-### Community 22 - "Community 22"
+### Community 21 - "Community 21"
 Cohesion: 0.38
 Nodes (6): add_skills(), check_and_cleanup(), main(), LinkedIn Profile Cleanup & Skills Add: 1. Scroll through experience section to c, Check the experience section for empty or duplicate entries., Add skills via Add section -> Core -> Add skills.
 
-### Community 23 - "Community 23"
+### Community 22 - "Community 22"
 Cohesion: 0.6
 Nodes (5): call(), load_env(), main(), Map user/bot ids to display names so the export is readable., resolve_users()
 
-### Community 24 - "Community 24"
+### Community 23 - "Community 23"
 Cohesion: 0.6
 Nodes (5): call(), find_ts(), load_env(), main(), Locate the newest card carrying `ref:<slug>`.
 
-### Community 25 - "Community 25"
+### Community 24 - "Community 24"
 Cohesion: 0.7
 Nodes (4): as_bool(), due_for(), main(), notify()
+
+### Community 25 - "Community 25"
+Cohesion: 0.6
+Nodes (4): degree_of(), main(), poll(), Read-only accept-watch poll: degree + invite badge for each pending invite.  [[1
 
 ### Community 26 - "Community 26"
 Cohesion: 0.7
@@ -264,7 +264,7 @@ Cohesion: 1.0
 Nodes (0): 
 
 ## Knowledge Gaps
-- **116 isolated node(s):** `Job Hunt Autopilot — the Python runtime that replaces the Claude-Code-as-server`, `The answer bank and the FIELD_MAP — the only legal source of form values.  THE`, `Read a dotted path out of the bank. Returns None for missing OR null — both mean`, `One mappable question.      patterns  regexes matched (case-insensitive) again`, `First FIELD_MAP entry whose pattern appears in the label wins. Order = priority.` (+111 more)
+- **117 isolated node(s):** `Job Hunt Autopilot — the Python runtime that replaces the Claude-Code-as-server`, `The answer bank and the FIELD_MAP — the only legal source of form values.  THE`, `Read a dotted path out of the bank. Returns None for missing OR null — both mean`, `One mappable question.      patterns  regexes matched (case-insensitive) again`, `First FIELD_MAP entry whose pattern appears in the label wins. Order = priority.` (+112 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **Thin community `Community 42`** (2 nodes): `__init__.py`, `Job Hunt Autopilot — the Python runtime that replaces the Claude-Code-as-server`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
@@ -300,12 +300,10 @@ Nodes (0):
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `LinkedInLoggedOut` connect `Community 4` to `Community 0`, `Community 9`?**
-  _High betweenness centrality (0.028) - this node is a cross-community bridge._
-- **Why does `BankMissing` connect `Community 8` to `Community 9`?**
-  _High betweenness centrality (0.013) - this node is a cross-community bridge._
-- **Why does `LLMError` connect `Community 16` to `Community 9`?**
-  _High betweenness centrality (0.007) - this node is a cross-community bridge._
+- **Why does `LinkedInLoggedOut` connect `Community 5` to `Community 0`, `Community 3`?**
+  _High betweenness centrality (0.027) - this node is a cross-community bridge._
+- **Why does `BankMissing` connect `Community 9` to `Community 3`?**
+  _High betweenness centrality (0.012) - this node is a cross-community bridge._
 - **Are the 13 inferred relationships involving `fill_job()` (e.g. with `FillResult` and `slug_for()`) actually correct?**
   _`fill_job()` has 13 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 10 inferred relationships involving `LinkedInLoggedOut` (e.g. with `check_logged_in()` and `Candidate`) actually correct?**
@@ -314,3 +312,5 @@ _Questions this graph is uniquely positioned to answer:_
   _`FillResult` has 10 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 8 inferred relationships involving `_scan()` (e.g. with `Control` and `_group_label()`) actually correct?**
   _`_scan()` has 8 INFERRED edges - model-reasoned connections that need verification._
+- **What connects `Job Hunt Autopilot — the Python runtime that replaces the Claude-Code-as-server`, `The answer bank and the FIELD_MAP — the only legal source of form values.  THE`, `Read a dotted path out of the bank. Returns None for missing OR null — both mean` to the rest of the system?**
+  _117 weakly-connected nodes found - possible documentation gaps or missing edges._
