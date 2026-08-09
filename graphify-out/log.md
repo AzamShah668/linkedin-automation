@@ -287,3 +287,18 @@ CV + pitch delivered 16:43. A second packet would be a duplicate approach to the
 "looks automated" failure D8 exists to prevent.
 Nothing built, nothing sent, no Notion/Slack/status writes. Row left at status New.
 
+## [2026-08-09 16:05] session | VARITE packet refused: req closed + bad score
+Touched: none
+Build-packet runbook for 3ae29d9d (VARITE INC, "DevOps Engineer", fit 84). Stopped at step 1.
+Two blockers, both found before anything was written. (1) The posting is DEAD: get_job_details returns
+"No longer accepting applications" - found 07-31, closed inside 9 days, over 100 applicants. That is the
+~63%-of-the-board rot landing on a row the board still showed as live and buildable.
+(2) The fit score was wrong in a way only the JD reveals. Titled "DevOps Engineer", the req is a senior
+DevSecOps CONTRACT role: secure 350 EKS container images ahead of a FedRAMP High audit, STIG/CIS hardening,
+Grype/Trivy pipeline gates, Argo Workflows patch automation, Istio/WAF segmentation, IAM/RBAC
+least-privilege audits, secret + S3 scanning. Re-scored 84 -> 58. The 84 was title-level with no JD
+fetched, which is true of the 38 newest rows - so this two-call check belongs at the top of EVERY build,
+not just this one. It costs one MCP call and it saved a 7-minute packet plus an approach to a live human
+about a req that closed.
+Row set to Skipped in Notion and re-synced into the mirror (94 roles, 37 closed). Nothing built, nothing sent.
+
