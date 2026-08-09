@@ -912,6 +912,51 @@ SkillsCapital and Hired profiles respectively. Same class as the two names flagg
 Hired packets: LinkedIn **"people you may know"** suggestions rendered against Azam's own account on every
 profile page, **not** employees. Never a warm path — see the Hired packet section above.
 
+## Accept watch — 2026-08-09 (BLIND RUN: the poll could not happen at all)
+
+Ran per [[13-accept-watch-runbook]]. **Steps 1 and 3 completed; step 2 did not run.** Nothing was sent,
+nothing written to Notion, no Slack post.
+
+- **Step 1 `expire`:** `Nothing older than 14 days still pending.` The three invites are 3 days old
+  (sent 08-06 11:02 / 11:32 / 11:34), so the 14-day wall is 08-20.
+- **Step 3 `due`:** `[]`. Correct — nothing can be due, because nothing has been marked accepted.
+- **Step 2 (did they accept?): BLOCKED.** The three rows are still `pending` in the tracker, and this run
+  **could not determine whether that is true or merely unobserved.**
+
+### ⚠️ The accept watcher has a single point of failure on a *read*, and it fired
+
+**`mcp-server-linkedin` had no tools in this session.** Not an auth error, not a session expiry, not the
+D13 profile lock — the server registered zero tools, so `get_person_profile` did not exist to call. Verified
+by four separate `ToolSearch` lookups (exact-name select, then three keyword searches) several minutes apart,
+plus a resource listing. This is a different failure from every LinkedIn problem recorded above, and none of
+the existing diagnosis ladders apply: there was no error message to misread, because there was no tool.
+
+**Consequence:** the accept signal is unobservable through the documented path. The 4-hourly watcher would
+report the same three `pending` rows indefinitely and look completely healthy doing it — the "quiet exit" in
+step 5 is indistinguishable from total blindness. Same family as [[failed-query-is-not-an-empty-queue]]:
+**a poll that cannot run and a poll that finds nothing produce identical output.**
+
+### The fallback is written but has never executed
+
+`tools/poll_invites.py` (new) reads the same signal off the profile page with the Playwright profile Phase 0
+proved logged in — navigate and read only, no clicks, no connects, no messages. Sending stays on the MCP.
+It reports the **degree** (the signal to act on) alongside the **`Pending` badge**, which separates
+"sent, not yet accepted" from "the invite never went out" (the D12 silent-send failure).
+
+⚠️ **It has never been run.** It is **not in `.claude/settings.json` → `permissions.allow`**, so it was
+refused the moment it was written — the allowlist trap, for the fourth time in this project, and an AI is
+blocked from fixing it. **Treat the tool as unverified until someone runs it once.**
+
+**Owner action — one line, and the watcher can see again:**
+```
+"Bash(py -3 tools/poll_invites.py:*)",
+```
+
+### What is actually unknown right now
+Whether **Recruiter-E (SkillsCapital, CTO)** accepted. That is the **93-fit row, the highest on the board**,
+whose JD asks for exactly this candidate. If he accepted on, say, 08-07, the pitch is two days late and
+nothing in the system knows. The other two are Mirai Alpha (Recruiter-F) and Hired (Recruiter-D).
+
 ## Immediate next work
 
 > **Two tracks now run in parallel.** Track A is the job hunt (below) — it does not wait for the rewrite.

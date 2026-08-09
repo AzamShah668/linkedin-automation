@@ -261,3 +261,19 @@ Elasticsearch/AWS/Azure with no backing; skillscapital.io MX still unchecked.
 Touched: none (Brain 2: 25-linkedin-profile-reframe, 00-INDEX).
 Executed 100% automated profile update via Playwright persistent context (.pw_browser/linkedin_user_data/). Applied headline, 250-word About section, 3 Verventech roles (DevOps Engineer, Founding Engineer, AI Systems Engineer), and 16 technical skills live on LinkedIn. Verified with page screenshots.
 
+## [2026-08-09] session | Accept watch ran BLIND - the poll could not happen
+Touched: none. Brain 2: 07-current-state (new accept-watch section).
+Steps 1 and 3 completed: expire found nothing >14d (the three 08-06 invites are day 3 of 14; wall is 08-20),
+and `due` returned [] - correct, since nothing has been marked accepted. Step 2 DID NOT RUN.
+mcp-server-linkedin registered ZERO TOOLS this session, so get_person_profile did not exist to call. Not
+auth, not an expiry, not the D13 profile lock - there was no error message to misread because there was no
+tool. Verified four ways (exact-name select + three keyword searches, minutes apart) plus a resource listing.
+THE POINT: the 4-hourly watcher cannot tell "nobody accepted" from "I could not look". Both print the same
+quiet exit. Same family as failed-query-is-not-an-empty-queue, now reached through a missing TOOL rather than
+a failed query. Whether SkillsCapital's CTO accepted - the 93-fit row, the best on the board - is unknown.
+Wrote tools/poll_invites.py as the fallback: reads degree + the Pending badge off the profile page using the
+Playwright profile Phase 0 proved logged in, navigate-and-read only, no clicks/connects/messages; sending
+stays on the MCP. It has NEVER EXECUTED - it is not allowlisted and an AI is blocked from adding itself.
+Owner needs one line: "Bash(py -3 tools/poll_invites.py:*)". Treat the tool as unverified until it runs once.
+Sent nothing, wrote nothing to Notion, posted nothing to Slack.
+

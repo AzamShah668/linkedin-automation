@@ -1,12 +1,12 @@
-# Graph Report - .  (2026-08-06)
+# Graph Report - .  (2026-08-09)
 
 ## Corpus Check
-- 62 files · ~0 words
+- 67 files · ~0 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 492 nodes · 751 edges · 52 communities detected
-- Extraction: 60% EXTRACTED · 40% INFERRED · 0% AMBIGUOUS · INFERRED: 303 edges (avg confidence: 0.5)
+- 517 nodes · 776 edges · 57 communities detected
+- Extraction: 60% EXTRACTED · 40% INFERRED · 0% AMBIGUOUS · INFERRED: 308 edges (avg confidence: 0.5)
 - Token cost: 0 input · 0 output
 
 ## God Nodes (most connected - your core abstractions)
@@ -104,108 +104,108 @@ Cohesion: 0.42
 Nodes (8): ask(), _ask_anthropic(), _ask_openai_compatible(), LLMError, The single LLM entry point for the whole app.  One function: ask(prompt, max_tok, Any failure to get usable text out of a provider. Always carries the raw respons, Send one prompt, get one string back. Raises LLMError rather than returning junk, _require_env()
 
 ### Community 17 - "Community 17"
+Cohesion: 0.31
+Nodes (8): delete_all_experience(), fill_position(), main(), navigate_to_add_position(), LinkedIn Experience Cleanup + Re-add v6 Step 1: Delete the 3 empty experience en, Add section -> Core -> Add position., Fill the experience form using POSITION-BASED field indexing., Delete all existing experience entries by navigating to the experience section.
+
+### Community 18 - "Community 18"
 Cohesion: 0.44
 Nodes (6): actionCard(), confirmPanel(), fire(), loadHistory(), renderRun(), watch()
 
-### Community 18 - "Community 18"
+### Community 19 - "Community 19"
 Cohesion: 0.29
 Nodes (2): inviteUnit(), leg()
 
-### Community 19 - "Community 19"
+### Community 20 - "Community 20"
 Cohesion: 0.52
 Nodes (6): keywords_from_jd(), main(), norm(), present(), Keyword is present if it appears as a token/phrase in the CV text., read_text()
 
-### Community 20 - "Community 20"
+### Community 21 - "Community 21"
 Cohesion: 0.57
 Nodes (5): Enter-PipelineLock(), Get-PipelineLockOwner(), Read-PipelineLockText(), Remove-StalePipelineLock(), Write-LockLine()
 
-### Community 21 - "Community 21"
+### Community 22 - "Community 22"
+Cohesion: 0.38
+Nodes (6): add_skills(), check_and_cleanup(), main(), LinkedIn Profile Cleanup & Skills Add: 1. Scroll through experience section to c, Check the experience section for empty or duplicate entries., Add skills via Add section -> Core -> Add skills.
+
+### Community 23 - "Community 23"
 Cohesion: 0.6
 Nodes (5): call(), load_env(), main(), Map user/bot ids to display names so the export is readable., resolve_users()
 
-### Community 22 - "Community 22"
+### Community 24 - "Community 24"
 Cohesion: 0.6
 Nodes (5): call(), find_ts(), load_env(), main(), Locate the newest card carrying `ref:<slug>`.
 
-### Community 23 - "Community 23"
+### Community 25 - "Community 25"
 Cohesion: 0.7
 Nodes (4): as_bool(), due_for(), main(), notify()
 
-### Community 24 - "Community 24"
+### Community 26 - "Community 26"
 Cohesion: 0.7
 Nodes (4): cap(), fmt(), load_env(), main()
 
-### Community 25 - "Community 25"
+### Community 27 - "Community 27"
 Cohesion: 0.67
 Nodes (3): generate_upgraded_post1_carousel(), Upgraded Post 1 Carousel Generator — Job Hunt Autopilot Features ZERO AI gibberi, render_edge_screenshot()
 
-### Community 26 - "Community 26"
+### Community 28 - "Community 28"
 Cohesion: 0.5
 Nodes (3): HTML/CSS 3D Isometric Neon Architecture Infographic Generator, Renders HTML string into high-res PNG image via headless Edge., render_html_to_png()
 
-### Community 27 - "Community 27"
+### Community 29 - "Community 29"
 Cohesion: 0.5
 Nodes (3): auto_post_to_linkedin(), Automated Playwright LinkedIn Post Dispatcher Uses Playwright browser automation, Automates posting to LinkedIn using Playwright Chromium with persistent user pro
 
-### Community 28 - "Community 28"
+### Community 30 - "Community 30"
 Cohesion: 0.67
 Nodes (3): Distinct Slide 1 Hero Cover Generator Renders 2 distinct, highly detailed Slide, render_distinct_covers(), render_edge_screenshot()
 
-### Community 29 - "Community 29"
+### Community 31 - "Community 31"
 Cohesion: 0.67
 Nodes (3): Hybrid Vector Composite Slide 1 Cover Studio Combines pristine 3D Command Center, render_edge_screenshot(), render_hybrid_slide1_covers()
 
-### Community 30 - "Community 30"
+### Community 32 - "Community 32"
 Cohesion: 0.83
 Nodes (3): api(), load_env(), main()
 
-### Community 31 - "Community 31"
+### Community 33 - "Community 33"
 Cohesion: 1.0
 Nodes (2): load_env(), main()
-
-### Community 32 - "Community 32"
-Cohesion: 0.67
-Nodes (1): Post 2 Packager — AI Visual Content Studio Packages the ALREADY-BUILT 4-slide ca
-
-### Community 33 - "Community 33"
-Cohesion: 0.67
-Nodes (1): Render High-Density, Ultra-Detailed Technical Architecture Visual (Slide 2 Upgra
 
 ### Community 34 - "Community 34"
 Cohesion: 0.67
-Nodes (1): Test LinkedIn Post Dispatch & Verification Script Packages the exact 4-slide vis
+Nodes (1): Post 2 Packager — AI Visual Content Studio Packages the ALREADY-BUILT 4-slide ca
 
 ### Community 35 - "Community 35"
-Cohesion: 1.0
-Nodes (2): load_env(), main()
+Cohesion: 0.67
+Nodes (1): LinkedIn Profile Editor — Add About Section. The profile page shows "Write a sum
 
 ### Community 36 - "Community 36"
 Cohesion: 0.67
-Nodes (0): 
+Nodes (1): Quick check: scroll the profile to see the experience section.
 
 ### Community 37 - "Community 37"
-Cohesion: 1.0
-Nodes (1): Job Hunt Autopilot — the Python runtime that replaces the Claude-Code-as-server
+Cohesion: 0.67
+Nodes (1): LinkedIn Profile Editor v6 — TARGETED. The headline is a TipTap ProseMirror cont
 
 ### Community 38 - "Community 38"
-Cohesion: 1.0
-Nodes (0): 
+Cohesion: 0.67
+Nodes (1): Render High-Density, Ultra-Detailed Technical Architecture Visual (Slide 2 Upgra
 
 ### Community 39 - "Community 39"
-Cohesion: 1.0
-Nodes (0): 
+Cohesion: 0.67
+Nodes (1): Test LinkedIn Post Dispatch & Verification Script Packages the exact 4-slide vis
 
 ### Community 40 - "Community 40"
 Cohesion: 1.0
-Nodes (0): 
+Nodes (2): load_env(), main()
 
 ### Community 41 - "Community 41"
-Cohesion: 1.0
+Cohesion: 0.67
 Nodes (0): 
 
 ### Community 42 - "Community 42"
 Cohesion: 1.0
-Nodes (0): 
+Nodes (1): Job Hunt Autopilot — the Python runtime that replaces the Claude-Code-as-server
 
 ### Community 43 - "Community 43"
 Cohesion: 1.0
@@ -229,61 +229,81 @@ Nodes (0):
 
 ### Community 48 - "Community 48"
 Cohesion: 1.0
-Nodes (1): Bundles post copy and high-res image into a complete publishing package.
+Nodes (0): 
 
 ### Community 49 - "Community 49"
 Cohesion: 1.0
-Nodes (1): Simulates or executes publishing of the ready package to LinkedIn.         If Li
+Nodes (0): 
 
 ### Community 50 - "Community 50"
 Cohesion: 1.0
-Nodes (1): Dynamically generates post copy and custom image prompt tailored to the given to
+Nodes (0): 
 
 ### Community 51 - "Community 51"
 Cohesion: 1.0
 Nodes (0): 
 
+### Community 52 - "Community 52"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 53 - "Community 53"
+Cohesion: 1.0
+Nodes (1): Bundles post copy and high-res image into a complete publishing package.
+
+### Community 54 - "Community 54"
+Cohesion: 1.0
+Nodes (1): Simulates or executes publishing of the ready package to LinkedIn.         If Li
+
+### Community 55 - "Community 55"
+Cohesion: 1.0
+Nodes (1): Dynamically generates post copy and custom image prompt tailored to the given to
+
+### Community 56 - "Community 56"
+Cohesion: 1.0
+Nodes (0): 
+
 ## Knowledge Gaps
-- **106 isolated node(s):** `Job Hunt Autopilot — the Python runtime that replaces the Claude-Code-as-server`, `The answer bank and the FIELD_MAP — the only legal source of form values.  THE`, `Read a dotted path out of the bank. Returns None for missing OR null — both mean`, `One mappable question.      patterns  regexes matched (case-insensitive) again`, `First FIELD_MAP entry whose pattern appears in the label wins. Order = priority.` (+101 more)
+- **116 isolated node(s):** `Job Hunt Autopilot — the Python runtime that replaces the Claude-Code-as-server`, `The answer bank and the FIELD_MAP — the only legal source of form values.  THE`, `Read a dotted path out of the bank. Returns None for missing OR null — both mean`, `One mappable question.      patterns  regexes matched (case-insensitive) again`, `First FIELD_MAP entry whose pattern appears in the label wins. Order = priority.` (+111 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **Thin community `Community 37`** (2 nodes): `__init__.py`, `Job Hunt Autopilot — the Python runtime that replaces the Claude-Code-as-server`
+- **Thin community `Community 42`** (2 nodes): `__init__.py`, `Job Hunt Autopilot — the Python runtime that replaces the Claude-Code-as-server`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 38`** (2 nodes): `run-pipeline.ps1`, `Say()`
+- **Thin community `Community 43`** (2 nodes): `run-pipeline.ps1`, `Say()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 39`** (2 nodes): `sweep-packets.ps1`, `Say()`
+- **Thin community `Community 44`** (2 nodes): `sweep-packets.ps1`, `Say()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 40`** (2 nodes): `page-research.js`, `render()`
+- **Thin community `Community 45`** (2 nodes): `page-research.js`, `render()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 41`** (2 nodes): `page-slack.js`, `render()`
+- **Thin community `Community 46`** (2 nodes): `page-slack.js`, `render()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 42`** (1 nodes): `auto-apply.ps1`
+- **Thin community `Community 47`** (1 nodes): `auto-apply.ps1`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 43`** (1 nodes): `build-packet.ps1`
+- **Thin community `Community 48`** (1 nodes): `build-packet.ps1`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 44`** (1 nodes): `check-replies.ps1`
+- **Thin community `Community 49`** (1 nodes): `check-replies.ps1`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 45`** (1 nodes): `daily-discovery.ps1`
+- **Thin community `Community 50`** (1 nodes): `daily-discovery.ps1`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 46`** (1 nodes): `flush-approved.ps1`
+- **Thin community `Community 51`** (1 nodes): `flush-approved.ps1`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 47`** (1 nodes): `daily_post_scheduler.ps1`
+- **Thin community `Community 52`** (1 nodes): `daily_post_scheduler.ps1`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 48`** (1 nodes): `Bundles post copy and high-res image into a complete publishing package.`
+- **Thin community `Community 53`** (1 nodes): `Bundles post copy and high-res image into a complete publishing package.`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 49`** (1 nodes): `Simulates or executes publishing of the ready package to LinkedIn.         If Li`
+- **Thin community `Community 54`** (1 nodes): `Simulates or executes publishing of the ready package to LinkedIn.         If Li`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 50`** (1 nodes): `Dynamically generates post copy and custom image prompt tailored to the given to`
+- **Thin community `Community 55`** (1 nodes): `Dynamically generates post copy and custom image prompt tailored to the given to`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 51`** (1 nodes): `watch-accepts.ps1`
+- **Thin community `Community 56`** (1 nodes): `watch-accepts.ps1`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `LinkedInLoggedOut` connect `Community 4` to `Community 0`, `Community 9`?**
-  _High betweenness centrality (0.031) - this node is a cross-community bridge._
+  _High betweenness centrality (0.028) - this node is a cross-community bridge._
 - **Why does `BankMissing` connect `Community 8` to `Community 9`?**
-  _High betweenness centrality (0.014) - this node is a cross-community bridge._
+  _High betweenness centrality (0.013) - this node is a cross-community bridge._
 - **Why does `LLMError` connect `Community 16` to `Community 9`?**
   _High betweenness centrality (0.007) - this node is a cross-community bridge._
 - **Are the 13 inferred relationships involving `fill_job()` (e.g. with `FillResult` and `slug_for()`) actually correct?**

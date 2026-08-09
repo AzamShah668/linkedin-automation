@@ -121,7 +121,10 @@ def report(results: list[FillResult], launch_s: float, select_s: float) -> int:
     # target is how the 2026-08-06 run printed PASS while 3 of 5 jobs did nothing at all
     # (filled=0, blank=0, steps=1, ~4s each). A metric that reports success for a no-op is
     # worse than no metric, because it stops you looking.
-    real = [r for r in results if r.status in ("reached-review", "reached-submit")]
+    # `submitted` is the MOST complete outcome there is. Omitting it here made the first real
+    # application in this project's history print "INVALID - nothing was filled" (2026-08-09).
+    DID_WORK = ("reached-review", "reached-submit", "submitted", "submitted-unconfirmed")
+    real = [r for r in results if r.status in DID_WORK]
     noop = [r for r in results if r not in real]
     real_total = sum(r.seconds for r in real)
     wall_total = sum(r.seconds for r in results)
