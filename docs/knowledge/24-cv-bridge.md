@@ -142,9 +142,42 @@ nothing submits, **fatal once it does**.
   riskiest untested step in the project.
 - **Packets exist for 8 of ~90 board rows.** Every row without one would attach the generic CV.
   Building the rest costs ~7 min each and is capped by Claude session limits at roughly 5/day
-  ([[22-rewrite-architecture]] §10).
+  ([[22-rewrite-architecture]] §10). **Partly mitigated 2026-08-09** — see §7.
 - **`build_many` is untested against a mid-batch limit in production** — only the offline test
   covers it.
+
+---
+
+## 7. The middle tier: role-family CVs (2026-08-09)
+
+There were only two tiers before: a **per-company packet** (~7 min, capped at ~5/day) or the **generic
+`azam-shah-devops-cv.pdf`**. With packets on 8 of ~90 rows, the generic CV was the real default, and it
+is a *DevOps* CV going out for AI and general-engineering roles.
+
+Three reusable **role-family** CVs now sit between the two. Each targets a whole family rather than one
+employer, so it attaches to many applications without another Claude session:
+
+| Family | Stem | PDF |
+|---|---|---|
+| DevOps / Platform / SRE | `FAMILY-DevOps-Platform-SRE` | `output/pdf/FAMILY-DevOps-Platform-SRE.pdf` |
+| AI / ML Engineer (LLMs, agents, MLOps) | `FAMILY-AI-ML-Engineer` | `output/pdf/FAMILY-AI-ML-Engineer.pdf` |
+| Software Engineer (fallback) | `FAMILY-Software-Engineer` | `output/pdf/FAMILY-Software-Engineer.pdf` |
+
+Sources: `output/cv/family/<stem>.{html,md}`. Built from `output/cv/achievement-bank.md` + `profile/`
+only, zero fabrication, self-audited at **ATS 95** each.
+
+**What changed in the writing.** A tailored CV leads with a company hook. A family CV has no company,
+so it leads with **breadth of evidence** instead: the stat-card row and the summary establish range
+(18+ projects, 6 languages, the numbers that hold across every JD in that family), and the projects are
+ordered by relevance to the family rather than to one job.
+
+**They do not replace packets.** Ranking stays: per-company packet > family CV > generic. Use a family
+CV where a packet does not exist and is not worth 7 minutes; build the packet for anything scoring high
+enough to write outreach for.
+
+⚠️ `fill.py`'s `[unverified]` state still applies — nothing wires these into the runner yet, so a run
+without a packet still attaches whatever LinkedIn pre-filled. Selecting a family CV by role family is
+the obvious next step and is **not built**.
 
 ---
 

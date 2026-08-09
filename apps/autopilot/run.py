@@ -542,9 +542,25 @@ def cmd_applyall(args: argparse.Namespace) -> int:
     print(f"  SUBMITTED (confirmed) : {len(sent)}")
     print(f"  unconfirmed           : {len(unconfirmed)}  <- verify by hand, NEVER retry")
     print(f"  not submitted         : {len(results) - len(sent) - len(unconfirmed)}")
+
+    from collections import Counter
+    reasons = Counter(r.status for r in results if r not in sent and r not in unconfirmed)
+    for status, count in reasons.most_common():
+        print(f"    {count:>3}x {status}")
+
+    # THE ACTIONABLE OUTPUT. A job that reaches Review but will not advance is almost always
+    # held by a REQUIRED question the answer bank cannot answer - and we do not invent answers.
+    # Each line here is one bank key that would unblock every job asking it.
+    blocking: Counter[str] = Counter()
     for r in results:
-        if r.status not in ("submitted", "submitted-unconfirmed"):
-            print(f"    {r.status:<24} {r.url}")
+        if r.status in ("submitted", "submitted-unconfirmed"):
+            continue
+        for label in r.unanswered:
+            blocking[label] += 1
+    if blocking:
+        print("\n  QUESTIONS BLOCKING SUBMISSION - answer these once in the bank to unblock:")
+        for label, count in blocking.most_common(20):
+            print(f"    {count:>3}x  {label[:100]}")
     return 0
 
 
@@ -579,6 +595,15 @@ def cmd_fieldmap(_: argparse.Namespace) -> int:
 
 
 def main(argv: list[str] | None = None) -> int:
+    # Line-buffer stdout. Piped/backgrounded runs block-buffer by default, so a long batch
+    # writes a 0-BYTE log until it exits. On 2026-08-09 that hid a 15-minute hang completely:
+    # no output, no error, no way to tell a stuck run from a slow one. Progress you cannot see
+    # is the same as no progress (D30).
+    try:
+        sys.stdout.reconfigure(line_buffering=True)
+    except Exception:
+        pass
+
     parser = argparse.ArgumentParser(prog="apps.autopilot.run")
     sub = parser.add_subparsers(dest="cmd", required=True)
 

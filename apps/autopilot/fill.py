@@ -513,9 +513,22 @@ def _attach_resume(page: Page, modal: Locator, pdf: Path, result: FillResult) ->
         # There is NO input[type=file] anywhere in the DOM — verified 2026-08-06 by counting it
         # on every step of a live form. "Upload resume" opens a NATIVE file chooser via JS, so
         # set_input_files has nothing to target and the upload silently never happens.
-        with page.expect_file_chooser() as chooser_info:
-            upload_button.first.click()
-        chooser_info.value.set_files(str(pdf))
+        #
+        # ⚠️ THE HANG (2026-08-09). If expect_file_chooser does not intercept the click, Chrome
+        # opens a REAL Windows file picker and the whole browser blocks behind a modal dialog no
+        # code can reach. A 45-job unattended batch sat dead for 15 minutes on this, producing a
+        # 0-byte log and no error. An explicit timeout turns an infinite hang into one failed job.
+        try:
+            with page.expect_file_chooser(timeout=15_000) as chooser_info:
+                upload_button.first.click()
+            chooser_info.value.set_files(str(pdf))
+        except PWTimeout:
+            result.note = (
+                "the resume upload never produced a file chooser; a native OS dialog may be "
+                "open. Job skipped rather than left hanging."
+            ).strip()
+            page.keyboard.press("Escape")  # best effort at dismissing a stray native dialog
+            return False
 
     try:
         modal.get_by_text(pdf.stem, exact=False).first.wait_for(state="visible", timeout=20_000)
