@@ -529,10 +529,22 @@ def cmd_applyall(args: argparse.Namespace) -> int:
             if result.status in ("submitted", "submitted-unconfirmed"):
                 _mark_applied(cand, result)
 
+            # THROTTLE ONLY AFTER A REAL SUBMISSION. The gap exists because LinkedIn watches
+            # APPLICATION velocity; a job with no Easy Apply button submitted nothing, so there
+            # is nothing to throttle. Waiting 40-180s after a 1-second skip is what made the
+            # first run look like it was crawling without applying - 5 of the first 6 rows are
+            # external-ATS and each cost up to 3 minutes of dead waiting.
             if i < len(plan):
-                gap = random.randint(args.min_gap, args.max_gap)
-                print(f"  ... waiting {gap}s before the next one")
-                page.wait_for_timeout(gap * 1000)
+                if result.status in ("submitted", "submitted-unconfirmed"):
+                    gap = random.randint(args.min_gap, args.max_gap)
+                    print(f"  ... applied, pausing {gap}s before the next application")
+                else:
+                    gap = random.randint(3, 8)
+                try:
+                    page.wait_for_timeout(gap * 1000)
+                except Exception as exc:
+                    print(f"\nBROWSER CLOSED ({type(exc).__name__}). Stopping cleanly at {i}/{len(plan)}.")
+                    break
 
         context.close()
 
