@@ -108,6 +108,56 @@ def load(path: Path = LEDGER_PATH) -> list[dict]:
     return out
 
 
+# ---------------------------------------------------------------------------------------------
+# The company cap window (D33).
+#
+# A "one role per company" cap is right — three applications to one staffing agency inside ten
+# minutes land on ONE recruiter's desk and read as scattershot. But the first implementation
+# counted EVERY ledger row for a company regardless of channel or age, and that is a LIFETIME
+# LOCKOUT triggered by any prior contact of any kind.
+#
+# What it cost: Infosys has exactly one ledger row — a linkedin-dm from 2026-07-26 about a
+# different role. That single line blocked all four Infosys rows including Junior AI Engineer
+# (fit 90), the highest-value row on the board, for as long as the ledger exists. It also made
+# the plan's ceiling look like 85 and sent two investigations chasing a "broken scorer".
+#
+# A cap exists to stop a recruiter seeing the same name three times in one morning. It does not
+# exist to stop applying to a company you once messaged. So: same channel, recent window.
+COMPANY_CAP_WINDOW_DAYS = 14
+COMPANY_CAP_CHANNELS = ("linkedin-easy-apply",)
+
+
+def recent_company_submissions(
+    company: str,
+    within_days: int = COMPANY_CAP_WINDOW_DAYS,
+    channels: tuple[str, ...] = COMPANY_CAP_CHANNELS,
+    path: Path = LEDGER_PATH,
+    today: date | None = None,
+) -> list[dict]:
+    """Rows for `company` on `channels` submitted within the last `within_days` days.
+
+    A row whose date is missing or unparseable is COUNTED. This guard's failure directions are
+    not symmetric: counting one row too many costs a skipped application, while missing one costs
+    a duplicate to a real recruiter, which cannot be taken back.
+    """
+    want = _norm(company)
+    now = today or date.today()
+    hits: list[dict] = []
+    for row in load(path):
+        if _norm(row.get("company", "")) != want:
+            continue
+        if row.get("channel") not in channels:
+            continue
+        try:
+            when = date.fromisoformat(row.get("submitted_at", ""))
+        except (TypeError, ValueError):
+            hits.append(row)  # undateable → assume recent, see docstring
+            continue
+        if (now - when).days < within_days:
+            hits.append(row)
+    return hits
+
+
 def already_applied(
     company: str, role: str, url: str = "", path: Path = LEDGER_PATH
 ) -> str | None:

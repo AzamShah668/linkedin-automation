@@ -110,3 +110,72 @@ def test_record_survives_reload(book):
         book,
     )
     assert ledger.already_applied("Energy Exemplar", "DevOps Engineer", "", book) is not None
+
+
+# ---------------------------------------------------------------------------------------
+# D33 — the company cap must be scoped to channel and recency, not lifetime.
+#
+# The bug these lock down: counting EVERY ledger row for a company meant one linkedin-dm from
+# 2026-07-26 permanently blocked all four Infosys rows, including Junior AI Engineer (fit 90),
+# the highest-value row on the board. A cap exists to stop a recruiter seeing the same name
+# three times in a morning — not to stop applying to a company you once messaged.
+# ---------------------------------------------------------------------------------------
+
+from datetime import date
+
+
+def _write(book, rows):
+    book.write_text("\n".join(
+        ledger.Entry(company=c, role=r, submitted_at=when, channel=ch).to_json()
+        for c, r, when, ch in rows
+    ), encoding="utf-8")
+
+
+def test_an_old_dm_does_not_block_a_fresh_easy_apply():
+    """THE D33 test. Infosys: one linkedin-dm, weeks old, different role."""
+    import tempfile, pathlib
+    with tempfile.TemporaryDirectory() as d:
+        book = pathlib.Path(d) / "l.jsonl"
+        _write(book, [("Infosys", "AI Application Engineer", "2026-07-26", "linkedin-dm")])
+        hits = ledger.recent_company_submissions(
+            "Infosys", path=book, today=date(2026, 8, 10))
+        assert hits == [], "an old DM about another role must not block Junior AI Engineer (90)"
+
+
+def test_a_recent_easy_apply_to_the_same_company_still_blocks(book):
+    """The cap's actual job: Crossing Hurdles got two on consecutive days."""
+    _write(book, [("Crossing Hurdles", "DevOps Engineer", "2026-08-09", "linkedin-easy-apply")])
+    hits = ledger.recent_company_submissions(
+        "Crossing Hurdles", path=book, today=date(2026, 8, 10))
+    assert len(hits) == 1
+
+
+def test_an_easy_apply_older_than_the_window_stops_blocking(book):
+    _write(book, [("Acme", "DevOps Engineer", "2026-07-01", "linkedin-easy-apply")])
+    assert ledger.recent_company_submissions("Acme", path=book, today=date(2026, 8, 10)) == []
+
+
+def test_an_email_application_does_not_block_an_easy_apply(book):
+    """Different channel = a different recruiter surface, and often a different team."""
+    _write(book, [("Innova ESI", "DevOps Engineer", "2026-08-09", "email")])
+    assert ledger.recent_company_submissions(
+        "Innova ESI", path=book, today=date(2026, 8, 10)) == []
+
+
+def test_an_undateable_row_is_counted_not_ignored(book):
+    """Asymmetric failure: over-counting costs a skip, under-counting costs a duplicate."""
+    _write(book, [("Acme", "DevOps Engineer", "", "linkedin-easy-apply")])
+    assert len(ledger.recent_company_submissions("Acme", path=book, today=date(2026, 8, 10))) == 1
+
+
+def test_company_matching_ignores_case_and_punctuation(book):
+    _write(book, [("Neurones IT Asia", "DevOps Engineer", "2026-08-10", "linkedin-easy-apply")])
+    assert len(ledger.recent_company_submissions(
+        "neurones-it  asia", path=book, today=date(2026, 8, 10))) == 1
+
+
+def test_the_exact_posting_guard_is_untouched_by_the_window(book):
+    """already_applied() must stay LIFETIME. Recency scoping applies to the CAP only —
+    the same posting must never be submitted twice, however long ago it was."""
+    _write(book, [("Recro", "Generative AI Engineer", "2026-01-01", "linkedin-easy-apply")])
+    assert ledger.already_applied("Recro", "Generative AI Engineer", path=book) is not None

@@ -487,23 +487,33 @@ def cmd_applyall(args: argparse.Namespace) -> int:
             skipped.append((f"{cand.company} - {cand.job}", choice.label))
             continue
 
-        # ONE ROLE PER COMPANY PER RUN. Three applications to the same staffing agency inside
-        # ten minutes lands on ONE recruiter's desk and reads as scattershot rather than
-        # interested - the board notes already say one contact covers all of an agency's rows
-        # (D8). The highest-fit role goes first because the plan is sorted by fit.
-        # Counted across the LEDGER too, not just this run. A per-run-only cap let Crossing
-        # Hurdles receive two applications on consecutive runs (2026-08-09 and 08-10), which is
-        # the same "three roles at one agency" problem the owner flagged, just spread over time.
-        already = sum(
-            1 for row in _ledger_rows()
-            if row.get("company", "").lower() == cand.company.lower()
-        )
-        seen_count = already + sum(
-            1 for c, _ in plan if c.company.lower() == cand.company.lower()
-        )
-        if seen_count >= args.max_per_company:
-            skipped.append((f"{cand.company} - {cand.job}",
-                            f"already applying to {seen_count} role(s) at this company this run"))
+        # ONE ROLE PER COMPANY. Three applications to the same staffing agency inside ten minutes
+        # land on ONE recruiter's desk and read as scattershot rather than interested - the board
+        # notes already say one contact covers all of an agency's rows (D8). The highest-fit role
+        # goes first because the plan is sorted by fit.
+        #
+        # Counted across the LEDGER as well as this run: a per-run-only cap let Crossing Hurdles
+        # receive two applications on consecutive runs (2026-08-09 and 08-10), which is the same
+        # problem spread over time.
+        #
+        # But scoped to SAME CHANNEL and a RECENT WINDOW (D33). Counting every ledger row ever
+        # made one linkedin-dm from 2026-07-26 permanently block all four Infosys rows including
+        # Junior AI Engineer (fit 90) - the best row on the board, at the one company where a
+        # 1st-degree connection is already inside.
+        from apps.autopilot import ledger as _ledger
+        prior = _ledger.recent_company_submissions(cand.company)
+        pending = [c for c, _ in plan if c.company.lower() == cand.company.lower()]
+        if len(prior) + len(pending) >= args.max_per_company:
+            # The reason must state the ACTUAL condition. The old text said "this run", which was
+            # false on both counts and sent two investigations down the wrong path (D33).
+            if prior:
+                when = ", ".join(sorted({r.get("submitted_at", "?") for r in prior}))
+                why = (f"{len(prior)} Easy Apply to this company in the last "
+                       f"{_ledger.COMPANY_CAP_WINDOW_DAYS}d ({when}); cap {args.max_per_company}")
+            else:
+                why = (f"already applying to {len(pending)} role(s) here THIS run; "
+                       f"cap {args.max_per_company}")
+            skipped.append((f"{cand.company} - {cand.job}", why))
             continue
         plan.append((cand, choice))
 
