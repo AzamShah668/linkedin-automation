@@ -272,23 +272,45 @@ Retrieval order each session: **Brain 2 → Brain 3 → raw files.**
   there is no artifact does the log get to explain why.**
   ⚠️ Packets exist for **8 of ~90 rows** — every other row still attaches the generic CV. Nothing submits.
 
-- **NEXT — two tracks, in this order:**
-  1. 🔴 **The job hunt does not wait for the rewrite.** Five applications have been silent for 11 days with
-     zero follow-ups sent, and the best row on the board (**SkillsCapital 93**, packet built 08-01) has never
-     been sent. Run `followups.py`; email SkillsCapital; ping Recruiter-A about the Infosys "Junior AI
-     Engineer" (90) — he is inside and already connected, and a *Junior* AI req is the rare shape that fits a
-     final-year student.
-  2. ✅ **Phase 0 is CLOSED** (2026-08-06) — 5 genuine fills in **72.1s** against a 180s target, three
-     consecutive passing runs, zero invented values, nothing submitted. See [[23-phase-0-results]].
-     **Phase 1 (own the data) is NOT started** — the owner asked to see the numbers first.
-     Two known gaps carried forward: the **re-scan-after-numeric-validation** branch is written but has
-     never executed (Infosys' three numeric fields all *passed*, so there was nothing to recover from —
-     when a job first reports `stalled-validation`, distrust that run and read the screenshot); and
-     **nothing has ever been submitted**, still the riskiest untested step in the project.
+- **2026-08-09/10 — it applies now. Thirteen applications, zero replies.** Read [[26-apply-at-volume]]
+  + **D31 / D32 / D33** before running `apply-all`. Built `families.py` (three **role-family CVs** —
+  DevOps/Platform/SRE, AI/ML, Software Engineer — routed by title, and a missing family CV **skips the row**
+  rather than falling back to the generic CV), `ledger.py` (append-only, fsync'd, and it imports nothing
+  that can reach a board status — asserted by an AST test, because the mirror has been both stale *and*
+  wrong), and `run.py apply-all`. **Eight real Easy Apply submissions.** 50 tests passing.
+  The ledger was seeded from **the send record** (Gmail Sent + LinkedIn history), never from board notes —
+  the board claimed SkillsCapital was unsent and Gmail proved it went out 08-01.
+  🔴 **D32 — the research half was never wired in.** Five of the eight submissions have **no packet, no
+  recruiter identified, no outreach**. The design is *tailored CV + named recruiter + touch 1 + touch 2*;
+  the batch does the first quarter. Making a step cheap removed the cost that used to force the question
+  "is this worth sending?" — which is the mass-automation shape this project exists to reject.
+  🔴 **D33 — the company cap blocks the best row on the board.** It counts **every ledger row for a
+  company regardless of channel or age**, so one old LinkedIn DM permanently locks out all four Infosys
+  rows including **Junior AI Engineer (90)**. It also explains the twice-logged "why only fit 80-82?"
+  puzzle: the scorer is fine, the plan's ceiling is just 85 once 93 and 90 are (rightly and wrongly) hidden.
+  ⚠️ **D31, the most dangerous bug this project has produced.** A bare `\blocation\b` in the `city` spec
+  matched *"Have you ever appeared for an Interview at any Exl location during the last 90 days?"* and typed
+  **"Srinagar"** onto a real employer's form. It passed the answer-bank guard **because Srinagar is in the
+  bank**. *The bank guarantees where a value came from and nothing about where it went* — two different
+  safety properties, only one implemented. Patterns anchored, 9 regression tests written from real form text.
+  Three more owner-caught bugs, all D30's disease: throttling after **skips** (so a batch looked busy and
+  applied to nothing), Yes/No radios **never clicked** (the fallback required `count == 1`, which covers a
+  lone consent box and nothing else), and `--limit 5` submitting **zero** (it capped the plan, and the top
+  five rows are all external ATS).
+
+- **NEXT — in this order. The reordering fact is: 13 applications, 0 replies.**
+  1. 🔴 **Fix D33, then apply to Infosys Junior AI Engineer (90).** Ten-minute change; unblocks the single
+     best row in the project, where Recruiter-A is inside and already 1st-degree so no accept is needed.
+  2. 🔴 **Contact one named human per submitted application (D32).** Eight rows are sitting in ATS queues
+     with nobody aware of them. Start with Celigo, Neurones IT Asia, Crossing Hurdles — small and remote,
+     so a founder or hiring manager is findable. And **send Energy Exemplar's outreach**: packet, recruiter
+     and drafts have existed since 08-06, unsent.
+  3. ⏸️ **Phase 1 (own the data) is deliberately NOT next** — it unblocks nothing a recruiter sees, the
+     same argument that moved `cv.py` ahead of it.
 
   Also still true: **re-score before building** any packet — the 38 newest rows were scored from title only,
-  no JD fetched — and **watch the first real Easy Apply submission closely**; the rewritten runner has never
-  submitted anything.
+  no JD fetched. And the **re-scan-after-numeric-validation** branch has still never executed, so the first
+  `stalled-validation` report should be distrusted and its screenshot read.
 
 ## The CV engine (cv-architect)
 

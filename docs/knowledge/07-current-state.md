@@ -1235,22 +1235,182 @@ Also unchanged: **SkillsCapital SWE Intern (93)**, the highest-fit row on the bo
 CTO invite pending since 08-06). Per the struck paragraph above, that status is **not** evidence nothing
 went out — it means no runbook recorded it.
 
+## Accept watch — 2026-08-10 later (second run of the day; identical, quiet exit)
+
+Ran per [[13-accept-watch-runbook]]. **All three steps completed. Nothing accepted, nothing due, nothing
+expired** → step 5's quiet exit: **no Slack post, no Notion writes, nothing sent.**
+
+- **Step 1 `expire`:** `Nothing older than 14 days still pending.` Wall is 08-20.
+- **Step 2 (the poll):** all three `get_person_profile` calls succeeded — which is also the only trustworthy
+  auth check, so the LinkedIn session is healthy.
+
+| Who | Company · role | Degree | Badge | Verdict |
+|---|---|---|---|---|
+| **Recruiter-E** (CTO) | SkillsCapital · SWE Intern (AI/ML & Agentic AI) **93** | `3rd` | `Pending` | not accepted |
+| **Recruiter-F** (Co-Founder) | Mirai Alpha · AI Engineering Intern | `3rd` | `Pending` | not accepted |
+| **Recruiter-D** (Recruitment Consultant) | Hired · AI/ML Engineer (keep-on-file) | `3rd` | `Pending` | not accepted |
+
+- **Step 3 `due`:** `[]`. Correct — nothing accepted, so nothing can be ripe.
+
+Fourth consecutive run reading identically. The `Pending` badges keep confirming stage 1 did not silently
+fail (the D12 `custom_note_limit_reached` hole), so the invites are genuinely delivered and genuinely
+unanswered at **day 4** — still normal latency for a cold connect; no pitch is late.
+
+- ⚠️ **`last_checked` is still `null` on all three** — `invite_tracker.py` only stamps it inside
+  `mark-accepted`, so this run polled three profiles and again left **no trace in the state file**. Fourth
+  time recorded; this section remains the only evidence the poll happened.
+- 👀 **Recruiter-F's profile still advertises only the *Founder's Office Intern — Research & Strategic
+  Growth*** req; the AI Engineering Intern posting she was pitched for stays closed. Unchanged since 08-09 —
+  do not silently re-aim the packet at a different job.
+- 🪤 **PYMK trap, sixth confirmation.** Indian-name sidebar `references` on all three profiles are LinkedIn
+  "people you may know" suggestions, **never a warm path**.
+
+**The waiting is not the only move available.** The 93-fit SkillsCapital row has had three approaches with no
+answer (email 08-01, follow-up 08-09, CTO invite pending since 08-06); nothing further on that row is this
+runbook's to do. The open lever remains Track A #2: **Infosys Junior AI Engineer (90)**, where Recruiter-A is
+inside and already 1st-degree, so no accept has to be waited for at all.
+
+## Reply check — 2026-08-10 third run (eighth overall; zero replies, and THREE more unrecorded submissions)
+
+Third run of the same day, re-run on request. Same 5 `Applied` rows (Infosys 90, CodeRound AI 89, Innova
+ESI 87, GoodSpace AI 85, Recro 82), same 5 domains. **Zero recruiter replies. No Notion writes, no
+`--event reply` alert.** Every row still reads `Reply = ☐`, `Status = Applied`; no classification changed.
+
+- **Query proven before the zero was believed:** bare `newer_than:14d in:inbox` returned **201** threads and
+  the `(from:linkedin.com OR from:infosys.com)` OR-group was live. Widened to `newer_than:30d in:anywhere`
+  — also empty.
+- **Bounces clean** at `newer_than:14d in:anywhere`. **Campus sweep** (naukricampus, doselect, hackerrank,
+  hackerearth, mettl, imocha, codility, hirevue, epam) returned only the **08-05 EPAM cancellation**.
+  Eighth run in a row done by hand; "next work" #6 still unbuilt.
+- **Address sweep** (recruiter first names + SkillsCapital / Energy Exemplar / Mirai Alpha / Hired / Celigo /
+  Crossing Hurdles) returned **only Azam's own sent mail** — the 07-30 batch, the 08-01 SkillsCapital
+  application and the four 08-09 10:00 follow-ups. No recruiter has replied from a personal address either.
+- **Control for "has anything arrived at all?"** — `newer_than:1d in:inbox` minus known newsletter senders
+  returned 8 threads, **all marketing** (MyGov, Quora, Adobe, Canva, Cloudflare, Viz, Skool, beehiiv).
+  Nothing inbound is unaccounted for.
+- Slack posted (`--event info`). Eight runs, zero real replies: the classify/update/alert branches of this
+  runbook remain **unexercised** — no `Reply` tick or `Status` move has ever been written by this recipe.
+
+### 🚨 THREE more Easy Apply submissions today, also unrecorded — the count is now EIGHT
+
+Every one matched against the board, not guessed:
+
+| Time (08-10) | Company · role | Fit | LinkedIn job ID | Notion says |
+|---|---|---|---|---|
+| 11:02 | Neurones IT Asia · DevOps Engineer | 82 | `4446974055` | `New` |
+| 11:05 | Crossing Hurdles · AWS Cloud Engineer ($60/hr Remote) | 81 | `4444889874` | `New` |
+| 11:08 | Celigo · AI Integration Engineer | 80 | `4446715128` | `New` |
+
+Added to the five from 08-09 (Energy Exemplar 72, SkillsCapital SRE 83 / DevOps 82 / Cloud 82, Crossing
+Hurdles DevOps 82) — **eight submissions across two days with `Applied Date` null on every one.** This is
+the **Recro trap** ([[20-first-email-batch-and-task-verification]]) open for a third day. Recording them is
+the apply runbook's job, not this one's, so they were again left untouched — but every row is one sweep from
+a duplicate application to the same employer, and **Crossing Hurdles now has two of its three board rows
+applied to**, which makes a duplicate there a live risk rather than a theoretical one.
+
+⚠️ **The selection problem from 08-09 has repeated, not corrected.** Today's three are fit 82 / 81 / 80.
+The **SkillsCapital SWE Intern (93)** — the highest row on the board, whose JD asks for exactly this
+candidate — still reads `Invite sent`, `Applied Date` null, and still has no Easy Apply submission. Whatever
+picks these jobs is ranking by something other than fit score, and it has now spent eight submissions
+without touching the best row.
+
+### The Micro1 auto-ack fired a second time, and the timestamp tell held
+
+`notifications@ceipalmail.com`, **08-10 11:05:38 — three seconds after** the 11:05:35 Crossing Hurdles
+submission ack. Read FULL: identical template to the 08-09 one, first person (*"I'm from Crossing Hurdles …
+we would like to refer you"*), funnelling to `jobs.micro1.ai` with a referral code; only the role name
+changed (AWS Engineer vs DevOps Engineer). Classified **Auto-ack**, no action, no Notion write.
+
+Worth keeping because it is now a *repeat*, not an anecdote: **a staffing firm's ATS answers within seconds,
+in the first person, and it is still not a human.** The subject line is also how today's ack was tied to the
+AWS Cloud Engineer row rather than the DevOps row — Crossing Hurdles has two `$60/hr Remote` rows and the
+role name in the auto-ack subject disambiguated them without parsing LinkedIn's HTML.
+
+## Apply at volume — 2026-08-09/10 (the batch runner ran; read [[26-apply-at-volume]])
+
+**Thirteen applications now exist. Zero replies.** 5 email + 1 LinkedIn DM (tailored packets) and
+**8 LinkedIn Easy Apply** submissions using the new role-family CVs.
+
+- Built: `apps/autopilot/families.py` (3 family CVs, routed by title, never falls back to the generic CV),
+  `apps/autopilot/ledger.py` (append-only, fsync'd, imports nothing that can reach a board status),
+  `run.py apply-all`. 50 tests passing.
+- The ledger was seeded from **the send record** (Gmail Sent + LinkedIn history), not board notes. The
+  board said SkillsCapital was unsent; Gmail proved it was emailed 08-01. Seeding from notes would have
+  duplicated the highest-fit row on the board.
+
+### 🚨 The research half was never wired in — D32
+
+Of the 8 Easy Apply submissions, **five had no packet, no recruiter identified and no outreach**
+(Crossing Hurdles x2, Neurones IT Asia, Celigo, plus SkillsCapital's packet being for a *different*
+role). Energy Exemplar had all three and the outreach **was still never sent**.
+
+The design is *tailored CV + named recruiter + touch-1 email + touch-2 message*. The batch implements the
+first half. This is the mass-automation shape the north star rejects, and 13 applications / 0 replies is
+the measurement, not the worry.
+
+### 🔴 The company cap is blocking the best row on the board — D33
+
+`apply-all` counts **every ledger row for a company, regardless of channel or age**. Infosys has one
+entry: an old LinkedIn DM about a different role. That single row now blocks all four Infosys rows
+including **Junior AI Engineer (90)** — the top Track A action for ten days, where Recruiter-A is already
+1st-degree inside the company.
+
+This also explains the "why is it only applying to 80-82s?" note logged twice above. It is **not** a broken
+scorer: SkillsCapital (93) is correctly ledger-blocked and Infosys (90 x4) is wrongly cap-blocked, so the
+plan's ceiling really is 85. The skip reason says `already applying ... this run`, which is false on both
+counts and sent two investigations down the wrong path.
+
+### Four bugs the owner caught by watching it run
+
+All four are D30's disease — a plausible report over a wrong action.
+
+1. **Throttled after skips**, so a batch looked busy and applied to almost nothing.
+2. **Yes/No radios never clicked** — the text fallback required `count == 1`, which covers a lone consent
+   box and *nothing else*. Every two-option group silently went unanswered, and the jobs reported filled.
+3. **`--limit 5` submitted zero** — it capped the plan, and the top 5 rows are all external ATS.
+4. **D31, the serious one:** a bare `location` in the `city` spec matched *"Have you ever appeared for
+   an Interview at any Exl location during the last 90 days?"* and typed **"Srinagar"**. It passed the
+   answer-bank guard because Srinagar *is* in the bank. **The bank guarantees where a value came from and
+   nothing about where it went.** Patterns anchored; 9 regression tests written from real form text.
+
+### Board position
+
+31 candidate rows planned and ready; 8 skipped (1 ledger, 7 company cap). ~60% of the wider board is
+external ATS with no Easy Apply path built. Answer bank gained passport / night-shifts / middle-name /
+previously-employed-here from the owner on 08-09.
+
 ## Immediate next work
 
 > **Two tracks now run in parallel.** Track A is the job hunt (below) — it does not wait for the rewrite.
 > Track B is [[22-rewrite-architecture]] Phase 0. **Track A is more urgent**: five applications have been
 > silent for eleven days and the best role on the board is rotting. Do not let the rewrite eat the goal.
 
-### Track B — the rewrite (new, 2026-08-06)
+### Track B — the rewrite (updated 2026-08-10)
 
-- **B1.** Build `apps/autopilot/` Phase 0: `llm.py` + `fill.py` (Playwright library + answer bank,
-  stop before submit). **Success test: 5 forms in under 3 minutes.** If it fails that, re-diagnose
-  before building Phase 1.
-- **B2.** `cv.py` — the ~20-line subprocess bridge to Claude Code. Port the usage-limit check from
-  `tools/sweep-packets.ps1` (D25) so a quota wall stops the batch instead of libelling good rows as FAILED.
-- **B3.** Only after 0 works: Phase 1 (own the data — kills D23) and Phase 2 (job queue — kills D20).
+- **B1.** ✅ **DONE** — Phase 0 closed 2026-08-06: 5 genuine fills in 72.1s against a 180s target, three
+  consecutive passing runs, zero invented values. [[23-phase-0-results]].
+- **B2.** ✅ **DONE** — `cv.py`, the subprocess bridge, with the usage-limit check ported and the artifact
+  checked *before* the log (D25/D30 struck a third time during the port itself). [[24-cv-bridge]].
+- **B2b.** ✅ **DONE** — family CVs + the never-resubmit ledger + `apply-all`; 8 real submissions.
+  [[26-apply-at-volume]].
+- **B3.** ⏸️ **Phase 1 (own the data) is deliberately NOT next.** It unblocks nothing a recruiter sees —
+  the same argument that moved `cv.py` ahead of it in [[22-rewrite-architecture]] §7. The next code change
+  is **D33** (the company cap), then wiring the outreach half into the batch (**D32**).
 
 ### Track A — the actual job hunt
+
+> **Re-ordered 2026-08-10.** The measurement that reorders it: **13 applications, 0 replies.** More
+> applications is the thing that has been tried; a named human is the thing that has not.
+
+- **A0. Fix D33 (ten minutes) and apply to Infosys Junior AI Engineer (90).** The cap counts an old
+  LinkedIn DM as an application and refuses the best row on the board. Recruiter-A is inside and already
+  1st-degree — this is the only row needing neither an accept nor a cold approach.
+- **A1. Contact one named human per submitted application** (D32). Eight Easy Apply rows sat down in an
+  ATS queue with nobody aware of them. Start with Celigo, Neurones IT Asia and Crossing Hurdles — small
+  and remote, so a founder or hiring manager is findable.
+- **A2. Send Energy Exemplar's outreach.** The packet, the recruiter and the drafts have all existed
+  since 08-06 and were never sent. Cheapest reply available on the board.
+- Then the original list below.
 
 0. **Apply to SkillsCapital's AI/ML & Agentic AI intern role (93) — this week.** It is the only row whose
    JD *asks for the exact candidate Azam is*, it is remote, and it has a direct email path

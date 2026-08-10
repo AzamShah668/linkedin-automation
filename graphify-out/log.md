@@ -344,3 +344,30 @@ auto-acks unchanged and still not ticked. Address sweep now carries SkillsCapita
 Alpha, per the morning's "sweep by address, not only by company" lesson - returned only Azam's own sent mail.
 The five 08-09 Easy Apply submissions are STILL unrecorded in Notion (day 2, third run flagging it).
 
+## [2026-08-10 later] session | Accept watch: three still pending, quiet exit
+Touched: none
+Note: expire found nothing over 14 days; all three invites (SkillsCapital CTO, Mirai Alpha co-founder, Hired
+consultant) still read 3rd degree + Pending at day 4; due returned []. Runbook step 5 quiet exit - no Slack,
+no Notion writes, nothing sent. last_checked stays null on all three (4th time), so 07-current-state is again
+the only record the poll happened.
+
+## [2026-08-10 17:20] session | Reply check run 8 - zero replies, 3 more unrecorded sends
+Touched: none
+Eighth reply check, third today. 5 Applied rows vs 5 domains, 14d inbox + 30d in:anywhere: zero recruiter
+replies, so no Reply tick, no Status move, no --event reply. Query proven live (201 control) before the zero
+was believed. Bounces clean, campus sweep only the 08-05 EPAM cancellation, address sweep only own sent mail.
+Found: 3 MORE Easy Apply submissions on 08-10 (Neurones IT Asia 82, Crossing Hurdles AWS Cloud 81, Celigo 80),
+all still New in Notion - eight unrecorded submissions across two days. The Micro1/ceipalmail auto-ack repeated
+3s after our own submission; classified Auto-ack, not ticked.
+
+
+## [2026-08-10 20:10] session | Apply-at-volume recorded; D31-D33 written
+Touched: none (AST-only graph; knowledge lives in Brain 2)
+Batch runner shipped and ran: families.py (3 role-family CVs), ledger.py (append-only, fsync'd, AST-tested
+to import nothing that reaches a board status), run.py apply-all. 8 real Easy Apply submissions; 13
+applications total, 0 replies. New Brain-2 file 26-apply-at-volume.md. Three decisions recorded: D31 an
+over-broad pattern typed "Srinagar" into an EXL interview-location question and PASSED the answer-bank
+guard (the bank proves provenance, not destination); D32 the research half was never wired into the batch,
+5 of 8 submissions have no recruiter at all; D33 the company cap counts every ledger row regardless of
+channel or age, so one old LinkedIn DM blocks all four Infosys rows including Junior AI Engineer (90) -
+which is also the real cause of the twice-logged "why only fit 80-82?" puzzle.

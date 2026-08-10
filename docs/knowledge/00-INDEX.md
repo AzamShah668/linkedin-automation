@@ -40,6 +40,7 @@ relevant topic file. Cross-link with `[[file]]`. Keep it distilled — skip cosm
 - [[19-post-creator-and-image-studio]] — isolated daily LinkedIn post creation & FLUX.1 / Imagen 3 high-res image studio MCP server (`tools/post_creator/`)
 - [[20-first-email-batch-and-task-verification]] — the first 3 tailored CVs actually delivered (MX decides the Drive sharing mode), and the night Daily Discovery + Watch Accepts were finally **proven by log**
 - [[23-phase-0-results]] — Phase 0 of the rewrite: what worked, the metric that lied, and the environment traps
+- [[26-apply-at-volume]] — **⚠️ read before running `apply-all`.** Family CVs, the never-resubmit ledger, the four bugs the owner caught by watching, the wrong answer that passed every guard (D31), and the research half the batch left out (D32)
 - [[21-linkedin-content-strategy-and-research-engine]] — Deep research strategy & 4-slide storytelling copywriting framework.
 - [[25-linkedin-profile-reframe]] — **the complete profile rewrite**: headline, about, 3-role Verventech experience, ECC open-source entry, skills, education (B.Tech completed), ready-to-paste copy in `output/linkedin/profile-ready-to-paste.md`
 - [[10-advanced-ideas]] — advanced enhancements (email classifier, interview prep, ATS auditor, Exa AI, HN parser, Slack buttons)

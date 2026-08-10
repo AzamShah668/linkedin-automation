@@ -5,8 +5,8 @@
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 570 nodes · 856 edges · 61 communities detected
-- Extraction: 61% EXTRACTED · 39% INFERRED · 0% AMBIGUOUS · INFERRED: 338 edges (avg confidence: 0.5)
+- 571 nodes · 858 edges · 61 communities detected
+- Extraction: 60% EXTRACTED · 40% INFERRED · 0% AMBIGUOUS · INFERRED: 339 edges (avg confidence: 0.5)
 - Token cost: 0 input · 0 output
 
 ## God Nodes (most connected - your core abstractions)
@@ -48,8 +48,8 @@ Cohesion: 0.08
 Nodes (23): all_rows(), last_sync(), _parse_ts(), pending_notion(), Insert or update by Notion page id. Returns (inserted, updated, protected)., Change a job's status from the dashboard. Returns the updated row.      Record, Dashboard edits Notion has not been told about — one row per job, latest state., Notes say warm/alumni but the checkbox is unticked — a real data gap that     s (+15 more)
 
 ### Community 3 - "Community 3"
-Cohesion: 0.17
-Nodes (28): FillResult, LinkedInLoggedOut, The persistent profile is not signed in. Abort the WHOLE run; never attempt a lo, answers_today(), board_candidates(), Candidate, cmd_applyall(), cmd_fieldmap() (+20 more)
+Cohesion: 0.16
+Nodes (29): FillResult, LinkedInLoggedOut, The persistent profile is not signed in. Abort the WHOLE run; never attempt a lo, answers_today(), board_candidates(), Candidate, cmd_applyall(), cmd_fieldmap() (+21 more)
 
 ### Community 4 - "Community 4"
 Cohesion: 0.18

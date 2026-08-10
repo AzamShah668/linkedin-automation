@@ -816,3 +816,125 @@ question a quantity question.
 
 Related: [[23-phase-0-results]] §1, §3b, §3c · D17 (judge by the log) · D25 (read the child's log) ·
 D29 (stale vs wrong)
+
+---
+
+## D31 — An over-broad pattern is as dangerous as an invented value, and much harder to catch (2026-08-10)
+
+**Decision:** every answer-bank pattern is anchored to the shape of the question it answers, and every
+pattern that has ever mis-fired keeps a regression test written from the **real form text** that broke it.
+
+**What happened.** The `city` spec contained a bare `\blocation\b`. On a real EXL form it matched:
+
+> *"Have you ever appeared for an Interview at any Exl **location** during the last 90 days?
+> If 'Yes' then please mention the date"*
+
+and typed **"Srinagar"**.
+
+**Why this is the worst bug the project has produced.** The one hard rule is *only values from the answer
+bank go into a real employer's form* — the rule that exists to prevent exactly this harm. Srinagar **is**
+in the answer bank. The guard passed it. Every log line was green. A false statement went out under Azam's
+real name with the entire safety system reporting success.
+
+An invented value is caught by a provenance check. **A correct value in the wrong field is caught by
+nothing** — provenance is intact, the answer is truthful in isolation, and only reading the question tells
+you it is wrong. The failure is in the *mapping*, and nothing in the pipeline was validating the mapping.
+
+**The rule that follows:**
+
+> The answer bank guarantees **where a value came from**. It guarantees nothing about **where it went**.
+> Those are two different safety properties and only the first one was ever implemented.
+
+**What changed:**
+- All `city` patterns anchored: `^city\b`, `^location\b`, `your (current )?location`, `city of residence`,
+  `where are you (currently )?(located|based)`.
+- Nine regression tests in `tests/test_families.py`, each one a verbatim question from a real form,
+  asserting it does **not** match `city`.
+- `Spec.requires` (see D30's corollary) so a skill name cannot make a question a quantity question.
+
+**How to obey it:** when adding a pattern, do not ask *"does this match the question I have in mind?"*
+Ask *"what else in a job form contains this word?"* `location` appears in interview-location, client-site,
+shift-preference and office-preference questions. So does `experience`, `available`, `notice`, `current`.
+A bare noun is almost never a safe pattern.
+
+Related: D30 (a metric that cannot see) · [[26-apply-at-volume]] §3.4 · [[17-auto-apply-runbook]]
+
+---
+
+## D32 — Volume without the research half is the exact failure this project was built to avoid (2026-08-10)
+
+**Decision:** an application is not "sent" until a **named human** knows it exists. The batch runner's
+output is a *queue entry*, not an application, and it will not be counted as one.
+
+**What happened.** Eight LinkedIn Easy Apply submissions went out across 08-09 and 08-10 using role-family
+CVs. Asked directly whether the people behind those forms had been researched and contacted:
+
+- **Energy Exemplar** — packet, recruiter identified, outreach drafted, **never sent**
+- **SkillsCapital ×3** — packet exists but for a *different role* (the Intern req)
+- **Crossing Hurdles ×2, Neurones IT Asia, Celigo** — no packet, no contact, no outreach, nothing
+
+Five of eight reached an ATS queue with no human aware of them. Thirteen applications total across both
+channels; **zero replies.**
+
+**Why it happened, and why it is not a bug.** Every component did what it was written to do. The failure is
+that the *fast* half of the pipeline was built and run without the *slow* half. `families.py` and
+`apply-all` made applying nearly free, and free made volume feel like progress. The runbooks
+([[15-build-packet-runbook]], `recruiter-outreach`) already define the other half; nothing wired them into
+the batch, and nothing noticed, because the batch's success metric is *forms submitted*.
+
+**The rule that follows:**
+
+> **Cheap × many is the mass-automation shape this project's north star explicitly rejects.**
+> Making a step cheap does not make it correct — it removes the cost that used to force the
+> question *"is this worth sending?"*
+
+Note the symmetry with D26. That decision made the machine fast. This one records what fast is worth on its
+own: thirteen applications, zero replies, and the one channel that has never been tried at volume is the
+one the project was designed around.
+
+**What changes:** the batch runner keeps running, but a submitted row is now *unfinished work* — it enters
+a follow-up queue for recruiter identification and a short note. The metric moves from **forms submitted**
+to **humans contacted**.
+
+Related: D8 (warm insider first) · D12 (two-stage outreach) · [[26-apply-at-volume]] §4 ·
+[[01-vision-and-goals]]
+
+---
+
+## D33 — A lifetime, channel-blind company cap locks out the best row on the board (2026-08-10)
+
+**Decision (pending implementation):** the one-role-per-company cap must be scoped to **channel and
+recency**, not to the whole history of contact with that employer.
+
+**What happened.** After three SkillsCapital applications went out inside ten minutes, `apply-all` gained
+`--max-per-company` (default 1), counted across the ledger as well as the current run. Correct fix, too
+blunt an implementation: it counts **every ledger row for that company regardless of channel or age**.
+
+Infosys has exactly one ledger entry — a **LinkedIn DM** about *AI Application Engineer*. That single old
+message now permanently blocks all four Infosys rows, including:
+
+> **Infosys · Junior AI Engineer — fit 90.** The highest-value row in the project. Recruiter-A is inside
+> the company and already a 1st-degree connection, so no accept has to be waited for. A *Junior*-titled AI
+> req is the rare shape that fits a final-year student.
+
+It has been named the top Track A action in [[07-current-state]] for ten days, and the tool built to apply
+to it silently refuses to — reporting `already applying to 1 role(s) at this company this run`, which is
+false on both counts: not this run, and not an application.
+
+**The second-order effect** is the "why is it only applying to fit 80-82 rows?" puzzle logged on 08-09 and
+08-10. It is not a broken scorer. SkillsCapital (93) is correctly ledger-blocked; Infosys (90, ×4) is
+wrongly cap-blocked; so the plan's real ceiling is **85** and everything above it is invisible. A
+diagnosis was written twice against a symptom whose cause was one `sum()` in the planner.
+
+**The rule that follows:**
+
+> A safety cap is a filter on the *best* candidates as much as the worst. When a guard starts refusing
+> work, read what it refused before trusting that it was right — and make its skip reason state the
+> **actual** condition, because `this run` sent the last two investigations down the wrong path.
+
+**The fix:** count only submissions on the same channel within a recency window (e.g. no second Easy Apply
+to one company within 14 days). A DM sent weeks ago about a different role is not a reason to skip a
+better-fitting job today.
+
+Related: D23/D29 (the store that lied) · D30 (a plausible message over a real fact) ·
+[[26-apply-at-volume]] §5
