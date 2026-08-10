@@ -25,7 +25,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L1",
       "id": "answers",
-      "community": 8
+      "community": 10
     },
     {
       "label": "BankMissing",
@@ -33,7 +33,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L65",
       "id": "answers_bankmissing",
-      "community": 8
+      "community": 10
     },
     {
       "label": "RuntimeError",
@@ -41,7 +41,7 @@
       "source_file": "",
       "source_location": "",
       "id": "runtimeerror",
-      "community": 10
+      "community": 4
     },
     {
       "label": "load_bank()",
@@ -49,7 +49,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L69",
       "id": "answers_load_bank",
-      "community": 8
+      "community": 10
     },
     {
       "label": "lookup()",
@@ -57,7 +57,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L78",
       "id": "answers_lookup",
-      "community": 8
+      "community": 10
     },
     {
       "label": "Spec",
@@ -65,7 +65,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L92",
       "id": "answers_spec",
-      "community": 8
+      "community": 10
     },
     {
       "label": "_expected_ctc()",
@@ -73,7 +73,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L118",
       "id": "answers_expected_ctc",
-      "community": 8
+      "community": 10
     },
     {
       "label": "_sponsorship()",
@@ -81,7 +81,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L126",
       "id": "answers_sponsorship",
-      "community": 8
+      "community": 10
     },
     {
       "label": "located_in_answer()",
@@ -89,7 +89,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L322",
       "id": "answers_located_in_answer",
-      "community": 8
+      "community": 10
     },
     {
       "label": "_norm_place()",
@@ -97,7 +97,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L347",
       "id": "answers_norm_place",
-      "community": 8
+      "community": 10
     },
     {
       "label": "match_field()",
@@ -105,7 +105,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L351",
       "id": "answers_match_field",
-      "community": 8
+      "community": 10
     },
     {
       "label": "resolve()",
@@ -113,7 +113,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L369",
       "id": "answers_resolve",
-      "community": 8
+      "community": 10
     },
     {
       "label": "all_values()",
@@ -121,7 +121,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L386",
       "id": "answers_all_values",
-      "community": 8
+      "community": 10
     },
     {
       "label": "dump_field_map()",
@@ -129,7 +129,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L411",
       "id": "answers_dump_field_map",
-      "community": 8
+      "community": 10
     },
     {
       "label": "The answer bank and the FIELD_MAP \u2014 the only legal source of form values.\r \r THE",
@@ -137,7 +137,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L1",
       "id": "answers_rationale_1",
-      "community": 8
+      "community": 10
     },
     {
       "label": "Read a dotted path out of the bank. Returns None for missing OR null \u2014 both mean",
@@ -145,7 +145,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L79",
       "id": "answers_rationale_79",
-      "community": 8
+      "community": 10
     },
     {
       "label": "One mappable question.\r \r     patterns  regexes matched (case-insensitive) again",
@@ -153,7 +153,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L93",
       "id": "answers_rationale_93",
-      "community": 8
+      "community": 10
     },
     {
       "label": "Answer 'Are you currently located in <city>?' by COMPARING, never by assuming.",
@@ -161,7 +161,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L323",
       "id": "answers_rationale_323",
-      "community": 8
+      "community": 10
     },
     {
       "label": "First FIELD_MAP entry whose pattern appears in the label wins. Order = priority.",
@@ -169,7 +169,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L352",
       "id": "answers_rationale_352",
-      "community": 8
+      "community": 10
     },
     {
       "label": "Turn a Spec into the literal string to type, or None meaning LEAVE BLANK.",
@@ -177,7 +177,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L370",
       "id": "answers_rationale_370",
-      "community": 8
+      "community": 10
     },
     {
       "label": "Every scalar in the bank, plus the synthetic answers, as comparable strings.",
@@ -185,7 +185,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L387",
       "id": "answers_rationale_387",
-      "community": 8
+      "community": 10
     },
     {
       "label": "Human-readable FIELD_MAP for review before any run touches a real posting.",
@@ -193,7 +193,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L412",
       "id": "answers_rationale_412",
-      "community": 8
+      "community": 10
     },
     {
       "label": "cv.py",
@@ -201,7 +201,7 @@
       "source_file": "apps\\autopilot\\cv.py",
       "source_location": "L1",
       "id": "cv",
-      "community": 10
+      "community": 4
     },
     {
       "label": "UsageLimitHit",
@@ -209,7 +209,7 @@
       "source_file": "apps\\autopilot\\cv.py",
       "source_location": "L45",
       "id": "cv_usagelimithit",
-      "community": 10
+      "community": 4
     },
     {
       "label": "PacketBuildFailed",
@@ -217,7 +217,7 @@
       "source_file": "apps\\autopilot\\cv.py",
       "source_location": "L52",
       "id": "cv_packetbuildfailed",
-      "community": 10
+      "community": 4
     },
     {
       "label": "Packet",
@@ -225,7 +225,7 @@
       "source_file": "apps\\autopilot\\cv.py",
       "source_location": "L57",
       "id": "cv_packet",
-      "community": 10
+      "community": 4
     },
     {
       "label": "pdf()",
@@ -233,7 +233,7 @@
       "source_file": "apps\\autopilot\\cv.py",
       "source_location": "L71",
       "id": "cv_pdf",
-      "community": 10
+      "community": 4
     },
     {
       "label": ".complete()",
@@ -241,7 +241,7 @@
       "source_file": "apps\\autopilot\\cv.py",
       "source_location": "L74",
       "id": "cv_packet_complete",
-      "community": 10
+      "community": 4
     },
     {
       "label": "find_company_packet()",
@@ -249,7 +249,7 @@
       "source_file": "apps\\autopilot\\cv.py",
       "source_location": "L79",
       "id": "cv_find_company_packet",
-      "community": 10
+      "community": 4
     },
     {
       "label": "find_packet()",
@@ -257,7 +257,7 @@
       "source_file": "apps\\autopilot\\cv.py",
       "source_location": "L107",
       "id": "cv_find_packet",
-      "community": 10
+      "community": 4
     },
     {
       "label": "_to_packet()",
@@ -265,7 +265,7 @@
       "source_file": "apps\\autopilot\\cv.py",
       "source_location": "L123",
       "id": "cv_to_packet",
-      "community": 10
+      "community": 4
     },
     {
       "label": "build_packet()",
@@ -273,7 +273,7 @@
       "source_file": "apps\\autopilot\\cv.py",
       "source_location": "L138",
       "id": "cv_build_packet",
-      "community": 10
+      "community": 4
     },
     {
       "label": "build_many()",
@@ -281,7 +281,7 @@
       "source_file": "apps\\autopilot\\cv.py",
       "source_location": "L225",
       "id": "cv_build_many",
-      "community": 10
+      "community": 4
     },
     {
       "label": "The bridge to Claude Code \u2014 the one step that keeps a full agent session.  Every",
@@ -289,7 +289,7 @@
       "source_file": "apps\\autopilot\\cv.py",
       "source_location": "L1",
       "id": "cv_rationale_1",
-      "community": 10
+      "community": 4
     },
     {
       "label": "Claude Code refused because of a quota. NOT this job's fault \u2014 stop the whole ba",
@@ -297,7 +297,7 @@
       "source_file": "apps\\autopilot\\cv.py",
       "source_location": "L46",
       "id": "cv_rationale_46",
-      "community": 10
+      "community": 4
     },
     {
       "label": "This job genuinely failed. Safe to record against the job.",
@@ -305,7 +305,7 @@
       "source_file": "apps\\autopilot\\cv.py",
       "source_location": "L53",
       "id": "cv_rationale_53",
-      "community": 10
+      "community": 4
     },
     {
       "label": "A packet without its PDF is half-built (runbook \u00a74) and cannot be attached.",
@@ -313,7 +313,7 @@
       "source_file": "apps\\autopilot\\cv.py",
       "source_location": "L75",
       "id": "cv_rationale_75",
-      "community": 10
+      "community": 4
     },
     {
       "label": "Any packet already built for this COMPANY, whatever role it was for.      \u26a0\ufe0f The",
@@ -321,7 +321,7 @@
       "source_file": "apps\\autopilot\\cv.py",
       "source_location": "L80",
       "id": "cv_rationale_80",
-      "community": 10
+      "community": 4
     },
     {
       "label": "Locate an already-built packet by job id. Packets are discovered, never hardcode",
@@ -329,7 +329,7 @@
       "source_file": "apps\\autopilot\\cv.py",
       "source_location": "L108",
       "id": "cv_rationale_108",
-      "community": 10
+      "community": 4
     },
     {
       "label": "Run Claude Code against the packet runbook for one job. Sends nothing.      Rais",
@@ -337,7 +337,7 @@
       "source_file": "apps\\autopilot\\cv.py",
       "source_location": "L141",
       "id": "cv_rationale_141",
-      "community": 10
+      "community": 4
     },
     {
       "label": "Build several packets. Returns (built, [(job_id, error)], usage_limit_message).",
@@ -345,7 +345,7 @@
       "source_file": "apps\\autopilot\\cv.py",
       "source_location": "L230",
       "id": "cv_rationale_230",
-      "community": 10
+      "community": 4
     },
     {
       "label": "families.py",
@@ -833,7 +833,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L1",
       "id": "ledger",
-      "community": 11
+      "community": 12
     },
     {
       "label": "_norm()",
@@ -841,7 +841,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L50",
       "id": "ledger_norm",
-      "community": 11
+      "community": 12
     },
     {
       "label": "company_role_key()",
@@ -849,7 +849,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L55",
       "id": "ledger_company_role_key",
-      "community": 11
+      "community": 12
     },
     {
       "label": "linkedin_job_id()",
@@ -857,7 +857,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L59",
       "id": "ledger_linkedin_job_id",
-      "community": 11
+      "community": 12
     },
     {
       "label": "Entry",
@@ -865,7 +865,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L65",
       "id": "ledger_entry",
-      "community": 11
+      "community": 12
     },
     {
       "label": ".to_json()",
@@ -873,7 +873,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L76",
       "id": "ledger_entry_to_json",
-      "community": 11
+      "community": 12
     },
     {
       "label": "load()",
@@ -881,7 +881,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L94",
       "id": "ledger_load",
-      "community": 11
+      "community": 12
     },
     {
       "label": "recent_company_submissions()",
@@ -889,7 +889,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L130",
       "id": "ledger_recent_company_submissions",
-      "community": 11
+      "community": 12
     },
     {
       "label": "already_applied()",
@@ -897,7 +897,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L161",
       "id": "ledger_already_applied",
-      "community": 11
+      "community": 12
     },
     {
       "label": "record()",
@@ -905,7 +905,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L182",
       "id": "ledger_record",
-      "community": 11
+      "community": 12
     },
     {
       "label": "seed()",
@@ -913,7 +913,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L244",
       "id": "ledger_seed",
-      "community": 11
+      "community": 12
     },
     {
       "label": "describe()",
@@ -921,7 +921,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L256",
       "id": "ledger_describe",
-      "community": 11
+      "community": 12
     },
     {
       "label": "today()",
@@ -929,7 +929,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L269",
       "id": "ledger_today",
-      "community": 11
+      "community": 12
     },
     {
       "label": "The never-resubmit ledger \u2014 the guard that must exist before submitting can.  \"O",
@@ -937,7 +937,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L1",
       "id": "ledger_rationale_1",
-      "community": 11
+      "community": 12
     },
     {
       "label": "Fold to a comparable key: lowercase, alphanumeric only.",
@@ -945,7 +945,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L51",
       "id": "ledger_rationale_51",
-      "community": 11
+      "community": 12
     },
     {
       "label": "Every recorded submission. A malformed line is skipped but never silently droppe",
@@ -953,7 +953,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L95",
       "id": "ledger_rationale_95",
-      "community": 11
+      "community": 12
     },
     {
       "label": "Rows for `company` on `channels` submitted within the last `within_days` days.",
@@ -961,7 +961,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L137",
       "id": "ledger_rationale_137",
-      "community": 11
+      "community": 12
     },
     {
       "label": "Reason string if this company+role (or this exact posting) was already submitted",
@@ -969,7 +969,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L164",
       "id": "ledger_rationale_164",
-      "community": 11
+      "community": 12
     },
     {
       "label": "Append one confirmed submission, durably.      Called ONLY after a submission is",
@@ -977,7 +977,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L183",
       "id": "ledger_rationale_183",
-      "community": 11
+      "community": 12
     },
     {
       "label": "Add any missing seed rows. Idempotent. Returns (added, already_present).",
@@ -985,7 +985,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L245",
       "id": "ledger_rationale_245",
-      "community": 11
+      "community": 12
     },
     {
       "label": "llm.py",
@@ -993,7 +993,7 @@
       "source_file": "apps\\autopilot\\llm.py",
       "source_location": "L1",
       "id": "llm",
-      "community": 18
+      "community": 4
     },
     {
       "label": "LLMError",
@@ -1001,7 +1001,7 @@
       "source_file": "apps\\autopilot\\llm.py",
       "source_location": "L30",
       "id": "llm_llmerror",
-      "community": 18
+      "community": 4
     },
     {
       "label": "_require_env()",
@@ -1009,7 +1009,7 @@
       "source_file": "apps\\autopilot\\llm.py",
       "source_location": "L34",
       "id": "llm_require_env",
-      "community": 18
+      "community": 4
     },
     {
       "label": "_ask_anthropic()",
@@ -1017,7 +1017,7 @@
       "source_file": "apps\\autopilot\\llm.py",
       "source_location": "L44",
       "id": "llm_ask_anthropic",
-      "community": 18
+      "community": 4
     },
     {
       "label": "_ask_openai_compatible()",
@@ -1025,7 +1025,7 @@
       "source_file": "apps\\autopilot\\llm.py",
       "source_location": "L62",
       "id": "llm_ask_openai_compatible",
-      "community": 18
+      "community": 4
     },
     {
       "label": "ask()",
@@ -1033,7 +1033,7 @@
       "source_file": "apps\\autopilot\\llm.py",
       "source_location": "L86",
       "id": "llm_ask",
-      "community": 18
+      "community": 4
     },
     {
       "label": "The single LLM entry point for the whole app.  One function: ask(prompt, max_tok",
@@ -1041,7 +1041,7 @@
       "source_file": "apps\\autopilot\\llm.py",
       "source_location": "L1",
       "id": "llm_rationale_1",
-      "community": 18
+      "community": 4
     },
     {
       "label": "Any failure to get usable text out of a provider. Always carries the raw respons",
@@ -1049,7 +1049,7 @@
       "source_file": "apps\\autopilot\\llm.py",
       "source_location": "L31",
       "id": "llm_rationale_31",
-      "community": 18
+      "community": 4
     },
     {
       "label": "Send one prompt, get one string back. Raises LLMError rather than returning junk",
@@ -1057,7 +1057,103 @@
       "source_file": "apps\\autopilot\\llm.py",
       "source_location": "L87",
       "id": "llm_rationale_87",
-      "community": 18
+      "community": 4
+    },
+    {
+      "label": "replies.py",
+      "file_type": "code",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L1",
+      "id": "replies",
+      "community": 7
+    },
+    {
+      "label": "Thread",
+      "file_type": "code",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L60",
+      "id": "replies_thread",
+      "community": 7
+    },
+    {
+      "label": "needs_attention()",
+      "file_type": "code",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L69",
+      "id": "replies_needs_attention",
+      "community": 7
+    },
+    {
+      "label": "InboxReport",
+      "file_type": "code",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L74",
+      "id": "replies_inboxreport",
+      "community": 7
+    },
+    {
+      "label": "waiting()",
+      "file_type": "code",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L79",
+      "id": "replies_waiting",
+      "community": 7
+    },
+    {
+      "label": "classify()",
+      "file_type": "code",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L83",
+      "id": "replies_classify",
+      "community": 7
+    },
+    {
+      "label": "_rows()",
+      "file_type": "code",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L100",
+      "id": "replies_rows",
+      "community": 7
+    },
+    {
+      "label": "scan()",
+      "file_type": "code",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L127",
+      "id": "replies_scan",
+      "community": 7
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L143",
+      "id": "replies_main",
+      "community": 7
+    },
+    {
+      "label": "Read the LinkedIn inbox and report threads where THEY spoke last.  WHY THIS EXIS",
+      "file_type": "rationale",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L1",
+      "id": "replies_rationale_1",
+      "community": 7
+    },
+    {
+      "label": "Decide who spoke last in one conversation row.      Pure, so the rule is testabl",
+      "file_type": "rationale",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L84",
+      "id": "replies_rationale_84",
+      "community": 7
+    },
+    {
+      "label": "(name, preview) for each conversation in the list.",
+      "file_type": "rationale",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L101",
+      "id": "replies_rationale_101",
+      "community": 7
     },
     {
       "label": "run.py",
@@ -1281,7 +1377,7 @@
       "source_file": "scripts\\setup-hooks.py",
       "source_location": "L1",
       "id": "setup_hooks",
-      "community": 17
+      "community": 18
     },
     {
       "label": "_bash_path()",
@@ -1289,7 +1385,7 @@
       "source_file": "scripts\\setup-hooks.py",
       "source_location": "L39",
       "id": "setup_hooks_bash_path",
-      "community": 17
+      "community": 18
     },
     {
       "label": "_selector()",
@@ -1297,7 +1393,7 @@
       "source_file": "scripts\\setup-hooks.py",
       "source_location": "L47",
       "id": "setup_hooks_selector",
-      "community": 17
+      "community": 18
     },
     {
       "label": "find_interpreter()",
@@ -1305,7 +1401,7 @@
       "source_file": "scripts\\setup-hooks.py",
       "source_location": "L61",
       "id": "setup_hooks_find_interpreter",
-      "community": 17
+      "community": 18
     },
     {
       "label": "hook_status()",
@@ -1313,7 +1409,7 @@
       "source_file": "scripts\\setup-hooks.py",
       "source_location": "L88",
       "id": "setup_hooks_hook_status",
-      "community": 17
+      "community": 18
     },
     {
       "label": "install()",
@@ -1321,7 +1417,7 @@
       "source_file": "scripts\\setup-hooks.py",
       "source_location": "L108",
       "id": "setup_hooks_install",
-      "community": 17
+      "community": 18
     },
     {
       "label": "main()",
@@ -1329,7 +1425,7 @@
       "source_file": "scripts\\setup-hooks.py",
       "source_location": "L130",
       "id": "setup_hooks_main",
-      "community": 17
+      "community": 18
     },
     {
       "label": "C:\\\\Foo\\\\python.exe -> /c/Foo/python.exe, which is what Git Bash needs.",
@@ -1337,7 +1433,7 @@
       "source_file": "scripts\\setup-hooks.py",
       "source_location": "L40",
       "id": "setup_hooks_rationale_40",
-      "community": 17
+      "community": 18
     },
     {
       "label": "An interpreter that can actually import graphify. Prefer the one running this sc",
@@ -1345,7 +1441,7 @@
       "source_file": "scripts\\setup-hooks.py",
       "source_location": "L62",
       "id": "setup_hooks_rationale_62",
-      "community": 17
+      "community": 18
     },
     {
       "label": "(name, ok, detail) per hook. `ok` means it names an interpreter that has graphif",
@@ -1353,7 +1449,7 @@
       "source_file": "scripts\\setup-hooks.py",
       "source_location": "L89",
       "id": "setup_hooks_rationale_89",
-      "community": 17
+      "community": 18
     },
     {
       "label": "test_cv_bridge.py",
@@ -1361,7 +1457,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L1",
       "id": "test_cv_bridge",
-      "community": 9
+      "community": 11
     },
     {
       "label": "_fake_run()",
@@ -1369,7 +1465,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L19",
       "id": "test_cv_bridge_fake_run",
-      "community": 9
+      "community": 11
     },
     {
       "label": "no_packet()",
@@ -1377,7 +1473,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L26",
       "id": "test_cv_bridge_no_packet",
-      "community": 9
+      "community": 11
     },
     {
       "label": "test_completed_packet_wins_over_a_usage_limit_message()",
@@ -1385,7 +1481,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L31",
       "id": "test_cv_bridge_test_completed_packet_wins_over_a_usage_limit_message",
-      "community": 9
+      "community": 11
     },
     {
       "label": "test_batch_keeps_the_finished_packet_then_stops()",
@@ -1393,7 +1489,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L64",
       "id": "test_cv_bridge_test_batch_keeps_the_finished_packet_then_stops",
-      "community": 9
+      "community": 11
     },
     {
       "label": "test_usage_limit_raises_its_own_error_not_a_job_failure()",
@@ -1401,7 +1497,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L77",
       "id": "test_cv_bridge_test_usage_limit_raises_its_own_error_not_a_job_failure",
-      "community": 9
+      "community": 11
     },
     {
       "label": "test_usage_limit_detected_even_when_exit_code_is_nonzero()",
@@ -1409,7 +1505,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L88",
       "id": "test_cv_bridge_test_usage_limit_detected_even_when_exit_code_is_nonzero",
-      "community": 9
+      "community": 11
     },
     {
       "label": "test_exit_zero_with_no_artifact_is_a_failure()",
@@ -1417,7 +1513,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L98",
       "id": "test_cv_bridge_test_exit_zero_with_no_artifact_is_a_failure",
-      "community": 9
+      "community": 11
     },
     {
       "label": "test_failure_reports_stdout_because_claude_prints_errors_there()",
@@ -1425,7 +1521,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L105",
       "id": "test_cv_bridge_test_failure_reports_stdout_because_claude_prints_errors_there",
-      "community": 9
+      "community": 11
     },
     {
       "label": "test_missing_cli_is_a_clear_message_not_a_filenotfound()",
@@ -1433,7 +1529,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L114",
       "id": "test_cv_bridge_test_missing_cli_is_a_clear_message_not_a_filenotfound",
-      "community": 9
+      "community": 11
     },
     {
       "label": "test_existing_packet_is_reused_and_claude_is_never_invoked()",
@@ -1441,7 +1537,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L122",
       "id": "test_cv_bridge_test_existing_packet_is_reused_and_claude_is_never_invoked",
-      "community": 9
+      "community": 11
     },
     {
       "label": "test_batch_stops_on_usage_limit_and_leaves_the_rest_untouched()",
@@ -1449,7 +1545,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L133",
       "id": "test_cv_bridge_test_batch_stops_on_usage_limit_and_leaves_the_rest_untouched",
-      "community": 9
+      "community": 11
     },
     {
       "label": "test_batch_records_a_real_failure_against_its_own_job()",
@@ -1457,7 +1553,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L152",
       "id": "test_cv_bridge_test_batch_records_a_real_failure_against_its_own_job",
-      "community": 9
+      "community": 11
     },
     {
       "label": "Tests for the Claude Code bridge \u2014 specifically the two rules that cost real day",
@@ -1465,7 +1561,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L1",
       "id": "test_cv_bridge_rationale_1",
-      "community": 9
+      "community": 11
     },
     {
       "label": "find_packet always returns None \u2014 i.e. Claude wrote no artifact.",
@@ -1473,7 +1569,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L27",
       "id": "test_cv_bridge_rationale_27",
-      "community": 9
+      "community": 11
     },
     {
       "label": "Regression, 2026-08-06 first real run.\r \r     The Energy Exemplar packet built c",
@@ -1481,7 +1577,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L32",
       "id": "test_cv_bridge_rationale_32",
-      "community": 9
+      "community": 11
     },
     {
       "label": "A late limit stops the batch without throwing away the job that completed.",
@@ -1489,7 +1585,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L65",
       "id": "test_cv_bridge_rationale_65",
-      "community": 9
+      "community": 11
     },
     {
       "label": "The limit must win over the returncode, or it gets filed as a per-job failure (D",
@@ -1497,7 +1593,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L89",
       "id": "test_cv_bridge_rationale_89",
-      "community": 9
+      "community": 11
     },
     {
       "label": "D17 \u2014 the whole point. A clean exit that wrote nothing is not a success.",
@@ -1505,7 +1601,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L99",
       "id": "test_cv_bridge_rationale_99",
-      "community": 9
+      "community": 11
     },
     {
       "label": "Runbook \u00a72 \u2014 rebuilding silently overwrites drafts the owner may have approved.",
@@ -1513,7 +1609,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L123",
       "id": "test_cv_bridge_rationale_123",
-      "community": 9
+      "community": 11
     },
     {
       "label": "The remaining jobs must NOT appear in `failed` \u2014 that is the D25 mistake.",
@@ -1521,7 +1617,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L134",
       "id": "test_cv_bridge_rationale_134",
-      "community": 9
+      "community": 11
     },
     {
       "label": "test_families.py",
@@ -1529,7 +1625,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L1",
       "id": "test_families",
-      "community": 15
+      "community": 16
     },
     {
       "label": "test_family_routing()",
@@ -1537,7 +1633,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L38",
       "id": "test_families_test_family_routing",
-      "community": 15
+      "community": 16
     },
     {
       "label": "test_mlops_goes_to_ai_not_devops()",
@@ -1545,7 +1641,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L42",
       "id": "test_families_test_mlops_goes_to_ai_not_devops",
-      "community": 15
+      "community": 16
     },
     {
       "label": "test_ai_devops_hybrids_go_to_devops()",
@@ -1553,7 +1649,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L49",
       "id": "test_families_test_ai_devops_hybrids_go_to_devops",
-      "community": 15
+      "community": 16
     },
     {
       "label": "test_every_family_has_a_cv_stem()",
@@ -1561,7 +1657,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L55",
       "id": "test_families_test_every_family_has_a_cv_stem",
-      "community": 15
+      "community": 16
     },
     {
       "label": "test_a_tailored_packet_always_beats_the_family_cv()",
@@ -1569,7 +1665,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L60",
       "id": "test_families_test_a_tailored_packet_always_beats_the_family_cv",
-      "community": 15
+      "community": 16
     },
     {
       "label": "test_missing_family_cv_is_reported_not_silently_skipped()",
@@ -1577,7 +1673,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L74",
       "id": "test_families_test_missing_family_cv_is_reported_not_silently_skipped",
-      "community": 15
+      "community": 16
     },
     {
       "label": "test_questions_that_must_not_be_answered_with_the_candidates_city()",
@@ -1585,7 +1681,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L110",
       "id": "test_families_test_questions_that_must_not_be_answered_with_the_candidates_city",
-      "community": 15
+      "community": 16
     },
     {
       "label": "test_real_location_questions_still_match()",
@@ -1593,7 +1689,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L124",
       "id": "test_families_test_real_location_questions_still_match",
-      "community": 15
+      "community": 16
     },
     {
       "label": "Tests for role-family routing.  The risk being tested: a job silently getting th",
@@ -1601,7 +1697,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L1",
       "id": "test_families_rationale_1",
-      "community": 15
+      "community": 16
     },
     {
       "label": "MLOps postings ask for model lifecycle work, not cluster work \u2014 even though the",
@@ -1609,7 +1705,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L43",
       "id": "test_families_rationale_43",
-      "community": 15
+      "community": 16
     },
     {
       "label": "Both families fit; DevOps leads with the better-evidenced half of the portfolio.",
@@ -1617,7 +1713,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L50",
       "id": "test_families_rationale_50",
-      "community": 15
+      "community": 16
     },
     {
       "label": "No CV must never mean 'apply with whatever LinkedIn pre-filled'.",
@@ -1625,7 +1721,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L75",
       "id": "test_families_rationale_75",
-      "community": 15
+      "community": 16
     },
     {
       "label": "test_ledger.py",
@@ -1633,7 +1729,7 @@
       "source_file": "tests\\test_ledger.py",
       "source_location": "L1",
       "id": "test_ledger",
-      "community": 4
+      "community": 5
     },
     {
       "label": "book()",
@@ -1641,7 +1737,7 @@
       "source_file": "tests\\test_ledger.py",
       "source_location": "L15",
       "id": "test_ledger_book",
-      "community": 4
+      "community": 5
     },
     {
       "label": "test_second_attempt_on_a_seeded_row_is_blocked()",
@@ -1649,7 +1745,7 @@
       "source_file": "tests\\test_ledger.py",
       "source_location": "L19",
       "id": "test_ledger_test_second_attempt_on_a_seeded_row_is_blocked",
-      "community": 4
+      "community": 5
     },
     {
       "label": "test_an_untouched_company_is_not_blocked()",
@@ -1657,7 +1753,7 @@
       "source_file": "tests\\test_ledger.py",
       "source_location": "L31",
       "id": "test_ledger_test_an_untouched_company_is_not_blocked",
-      "community": 4
+      "community": 5
     },
     {
       "label": "test_blocks_the_same_role_reposted_under_a_new_job_id()",
@@ -1665,7 +1761,7 @@
       "source_file": "tests\\test_ledger.py",
       "source_location": "L36",
       "id": "test_ledger_test_blocks_the_same_role_reposted_under_a_new_job_id",
-      "community": 4
+      "community": 5
     },
     {
       "label": "test_blocks_the_same_posting_even_if_the_company_name_is_written_differently()",
@@ -1673,7 +1769,7 @@
       "source_file": "tests\\test_ledger.py",
       "source_location": "L45",
       "id": "test_ledger_test_blocks_the_same_posting_even_if_the_company_name_is_written_differently",
-      "community": 4
+      "community": 5
     },
     {
       "label": "test_company_and_role_matching_ignores_case_and_punctuation()",
@@ -1681,7 +1777,7 @@
       "source_file": "tests\\test_ledger.py",
       "source_location": "L56",
       "id": "test_ledger_test_company_and_role_matching_ignores_case_and_punctuation",
-      "community": 4
+      "community": 5
     },
     {
       "label": "test_seed_is_idempotent()",
@@ -1689,7 +1785,7 @@
       "source_file": "tests\\test_ledger.py",
       "source_location": "L63",
       "id": "test_ledger_test_seed_is_idempotent",
-      "community": 4
+      "community": 5
     },
     {
       "label": "test_ledger_imports_nothing_that_could_reach_a_board_status()",
@@ -1697,7 +1793,7 @@
       "source_file": "tests\\test_ledger.py",
       "source_location": "L71",
       "id": "test_ledger_test_ledger_imports_nothing_that_could_reach_a_board_status",
-      "community": 4
+      "community": 5
     },
     {
       "label": "test_a_corrupt_line_is_reported_and_skipped_not_silently_dropped()",
@@ -1705,7 +1801,7 @@
       "source_file": "tests\\test_ledger.py",
       "source_location": "L96",
       "id": "test_ledger_test_a_corrupt_line_is_reported_and_skipped_not_silently_dropped",
-      "community": 4
+      "community": 5
     },
     {
       "label": "test_record_survives_reload()",
@@ -1713,7 +1809,7 @@
       "source_file": "tests\\test_ledger.py",
       "source_location": "L106",
       "id": "test_ledger_test_record_survives_reload",
-      "community": 4
+      "community": 5
     },
     {
       "label": "_write()",
@@ -1721,7 +1817,7 @@
       "source_file": "tests\\test_ledger.py",
       "source_location": "L127",
       "id": "test_ledger_write",
-      "community": 4
+      "community": 5
     },
     {
       "label": "test_an_old_dm_does_not_block_a_fresh_easy_apply()",
@@ -1729,7 +1825,7 @@
       "source_file": "tests\\test_ledger.py",
       "source_location": "L134",
       "id": "test_ledger_test_an_old_dm_does_not_block_a_fresh_easy_apply",
-      "community": 4
+      "community": 5
     },
     {
       "label": "test_a_recent_easy_apply_to_the_same_company_still_blocks()",
@@ -1737,7 +1833,7 @@
       "source_file": "tests\\test_ledger.py",
       "source_location": "L145",
       "id": "test_ledger_test_a_recent_easy_apply_to_the_same_company_still_blocks",
-      "community": 4
+      "community": 5
     },
     {
       "label": "test_an_easy_apply_older_than_the_window_stops_blocking()",
@@ -1745,7 +1841,7 @@
       "source_file": "tests\\test_ledger.py",
       "source_location": "L153",
       "id": "test_ledger_test_an_easy_apply_older_than_the_window_stops_blocking",
-      "community": 4
+      "community": 5
     },
     {
       "label": "test_an_email_application_does_not_block_an_easy_apply()",
@@ -1753,7 +1849,7 @@
       "source_file": "tests\\test_ledger.py",
       "source_location": "L158",
       "id": "test_ledger_test_an_email_application_does_not_block_an_easy_apply",
-      "community": 4
+      "community": 5
     },
     {
       "label": "test_an_undateable_row_is_counted_not_ignored()",
@@ -1761,7 +1857,7 @@
       "source_file": "tests\\test_ledger.py",
       "source_location": "L165",
       "id": "test_ledger_test_an_undateable_row_is_counted_not_ignored",
-      "community": 4
+      "community": 5
     },
     {
       "label": "test_company_matching_ignores_case_and_punctuation()",
@@ -1769,7 +1865,7 @@
       "source_file": "tests\\test_ledger.py",
       "source_location": "L171",
       "id": "test_ledger_test_company_matching_ignores_case_and_punctuation",
-      "community": 4
+      "community": 5
     },
     {
       "label": "test_the_exact_posting_guard_is_untouched_by_the_window()",
@@ -1777,7 +1873,7 @@
       "source_file": "tests\\test_ledger.py",
       "source_location": "L177",
       "id": "test_ledger_test_the_exact_posting_guard_is_untouched_by_the_window",
-      "community": 4
+      "community": 5
     },
     {
       "label": "Tests for the never-resubmit ledger.  The load-bearing one is test_second_attemp",
@@ -1785,7 +1881,7 @@
       "source_file": "tests\\test_ledger.py",
       "source_location": "L1",
       "id": "test_ledger_rationale_1",
-      "community": 4
+      "community": 5
     },
     {
       "label": "THE test. Recro was submitted 2026-07-29 and must never be attempted again.",
@@ -1793,7 +1889,7 @@
       "source_file": "tests\\test_ledger.py",
       "source_location": "L20",
       "id": "test_ledger_rationale_20",
-      "community": 4
+      "community": 5
     },
     {
       "label": "Aggregators on this board repost the same req under fresh ids constantly.",
@@ -1801,7 +1897,7 @@
       "source_file": "tests\\test_ledger.py",
       "source_location": "L37",
       "id": "test_ledger_rationale_37",
-      "community": 4
+      "community": 5
     },
     {
       "label": "The linkedin id is exact; company spelling is not.",
@@ -1809,7 +1905,7 @@
       "source_file": "tests\\test_ledger.py",
       "source_location": "L46",
       "id": "test_ledger_rationale_46",
-      "community": 4
+      "community": 5
     },
     {
       "label": "D29 \u2014 a guard must not depend on a field that has already been proven wrong.",
@@ -1817,7 +1913,7 @@
       "source_file": "tests\\test_ledger.py",
       "source_location": "L72",
       "id": "test_ledger_rationale_72",
-      "community": 4
+      "community": 5
     },
     {
       "label": "THE D33 test. Infosys: one linkedin-dm, weeks old, different role.",
@@ -1825,7 +1921,7 @@
       "source_file": "tests\\test_ledger.py",
       "source_location": "L135",
       "id": "test_ledger_rationale_135",
-      "community": 4
+      "community": 5
     },
     {
       "label": "The cap's actual job: Crossing Hurdles got two on consecutive days.",
@@ -1833,7 +1929,7 @@
       "source_file": "tests\\test_ledger.py",
       "source_location": "L146",
       "id": "test_ledger_rationale_146",
-      "community": 4
+      "community": 5
     },
     {
       "label": "Different channel = a different recruiter surface, and often a different team.",
@@ -1841,7 +1937,7 @@
       "source_file": "tests\\test_ledger.py",
       "source_location": "L159",
       "id": "test_ledger_rationale_159",
-      "community": 4
+      "community": 5
     },
     {
       "label": "Asymmetric failure: over-counting costs a skip, under-counting costs a duplicate",
@@ -1849,7 +1945,7 @@
       "source_file": "tests\\test_ledger.py",
       "source_location": "L166",
       "id": "test_ledger_rationale_166",
-      "community": 4
+      "community": 5
     },
     {
       "label": "already_applied() must stay LIFETIME. Recency scoping applies to the CAP only \u2014",
@@ -1857,7 +1953,119 @@
       "source_file": "tests\\test_ledger.py",
       "source_location": "L178",
       "id": "test_ledger_rationale_178",
-      "community": 4
+      "community": 5
+    },
+    {
+      "label": "test_replies.py",
+      "file_type": "code",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L1",
+      "id": "test_replies",
+      "community": 7
+    },
+    {
+      "label": "test_the_real_missed_reply_is_flagged()",
+      "file_type": "code",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L17",
+      "id": "test_replies_test_the_real_missed_reply_is_flagged",
+      "community": 7
+    },
+    {
+      "label": "test_our_own_last_message_is_not_flagged()",
+      "file_type": "code",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L29",
+      "id": "test_replies_test_our_own_last_message_is_not_flagged",
+      "community": 7
+    },
+    {
+      "label": "test_sponsored_inmail_is_not_a_reply()",
+      "file_type": "code",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L33",
+      "id": "test_replies_test_sponsored_inmail_is_not_a_reply",
+      "community": 7
+    },
+    {
+      "label": "test_an_empty_preview_escalates_rather_than_going_quiet()",
+      "file_type": "code",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L40",
+      "id": "test_replies_test_an_empty_preview_escalates_rather_than_going_quiet",
+      "community": 7
+    },
+    {
+      "label": "test_an_unfamiliar_preview_shape_escalates()",
+      "file_type": "code",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L47",
+      "id": "test_replies_test_an_unfamiliar_preview_shape_escalates",
+      "community": 7
+    },
+    {
+      "label": "test_a_read_failure_is_not_an_empty_inbox()",
+      "file_type": "code",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L53",
+      "id": "test_replies_test_a_read_failure_is_not_an_empty_inbox",
+      "community": 7
+    },
+    {
+      "label": "test_waiting_excludes_sponsored_but_keeps_undetermined()",
+      "file_type": "code",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L63",
+      "id": "test_replies_test_waiting_excludes_sponsored_but_keeps_undetermined",
+      "community": 7
+    },
+    {
+      "label": "Tests for the LinkedIn inbox reply detector.  The bug being locked down (D35): a",
+      "file_type": "rationale",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L1",
+      "id": "test_replies_rationale_1",
+      "community": 7
+    },
+    {
+      "label": "THE test. This is the actual preview LinkedIn showed for fifteen unanswered days",
+      "file_type": "rationale",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L18",
+      "id": "test_replies_rationale_18",
+      "community": 7
+    },
+    {
+      "label": "LinkedIn shows ads in the same list as real conversations.",
+      "file_type": "rationale",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L34",
+      "id": "test_replies_rationale_34",
+      "community": 7
+    },
+    {
+      "label": "Could not tell' must never be rendered as 'nothing to do'. That equivalence IS t",
+      "file_type": "rationale",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L41",
+      "id": "test_replies_rationale_41",
+      "community": 7
+    },
+    {
+      "label": "A locale or thread type we have not seen must land in the WAITING pile, not be d",
+      "file_type": "rationale",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L48",
+      "id": "test_replies_rationale_48",
+      "community": 7
+    },
+    {
+      "label": "An error must not produce the same output as a clean, empty scan.",
+      "file_type": "rationale",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L54",
+      "id": "test_replies_rationale_54",
+      "community": 7
     },
     {
       "label": "ats_audit.py",
@@ -2161,7 +2369,7 @@
       "source_file": "tools\\invite_tracker.py",
       "source_location": "L1",
       "id": "invite_tracker",
-      "community": 7
+      "community": 9
     },
     {
       "label": "load_env()",
@@ -2169,7 +2377,7 @@
       "source_file": "tools\\invite_tracker.py",
       "source_location": "L58",
       "id": "invite_tracker_load_env",
-      "community": 7
+      "community": 9
     },
     {
       "label": "setting()",
@@ -2177,7 +2385,7 @@
       "source_file": "tools\\invite_tracker.py",
       "source_location": "L69",
       "id": "invite_tracker_setting",
-      "community": 7
+      "community": 9
     },
     {
       "label": "now()",
@@ -2185,7 +2393,7 @@
       "source_file": "tools\\invite_tracker.py",
       "source_location": "L78",
       "id": "invite_tracker_now",
-      "community": 7
+      "community": 9
     },
     {
       "label": "parse()",
@@ -2193,7 +2401,7 @@
       "source_file": "tools\\invite_tracker.py",
       "source_location": "L82",
       "id": "invite_tracker_parse",
-      "community": 7
+      "community": 9
     },
     {
       "label": "read_state()",
@@ -2201,7 +2409,7 @@
       "source_file": "tools\\invite_tracker.py",
       "source_location": "L91",
       "id": "invite_tracker_read_state",
-      "community": 7
+      "community": 9
     },
     {
       "label": "write_state()",
@@ -2209,7 +2417,7 @@
       "source_file": "tools\\invite_tracker.py",
       "source_location": "L106",
       "id": "invite_tracker_write_state",
-      "community": 7
+      "community": 9
     },
     {
       "label": "find()",
@@ -2217,7 +2425,7 @@
       "source_file": "tools\\invite_tracker.py",
       "source_location": "L114",
       "id": "invite_tracker_find",
-      "community": 7
+      "community": 9
     },
     {
       "label": "replace()",
@@ -2225,7 +2433,7 @@
       "source_file": "tools\\invite_tracker.py",
       "source_location": "L121",
       "id": "invite_tracker_replace",
-      "community": 7
+      "community": 9
     },
     {
       "label": "shift_into_business_hours()",
@@ -2233,7 +2441,7 @@
       "source_file": "tools\\invite_tracker.py",
       "source_location": "L132",
       "id": "invite_tracker_shift_into_business_hours",
-      "community": 7
+      "community": 9
     },
     {
       "label": "schedule_followup()",
@@ -2241,7 +2449,7 @@
       "source_file": "tools\\invite_tracker.py",
       "source_location": "L142",
       "id": "invite_tracker_schedule_followup",
-      "community": 7
+      "community": 9
     },
     {
       "label": "cmd_add()",
@@ -2249,7 +2457,7 @@
       "source_file": "tools\\invite_tracker.py",
       "source_location": "L153",
       "id": "invite_tracker_cmd_add",
-      "community": 7
+      "community": 9
     },
     {
       "label": "cmd_mark_accepted()",
@@ -2257,7 +2465,7 @@
       "source_file": "tools\\invite_tracker.py",
       "source_location": "L176",
       "id": "invite_tracker_cmd_mark_accepted",
-      "community": 7
+      "community": 9
     },
     {
       "label": "in_business_hours()",
@@ -2265,7 +2473,7 @@
       "source_file": "tools\\invite_tracker.py",
       "source_location": "L197",
       "id": "invite_tracker_in_business_hours",
-      "community": 7
+      "community": 9
     },
     {
       "label": "cmd_due()",
@@ -2273,7 +2481,7 @@
       "source_file": "tools\\invite_tracker.py",
       "source_location": "L201",
       "id": "invite_tracker_cmd_due",
-      "community": 7
+      "community": 9
     },
     {
       "label": "cmd_mark_sent()",
@@ -2281,7 +2489,7 @@
       "source_file": "tools\\invite_tracker.py",
       "source_location": "L245",
       "id": "invite_tracker_cmd_mark_sent",
-      "community": 7
+      "community": 9
     },
     {
       "label": "cmd_mark_failed()",
@@ -2289,7 +2497,7 @@
       "source_file": "tools\\invite_tracker.py",
       "source_location": "L255",
       "id": "invite_tracker_cmd_mark_failed",
-      "community": 7
+      "community": 9
     },
     {
       "label": "cmd_expire()",
@@ -2297,7 +2505,7 @@
       "source_file": "tools\\invite_tracker.py",
       "source_location": "L266",
       "id": "invite_tracker_cmd_expire",
-      "community": 7
+      "community": 9
     },
     {
       "label": "cmd_list()",
@@ -2305,7 +2513,7 @@
       "source_file": "tools\\invite_tracker.py",
       "source_location": "L286",
       "id": "invite_tracker_cmd_list",
-      "community": 7
+      "community": 9
     },
     {
       "label": "main()",
@@ -2313,7 +2521,7 @@
       "source_file": "tools\\invite_tracker.py",
       "source_location": "L312",
       "id": "invite_tracker_main",
-      "community": 7
+      "community": 9
     },
     {
       "label": "Read an int knob from .env, falling back to the documented default.",
@@ -2321,7 +2529,7 @@
       "source_file": "tools\\invite_tracker.py",
       "source_location": "L70",
       "id": "invite_tracker_rationale_70",
-      "community": 7
+      "community": 9
     },
     {
       "label": "Return a new state with one invite swapped out \u2014 no in-place mutation.",
@@ -2329,7 +2537,7 @@
       "source_file": "tools\\invite_tracker.py",
       "source_location": "L122",
       "id": "invite_tracker_rationale_122",
-      "community": 7
+      "community": 9
     },
     {
       "label": "Nudge a timestamp into waking hours. Nobody sends a CV pitch at 4am except a rob",
@@ -2337,7 +2545,7 @@
       "source_file": "tools\\invite_tracker.py",
       "source_location": "L133",
       "id": "invite_tracker_rationale_133",
-      "community": 7
+      "community": 9
     },
     {
       "label": "Random 3-20h after the accept, then pulled into business hours.",
@@ -2345,7 +2553,7 @@
       "source_file": "tools\\invite_tracker.py",
       "source_location": "L143",
       "id": "invite_tracker_rationale_143",
-      "community": 7
+      "community": 9
     },
     {
       "label": "Rows ripe to send RIGHT NOW \u2014 which means the delay has elapsed AND it is a",
@@ -2353,7 +2561,7 @@
       "source_file": "tools\\invite_tracker.py",
       "source_location": "L202",
       "id": "invite_tracker_rationale_202",
-      "community": 7
+      "community": 9
     },
     {
       "label": "notion_push.py",
@@ -2489,7 +2697,7 @@
       "source_file": "tools\\pipeline_runner.py",
       "source_location": "L1",
       "id": "pipeline_runner",
-      "community": 12
+      "community": 13
     },
     {
       "label": "Action",
@@ -2497,7 +2705,7 @@
       "source_file": "tools\\pipeline_runner.py",
       "source_location": "L44",
       "id": "pipeline_runner_action",
-      "community": 12
+      "community": 13
     },
     {
       "label": ".__init__()",
@@ -2505,7 +2713,7 @@
       "source_file": "tools\\pipeline_runner.py",
       "source_location": "L45",
       "id": "pipeline_runner_action_init",
-      "community": 12
+      "community": 13
     },
     {
       "label": ".as_json()",
@@ -2513,7 +2721,7 @@
       "source_file": "tools\\pipeline_runner.py",
       "source_location": "L57",
       "id": "pipeline_runner_action_as_json",
-      "community": 12
+      "community": 13
     },
     {
       "label": ".resolve()",
@@ -2521,7 +2729,7 @@
       "source_file": "tools\\pipeline_runner.py",
       "source_location": "L65",
       "id": "pipeline_runner_action_resolve",
-      "community": 12
+      "community": 13
     },
     {
       "label": "register()",
@@ -2529,7 +2737,7 @@
       "source_file": "tools\\pipeline_runner.py",
       "source_location": "L79",
       "id": "pipeline_runner_register",
-      "community": 12
+      "community": 13
     },
     {
       "label": "linkedin_servers()",
@@ -2537,7 +2745,7 @@
       "source_file": "tools\\pipeline_runner.py",
       "source_location": "L189",
       "id": "pipeline_runner_linkedin_servers",
-      "community": 12
+      "community": 13
     },
     {
       "label": "preflight()",
@@ -2545,7 +2753,7 @@
       "source_file": "tools\\pipeline_runner.py",
       "source_location": "L210",
       "id": "pipeline_runner_preflight",
-      "community": 12
+      "community": 13
     },
     {
       "label": "_pump()",
@@ -2553,7 +2761,7 @@
       "source_file": "tools\\pipeline_runner.py",
       "source_location": "L240",
       "id": "pipeline_runner_pump",
-      "community": 12
+      "community": 13
     },
     {
       "label": "busy_linkedin_run()",
@@ -2561,7 +2769,7 @@
       "source_file": "tools\\pipeline_runner.py",
       "source_location": "L253",
       "id": "pipeline_runner_busy_linkedin_run",
-      "community": 12
+      "community": 13
     },
     {
       "label": "start()",
@@ -2569,7 +2777,7 @@
       "source_file": "tools\\pipeline_runner.py",
       "source_location": "L261",
       "id": "pipeline_runner_start",
-      "community": 12
+      "community": 13
     },
     {
       "label": "stop()",
@@ -2577,7 +2785,7 @@
       "source_file": "tools\\pipeline_runner.py",
       "source_location": "L308",
       "id": "pipeline_runner_stop",
-      "community": 12
+      "community": 13
     },
     {
       "label": "snapshot()",
@@ -2585,7 +2793,7 @@
       "source_file": "tools\\pipeline_runner.py",
       "source_location": "L322",
       "id": "pipeline_runner_snapshot",
-      "community": 12
+      "community": 13
     },
     {
       "label": "get()",
@@ -2593,7 +2801,7 @@
       "source_file": "tools\\pipeline_runner.py",
       "source_location": "L331",
       "id": "pipeline_runner_get",
-      "community": 12
+      "community": 13
     },
     {
       "label": "recent()",
@@ -2601,7 +2809,7 @@
       "source_file": "tools\\pipeline_runner.py",
       "source_location": "L337",
       "id": "pipeline_runner_recent",
-      "community": 12
+      "community": 13
     },
     {
       "label": "catalogue()",
@@ -2609,7 +2817,7 @@
       "source_file": "tools\\pipeline_runner.py",
       "source_location": "L346",
       "id": "pipeline_runner_catalogue",
-      "community": 12
+      "community": 13
     },
     {
       "label": "Count real MCP servers (python only \u2014 each session also spawns 2 uvx wrappers).",
@@ -2617,7 +2825,7 @@
       "source_file": "tools\\pipeline_runner.py",
       "source_location": "L190",
       "id": "pipeline_runner_rationale_190",
-      "community": 12
+      "community": 13
     },
     {
       "label": "What the owner needs to know before firing a LinkedIn action.",
@@ -2625,7 +2833,7 @@
       "source_file": "tools\\pipeline_runner.py",
       "source_location": "L211",
       "id": "pipeline_runner_rationale_211",
-      "community": 12
+      "community": 13
     },
     {
       "label": "poll_invites.py",
@@ -2889,7 +3097,7 @@
       "source_file": "tools\\post_creator\\generate_unified_post.py",
       "source_location": "L1",
       "id": "generate_unified_post",
-      "community": 1
+      "community": 14
     },
     {
       "label": "render_edge_screenshot()",
@@ -2897,7 +3105,7 @@
       "source_file": "tools\\post_creator\\generate_unified_post.py",
       "source_location": "L671",
       "id": "generate_unified_post_render_edge_screenshot",
-      "community": 1
+      "community": 14
     },
     {
       "label": "generate_slide1_hero()",
@@ -2905,7 +3113,7 @@
       "source_file": "tools\\post_creator\\generate_unified_post.py",
       "source_location": "L683",
       "id": "generate_unified_post_generate_slide1_hero",
-      "community": 1
+      "community": 14
     },
     {
       "label": "generate_slide2_architecture()",
@@ -2913,7 +3121,7 @@
       "source_file": "tools\\post_creator\\generate_unified_post.py",
       "source_location": "L713",
       "id": "generate_unified_post_generate_slide2_architecture",
-      "community": 1
+      "community": 14
     },
     {
       "label": "generate_slide3_comparison()",
@@ -2921,7 +3129,7 @@
       "source_file": "tools\\post_creator\\generate_unified_post.py",
       "source_location": "L722",
       "id": "generate_unified_post_generate_slide3_comparison",
-      "community": 1
+      "community": 14
     },
     {
       "label": "generate_slide4_roadmap()",
@@ -2929,7 +3137,7 @@
       "source_file": "tools\\post_creator\\generate_unified_post.py",
       "source_location": "L752",
       "id": "generate_unified_post_generate_slide4_roadmap",
-      "community": 1
+      "community": 14
     },
     {
       "label": "package_post()",
@@ -2937,7 +3145,7 @@
       "source_file": "tools\\post_creator\\generate_unified_post.py",
       "source_location": "L772",
       "id": "generate_unified_post_package_post",
-      "community": 1
+      "community": 14
     },
     {
       "label": "main()",
@@ -2945,7 +3153,7 @@
       "source_file": "tools\\post_creator\\generate_unified_post.py",
       "source_location": "L796",
       "id": "generate_unified_post_main",
-      "community": 1
+      "community": 14
     },
     {
       "label": "Unified LinkedIn Post Generator \u2014 Full Platform Showcase Generates a single, com",
@@ -2953,7 +3161,7 @@
       "source_file": "tools\\post_creator\\generate_unified_post.py",
       "source_location": "L1",
       "id": "generate_unified_post_rationale_1",
-      "community": 1
+      "community": 14
     },
     {
       "label": "Render HTML to PNG via Edge headless.",
@@ -2961,7 +3169,7 @@
       "source_file": "tools\\post_creator\\generate_unified_post.py",
       "source_location": "L672",
       "id": "generate_unified_post_rationale_672",
-      "community": 1
+      "community": 14
     },
     {
       "label": "Generate 3D artwork via FLUX.1, then overlay vector text.",
@@ -2969,7 +3177,7 @@
       "source_file": "tools\\post_creator\\generate_unified_post.py",
       "source_location": "L684",
       "id": "generate_unified_post_rationale_684",
-      "community": 1
+      "community": 14
     },
     {
       "label": "Render the unified 5-layer architecture specs card.",
@@ -2977,7 +3185,7 @@
       "source_file": "tools\\post_creator\\generate_unified_post.py",
       "source_location": "L714",
       "id": "generate_unified_post_rationale_714",
-      "community": 1
+      "community": 14
     },
     {
       "label": "Render before vs after comparison with 3D avatars.",
@@ -2985,7 +3193,7 @@
       "source_file": "tools\\post_creator\\generate_unified_post.py",
       "source_location": "L723",
       "id": "generate_unified_post_rationale_723",
-      "community": 1
+      "community": 14
     },
     {
       "label": "Render operational roadmap with 3D robot flowchart banner.",
@@ -2993,7 +3201,7 @@
       "source_file": "tools\\post_creator\\generate_unified_post.py",
       "source_location": "L753",
       "id": "generate_unified_post_rationale_753",
-      "community": 1
+      "community": 14
     },
     {
       "label": "Bundle everything into a ready-to-post JSON package.",
@@ -3001,7 +3209,7 @@
       "source_file": "tools\\post_creator\\generate_unified_post.py",
       "source_location": "L773",
       "id": "generate_unified_post_rationale_773",
-      "community": 1
+      "community": 14
     },
     {
       "label": "html_infographic_studio.py",
@@ -3105,7 +3313,7 @@
       "source_file": "tools\\post_creator\\linkedin_publisher.py",
       "source_location": "L1",
       "id": "linkedin_publisher",
-      "community": 13
+      "community": 1
     },
     {
       "label": "LinkedInPublisher",
@@ -3113,7 +3321,7 @@
       "source_file": "tools\\post_creator\\linkedin_publisher.py",
       "source_location": "L13",
       "id": "linkedin_publisher_linkedinpublisher",
-      "community": 13
+      "community": 1
     },
     {
       "label": "package_post()",
@@ -3121,7 +3329,7 @@
       "source_file": "tools\\post_creator\\linkedin_publisher.py",
       "source_location": "L19",
       "id": "linkedin_publisher_package_post",
-      "community": 13
+      "community": 1
     },
     {
       "label": "publish_package()",
@@ -3129,7 +3337,7 @@
       "source_file": "tools\\post_creator\\linkedin_publisher.py",
       "source_location": "L49",
       "id": "linkedin_publisher_publish_package",
-      "community": 13
+      "community": 1
     },
     {
       "label": "LinkedIn Publisher Engine Handles packaging post copy with generated high-res im",
@@ -3137,7 +3345,7 @@
       "source_file": "tools\\post_creator\\linkedin_publisher.py",
       "source_location": "L1",
       "id": "linkedin_publisher_rationale_1",
-      "community": 13
+      "community": 1
     },
     {
       "label": "Manages packaging post bundles with rendered images and executing publishing act",
@@ -3145,7 +3353,7 @@
       "source_file": "tools\\post_creator\\linkedin_publisher.py",
       "source_location": "L14",
       "id": "linkedin_publisher_rationale_14",
-      "community": 13
+      "community": 1
     },
     {
       "label": "Bundles post copy and high-res image into a complete publishing package.",
@@ -3169,7 +3377,7 @@
       "source_file": "tools\\post_creator\\mcp_server.py",
       "source_location": "L1",
       "id": "mcp_server",
-      "community": 13
+      "community": 1
     },
     {
       "label": "handle_request()",
@@ -3177,7 +3385,7 @@
       "source_file": "tools\\post_creator\\mcp_server.py",
       "source_location": "L67",
       "id": "mcp_server_handle_request",
-      "community": 13
+      "community": 1
     },
     {
       "label": "main()",
@@ -3185,7 +3393,7 @@
       "source_file": "tools\\post_creator\\mcp_server.py",
       "source_location": "L219",
       "id": "mcp_server_main",
-      "community": 13
+      "community": 1
     },
     {
       "label": "MCP Server: LinkedIn Content & High-Res Image Studio (mcp-post-studio) Protocol:",
@@ -3193,7 +3401,7 @@
       "source_file": "tools\\post_creator\\mcp_server.py",
       "source_location": "L1",
       "id": "mcp_server_rationale_1",
-      "community": 13
+      "community": 1
     },
     {
       "label": "package_post2_content_studio.py",
@@ -3457,7 +3665,7 @@
       "source_file": "tools\\post_creator\\post_generator.py",
       "source_location": "L1",
       "id": "post_generator",
-      "community": 13
+      "community": 1
     },
     {
       "label": "DynamicPostGenerator",
@@ -3465,7 +3673,7 @@
       "source_file": "tools\\post_creator\\post_generator.py",
       "source_location": "L23",
       "id": "post_generator_dynamicpostgenerator",
-      "community": 13
+      "community": 1
     },
     {
       "label": "generate_full_linkedin_post_bundle()",
@@ -3473,7 +3681,7 @@
       "source_file": "tools\\post_creator\\post_generator.py",
       "source_location": "L29",
       "id": "post_generator_generate_full_linkedin_post_bundle",
-      "community": 13
+      "community": 1
     },
     {
       "label": "Dynamic LLM-Powered LinkedIn Post & Custom Prompt Generator Takes any topic/cont",
@@ -3481,7 +3689,7 @@
       "source_file": "tools\\post_creator\\post_generator.py",
       "source_location": "L1",
       "id": "post_generator_rationale_1",
-      "community": 13
+      "community": 1
     },
     {
       "label": "LLM-powered post copy & dynamic prompt generator.",
@@ -3489,7 +3697,7 @@
       "source_file": "tools\\post_creator\\post_generator.py",
       "source_location": "L24",
       "id": "post_generator_rationale_24",
-      "community": 13
+      "community": 1
     },
     {
       "label": "Dynamically generates post copy and custom image prompt tailored to the given to",
@@ -3689,7 +3897,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L1",
       "id": "serve_dashboard",
-      "community": 5
+      "community": 6
     },
     {
       "label": "discover_packets()",
@@ -3697,7 +3905,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L63",
       "id": "serve_dashboard_discover_packets",
-      "community": 5
+      "community": 6
     },
     {
       "label": "read()",
@@ -3705,7 +3913,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L100",
       "id": "serve_dashboard_read",
-      "community": 5
+      "community": 6
     },
     {
       "label": "cv_paths()",
@@ -3713,7 +3921,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L107",
       "id": "serve_dashboard_cv_paths",
-      "community": 5
+      "community": 6
     },
     {
       "label": "parse_contact()",
@@ -3721,7 +3929,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L121",
       "id": "serve_dashboard_parse_contact",
-      "community": 5
+      "community": 6
     },
     {
       "label": "build_packets()",
@@ -3729,7 +3937,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L149",
       "id": "serve_dashboard_build_packets",
-      "community": 5
+      "community": 6
     },
     {
       "label": "slack_feed()",
@@ -3737,7 +3945,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L173",
       "id": "serve_dashboard_slack_feed",
-      "community": 5
+      "community": 6
     },
     {
       "label": "bootstrap()",
@@ -3745,7 +3953,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L195",
       "id": "serve_dashboard_bootstrap",
-      "community": 5
+      "community": 6
     },
     {
       "label": "zip_bytes()",
@@ -3753,7 +3961,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L226",
       "id": "serve_dashboard_zip_bytes",
-      "community": 5
+      "community": 6
     },
     {
       "label": "packet_zip()",
@@ -3761,7 +3969,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L234",
       "id": "serve_dashboard_packet_zip",
-      "community": 5
+      "community": 6
     },
     {
       "label": "all_zip()",
@@ -3769,7 +3977,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L257",
       "id": "serve_dashboard_all_zip",
-      "community": 5
+      "community": 6
     },
     {
       "label": "Handler",
@@ -3777,7 +3985,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L271",
       "id": "serve_dashboard_handler",
-      "community": 5
+      "community": 6
     },
     {
       "label": "BaseHTTPRequestHandler",
@@ -3785,7 +3993,7 @@
       "source_file": "",
       "source_location": "",
       "id": "basehttprequesthandler",
-      "community": 5
+      "community": 6
     },
     {
       "label": ".log_message()",
@@ -3793,7 +4001,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L274",
       "id": "serve_dashboard_handler_log_message",
-      "community": 5
+      "community": 6
     },
     {
       "label": "._send()",
@@ -3801,7 +4009,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L278",
       "id": "serve_dashboard_handler_send",
-      "community": 5
+      "community": 6
     },
     {
       "label": "._json()",
@@ -3809,7 +4017,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L289",
       "id": "serve_dashboard_handler_json",
-      "community": 5
+      "community": 6
     },
     {
       "label": "._fail()",
@@ -3817,7 +4025,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L293",
       "id": "serve_dashboard_handler_fail",
-      "community": 5
+      "community": 6
     },
     {
       "label": "._attachment()",
@@ -3825,7 +4033,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L296",
       "id": "serve_dashboard_handler_attachment",
-      "community": 5
+      "community": 6
     },
     {
       "label": ".do_HEAD()",
@@ -3833,7 +4041,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L313",
       "id": "serve_dashboard_handler_do_head",
-      "community": 5
+      "community": 6
     },
     {
       "label": ".do_GET()",
@@ -3841,7 +4049,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L316",
       "id": "serve_dashboard_handler_do_get",
-      "community": 5
+      "community": 6
     },
     {
       "label": ".do_POST()",
@@ -3849,7 +4057,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L339",
       "id": "serve_dashboard_handler_do_post",
-      "community": 5
+      "community": 6
     },
     {
       "label": "._static()",
@@ -3857,7 +4065,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L392",
       "id": "serve_dashboard_handler_static",
-      "community": 5
+      "community": 6
     },
     {
       "label": "._download()",
@@ -3865,7 +4073,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L405",
       "id": "serve_dashboard_handler_download",
-      "community": 5
+      "community": 6
     },
     {
       "label": "main()",
@@ -3873,7 +4081,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L435",
       "id": "serve_dashboard_main",
-      "community": 5
+      "community": 6
     },
     {
       "label": "Find packets by scanning disk, so one built five minutes ago shows up.\r \r     Ea",
@@ -3881,7 +4089,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L64",
       "id": "serve_dashboard_rationale_64",
-      "community": 5
+      "community": 6
     },
     {
       "label": "Tailored CVs live under cv/tailored; the general one sits in cv/.",
@@ -3889,7 +4097,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L108",
       "id": "serve_dashboard_rationale_108",
-      "community": 5
+      "community": 6
     },
     {
       "label": "Pull the headline contact facts out of contact.md.\r \r     contact.md is written",
@@ -3897,7 +4105,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L122",
       "id": "serve_dashboard_rationale_122",
-      "community": 5
+      "community": 6
     },
     {
       "label": "set_status.py",
@@ -3921,7 +4129,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L1",
       "id": "slack_action_card",
-      "community": 14
+      "community": 15
     },
     {
       "label": "load_env()",
@@ -3929,7 +4137,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L37",
       "id": "slack_action_card_load_env",
-      "community": 14
+      "community": 15
     },
     {
       "label": "read()",
@@ -3937,7 +4145,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L48",
       "id": "slack_action_card_read",
-      "community": 14
+      "community": 15
     },
     {
       "label": "first()",
@@ -3945,7 +4153,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L52",
       "id": "slack_action_card_first",
-      "community": 14
+      "community": 15
     },
     {
       "label": "all_of()",
@@ -3953,7 +4161,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L57",
       "id": "slack_action_card_all_of",
-      "community": 14
+      "community": 15
     },
     {
       "label": "first_blockquote()",
@@ -3961,7 +4169,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L61",
       "id": "slack_action_card_first_blockquote",
-      "community": 14
+      "community": 15
     },
     {
       "label": "section_quote()",
@@ -3969,7 +4177,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L78",
       "id": "slack_action_card_section_quote",
-      "community": 14
+      "community": 15
     },
     {
       "label": "resolve_slots()",
@@ -3977,7 +4185,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L87",
       "id": "slack_action_card_resolve_slots",
-      "community": 14
+      "community": 15
     },
     {
       "label": "build_card()",
@@ -3985,7 +4193,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L110",
       "id": "slack_action_card_build_card",
-      "community": 14
+      "community": 15
     },
     {
       "label": "post()",
@@ -3993,7 +4201,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L150",
       "id": "slack_action_card_post",
-      "community": 14
+      "community": 15
     },
     {
       "label": "main()",
@@ -4001,7 +4209,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L169",
       "id": "slack_action_card_main",
-      "community": 14
+      "community": 15
     },
     {
       "label": "Return the first contiguous block of '> ' lines, cleaned, as one string.",
@@ -4009,7 +4217,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L62",
       "id": "slack_action_card_rationale_62",
-      "community": 14
+      "community": 15
     },
     {
       "label": "The blockquote directly under the first heading matching heading_re.",
@@ -4017,7 +4225,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L79",
       "id": "slack_action_card_rationale_79",
-      "community": 14
+      "community": 15
     },
     {
       "label": "Fill the drafting slots so the preview reads exactly as the recipient will see i",
@@ -4025,7 +4233,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L88",
       "id": "slack_action_card_rationale_88",
-      "community": 14
+      "community": 15
     },
     {
       "label": "Role, score, recipient, the exact message the robot will send, marker. Nothing e",
@@ -4033,7 +4241,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L111",
       "id": "slack_action_card_rationale_111",
-      "community": 14
+      "community": 15
     },
     {
       "label": "slack_export.py",
@@ -4257,7 +4465,7 @@
       "source_file": "web\\static\\common.js",
       "source_location": "L1",
       "id": "common",
-      "community": 6
+      "community": 8
     },
     {
       "label": "el()",
@@ -4265,7 +4473,7 @@
       "source_file": "web\\static\\common.js",
       "source_location": "L11",
       "id": "common_el",
-      "community": 6
+      "community": 8
     },
     {
       "label": "clear()",
@@ -4273,7 +4481,7 @@
       "source_file": "web\\static\\common.js",
       "source_location": "L17",
       "id": "common_clear",
-      "community": 6
+      "community": 8
     },
     {
       "label": "link()",
@@ -4281,7 +4489,7 @@
       "source_file": "web\\static\\common.js",
       "source_location": "L18",
       "id": "common_link",
-      "community": 6
+      "community": 8
     },
     {
       "label": "toast()",
@@ -4289,7 +4497,7 @@
       "source_file": "web\\static\\common.js",
       "source_location": "L24",
       "id": "common_toast",
-      "community": 6
+      "community": 8
     },
     {
       "label": "copy()",
@@ -4297,7 +4505,7 @@
       "source_file": "web\\static\\common.js",
       "source_location": "L32",
       "id": "common_copy",
-      "community": 6
+      "community": 8
     },
     {
       "label": "span()",
@@ -4305,7 +4513,7 @@
       "source_file": "web\\static\\common.js",
       "source_location": "L42",
       "id": "common_span",
-      "community": 6
+      "community": 8
     },
     {
       "label": "ago()",
@@ -4313,7 +4521,7 @@
       "source_file": "web\\static\\common.js",
       "source_location": "L51",
       "id": "common_ago",
-      "community": 6
+      "community": 8
     },
     {
       "label": "clock()",
@@ -4321,7 +4529,7 @@
       "source_file": "web\\static\\common.js",
       "source_location": "L59",
       "id": "common_clock",
-      "community": 6
+      "community": 8
     },
     {
       "label": "day()",
@@ -4329,7 +4537,7 @@
       "source_file": "web\\static\\common.js",
       "source_location": "L64",
       "id": "common_day",
-      "community": 6
+      "community": 8
     },
     {
       "label": "esc()",
@@ -4337,7 +4545,7 @@
       "source_file": "web\\static\\common.js",
       "source_location": "L71",
       "id": "common_esc",
-      "community": 6
+      "community": 8
     },
     {
       "label": "inline()",
@@ -4345,7 +4553,7 @@
       "source_file": "web\\static\\common.js",
       "source_location": "L72",
       "id": "common_inline",
-      "community": 6
+      "community": 8
     },
     {
       "label": "splitRow()",
@@ -4353,7 +4561,7 @@
       "source_file": "web\\static\\common.js",
       "source_location": "L82",
       "id": "common_splitrow",
-      "community": 6
+      "community": 8
     },
     {
       "label": "markdown()",
@@ -4361,7 +4569,7 @@
       "source_file": "web\\static\\common.js",
       "source_location": "L85",
       "id": "common_markdown",
-      "community": 6
+      "community": 8
     },
     {
       "label": "slackText()",
@@ -4369,7 +4577,7 @@
       "source_file": "web\\static\\common.js",
       "source_location": "L140",
       "id": "common_slacktext",
-      "community": 6
+      "community": 8
     },
     {
       "label": "slackKind()",
@@ -4377,7 +4585,7 @@
       "source_file": "web\\static\\common.js",
       "source_location": "L150",
       "id": "common_slackkind",
-      "community": 6
+      "community": 8
     },
     {
       "label": "stageChip()",
@@ -4385,7 +4593,7 @@
       "source_file": "web\\static\\common.js",
       "source_location": "L165",
       "id": "common_stagechip",
-      "community": 6
+      "community": 8
     },
     {
       "label": "fitCell()",
@@ -4393,7 +4601,7 @@
       "source_file": "web\\static\\common.js",
       "source_location": "L169",
       "id": "common_fitcell",
-      "community": 6
+      "community": 8
     },
     {
       "label": "star()",
@@ -4401,7 +4609,7 @@
       "source_file": "web\\static\\common.js",
       "source_location": "L180",
       "id": "common_star",
-      "community": 6
+      "community": 8
     },
     {
       "label": "packetFor()",
@@ -4409,7 +4617,7 @@
       "source_file": "web\\static\\common.js",
       "source_location": "L186",
       "id": "common_packetfor",
-      "community": 6
+      "community": 8
     },
     {
       "label": "msgBlock()",
@@ -4417,7 +4625,7 @@
       "source_file": "web\\static\\common.js",
       "source_location": "L189",
       "id": "common_msgblock",
-      "community": 6
+      "community": 8
     },
     {
       "label": "renderNav()",
@@ -4425,7 +4633,7 @@
       "source_file": "web\\static\\common.js",
       "source_location": "L203",
       "id": "common_rendernav",
-      "community": 6
+      "community": 8
     },
     {
       "label": "api()",
@@ -4433,7 +4641,7 @@
       "source_file": "web\\static\\common.js",
       "source_location": "L216",
       "id": "common_api",
-      "community": 6
+      "community": 8
     },
     {
       "label": "post()",
@@ -4441,7 +4649,7 @@
       "source_file": "web\\static\\common.js",
       "source_location": "L224",
       "id": "common_post",
-      "community": 6
+      "community": 8
     },
     {
       "label": "ready()",
@@ -4449,7 +4657,7 @@
       "source_file": "web\\static\\common.js",
       "source_location": "L233",
       "id": "common_ready",
-      "community": 6
+      "community": 8
     },
     {
       "label": "boot()",
@@ -4457,7 +4665,7 @@
       "source_file": "web\\static\\common.js",
       "source_location": "L238",
       "id": "common_boot",
-      "community": 6
+      "community": 8
     },
     {
       "label": "page-board.js",
@@ -4625,7 +4833,7 @@
       "source_file": "web\\static\\page-jobs.js",
       "source_location": "L1",
       "id": "page_jobs",
-      "community": 16
+      "community": 17
     },
     {
       "label": "renderList()",
@@ -4633,7 +4841,7 @@
       "source_file": "web\\static\\page-jobs.js",
       "source_location": "L7",
       "id": "page_jobs_renderlist",
-      "community": 16
+      "community": 17
     },
     {
       "label": "statusControl()",
@@ -4641,7 +4849,7 @@
       "source_file": "web\\static\\page-jobs.js",
       "source_location": "L33",
       "id": "page_jobs_statuscontrol",
-      "community": 16
+      "community": 17
     },
     {
       "label": "notionRow()",
@@ -4649,7 +4857,7 @@
       "source_file": "web\\static\\page-jobs.js",
       "source_location": "L78",
       "id": "page_jobs_notionrow",
-      "community": 16
+      "community": 17
     },
     {
       "label": "change()",
@@ -4657,7 +4865,7 @@
       "source_file": "web\\static\\page-jobs.js",
       "source_location": "L112",
       "id": "page_jobs_change",
-      "community": 16
+      "community": 17
     },
     {
       "label": "recount()",
@@ -4665,7 +4873,7 @@
       "source_file": "web\\static\\page-jobs.js",
       "source_location": "L134",
       "id": "page_jobs_recount",
-      "community": 16
+      "community": 17
     },
     {
       "label": "applyPanel()",
@@ -4673,7 +4881,7 @@
       "source_file": "web\\static\\page-jobs.js",
       "source_location": "L142",
       "id": "page_jobs_applypanel",
-      "community": 16
+      "community": 17
     },
     {
       "label": "cvPanel()",
@@ -4681,7 +4889,7 @@
       "source_file": "web\\static\\page-jobs.js",
       "source_location": "L200",
       "id": "page_jobs_cvpanel",
-      "community": 16
+      "community": 17
     },
     {
       "label": "show()",
@@ -4689,7 +4897,7 @@
       "source_file": "web\\static\\page-jobs.js",
       "source_location": "L249",
       "id": "page_jobs_show",
-      "community": 16
+      "community": 17
     },
     {
       "label": "buildPanel()",
@@ -4697,7 +4905,7 @@
       "source_file": "web\\static\\page-jobs.js",
       "source_location": "L305",
       "id": "page_jobs_buildpanel",
-      "community": 16
+      "community": 17
     },
     {
       "label": "followBuild()",
@@ -4705,7 +4913,7 @@
       "source_file": "web\\static\\page-jobs.js",
       "source_location": "L355",
       "id": "page_jobs_followbuild",
-      "community": 16
+      "community": 17
     },
     {
       "label": "page-research.js",
@@ -6048,6 +6256,66 @@
       "source": "fill_linkedinloggedout",
       "target": "fill_rationale_87",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L39",
+      "weight": 0.8,
+      "_src": "replies_thread",
+      "_tgt": "fill_linkedinloggedout",
+      "source": "fill_linkedinloggedout",
+      "target": "replies_thread",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L39",
+      "weight": 0.8,
+      "_src": "replies_inboxreport",
+      "_tgt": "fill_linkedinloggedout",
+      "source": "fill_linkedinloggedout",
+      "target": "replies_inboxreport",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L39",
+      "weight": 0.8,
+      "_src": "replies_rationale_1",
+      "_tgt": "fill_linkedinloggedout",
+      "source": "fill_linkedinloggedout",
+      "target": "replies_rationale_1",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L39",
+      "weight": 0.8,
+      "_src": "replies_rationale_84",
+      "_tgt": "fill_linkedinloggedout",
+      "source": "fill_linkedinloggedout",
+      "target": "replies_rationale_84",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L39",
+      "weight": 0.8,
+      "_src": "replies_rationale_101",
+      "_tgt": "fill_linkedinloggedout",
+      "source": "fill_linkedinloggedout",
+      "target": "replies_rationale_101",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -7560,6 +7828,342 @@
       "source": "llm_ask",
       "target": "llm_rationale_87",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L60",
+      "weight": 1.0,
+      "_src": "replies",
+      "_tgt": "replies_thread",
+      "source": "replies",
+      "target": "replies_thread",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L69",
+      "weight": 1.0,
+      "_src": "replies",
+      "_tgt": "replies_needs_attention",
+      "source": "replies",
+      "target": "replies_needs_attention",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L74",
+      "weight": 1.0,
+      "_src": "replies",
+      "_tgt": "replies_inboxreport",
+      "source": "replies",
+      "target": "replies_inboxreport",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L79",
+      "weight": 1.0,
+      "_src": "replies",
+      "_tgt": "replies_waiting",
+      "source": "replies",
+      "target": "replies_waiting",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L83",
+      "weight": 1.0,
+      "_src": "replies",
+      "_tgt": "replies_classify",
+      "source": "replies",
+      "target": "replies_classify",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L100",
+      "weight": 1.0,
+      "_src": "replies",
+      "_tgt": "replies_rows",
+      "source": "replies",
+      "target": "replies_rows",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L127",
+      "weight": 1.0,
+      "_src": "replies",
+      "_tgt": "replies_scan",
+      "source": "replies",
+      "target": "replies_scan",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L143",
+      "weight": 1.0,
+      "_src": "replies",
+      "_tgt": "replies_main",
+      "source": "replies",
+      "target": "replies_main",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L1",
+      "weight": 1.0,
+      "_src": "replies_rationale_1",
+      "_tgt": "replies",
+      "source": "replies",
+      "target": "replies_rationale_1",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L93",
+      "weight": 0.8,
+      "_src": "replies_classify",
+      "_tgt": "replies_thread",
+      "source": "replies_thread",
+      "target": "replies_classify",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L14",
+      "weight": 0.8,
+      "_src": "test_replies_rationale_1",
+      "_tgt": "replies_thread",
+      "source": "replies_thread",
+      "target": "test_replies_rationale_1",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L14",
+      "weight": 0.8,
+      "_src": "test_replies_rationale_18",
+      "_tgt": "replies_thread",
+      "source": "replies_thread",
+      "target": "test_replies_rationale_18",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L14",
+      "weight": 0.8,
+      "_src": "test_replies_rationale_34",
+      "_tgt": "replies_thread",
+      "source": "replies_thread",
+      "target": "test_replies_rationale_34",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L14",
+      "weight": 0.8,
+      "_src": "test_replies_rationale_41",
+      "_tgt": "replies_thread",
+      "source": "replies_thread",
+      "target": "test_replies_rationale_41",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L14",
+      "weight": 0.8,
+      "_src": "test_replies_rationale_48",
+      "_tgt": "replies_thread",
+      "source": "replies_thread",
+      "target": "test_replies_rationale_48",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L14",
+      "weight": 0.8,
+      "_src": "test_replies_rationale_54",
+      "_tgt": "replies_thread",
+      "source": "replies_thread",
+      "target": "test_replies_rationale_54",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L128",
+      "weight": 0.8,
+      "_src": "replies_scan",
+      "_tgt": "replies_inboxreport",
+      "source": "replies_inboxreport",
+      "target": "replies_scan",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L14",
+      "weight": 0.8,
+      "_src": "test_replies_rationale_1",
+      "_tgt": "replies_inboxreport",
+      "source": "replies_inboxreport",
+      "target": "test_replies_rationale_1",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L14",
+      "weight": 0.8,
+      "_src": "test_replies_rationale_18",
+      "_tgt": "replies_inboxreport",
+      "source": "replies_inboxreport",
+      "target": "test_replies_rationale_18",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L14",
+      "weight": 0.8,
+      "_src": "test_replies_rationale_34",
+      "_tgt": "replies_inboxreport",
+      "source": "replies_inboxreport",
+      "target": "test_replies_rationale_34",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L14",
+      "weight": 0.8,
+      "_src": "test_replies_rationale_41",
+      "_tgt": "replies_inboxreport",
+      "source": "replies_inboxreport",
+      "target": "test_replies_rationale_41",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L14",
+      "weight": 0.8,
+      "_src": "test_replies_rationale_48",
+      "_tgt": "replies_inboxreport",
+      "source": "replies_inboxreport",
+      "target": "test_replies_rationale_48",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L14",
+      "weight": 0.8,
+      "_src": "test_replies_rationale_54",
+      "_tgt": "replies_inboxreport",
+      "source": "replies_inboxreport",
+      "target": "test_replies_rationale_54",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L135",
+      "weight": 0.8,
+      "_src": "replies_scan",
+      "_tgt": "replies_classify",
+      "source": "replies_classify",
+      "target": "replies_scan",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L84",
+      "weight": 1.0,
+      "_src": "replies_rationale_84",
+      "_tgt": "replies_classify",
+      "source": "replies_classify",
+      "target": "replies_rationale_84",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L134",
+      "weight": 0.8,
+      "_src": "replies_scan",
+      "_tgt": "replies_rows",
+      "source": "replies_rows",
+      "target": "replies_scan",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L101",
+      "weight": 1.0,
+      "_src": "replies_rationale_101",
+      "_tgt": "replies_rows",
+      "source": "replies_rows",
+      "target": "replies_rationale_101",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L149",
+      "weight": 0.8,
+      "_src": "replies_main",
+      "_tgt": "replies_scan",
+      "source": "replies_scan",
+      "target": "replies_main",
+      "confidence_score": 0.5
     },
     {
       "relation": "contains",
@@ -9179,6 +9783,162 @@
       "_tgt": "test_ledger_test_the_exact_posting_guard_is_untouched_by_the_window",
       "source": "test_ledger_test_the_exact_posting_guard_is_untouched_by_the_window",
       "target": "test_ledger_rationale_178",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L17",
+      "weight": 1.0,
+      "_src": "test_replies",
+      "_tgt": "test_replies_test_the_real_missed_reply_is_flagged",
+      "source": "test_replies",
+      "target": "test_replies_test_the_real_missed_reply_is_flagged",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L29",
+      "weight": 1.0,
+      "_src": "test_replies",
+      "_tgt": "test_replies_test_our_own_last_message_is_not_flagged",
+      "source": "test_replies",
+      "target": "test_replies_test_our_own_last_message_is_not_flagged",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L33",
+      "weight": 1.0,
+      "_src": "test_replies",
+      "_tgt": "test_replies_test_sponsored_inmail_is_not_a_reply",
+      "source": "test_replies",
+      "target": "test_replies_test_sponsored_inmail_is_not_a_reply",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L40",
+      "weight": 1.0,
+      "_src": "test_replies",
+      "_tgt": "test_replies_test_an_empty_preview_escalates_rather_than_going_quiet",
+      "source": "test_replies",
+      "target": "test_replies_test_an_empty_preview_escalates_rather_than_going_quiet",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L47",
+      "weight": 1.0,
+      "_src": "test_replies",
+      "_tgt": "test_replies_test_an_unfamiliar_preview_shape_escalates",
+      "source": "test_replies",
+      "target": "test_replies_test_an_unfamiliar_preview_shape_escalates",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L53",
+      "weight": 1.0,
+      "_src": "test_replies",
+      "_tgt": "test_replies_test_a_read_failure_is_not_an_empty_inbox",
+      "source": "test_replies",
+      "target": "test_replies_test_a_read_failure_is_not_an_empty_inbox",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L63",
+      "weight": 1.0,
+      "_src": "test_replies",
+      "_tgt": "test_replies_test_waiting_excludes_sponsored_but_keeps_undetermined",
+      "source": "test_replies",
+      "target": "test_replies_test_waiting_excludes_sponsored_but_keeps_undetermined",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L1",
+      "weight": 1.0,
+      "_src": "test_replies_rationale_1",
+      "_tgt": "test_replies",
+      "source": "test_replies",
+      "target": "test_replies_rationale_1",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L18",
+      "weight": 1.0,
+      "_src": "test_replies_rationale_18",
+      "_tgt": "test_replies_test_the_real_missed_reply_is_flagged",
+      "source": "test_replies_test_the_real_missed_reply_is_flagged",
+      "target": "test_replies_rationale_18",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L34",
+      "weight": 1.0,
+      "_src": "test_replies_rationale_34",
+      "_tgt": "test_replies_test_sponsored_inmail_is_not_a_reply",
+      "source": "test_replies_test_sponsored_inmail_is_not_a_reply",
+      "target": "test_replies_rationale_34",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L41",
+      "weight": 1.0,
+      "_src": "test_replies_rationale_41",
+      "_tgt": "test_replies_test_an_empty_preview_escalates_rather_than_going_quiet",
+      "source": "test_replies_test_an_empty_preview_escalates_rather_than_going_quiet",
+      "target": "test_replies_rationale_41",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L48",
+      "weight": 1.0,
+      "_src": "test_replies_rationale_48",
+      "_tgt": "test_replies_test_an_unfamiliar_preview_shape_escalates",
+      "source": "test_replies_test_an_unfamiliar_preview_shape_escalates",
+      "target": "test_replies_rationale_48",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_replies.py",
+      "source_location": "L54",
+      "weight": 1.0,
+      "_src": "test_replies_rationale_54",
+      "_tgt": "test_replies_test_a_read_failure_is_not_an_empty_inbox",
+      "source": "test_replies_test_a_read_failure_is_not_an_empty_inbox",
+      "target": "test_replies_rationale_54",
       "confidence_score": 1.0
     },
     {

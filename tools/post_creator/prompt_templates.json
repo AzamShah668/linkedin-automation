@@ -1,0 +1,46 @@
+{
+  "_description": "Image prompt templates for each LinkedIn post type. Used by the dispatch engine to generate hero images via FLUX.1/Imagen 3.",
+  "project": {
+    "format": "pdf-carousel",
+    "pages": 6,
+    "note": "Project posts use real UI screenshots + architecture specs as a PDF carousel. No AI-generated hero needed — the product IS the visual."
+  },
+  "daily-build": {
+    "format": "single-image",
+    "aspect_ratio": "4:5",
+    "prompt_template": "A dramatic cinematic 3D render of a software engineer's workspace at {time_of_day}. On a dark ultrawide monitor, glowing {color} code and terminal output show {visual_metaphor}. The scene has volumetric lighting, lens flare, and a cyberpunk aesthetic. Dark background (#030712), 8k resolution, professional photography, shallow depth of field. No text overlays.",
+    "variables": {
+      "time_of_day": ["2 AM", "midnight", "dawn", "late night"],
+      "color": ["cyan", "amber", "green", "purple"],
+      "visual_metaphor": ["a breakthrough fix being deployed", "a race condition being debugged", "a performance graph spiking upward", "a distributed system topology healing itself"]
+    }
+  },
+  "trend": {
+    "format": "single-image",
+    "aspect_ratio": "4:5",
+    "prompt_template": "A futuristic 3D infographic visualization floating in dark space (#030712). The central element is a {shape} made of glowing {color} neon wireframe, representing {topic_metaphor}. Small data particles and holographic HUD elements orbit around it. Clean, modern, minimalist tech aesthetic. 8k resolution, no text, pure visual impact.",
+    "variables": {
+      "shape": ["hexagonal network", "neural mesh sphere", "crystalline data cube", "orbital ring system"],
+      "color": ["cyan and orange", "electric blue and magenta", "emerald and gold", "violet and coral"],
+      "topic_metaphor": ["the convergence of AI and infrastructure", "the evolution of developer tooling", "the shift from cloud to edge", "the rise of autonomous systems"]
+    }
+  },
+  "lesson": {
+    "format": "single-image",
+    "aspect_ratio": "4:5",
+    "prompt_template": "A clean, modern 3D render of {scene}. The aesthetic is premium tech photography with soft ambient lighting, dark background (#030712), and subtle {accent_color} accent glow. Professional, contemplative mood. 8k resolution, cinematic composition, no text overlays.",
+    "variables": {
+      "scene": ["an architect's blueprint being refined with holographic annotations", "a whiteboard covered in system design diagrams being illuminated by a spotlight", "a single perfectly engineered component floating in space, glowing from within", "a split-screen showing chaos on one side and elegant simplicity on the other"],
+      "accent_color": ["cyan", "amber", "emerald", "warm white"]
+    }
+  },
+  "reflection": {
+    "format": "single-image",
+    "aspect_ratio": "4:5",
+    "prompt_template": "A contemplative, atmospheric 3D scene of {setting}. {detail}. Warm and cool tones blended together, volumetric fog, golden hour lighting mixed with cool blue tech glow. Dark background (#030712). Cinematic, personal, authentic mood. 8k resolution, professional photography.",
+    "variables": {
+      "setting": ["a developer looking out a window at a city skyline, laptop open on the desk behind them", "a quiet workspace with multiple screens showing a completed project dashboard", "a pair of hands sketching architecture diagrams on paper, surrounded by tech devices", "a coffee cup next to an open laptop showing a finished deployment log"],
+      "detail": ["The screen reflects in the window glass", "Ambient desk LEDs cast a soft glow", "Scattered sticky notes tell a story of iteration", "The dawn light is just starting to break through"]
+    }
+  }
+}

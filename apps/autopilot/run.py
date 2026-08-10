@@ -21,7 +21,7 @@ import time
 from dataclasses import dataclass
 from pathlib import Path
 
-from apps.autopilot import answers, cv, families
+from apps.autopilot import answers, cv, families, sourcing
 from apps.autopilot.fill import (
     DEFAULT_USER_DATA_DIR,
     FillResult,
@@ -477,6 +477,9 @@ def cmd_applyall(args: argparse.Namespace) -> int:
 
     plan: list[tuple[Candidate, families.CvChoice]] = []
     skipped: list[tuple[str, str]] = []
+    # Rows a heuristic finds suspicious. They are NOT dropped — they go to the back of the plan,
+    # because a false positive here costs an opportunity while a false negative costs one slot.
+    deferred: list[tuple[Candidate, families.CvChoice, str]] = []
     for cand in candidates:
         blocked = ledger.already_applied(cand.company, cand.job, cand.url)
         if blocked:
@@ -485,6 +488,18 @@ def cmd_applyall(args: argparse.Namespace) -> int:
         choice = families.pick_cv(cand.row_id, cand.company, cand.job)
         if choice.pdf is None:
             skipped.append((f"{cand.company} - {cand.job}", choice.label))
+            continue
+
+        # An application slot spent on a company with nobody behind it can never be followed up,
+        # and D32 says an application that reaches no human is unfinished work. Crossing Hurdles
+        # took two slots this way. Only recorded EVIDENCE blocks; a title heuristic merely sends
+        # the row to the back of the queue (see sourcing.py on why the asymmetry runs this way).
+        verdict = sourcing.screen(cand.company, cand.job)
+        if verdict.blocks:
+            skipped.append((f"{cand.company} - {cand.job}", f"sourcing: {verdict.reason}"))
+            continue
+        if verdict.action == sourcing.DEPRIORITIZE:
+            deferred.append((cand, choice, verdict.reason))
             continue
 
         # ONE ROLE PER COMPANY. Three applications to the same staffing agency inside ten minutes
@@ -516,6 +531,18 @@ def cmd_applyall(args: argparse.Namespace) -> int:
             skipped.append((f"{cand.company} - {cand.job}", why))
             continue
         plan.append((cand, choice))
+
+    # Suspicious rows go LAST, never away. The company cap is re-checked here so a deferred row
+    # cannot sneak past a limit the main loop already enforced.
+    for cand, choice, why in deferred:
+        from apps.autopilot import ledger as _ledger2
+        prior = len(_ledger2.recent_company_submissions(cand.company))
+        pending = sum(1 for c, _ in plan if c.company.lower() == cand.company.lower())
+        if prior + pending >= args.max_per_company:
+            skipped.append((f"{cand.company} - {cand.job}", f"deprioritized, then capped: {why}"))
+            continue
+        plan.append((cand, choice))
+        print(f"  .. deferred to the back of the queue: {cand.company} - {cand.job[:40]} ({why})")
 
     # --limit caps APPLICATIONS SENT, not rows examined. Capping the plan meant "--limit 5"
     # took the five highest-fit rows, which are all external-ATS companies with no Easy Apply

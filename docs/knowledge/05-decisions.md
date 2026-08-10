@@ -1032,3 +1032,54 @@ flagged, and the two threads where we genuinely spoke last correctly left alone.
 
 Related: D30 (nothing wrong vs nothing observed) · D26 (runbook to code) ·
 [[11-reply-classifier-runbook]] · [[campus-channel-is-invisible]] (the same defect, different channel)
+
+---
+
+## D36 — Screen the row before it spends an application slot; only evidence may block (2026-08-10)
+
+**Decision:** `apps/autopilot/sourcing.py` screens every candidate before it enters the plan.
+**Heuristics may only DEPRIORITIZE. Only recorded evidence may BLOCK.**
+
+**What happened.** Two of the eight Easy Apply submissions went to **Crossing Hurdles**, a company
+with **zero employees findable on LinkedIn**. Both produced a `notifications@ceipalmail.com` auto-ack
+within three seconds, first person, funnelling to `jobs.micro1.ai` with a referral code. It is a
+lead-magnet req with no hiring manager behind it, so neither application could ever be followed up —
+and D32 says an application that reaches no human is unfinished work.
+
+Running the new screen over all 94 board rows immediately found a **third** Crossing Hurdles row —
+*Platform Engineer, fit 83, status `New`* — queued and unapplied. That was the next slot about to go
+the same way.
+
+**The asymmetry, and why it is the OPPOSITE of D35's.**
+
+`replies.py` escalates anything it cannot classify, because a false alarm costs ten seconds and a
+false silence cost fifteen days. This module leans the other way:
+
+| | cost |
+|---|---|
+| false positive — blocking a real company | **a job opportunity. Unrecoverable.** |
+| false negative — letting a shell through | one application slot, about fifteen seconds |
+
+A missed opportunity is strictly worse than a wasted slot, so the screen is **conservative about
+blocking**. A `$60/hr` in the title is a staffing-marketplace convention and a genuine tell — but a
+real employer can post an hourly contract rate, so that tell sends the row to the **back of the
+queue**, never out of it. A deprioritized row is still applied to.
+
+**The rule that follows:**
+
+> **Decide which direction a check should fail BEFORE writing it, and write the reason down.**
+> Two guards in the same codebase can need opposite defaults, and "be safe" is not a direction —
+> safe for whom, against which cost? A guard whose failure direction was never chosen has one
+> anyway, by accident.
+
+**What changed:**
+- `screen(company, role)` returns `apply` / `deprioritize` / `block` with a reason.
+- `record_unreachable()` **refuses an empty evidence string** — a company cannot be blocked by
+  assertion, only by something someone can read and check.
+- A corrupt or missing evidence file blocks **nobody**, loudly (`NOTHING is being blocked`) — failing
+  toward applying, per the asymmetry above.
+- Deprioritized rows are appended to the end of the plan and re-checked against the company cap, so
+  they cannot sneak past a limit the main loop already enforced.
+
+Related: D32 (an application that reaches no human is unfinished) · D35 (the opposite asymmetry) ·
+[[26-apply-at-volume]] §6

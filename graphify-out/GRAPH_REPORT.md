@@ -1,37 +1,37 @@
 # Graph Report - .  (2026-08-10)
 
 ## Corpus Check
-- 74 files · ~0 words
+- 76 files · ~0 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 592 nodes · 885 edges · 64 communities detected
-- Extraction: 61% EXTRACTED · 39% INFERRED · 0% AMBIGUOUS · INFERRED: 348 edges (avg confidence: 0.5)
+- 618 nodes · 931 edges · 64 communities detected
+- Extraction: 60% EXTRACTED · 40% INFERRED · 0% AMBIGUOUS · INFERRED: 370 edges (avg confidence: 0.5)
 - Token cost: 0 input · 0 output
 
 ## God Nodes (most connected - your core abstractions)
-1. `fill_job()` - 16 edges
-2. `LinkedInLoggedOut` - 14 edges
+1. `LinkedInLoggedOut` - 19 edges
+2. `fill_job()` - 16 edges
 3. `FillResult` - 12 edges
 4. `Handler` - 12 edges
 5. `_scan()` - 10 edges
-6. `build_card()` - 9 edges
-7. `build_packet()` - 8 edges
-8. `_text_of()` - 8 edges
-9. `_fill_step()` - 8 edges
-10. `main()` - 8 edges
+6. `Thread` - 9 edges
+7. `InboxReport` - 9 edges
+8. `build_card()` - 9 edges
+9. `build_packet()` - 8 edges
+10. `_text_of()` - 8 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `Candidate` --uses--> `LinkedInLoggedOut`  [INFERRED]
-  apps\autopilot\run.py → apps\autopilot\fill.py
-- `CLI entry point for the autopilot.      py -3 -m apps.autopilot.run fieldmap` --uses--> `LinkedInLoggedOut`  [INFERRED]
-  apps\autopilot\run.py → apps\autopilot\fill.py
-- `Best-fit-first board rows, already-done excluded.` --uses--> `LinkedInLoggedOut`  [INFERRED]
-  apps\autopilot\run.py → apps\autopilot\fill.py
-- `Probe candidates until `wanted` postings actually show an Easy Apply button.` --uses--> `LinkedInLoggedOut`  [INFERRED]
-  apps\autopilot\run.py → apps\autopilot\fill.py
-- `Open the profile and wait for the OWNER to sign in by hand.      This is not a` --uses--> `LinkedInLoggedOut`  [INFERRED]
-  apps\autopilot\run.py → apps\autopilot\fill.py
+- `Read the LinkedIn inbox and report threads where THEY spoke last.  WHY THIS EXIS` --uses--> `LinkedInLoggedOut`  [INFERRED]
+  apps\autopilot\replies.py → apps\autopilot\fill.py
+- `Decide who spoke last in one conversation row.      Pure, so the rule is testabl` --uses--> `LinkedInLoggedOut`  [INFERRED]
+  apps\autopilot\replies.py → apps\autopilot\fill.py
+- `(name, preview) for each conversation in the list.` --uses--> `LinkedInLoggedOut`  [INFERRED]
+  apps\autopilot\replies.py → apps\autopilot\fill.py
+- `Thread` --uses--> `LinkedInLoggedOut`  [INFERRED]
+  apps\autopilot\replies.py → apps\autopilot\fill.py
+- `InboxReport` --uses--> `LinkedInLoggedOut`  [INFERRED]
+  apps\autopilot\replies.py → apps\autopilot\fill.py
 
 ## Communities
 
@@ -40,8 +40,8 @@ Cohesion: 0.08
 Nodes (47): _append_monthly_log(), _apply(), _attach_resume(), _attr_q(), _capture_resume(), check_logged_in(), _close_modal(), Control (+39 more)
 
 ### Community 1 - "Community 1"
-Cohesion: 0.07
-Nodes (32): execute_iterative_architecture_hero(), Iterative Architecture Diagram & 3D Enrichment Studio Step 1: Renders a clean co, render_edge_screenshot(), execute_2step_pipeline(), 2-Step AI 3D Command Center Slide 1 Hero Studio Step 1: Render clean, readable 5, render_edge_screenshot(), Ultimate Cybernetic HUD Architecture Generator (FLUX.1 & Gemini Engine) Combines, generate_upgraded_4slide_carousel() (+24 more)
+Cohesion: 0.06
+Nodes (27): execute_iterative_architecture_hero(), Iterative Architecture Diagram & 3D Enrichment Studio Step 1: Renders a clean co, render_edge_screenshot(), execute_2step_pipeline(), 2-Step AI 3D Command Center Slide 1 Hero Studio Step 1: Render clean, readable 5, render_edge_screenshot(), Ultimate Cybernetic HUD Architecture Generator (FLUX.1 & Gemini Engine) Combines, generate_upgraded_4slide_carousel() (+19 more)
 
 ### Community 2 - "Community 2"
 Cohesion: 0.08
@@ -52,64 +52,64 @@ Cohesion: 0.16
 Nodes (28): FillResult, LinkedInLoggedOut, The persistent profile is not signed in. Abort the WHOLE run; never attempt a lo, answers_today(), board_candidates(), Candidate, cmd_applyall(), cmd_fieldmap() (+20 more)
 
 ### Community 4 - "Community 4"
+Cohesion: 0.11
+Nodes (25): build_many(), build_packet(), find_company_packet(), find_packet(), Packet, PacketBuildFailed, The bridge to Claude Code — the one step that keeps a full agent session.  Every, Locate an already-built packet by job id. Packets are discovered, never hardcode (+17 more)
+
+### Community 5 - "Community 5"
 Cohesion: 0.09
 Nodes (22): Tests for the never-resubmit ledger.  The load-bearing one is test_second_attemp, THE D33 test. Infosys: one linkedin-dm, weeks old, different role., The cap's actual job: Crossing Hurdles got two on consecutive days., Different channel = a different recruiter surface, and often a different team., Asymmetric failure: over-counting costs a skip, under-counting costs a duplicate, already_applied() must stay LIFETIME. Recency scoping applies to the CAP only —, THE test. Recro was submitted 2026-07-29 and must never be attempted again., Aggregators on this board repost the same req under fresh ids constantly. (+14 more)
 
-### Community 5 - "Community 5"
+### Community 6 - "Community 6"
 Cohesion: 0.18
 Nodes (16): BaseHTTPRequestHandler, all_zip(), bootstrap(), build_packets(), cv_paths(), discover_packets(), Handler, main() (+8 more)
 
-### Community 6 - "Community 6"
+### Community 7 - "Community 7"
+Cohesion: 0.13
+Nodes (20): classify(), InboxReport, main(), Read the LinkedIn inbox and report threads where THEY spoke last.  WHY THIS EXIS, (name, preview) for each conversation in the list., Decide who spoke last in one conversation row.      Pure, so the rule is testabl, _rows(), scan() (+12 more)
+
+### Community 8 - "Community 8"
 Cohesion: 0.14
 Nodes (20): ago(), api(), boot(), clear(), copy(), el(), esc(), fitCell() (+12 more)
 
-### Community 7 - "Community 7"
+### Community 9 - "Community 9"
 Cohesion: 0.2
 Nodes (24): cmd_add(), cmd_due(), cmd_expire(), cmd_list(), cmd_mark_accepted(), cmd_mark_failed(), cmd_mark_sent(), find() (+16 more)
 
-### Community 8 - "Community 8"
+### Community 10 - "Community 10"
 Cohesion: 0.12
 Nodes (18): all_values(), BankMissing, dump_field_map(), load_bank(), located_in_answer(), lookup(), match_field(), _norm_place() (+10 more)
 
-### Community 9 - "Community 9"
+### Community 11 - "Community 11"
 Cohesion: 0.12
 Nodes (18): _fake_run(), no_packet(), Tests for the Claude Code bridge — specifically the two rules that cost real day, Runbook §2 — rebuilding silently overwrites drafts the owner may have approved., The remaining jobs must NOT appear in `failed` — that is the D25 mistake., find_packet always returns None — i.e. Claude wrote no artifact., Regression, 2026-08-06 first real run.      The Energy Exemplar packet built c, A late limit stops the batch without throwing away the job that completed. (+10 more)
 
-### Community 10 - "Community 10"
-Cohesion: 0.16
-Nodes (17): build_many(), build_packet(), find_company_packet(), find_packet(), Packet, PacketBuildFailed, The bridge to Claude Code — the one step that keeps a full agent session.  Every, Locate an already-built packet by job id. Packets are discovered, never hardcode (+9 more)
-
-### Community 11 - "Community 11"
+### Community 12 - "Community 12"
 Cohesion: 0.16
 Nodes (18): already_applied(), company_role_key(), describe(), Entry, linkedin_job_id(), load(), _norm(), The never-resubmit ledger — the guard that must exist before submitting can.  "O (+10 more)
 
-### Community 12 - "Community 12"
+### Community 13 - "Community 13"
 Cohesion: 0.18
 Nodes (12): Action, busy_linkedin_run(), catalogue(), get(), linkedin_servers(), preflight(), Count real MCP servers (python only — each session also spawns 2 uvx wrappers)., What the owner needs to know before firing a LinkedIn action. (+4 more)
 
-### Community 13 - "Community 13"
-Cohesion: 0.16
-Nodes (9): LinkedInPublisher, LinkedIn Publisher Engine Handles packaging post copy with generated high-res im, Manages packaging post bundles with rendered images and executing publishing act, handle_request(), main(), MCP Server: LinkedIn Content & High-Res Image Studio (mcp-post-studio) Protocol:, DynamicPostGenerator, Dynamic LLM-Powered LinkedIn Post & Custom Prompt Generator Takes any topic/cont (+1 more)
-
 ### Community 14 - "Community 14"
+Cohesion: 0.22
+Nodes (14): generate_slide1_hero(), generate_slide2_architecture(), generate_slide3_comparison(), generate_slide4_roadmap(), main(), package_post(), Unified LinkedIn Post Generator — Full Platform Showcase Generates a single, com, Render HTML to PNG via Edge headless. (+6 more)
+
+### Community 15 - "Community 15"
 Cohesion: 0.23
 Nodes (14): all_of(), build_card(), first(), first_blockquote(), load_env(), main(), post(), Role, score, recipient, the exact message the robot will send, marker. Nothing e (+6 more)
 
-### Community 15 - "Community 15"
+### Community 16 - "Community 16"
 Cohesion: 0.15
 Nodes (7): Tests for role-family routing.  The risk being tested: a job silently getting th, MLOps postings ask for model lifecycle work, not cluster work — even though the, Both families fit; DevOps leads with the better-evidenced half of the portfolio., No CV must never mean 'apply with whatever LinkedIn pre-filled'., test_ai_devops_hybrids_go_to_devops(), test_missing_family_cv_is_reported_not_silently_skipped(), test_mlops_goes_to_ai_not_devops()
 
-### Community 16 - "Community 16"
+### Community 17 - "Community 17"
 Cohesion: 0.42
 Nodes (10): applyPanel(), buildPanel(), change(), cvPanel(), followBuild(), notionRow(), recount(), renderList() (+2 more)
 
-### Community 17 - "Community 17"
+### Community 18 - "Community 18"
 Cohesion: 0.33
 Nodes (9): _bash_path(), find_interpreter(), hook_status(), install(), main(), C:\\Foo\\python.exe -> /c/Foo/python.exe, which is what Git Bash needs., An interpreter that can actually import graphify. Prefer the one running this sc, (name, ok, detail) per hook. `ok` means it names an interpreter that has graphif (+1 more)
-
-### Community 18 - "Community 18"
-Cohesion: 0.42
-Nodes (8): ask(), _ask_anthropic(), _ask_openai_compatible(), LLMError, The single LLM entry point for the whole app.  One function: ask(prompt, max_tok, Any failure to get usable text out of a provider. Always carries the raw respons, Send one prompt, get one string back. Raises LLMError rather than returning junk, _require_env()
 
 ### Community 19 - "Community 19"
 Cohesion: 0.31
@@ -334,14 +334,14 @@ Nodes (0):
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `LinkedInLoggedOut` connect `Community 3` to `Community 0`, `Community 10`?**
-  _High betweenness centrality (0.026) - this node is a cross-community bridge._
-- **Why does `BankMissing` connect `Community 8` to `Community 10`?**
-  _High betweenness centrality (0.012) - this node is a cross-community bridge._
+- **Why does `LinkedInLoggedOut` connect `Community 3` to `Community 0`, `Community 4`, `Community 7`?**
+  _High betweenness centrality (0.042) - this node is a cross-community bridge._
+- **Why does `BankMissing` connect `Community 10` to `Community 4`?**
+  _High betweenness centrality (0.014) - this node is a cross-community bridge._
+- **Are the 16 inferred relationships involving `LinkedInLoggedOut` (e.g. with `check_logged_in()` and `Thread`) actually correct?**
+  _`LinkedInLoggedOut` has 16 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 14 inferred relationships involving `fill_job()` (e.g. with `FillResult` and `slug_for()`) actually correct?**
   _`fill_job()` has 14 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 11 inferred relationships involving `LinkedInLoggedOut` (e.g. with `check_logged_in()` and `Candidate`) actually correct?**
-  _`LinkedInLoggedOut` has 11 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 11 inferred relationships involving `FillResult` (e.g. with `fill_job()` and `Candidate`) actually correct?**
   _`FillResult` has 11 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 8 inferred relationships involving `_scan()` (e.g. with `Control` and `_group_label()`) actually correct?**
