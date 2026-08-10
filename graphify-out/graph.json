@@ -1921,7 +1921,7 @@
       "source_file": "tools\\auto-apply.ps1",
       "source_location": "L1",
       "id": "auto_apply",
-      "community": 51
+      "community": 54
     },
     {
       "label": "board_db.py",
@@ -2065,7 +2065,7 @@
       "source_file": "tools\\build-packet.ps1",
       "source_location": "L1",
       "id": "build_packet",
-      "community": 52
+      "community": 55
     },
     {
       "label": "check-replies.ps1",
@@ -2073,7 +2073,7 @@
       "source_file": "tools\\check-replies.ps1",
       "source_location": "L1",
       "id": "check_replies",
-      "community": 53
+      "community": 56
     },
     {
       "label": "check_approvals.py",
@@ -2105,7 +2105,7 @@
       "source_file": "tools\\daily-discovery.ps1",
       "source_location": "L1",
       "id": "daily_discovery",
-      "community": 54
+      "community": 57
     },
     {
       "label": "flush-approved.ps1",
@@ -2113,7 +2113,7 @@
       "source_file": "tools\\flush-approved.ps1",
       "source_location": "L1",
       "id": "flush_approved",
-      "community": 55
+      "community": 58
     },
     {
       "label": "followups.py",
@@ -2700,12 +2700,28 @@
       "community": 1
     },
     {
+      "label": "create_privatecloud_pdf_carousel.py",
+      "file_type": "code",
+      "source_file": "tools\\post_creator\\create_privatecloud_pdf_carousel.py",
+      "source_location": "L1",
+      "id": "create_privatecloud_pdf_carousel",
+      "community": 47
+    },
+    {
+      "label": "process_and_create_pdf()",
+      "file_type": "code",
+      "source_file": "tools\\post_creator\\create_privatecloud_pdf_carousel.py",
+      "source_location": "L21",
+      "id": "create_privatecloud_pdf_carousel_process_and_create_pdf",
+      "community": 47
+    },
+    {
       "label": "daily_post_scheduler.ps1",
       "file_type": "code",
       "source_file": "tools\\post_creator\\daily_post_scheduler.ps1",
       "source_location": "L1",
       "id": "daily_post_scheduler",
-      "community": 56
+      "community": 59
     },
     {
       "label": "execute_2step_ai_3d_hero_pipeline.py",
@@ -2828,6 +2844,22 @@
       "community": 31
     },
     {
+      "label": "generate_privatecloud_carousel.py",
+      "file_type": "code",
+      "source_file": "tools\\post_creator\\generate_privatecloud_carousel.py",
+      "source_location": "L1",
+      "id": "generate_privatecloud_carousel",
+      "community": 48
+    },
+    {
+      "label": "generate_slides()",
+      "file_type": "code",
+      "source_file": "tools\\post_creator\\generate_privatecloud_carousel.py",
+      "source_location": "L452",
+      "id": "generate_privatecloud_carousel_generate_slides",
+      "community": 48
+    },
+    {
       "label": "generate_true_3d_slide1_images.py",
       "file_type": "code",
       "source_file": "tools\\post_creator\\generate_true_3d_slide1_images.py",
@@ -2857,7 +2889,7 @@
       "source_file": "tools\\post_creator\\generate_unified_post.py",
       "source_location": "L1",
       "id": "generate_unified_post",
-      "community": 13
+      "community": 1
     },
     {
       "label": "render_edge_screenshot()",
@@ -2865,7 +2897,7 @@
       "source_file": "tools\\post_creator\\generate_unified_post.py",
       "source_location": "L671",
       "id": "generate_unified_post_render_edge_screenshot",
-      "community": 13
+      "community": 1
     },
     {
       "label": "generate_slide1_hero()",
@@ -2873,7 +2905,7 @@
       "source_file": "tools\\post_creator\\generate_unified_post.py",
       "source_location": "L683",
       "id": "generate_unified_post_generate_slide1_hero",
-      "community": 13
+      "community": 1
     },
     {
       "label": "generate_slide2_architecture()",
@@ -2881,7 +2913,7 @@
       "source_file": "tools\\post_creator\\generate_unified_post.py",
       "source_location": "L713",
       "id": "generate_unified_post_generate_slide2_architecture",
-      "community": 13
+      "community": 1
     },
     {
       "label": "generate_slide3_comparison()",
@@ -2889,7 +2921,7 @@
       "source_file": "tools\\post_creator\\generate_unified_post.py",
       "source_location": "L722",
       "id": "generate_unified_post_generate_slide3_comparison",
-      "community": 13
+      "community": 1
     },
     {
       "label": "generate_slide4_roadmap()",
@@ -2897,7 +2929,7 @@
       "source_file": "tools\\post_creator\\generate_unified_post.py",
       "source_location": "L752",
       "id": "generate_unified_post_generate_slide4_roadmap",
-      "community": 13
+      "community": 1
     },
     {
       "label": "package_post()",
@@ -2905,7 +2937,7 @@
       "source_file": "tools\\post_creator\\generate_unified_post.py",
       "source_location": "L772",
       "id": "generate_unified_post_package_post",
-      "community": 13
+      "community": 1
     },
     {
       "label": "main()",
@@ -2913,7 +2945,7 @@
       "source_file": "tools\\post_creator\\generate_unified_post.py",
       "source_location": "L796",
       "id": "generate_unified_post_main",
-      "community": 13
+      "community": 1
     },
     {
       "label": "Unified LinkedIn Post Generator \u2014 Full Platform Showcase Generates a single, com",
@@ -2921,7 +2953,7 @@
       "source_file": "tools\\post_creator\\generate_unified_post.py",
       "source_location": "L1",
       "id": "generate_unified_post_rationale_1",
-      "community": 13
+      "community": 1
     },
     {
       "label": "Render HTML to PNG via Edge headless.",
@@ -2929,7 +2961,7 @@
       "source_file": "tools\\post_creator\\generate_unified_post.py",
       "source_location": "L672",
       "id": "generate_unified_post_rationale_672",
-      "community": 13
+      "community": 1
     },
     {
       "label": "Generate 3D artwork via FLUX.1, then overlay vector text.",
@@ -2937,7 +2969,7 @@
       "source_file": "tools\\post_creator\\generate_unified_post.py",
       "source_location": "L684",
       "id": "generate_unified_post_rationale_684",
-      "community": 13
+      "community": 1
     },
     {
       "label": "Render the unified 5-layer architecture specs card.",
@@ -2945,7 +2977,7 @@
       "source_file": "tools\\post_creator\\generate_unified_post.py",
       "source_location": "L714",
       "id": "generate_unified_post_rationale_714",
-      "community": 13
+      "community": 1
     },
     {
       "label": "Render before vs after comparison with 3D avatars.",
@@ -2953,7 +2985,7 @@
       "source_file": "tools\\post_creator\\generate_unified_post.py",
       "source_location": "L723",
       "id": "generate_unified_post_rationale_723",
-      "community": 13
+      "community": 1
     },
     {
       "label": "Render operational roadmap with 3D robot flowchart banner.",
@@ -2961,7 +2993,7 @@
       "source_file": "tools\\post_creator\\generate_unified_post.py",
       "source_location": "L753",
       "id": "generate_unified_post_rationale_753",
-      "community": 13
+      "community": 1
     },
     {
       "label": "Bundle everything into a ready-to-post JSON package.",
@@ -2969,7 +3001,7 @@
       "source_file": "tools\\post_creator\\generate_unified_post.py",
       "source_location": "L773",
       "id": "generate_unified_post_rationale_773",
-      "community": 13
+      "community": 1
     },
     {
       "label": "html_infographic_studio.py",
@@ -3073,7 +3105,7 @@
       "source_file": "tools\\post_creator\\linkedin_publisher.py",
       "source_location": "L1",
       "id": "linkedin_publisher",
-      "community": 1
+      "community": 13
     },
     {
       "label": "LinkedInPublisher",
@@ -3081,7 +3113,7 @@
       "source_file": "tools\\post_creator\\linkedin_publisher.py",
       "source_location": "L13",
       "id": "linkedin_publisher_linkedinpublisher",
-      "community": 1
+      "community": 13
     },
     {
       "label": "package_post()",
@@ -3089,7 +3121,7 @@
       "source_file": "tools\\post_creator\\linkedin_publisher.py",
       "source_location": "L19",
       "id": "linkedin_publisher_package_post",
-      "community": 1
+      "community": 13
     },
     {
       "label": "publish_package()",
@@ -3097,7 +3129,7 @@
       "source_file": "tools\\post_creator\\linkedin_publisher.py",
       "source_location": "L49",
       "id": "linkedin_publisher_publish_package",
-      "community": 1
+      "community": 13
     },
     {
       "label": "LinkedIn Publisher Engine Handles packaging post copy with generated high-res im",
@@ -3105,7 +3137,7 @@
       "source_file": "tools\\post_creator\\linkedin_publisher.py",
       "source_location": "L1",
       "id": "linkedin_publisher_rationale_1",
-      "community": 1
+      "community": 13
     },
     {
       "label": "Manages packaging post bundles with rendered images and executing publishing act",
@@ -3113,7 +3145,7 @@
       "source_file": "tools\\post_creator\\linkedin_publisher.py",
       "source_location": "L14",
       "id": "linkedin_publisher_rationale_14",
-      "community": 1
+      "community": 13
     },
     {
       "label": "Bundles post copy and high-res image into a complete publishing package.",
@@ -3121,7 +3153,7 @@
       "source_file": "tools\\post_creator\\linkedin_publisher.py",
       "source_location": "L20",
       "id": "linkedin_publisher_rationale_20",
-      "community": 57
+      "community": 60
     },
     {
       "label": "Simulates or executes publishing of the ready package to LinkedIn.         If Li",
@@ -3129,7 +3161,7 @@
       "source_file": "tools\\post_creator\\linkedin_publisher.py",
       "source_location": "L50",
       "id": "linkedin_publisher_rationale_50",
-      "community": 58
+      "community": 61
     },
     {
       "label": "mcp_server.py",
@@ -3137,7 +3169,7 @@
       "source_file": "tools\\post_creator\\mcp_server.py",
       "source_location": "L1",
       "id": "mcp_server",
-      "community": 1
+      "community": 13
     },
     {
       "label": "handle_request()",
@@ -3145,7 +3177,7 @@
       "source_file": "tools\\post_creator\\mcp_server.py",
       "source_location": "L67",
       "id": "mcp_server_handle_request",
-      "community": 1
+      "community": 13
     },
     {
       "label": "main()",
@@ -3153,7 +3185,7 @@
       "source_file": "tools\\post_creator\\mcp_server.py",
       "source_location": "L219",
       "id": "mcp_server_main",
-      "community": 1
+      "community": 13
     },
     {
       "label": "MCP Server: LinkedIn Content & High-Res Image Studio (mcp-post-studio) Protocol:",
@@ -3161,7 +3193,7 @@
       "source_file": "tools\\post_creator\\mcp_server.py",
       "source_location": "L1",
       "id": "mcp_server_rationale_1",
-      "community": 1
+      "community": 13
     },
     {
       "label": "package_post2_content_studio.py",
@@ -3425,7 +3457,7 @@
       "source_file": "tools\\post_creator\\post_generator.py",
       "source_location": "L1",
       "id": "post_generator",
-      "community": 1
+      "community": 13
     },
     {
       "label": "DynamicPostGenerator",
@@ -3433,7 +3465,7 @@
       "source_file": "tools\\post_creator\\post_generator.py",
       "source_location": "L23",
       "id": "post_generator_dynamicpostgenerator",
-      "community": 1
+      "community": 13
     },
     {
       "label": "generate_full_linkedin_post_bundle()",
@@ -3441,7 +3473,7 @@
       "source_file": "tools\\post_creator\\post_generator.py",
       "source_location": "L29",
       "id": "post_generator_generate_full_linkedin_post_bundle",
-      "community": 1
+      "community": 13
     },
     {
       "label": "Dynamic LLM-Powered LinkedIn Post & Custom Prompt Generator Takes any topic/cont",
@@ -3449,7 +3481,7 @@
       "source_file": "tools\\post_creator\\post_generator.py",
       "source_location": "L1",
       "id": "post_generator_rationale_1",
-      "community": 1
+      "community": 13
     },
     {
       "label": "LLM-powered post copy & dynamic prompt generator.",
@@ -3457,7 +3489,7 @@
       "source_file": "tools\\post_creator\\post_generator.py",
       "source_location": "L24",
       "id": "post_generator_rationale_24",
-      "community": 1
+      "community": 13
     },
     {
       "label": "Dynamically generates post copy and custom image prompt tailored to the given to",
@@ -3465,7 +3497,23 @@
       "source_file": "tools\\post_creator\\post_generator.py",
       "source_location": "L35",
       "id": "post_generator_rationale_35",
-      "community": 59
+      "community": 62
+    },
+    {
+      "label": "post_privatecloud_to_linkedin.py",
+      "file_type": "code",
+      "source_file": "tools\\post_creator\\post_privatecloud_to_linkedin.py",
+      "source_location": "L1",
+      "id": "post_privatecloud_to_linkedin",
+      "community": 49
+    },
+    {
+      "label": "publish_privatecloud_bundle()",
+      "file_type": "code",
+      "source_file": "tools\\post_creator\\post_privatecloud_to_linkedin.py",
+      "source_location": "L55",
+      "id": "post_privatecloud_to_linkedin_publish_privatecloud_bundle",
+      "community": 49
     },
     {
       "label": "render_distinct_slide1_covers.py",
@@ -3585,7 +3633,7 @@
       "source_file": "tools\\run-pipeline.ps1",
       "source_location": "L1",
       "id": "run_pipeline",
-      "community": 47
+      "community": 50
     },
     {
       "label": "Say()",
@@ -3593,7 +3641,7 @@
       "source_file": "tools\\run-pipeline.ps1",
       "source_location": "L35",
       "id": "run_pipeline_say",
-      "community": 47
+      "community": 50
     },
     {
       "label": "send_queue.py",
@@ -4145,7 +4193,7 @@
       "source_file": "tools\\sweep-packets.ps1",
       "source_location": "L1",
       "id": "sweep_packets",
-      "community": 48
+      "community": 51
     },
     {
       "label": "Say()",
@@ -4153,7 +4201,7 @@
       "source_file": "tools\\sweep-packets.ps1",
       "source_location": "L28",
       "id": "sweep_packets_say",
-      "community": 48
+      "community": 51
     },
     {
       "label": "sync_board.py",
@@ -4201,7 +4249,7 @@
       "source_file": "tools\\watch-accepts.ps1",
       "source_location": "L1",
       "id": "watch_accepts",
-      "community": 60
+      "community": 63
     },
     {
       "label": "common.js",
@@ -4665,7 +4713,7 @@
       "source_file": "web\\static\\page-research.js",
       "source_location": "L1",
       "id": "page_research",
-      "community": 49
+      "community": 52
     },
     {
       "label": "render()",
@@ -4673,7 +4721,7 @@
       "source_file": "web\\static\\page-research.js",
       "source_location": "L36",
       "id": "page_research_render",
-      "community": 49
+      "community": 52
     },
     {
       "label": "page-slack.js",
@@ -4681,7 +4729,7 @@
       "source_file": "web\\static\\page-slack.js",
       "source_location": "L1",
       "id": "page_slack",
-      "community": 50
+      "community": 53
     },
     {
       "label": "render()",
@@ -4689,7 +4737,7 @@
       "source_file": "web\\static\\page-slack.js",
       "source_location": "L7",
       "id": "page_slack_render",
-      "community": 50
+      "community": 53
     }
   ],
   "links": [
@@ -11174,6 +11222,18 @@
       "confidence_score": 0.5
     },
     {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tools\\post_creator\\create_privatecloud_pdf_carousel.py",
+      "source_location": "L21",
+      "weight": 1.0,
+      "_src": "create_privatecloud_pdf_carousel",
+      "_tgt": "create_privatecloud_pdf_carousel_process_and_create_pdf",
+      "source": "create_privatecloud_pdf_carousel",
+      "target": "create_privatecloud_pdf_carousel_process_and_create_pdf",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "imports_from",
       "confidence": "EXTRACTED",
       "source_file": "tools\\post_creator\\execute_2step_ai_3d_hero_pipeline.py",
@@ -11376,6 +11436,18 @@
       "source": "generate_post1_job_hunt_carousel_render_edge_screenshot",
       "target": "generate_post1_job_hunt_carousel_generate_upgraded_post1_carousel",
       "confidence_score": 0.5
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tools\\post_creator\\generate_privatecloud_carousel.py",
+      "source_location": "L452",
+      "weight": 1.0,
+      "_src": "generate_privatecloud_carousel",
+      "_tgt": "generate_privatecloud_carousel_generate_slides",
+      "source": "generate_privatecloud_carousel",
+      "target": "generate_privatecloud_carousel_generate_slides",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -12431,6 +12503,18 @@
       "_tgt": "post_generator_dynamicpostgenerator",
       "source": "post_generator_dynamicpostgenerator",
       "target": "post_generator_rationale_24",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tools\\post_creator\\post_privatecloud_to_linkedin.py",
+      "source_location": "L55",
+      "weight": 1.0,
+      "_src": "post_privatecloud_to_linkedin",
+      "_tgt": "post_privatecloud_to_linkedin_publish_privatecloud_bundle",
+      "source": "post_privatecloud_to_linkedin",
+      "target": "post_privatecloud_to_linkedin_publish_privatecloud_bundle",
       "confidence_score": 1.0
     },
     {

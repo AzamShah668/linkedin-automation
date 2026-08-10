@@ -381,3 +381,15 @@ Third accept-watch run of the day. expire: nothing >14 days. All three pending i
 Mirai Alpha co-founder, Hired consultant) still 3rd degree + Pending at day 4. due: [] - verified genuinely
 empty via `list --status accepted` rather than trusting the empty result, because at 21:02 the business-hours
 gate produces the identical output for a different reason. No Slack post, no Notion writes, nothing sent.
+
+## [2026-08-10 21:40] session | D33/D34/D35; the reply checker had no LinkedIn eye
+Touched: none (AST-only graph)
+Fixed D33: the company cap was a lifetime channel-blind lockout, so one old DM blocked all four
+Infosys rows including Junior AI Engineer (90). Now scoped to same-channel within 14 days; verified
+90 is back at the top of the plan. D34: the packet layout keys by company while cv.py looks up by
+job id, so a company's second role is unbuildable - refused twice now. D35, the big one: a warm
+insider replied 2026-07-26 asking for the CV and nobody answered for 15 days, while EIGHT reply
+checks reported "zero replies" - none of them had ever opened LinkedIn messaging. Built
+apps/autopilot/replies.py (pure classifier + Playwright inbox read, escalates anything unparseable,
+a read error can never render as an empty inbox). 66 tests passing. Verified live against the real
+inbox: 6 threads scanned, the missed reply flagged, the two we spoke last in correctly ignored.

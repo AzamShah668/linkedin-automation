@@ -977,3 +977,58 @@ unblock; not the fix.
 
 Related: D8 (one contact per company) · D30 (fail fast and explain) · [[15-build-packet-runbook]] ·
 [[24-cv-bridge]] · [[26-apply-at-volume]] §5
+
+---
+
+## D35 — Eight reply checks reported "zero replies" about a channel none of them could see (2026-08-10)
+
+**Decision:** the reply check reads the **LinkedIn inbox** as well as Gmail, in code
+(`apps/autopilot/replies.py`), and an inbox it could not read is reported as *unread*, never as empty.
+
+**What happened.** On **2026-07-26 at 18:58**, two hours after being pitched, the warm Infosys
+insider replied:
+
+> *"9419280094 / Send ur cv on this number / Wa Alaikum As Salam"*
+
+He gave his phone number and asked for the CV. **Nobody answered for fifteen days.**
+
+Across that window, **eight consecutive reply-check runs reported "zero recruiter replies"**. Every
+one of them was honest about the only place it looked: Gmail. The runbook
+([[11-reply-classifier-runbook]]) searches mail domains harvested from `contact.md`. **Nothing in
+this project had ever opened LinkedIn messaging.**
+
+So the reply was not *missed*. It was **unobservable** — and the output of "looked everywhere, found
+nothing" is byte-identical to "looked in one place, found nothing there".
+
+**Why this one is worse than the earlier instances of D30.** The previous cases cost time. This one
+cost the single warmest lead in the project: a 1st-degree insider at the highest-fit company, who
+volunteered a phone number. He was not slow to respond. **He responded in two hours and we did not.**
+
+It also silently corrupted every downstream decision. "13 applications, 0 replies" was the number
+that drove the whole 2026-08-10 session — the reordering of Track A, D32, the argument against
+adding more platforms. That number was **wrong**, and it was wrong in the direction that made the
+outreach channel look useless when it had in fact worked on the first try.
+
+**The rule that follows:**
+
+> **A channel you do not read is not a quiet channel.** Before believing any "no results", enumerate
+> the places the check actually looked and compare that list to the places a result could arrive.
+> Coverage is a property of the *checker*, and it is invisible in the checker's own output.
+
+**What changed:**
+- `apps/autopilot/replies.py` reads the LinkedIn conversation list directly through the existing
+  Playwright profile. Detection: LinkedIn prefixes the preview with `You:` when we spoke last.
+- **It fails loud in both unclear directions.** An empty preview, an unfamiliar shape, or a locale
+  we have not seen is escalated to the WAITING pile rather than dropped. False positive costs ten
+  seconds of reading; a false negative already cost fifteen days.
+- A read error prints `COULD NOT READ THE INBOX ... This is NOT 'no replies'` and exits 2, so a
+  failure can never render as an empty inbox.
+- The classifier is a pure function, so it is unit-tested — the previous check was an agent reading
+  markdown, whose logic could not be tested at all. That is a second argument for D26 nobody had
+  made: **a runbook cannot have a regression test.**
+
+**Verified against the live inbox on 2026-08-10:** 6 conversations scanned, the missed reply
+flagged, and the two threads where we genuinely spoke last correctly left alone.
+
+Related: D30 (nothing wrong vs nothing observed) · D26 (runbook to code) ·
+[[11-reply-classifier-runbook]] · [[campus-channel-is-invisible]] (the same defect, different channel)

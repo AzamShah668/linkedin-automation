@@ -1,11 +1,11 @@
 # Graph Report - .  (2026-08-10)
 
 ## Corpus Check
-- 71 files · ~0 words
+- 74 files · ~0 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 586 nodes · 882 edges · 61 communities detected
+- 592 nodes · 885 edges · 64 communities detected
 - Extraction: 61% EXTRACTED · 39% INFERRED · 0% AMBIGUOUS · INFERRED: 348 edges (avg confidence: 0.5)
 - Token cost: 0 input · 0 output
 
@@ -40,8 +40,8 @@ Cohesion: 0.08
 Nodes (47): _append_monthly_log(), _apply(), _attach_resume(), _attr_q(), _capture_resume(), check_logged_in(), _close_modal(), Control (+39 more)
 
 ### Community 1 - "Community 1"
-Cohesion: 0.06
-Nodes (27): execute_iterative_architecture_hero(), Iterative Architecture Diagram & 3D Enrichment Studio Step 1: Renders a clean co, render_edge_screenshot(), execute_2step_pipeline(), 2-Step AI 3D Command Center Slide 1 Hero Studio Step 1: Render clean, readable 5, render_edge_screenshot(), Ultimate Cybernetic HUD Architecture Generator (FLUX.1 & Gemini Engine) Combines, generate_upgraded_4slide_carousel() (+19 more)
+Cohesion: 0.07
+Nodes (32): execute_iterative_architecture_hero(), Iterative Architecture Diagram & 3D Enrichment Studio Step 1: Renders a clean co, render_edge_screenshot(), execute_2step_pipeline(), 2-Step AI 3D Command Center Slide 1 Hero Studio Step 1: Render clean, readable 5, render_edge_screenshot(), Ultimate Cybernetic HUD Architecture Generator (FLUX.1 & Gemini Engine) Combines, generate_upgraded_4slide_carousel() (+24 more)
 
 ### Community 2 - "Community 2"
 Cohesion: 0.08
@@ -88,8 +88,8 @@ Cohesion: 0.18
 Nodes (12): Action, busy_linkedin_run(), catalogue(), get(), linkedin_servers(), preflight(), Count real MCP servers (python only — each session also spawns 2 uvx wrappers)., What the owner needs to know before firing a LinkedIn action. (+4 more)
 
 ### Community 13 - "Community 13"
-Cohesion: 0.22
-Nodes (14): generate_slide1_hero(), generate_slide2_architecture(), generate_slide3_comparison(), generate_slide4_roadmap(), main(), package_post(), Unified LinkedIn Post Generator — Full Platform Showcase Generates a single, com, Render HTML to PNG via Edge headless. (+6 more)
+Cohesion: 0.16
+Nodes (9): LinkedInPublisher, LinkedIn Publisher Engine Handles packaging post copy with generated high-res im, Manages packaging post bundles with rendered images and executing publishing act, handle_request(), main(), MCP Server: LinkedIn Content & High-Res Image Studio (mcp-post-studio) Protocol:, DynamicPostGenerator, Dynamic LLM-Powered LinkedIn Post & Custom Prompt Generator Takes any topic/cont (+1 more)
 
 ### Community 14 - "Community 14"
 Cohesion: 0.23
@@ -265,17 +265,29 @@ Nodes (0):
 
 ### Community 57 - "Community 57"
 Cohesion: 1.0
-Nodes (1): Bundles post copy and high-res image into a complete publishing package.
+Nodes (0): 
 
 ### Community 58 - "Community 58"
 Cohesion: 1.0
-Nodes (1): Simulates or executes publishing of the ready package to LinkedIn.         If Li
+Nodes (0): 
 
 ### Community 59 - "Community 59"
 Cohesion: 1.0
-Nodes (1): Dynamically generates post copy and custom image prompt tailored to the given to
+Nodes (0): 
 
 ### Community 60 - "Community 60"
+Cohesion: 1.0
+Nodes (1): Bundles post copy and high-res image into a complete publishing package.
+
+### Community 61 - "Community 61"
+Cohesion: 1.0
+Nodes (1): Simulates or executes publishing of the ready package to LinkedIn.         If Li
+
+### Community 62 - "Community 62"
+Cohesion: 1.0
+Nodes (1): Dynamically generates post copy and custom image prompt tailored to the given to
+
+### Community 63 - "Community 63"
 Cohesion: 1.0
 Nodes (0): 
 
@@ -284,42 +296,48 @@ Nodes (0):
   These have ≤1 connection - possible missing edges or undocumented components.
 - **Thin community `Community 46`** (2 nodes): `__init__.py`, `Job Hunt Autopilot — the Python runtime that replaces the Claude-Code-as-server`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 47`** (2 nodes): `run-pipeline.ps1`, `Say()`
+- **Thin community `Community 47`** (2 nodes): `create_privatecloud_pdf_carousel.py`, `process_and_create_pdf()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 48`** (2 nodes): `sweep-packets.ps1`, `Say()`
+- **Thin community `Community 48`** (2 nodes): `generate_privatecloud_carousel.py`, `generate_slides()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 49`** (2 nodes): `page-research.js`, `render()`
+- **Thin community `Community 49`** (2 nodes): `post_privatecloud_to_linkedin.py`, `publish_privatecloud_bundle()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 50`** (2 nodes): `page-slack.js`, `render()`
+- **Thin community `Community 50`** (2 nodes): `run-pipeline.ps1`, `Say()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 51`** (1 nodes): `auto-apply.ps1`
+- **Thin community `Community 51`** (2 nodes): `sweep-packets.ps1`, `Say()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 52`** (1 nodes): `build-packet.ps1`
+- **Thin community `Community 52`** (2 nodes): `page-research.js`, `render()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 53`** (1 nodes): `check-replies.ps1`
+- **Thin community `Community 53`** (2 nodes): `page-slack.js`, `render()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 54`** (1 nodes): `daily-discovery.ps1`
+- **Thin community `Community 54`** (1 nodes): `auto-apply.ps1`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 55`** (1 nodes): `flush-approved.ps1`
+- **Thin community `Community 55`** (1 nodes): `build-packet.ps1`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 56`** (1 nodes): `daily_post_scheduler.ps1`
+- **Thin community `Community 56`** (1 nodes): `check-replies.ps1`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 57`** (1 nodes): `Bundles post copy and high-res image into a complete publishing package.`
+- **Thin community `Community 57`** (1 nodes): `daily-discovery.ps1`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 58`** (1 nodes): `Simulates or executes publishing of the ready package to LinkedIn.         If Li`
+- **Thin community `Community 58`** (1 nodes): `flush-approved.ps1`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 59`** (1 nodes): `Dynamically generates post copy and custom image prompt tailored to the given to`
+- **Thin community `Community 59`** (1 nodes): `daily_post_scheduler.ps1`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 60`** (1 nodes): `watch-accepts.ps1`
+- **Thin community `Community 60`** (1 nodes): `Bundles post copy and high-res image into a complete publishing package.`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 61`** (1 nodes): `Simulates or executes publishing of the ready package to LinkedIn.         If Li`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 62`** (1 nodes): `Dynamically generates post copy and custom image prompt tailored to the given to`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 63`** (1 nodes): `watch-accepts.ps1`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `LinkedInLoggedOut` connect `Community 3` to `Community 0`, `Community 10`?**
-  _High betweenness centrality (0.027) - this node is a cross-community bridge._
+  _High betweenness centrality (0.026) - this node is a cross-community bridge._
 - **Why does `BankMissing` connect `Community 8` to `Community 10`?**
-  _High betweenness centrality (0.013) - this node is a cross-community bridge._
+  _High betweenness centrality (0.012) - this node is a cross-community bridge._
 - **Are the 14 inferred relationships involving `fill_job()` (e.g. with `FillResult` and `slug_for()`) actually correct?**
   _`fill_job()` has 14 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 11 inferred relationships involving `LinkedInLoggedOut` (e.g. with `check_logged_in()` and `Candidate`) actually correct?**
