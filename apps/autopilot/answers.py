@@ -150,6 +150,7 @@ FIELD_MAP: dict[str, Spec] = {
     "first_name": Spec((r"first name", r"given name"), text="identity.first_name",
                        note="proven REQUIRED and blank on a real form 2026-08-06; owner-supplied bank key"),
     "last_name": Spec((r"last name", r"surname", r"family name"), text="identity.last_name"),
+    "middle_name": Spec((r"middle name",), text="identity.middle_name"),
     "linkedin_url": Spec((r"linkedin (profile|url)", r"linkedin\.com"), text="identity.linkedin"),
     "github_url": Spec((r"\bgithub\b", r"portfolio (url|link)"), text="identity.github"),
     "website": Spec((r"^website", r"personal website", r"\bportfolio\b"), text="identity.github",
@@ -228,6 +229,30 @@ FIELD_MAP: dict[str, Spec] = {
         note="bank: Indian citizen, authorised to work in India",
     ),
     "nationality": Spec((r"nationality", r"citizenship"), text="eligibility.nationality"),
+    # Owner-supplied 2026-08-09. NOTE the ordering: this must precede the `passport` spec below,
+    # which covers a request for the passport NUMBER and is still null. "Do you have a passport"
+    # and "what is your passport number" are different questions with different answers.
+    "has_passport": Spec(
+        (r"(have|hold).{0,20}valid.{0,20}passport", r"do you (have|hold) a.{0,15}passport",
+         r"passport\s*\?"),
+        text="eligibility.has_valid_indian_passport", kind=CHOICE,
+        note="the YES/NO question only; the passport NUMBER stays blank",
+    ),
+    "night_shifts": Spec(
+        (r"willing to work in shifts", r"night shift", r"rotational shift", r"shift work"),
+        text="availability.willing_to_work_shifts_including_nights", kind=CHOICE,
+    ),
+    "worked_here_before": Spec(
+        # The span is generous because real questions name the legal entity in full:
+        # "Have you Worked with exlservice.com (I) Pvt. Ltd. Or any Associate / Subsidiary
+        # Company ever before" is ~72 characters between "with" and "before".
+        (r"(worked|employed)\s+(with|at|for).{0,120}?\bbefore\b",
+         r"ever (worked|been employed)\s+(with|at|for)",
+         r"are you a (former|ex).?employee",
+         r"previously (worked|employed)"),
+        text="eligibility.previously_employed_at_this_company", kind=CHOICE,
+        note="No everywhere: total_professional_years is 0, so he has never been employed anywhere",
+    ),
 
     # --- personal / education ------------------------------------------------------------
     "date_of_birth": Spec((r"date of birth", r"\bdob\b"), text="NEEDS_AZAM.date_of_birth", kind=DATE),
