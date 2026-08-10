@@ -938,3 +938,42 @@ better-fitting job today.
 
 Related: D23/D29 (the store that lied) · D30 (a plausible message over a real fact) ·
 [[26-apply-at-volume]] §5
+
+---
+
+## D34 — Outreach is per company; a CV is per role. The packet layout conflates them (2026-08-10)
+
+**Decision (pending implementation):** split the packet. `output/outreach/<company>/` keeps the
+recruiter contact and the messages, which genuinely are per company (D8: messaging the same recruiter
+twice is the fastest way to look automated). The **CV** must be addressable per role, because a CV
+tailored to one req must never be attached to another.
+
+**What happened.** `build_packet` refused twice, and the refusal is correct both times:
+
+- 2026-08-09, Infosys **AI/ML Engineer** — reported FAIL forever
+- 2026-08-10, Infosys **Junior AI Engineer** (fit 90) — the best row on the board
+
+The runbook builds one packet per **company** and will not overwrite. `find_packet` looks up by **job
+id**. For a company's second role those two can never agree: Claude refuses to build, `cv.py` sees no
+packet for that job id, and the job is unbuildable in perpetuity. Infosys has **five** rows on the
+board; SkillsCapital has four and hit the same wall from the other direction — its packet is for the
+Intern req while three *different* SkillsCapital roles were submitted with a family CV.
+
+**Why the guard is still right.** `find_company_packet()` at least makes the collision *visible*: it
+fails in 0.345s with an explanation instead of burning ~7 minutes of a session-limited resource on a
+build guaranteed to be refused. That is D30 applied — a fast honest refusal beats a slow plausible one.
+But a clear error is not a fix, and this one has been logged twice without the underlying shape changing.
+
+**The rule that follows:**
+
+> **Check that your storage key matches your unit of work.** Packets are keyed by company because
+> *outreach* is per company. But the artifact inside them, the CV, is per **role**. One directory
+> holding two different units of work means the second one is unreachable, and the failure looks like a
+> tool bug rather than a schema mistake.
+
+**Interim workaround used today:** `output/outreach/<company>-<role-slug>/` for the second role,
+reusing the company's existing `contact.md` rather than re-researching the recruiter. Good enough to
+unblock; not the fix.
+
+Related: D8 (one contact per company) · D30 (fail fast and explain) · [[15-build-packet-runbook]] ·
+[[24-cv-bridge]] · [[26-apply-at-volume]] §5

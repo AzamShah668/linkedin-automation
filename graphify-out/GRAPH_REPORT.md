@@ -5,8 +5,8 @@
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 571 nodes · 858 edges · 61 communities detected
-- Extraction: 60% EXTRACTED · 40% INFERRED · 0% AMBIGUOUS · INFERRED: 339 edges (avg confidence: 0.5)
+- 586 nodes · 882 edges · 61 communities detected
+- Extraction: 61% EXTRACTED · 39% INFERRED · 0% AMBIGUOUS · INFERRED: 348 edges (avg confidence: 0.5)
 - Token cost: 0 input · 0 output
 
 ## God Nodes (most connected - your core abstractions)
@@ -40,8 +40,8 @@ Cohesion: 0.08
 Nodes (47): _append_monthly_log(), _apply(), _attach_resume(), _attr_q(), _capture_resume(), check_logged_in(), _close_modal(), Control (+39 more)
 
 ### Community 1 - "Community 1"
-Cohesion: 0.07
-Nodes (32): execute_iterative_architecture_hero(), Iterative Architecture Diagram & 3D Enrichment Studio Step 1: Renders a clean co, render_edge_screenshot(), execute_2step_pipeline(), 2-Step AI 3D Command Center Slide 1 Hero Studio Step 1: Render clean, readable 5, render_edge_screenshot(), Ultimate Cybernetic HUD Architecture Generator (FLUX.1 & Gemini Engine) Combines, generate_upgraded_4slide_carousel() (+24 more)
+Cohesion: 0.06
+Nodes (27): execute_iterative_architecture_hero(), Iterative Architecture Diagram & 3D Enrichment Studio Step 1: Renders a clean co, render_edge_screenshot(), execute_2step_pipeline(), 2-Step AI 3D Command Center Slide 1 Hero Studio Step 1: Render clean, readable 5, render_edge_screenshot(), Ultimate Cybernetic HUD Architecture Generator (FLUX.1 & Gemini Engine) Combines, generate_upgraded_4slide_carousel() (+19 more)
 
 ### Community 2 - "Community 2"
 Cohesion: 0.08
@@ -49,47 +49,47 @@ Nodes (23): all_rows(), last_sync(), _parse_ts(), pending_notion(), Insert or up
 
 ### Community 3 - "Community 3"
 Cohesion: 0.16
-Nodes (29): FillResult, LinkedInLoggedOut, The persistent profile is not signed in. Abort the WHOLE run; never attempt a lo, answers_today(), board_candidates(), Candidate, cmd_applyall(), cmd_fieldmap() (+21 more)
+Nodes (28): FillResult, LinkedInLoggedOut, The persistent profile is not signed in. Abort the WHOLE run; never attempt a lo, answers_today(), board_candidates(), Candidate, cmd_applyall(), cmd_fieldmap() (+20 more)
 
 ### Community 4 - "Community 4"
+Cohesion: 0.09
+Nodes (22): Tests for the never-resubmit ledger.  The load-bearing one is test_second_attemp, THE D33 test. Infosys: one linkedin-dm, weeks old, different role., The cap's actual job: Crossing Hurdles got two on consecutive days., Different channel = a different recruiter surface, and often a different team., Asymmetric failure: over-counting costs a skip, under-counting costs a duplicate, already_applied() must stay LIFETIME. Recency scoping applies to the CAP only —, THE test. Recro was submitted 2026-07-29 and must never be attempted again., Aggregators on this board repost the same req under fresh ids constantly. (+14 more)
+
+### Community 5 - "Community 5"
 Cohesion: 0.18
 Nodes (16): BaseHTTPRequestHandler, all_zip(), bootstrap(), build_packets(), cv_paths(), discover_packets(), Handler, main() (+8 more)
 
-### Community 5 - "Community 5"
+### Community 6 - "Community 6"
 Cohesion: 0.14
 Nodes (20): ago(), api(), boot(), clear(), copy(), el(), esc(), fitCell() (+12 more)
 
-### Community 6 - "Community 6"
+### Community 7 - "Community 7"
 Cohesion: 0.2
 Nodes (24): cmd_add(), cmd_due(), cmd_expire(), cmd_list(), cmd_mark_accepted(), cmd_mark_failed(), cmd_mark_sent(), find() (+16 more)
 
-### Community 7 - "Community 7"
+### Community 8 - "Community 8"
 Cohesion: 0.12
 Nodes (18): all_values(), BankMissing, dump_field_map(), load_bank(), located_in_answer(), lookup(), match_field(), _norm_place() (+10 more)
 
-### Community 8 - "Community 8"
+### Community 9 - "Community 9"
 Cohesion: 0.12
 Nodes (18): _fake_run(), no_packet(), Tests for the Claude Code bridge — specifically the two rules that cost real day, Runbook §2 — rebuilding silently overwrites drafts the owner may have approved., The remaining jobs must NOT appear in `failed` — that is the D25 mistake., find_packet always returns None — i.e. Claude wrote no artifact., Regression, 2026-08-06 first real run.      The Energy Exemplar packet built c, A late limit stops the batch without throwing away the job that completed. (+10 more)
 
-### Community 9 - "Community 9"
+### Community 10 - "Community 10"
 Cohesion: 0.16
 Nodes (17): build_many(), build_packet(), find_company_packet(), find_packet(), Packet, PacketBuildFailed, The bridge to Claude Code — the one step that keeps a full agent session.  Every, Locate an already-built packet by job id. Packets are discovered, never hardcode (+9 more)
 
-### Community 10 - "Community 10"
-Cohesion: 0.17
-Nodes (15): already_applied(), company_role_key(), describe(), Entry, linkedin_job_id(), load(), _norm(), The never-resubmit ledger — the guard that must exist before submitting can.  "O (+7 more)
-
 ### Community 11 - "Community 11"
+Cohesion: 0.16
+Nodes (18): already_applied(), company_role_key(), describe(), Entry, linkedin_job_id(), load(), _norm(), The never-resubmit ledger — the guard that must exist before submitting can.  "O (+10 more)
+
+### Community 12 - "Community 12"
 Cohesion: 0.18
 Nodes (12): Action, busy_linkedin_run(), catalogue(), get(), linkedin_servers(), preflight(), Count real MCP servers (python only — each session also spawns 2 uvx wrappers)., What the owner needs to know before firing a LinkedIn action. (+4 more)
 
-### Community 12 - "Community 12"
-Cohesion: 0.12
-Nodes (9): Tests for the never-resubmit ledger.  The load-bearing one is test_second_attemp, THE test. Recro was submitted 2026-07-29 and must never be attempted again., Aggregators on this board repost the same req under fresh ids constantly., The linkedin id is exact; company spelling is not., D29 — a guard must not depend on a field that has already been proven wrong., test_blocks_the_same_posting_even_if_the_company_name_is_written_differently(), test_blocks_the_same_role_reposted_under_a_new_job_id(), test_ledger_imports_nothing_that_could_reach_a_board_status() (+1 more)
-
 ### Community 13 - "Community 13"
-Cohesion: 0.16
-Nodes (9): LinkedInPublisher, LinkedIn Publisher Engine Handles packaging post copy with generated high-res im, Manages packaging post bundles with rendered images and executing publishing act, handle_request(), main(), MCP Server: LinkedIn Content & High-Res Image Studio (mcp-post-studio) Protocol:, DynamicPostGenerator, Dynamic LLM-Powered LinkedIn Post & Custom Prompt Generator Takes any topic/cont (+1 more)
+Cohesion: 0.22
+Nodes (14): generate_slide1_hero(), generate_slide2_architecture(), generate_slide3_comparison(), generate_slide4_roadmap(), main(), package_post(), Unified LinkedIn Post Generator — Full Platform Showcase Generates a single, com, Render HTML to PNG via Edge headless. (+6 more)
 
 ### Community 14 - "Community 14"
 Cohesion: 0.23
@@ -280,7 +280,7 @@ Cohesion: 1.0
 Nodes (0): 
 
 ## Knowledge Gaps
-- **135 isolated node(s):** `Job Hunt Autopilot — the Python runtime that replaces the Claude-Code-as-server`, `The answer bank and the FIELD_MAP — the only legal source of form values.  THE`, `Read a dotted path out of the bank. Returns None for missing OR null — both mean`, `One mappable question.      patterns  regexes matched (case-insensitive) again`, `Answer 'Are you currently located in <city>?' by COMPARING, never by assuming.` (+130 more)
+- **141 isolated node(s):** `Job Hunt Autopilot — the Python runtime that replaces the Claude-Code-as-server`, `The answer bank and the FIELD_MAP — the only legal source of form values.  THE`, `Read a dotted path out of the bank. Returns None for missing OR null — both mean`, `One mappable question.      patterns  regexes matched (case-insensitive) again`, `Answer 'Are you currently located in <city>?' by COMPARING, never by assuming.` (+136 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **Thin community `Community 46`** (2 nodes): `__init__.py`, `Job Hunt Autopilot — the Python runtime that replaces the Claude-Code-as-server`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
@@ -316,9 +316,9 @@ Nodes (0):
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `LinkedInLoggedOut` connect `Community 3` to `Community 0`, `Community 9`?**
-  _High betweenness centrality (0.028) - this node is a cross-community bridge._
-- **Why does `BankMissing` connect `Community 7` to `Community 9`?**
+- **Why does `LinkedInLoggedOut` connect `Community 3` to `Community 0`, `Community 10`?**
+  _High betweenness centrality (0.027) - this node is a cross-community bridge._
+- **Why does `BankMissing` connect `Community 8` to `Community 10`?**
   _High betweenness centrality (0.013) - this node is a cross-community bridge._
 - **Are the 14 inferred relationships involving `fill_job()` (e.g. with `FillResult` and `slug_for()`) actually correct?**
   _`fill_job()` has 14 INFERRED edges - model-reasoned connections that need verification._
@@ -329,4 +329,4 @@ _Questions this graph is uniquely positioned to answer:_
 - **Are the 8 inferred relationships involving `_scan()` (e.g. with `Control` and `_group_label()`) actually correct?**
   _`_scan()` has 8 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `Job Hunt Autopilot — the Python runtime that replaces the Claude-Code-as-server`, `The answer bank and the FIELD_MAP — the only legal source of form values.  THE`, `Read a dotted path out of the bank. Returns None for missing OR null — both mean` to the rest of the system?**
-  _135 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _141 weakly-connected nodes found - possible documentation gaps or missing edges._
