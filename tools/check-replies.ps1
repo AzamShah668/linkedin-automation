@@ -60,6 +60,14 @@ try {
       Out-File -FilePath $log -Append -Encoding utf8
   }
 
+  # --- STEP 0b: applications that reached nobody (D32) -----------------------------------
+  # Five of eight submissions reached no human, and that was only discovered by a hand audit on
+  # the day someone happened to ask. Counting it on every run is the difference between a fact
+  # and a lucky question. Read-only: it identifies the gap, it never contacts anyone.
+  "--- coverage: applications with no human attached ---" | Out-File -FilePath $log -Append -Encoding utf8
+  & py -3 (Join-Path $proj 'apps\autopilot\coverage.py') --notify 2>&1 |
+    Out-File -FilePath $log -Append -Encoding utf8
+
   # --- STEP 1: Gmail, via the agent runbook ---------------------------------------------
   # Pipe through Out-File rather than `*>>` — PS 5.1 redirection writes UTF-16 and the log comes out garbled.
   & $claude -p $prompt --permission-mode default 2>&1 | Out-File -FilePath $log -Append -Encoding utf8

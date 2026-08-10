@@ -1106,3 +1106,54 @@ every future `D33` reference ambiguous forever, which is why they were renumbere
 > **Process note:** two sessions on one day both reached for "the next decision number" and collided.
 > The register is append-only and has no allocator, so concurrent writers cannot see each other's
 > claim. Cheap mitigation: **grep `^## D` here before numbering anything.**
+
+---
+
+## D41 — Count the applications that reached nobody, on every run (2026-08-10)
+
+**Decision:** `apps/autopilot/coverage.py` reports, every reply-check run, how many applications have
+reached a **named human** and how many are sitting in a queue alone. It **does not** search LinkedIn
+and **does not** send invites.
+
+**Why the report and not the automation.** The obvious build was "for each application, find a
+recruiter and send a connection request". That is the automated-connection-request pattern LinkedIn
+restricts accounts for, and it is the red line in this project's own north star. The approved path
+already exists (D12): a Slack card, a human taps the tick, `flush-approved` sends a *bare* invite.
+
+So the split is deliberate:
+
+| step | who | why |
+|---|---|---|
+| decide which applications lack a human | **code** | deterministic, testable, zero account risk |
+| find the recruiter | an agent, read-only MCP search | judgement, and it is a read |
+| approve the invite | **the human** | D12; this is the ban-sensitive action |
+
+Automating the last step would trade the account for a few minutes. The measurement was the missing
+piece, not the sending.
+
+**What it found on its first run:** **Recro**, applied 2026-07-29 — **twelve days silent, no human
+ever identified.** It was the very first Easy Apply and was missed by every audit since, including
+this morning's, which only examined the eight recent submissions.
+
+**Two design details that matter:**
+
+- **Over-reporting coverage hides a gap**, so coverage requires a *positive* signal and anything
+  ambiguous counts as uncovered. A `contact.md` whose content says *"NO CONTACT FINDABLE"* is
+  explicitly **not** coverage — treating file existence as the signal would have marked Crossing
+  Hurdles, the company that proved the whole problem, as solved.
+- **A recorded dead end is not an outstanding task.** Companies in `sourcing.py`'s unreachable list
+  are excluded, because a report that lists the same impossible item forever trains its reader to
+  skim it, and that is how the next real gap gets missed.
+
+**A bug worth keeping, found by a test that had been passing for the wrong reason.** Three tests
+passed because `companies_with_a_named_human(outreach_dir=OUTREACH_DIR)` evaluates its default
+**once, at import**, freezing the module constant — so monkeypatching the module attribute did
+nothing and the function kept reading the real folder. Only the fourth case disagreed loudly enough
+to expose it.
+
+> **A green test proves the assertion held, not that the code under test was the code you meant.**
+> When several tests pass and one fails, suspect the passing ones first: they may share the failing
+> one's cause and be hiding it.
+
+Related: D32 (an application that reaches no human is unfinished) · D12 (the approved send path) ·
+D36 (dead ends) · D30 (nothing wrong vs nothing observed)

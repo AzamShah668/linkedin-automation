@@ -5,12 +5,12 @@
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 703 nodes · 1042 edges · 68 communities detected
-- Extraction: 62% EXTRACTED · 38% INFERRED · 0% AMBIGUOUS · INFERRED: 399 edges (avg confidence: 0.5)
+- 705 nodes · 1046 edges · 68 communities detected
+- Extraction: 62% EXTRACTED · 38% INFERRED · 0% AMBIGUOUS · INFERRED: 401 edges (avg confidence: 0.5)
 - Token cost: 0 input · 0 output
 
 ## God Nodes (most connected - your core abstractions)
-1. `LinkedInLoggedOut` - 19 edges
+1. `LinkedInLoggedOut` - 20 edges
 2. `fill_job()` - 16 edges
 3. `FillResult` - 12 edges
 4. `Handler` - 12 edges
@@ -28,9 +28,9 @@
   apps\autopilot\replies.py → apps\autopilot\fill.py
 - `(name, preview) for each conversation in the list.` --uses--> `LinkedInLoggedOut`  [INFERRED]
   apps\autopilot\replies.py → apps\autopilot\fill.py
-- `Thread` --uses--> `LinkedInLoggedOut`  [INFERRED]
+- `Push waiting threads to Slack.      A scheduled task that only writes to a log f` --uses--> `LinkedInLoggedOut`  [INFERRED]
   apps\autopilot\replies.py → apps\autopilot\fill.py
-- `InboxReport` --uses--> `LinkedInLoggedOut`  [INFERRED]
+- `Thread` --uses--> `LinkedInLoggedOut`  [INFERRED]
   apps\autopilot\replies.py → apps\autopilot\fill.py
 
 ## Communities
@@ -60,16 +60,16 @@ Cohesion: 0.09
 Nodes (22): Tests for the never-resubmit ledger.  The load-bearing one is test_second_attemp, THE D33 test. Infosys: one linkedin-dm, weeks old, different role., The cap's actual job: Crossing Hurdles got two on consecutive days., Different channel = a different recruiter surface, and often a different team., Asymmetric failure: over-counting costs a skip, under-counting costs a duplicate, already_applied() must stay LIFETIME. Recency scoping applies to the CAP only —, THE test. Recro was submitted 2026-07-29 and must never be attempted again., Aggregators on this board repost the same req under fresh ids constantly. (+14 more)
 
 ### Community 6 - "Community 6"
+Cohesion: 0.12
+Nodes (22): classify(), InboxReport, main(), notify(), Read the LinkedIn inbox and report threads where THEY spoke last.  WHY THIS EXIS, (name, preview) for each conversation in the list., Push waiting threads to Slack.      A scheduled task that only writes to a log f, Decide who spoke last in one conversation row.      Pure, so the rule is testabl (+14 more)
+
+### Community 7 - "Community 7"
 Cohesion: 0.11
 Nodes (21): add_idea(), all_posts(), approve_post(), get_next_drafts(), _get_post(), get_posts_by_status(), get_todays_post(), _log() (+13 more)
 
-### Community 7 - "Community 7"
+### Community 8 - "Community 8"
 Cohesion: 0.18
 Nodes (16): BaseHTTPRequestHandler, all_zip(), bootstrap(), build_packets(), cv_paths(), discover_packets(), Handler, main() (+8 more)
-
-### Community 8 - "Community 8"
-Cohesion: 0.13
-Nodes (20): classify(), InboxReport, main(), Read the LinkedIn inbox and report threads where THEY spoke last.  WHY THIS EXIS, (name, preview) for each conversation in the list., Decide who spoke last in one conversation row.      Pure, so the rule is testabl, _rows(), scan() (+12 more)
 
 ### Community 9 - "Community 9"
 Cohesion: 0.14
@@ -350,12 +350,12 @@ Nodes (0):
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `LinkedInLoggedOut` connect `Community 3` to `Community 8`, `Community 1`, `Community 4`?**
-  _High betweenness centrality (0.032) - this node is a cross-community bridge._
+- **Why does `LinkedInLoggedOut` connect `Community 3` to `Community 1`, `Community 4`, `Community 6`?**
+  _High betweenness centrality (0.033) - this node is a cross-community bridge._
 - **Why does `BankMissing` connect `Community 11` to `Community 4`?**
   _High betweenness centrality (0.011) - this node is a cross-community bridge._
-- **Are the 16 inferred relationships involving `LinkedInLoggedOut` (e.g. with `check_logged_in()` and `Thread`) actually correct?**
-  _`LinkedInLoggedOut` has 16 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 17 inferred relationships involving `LinkedInLoggedOut` (e.g. with `check_logged_in()` and `Thread`) actually correct?**
+  _`LinkedInLoggedOut` has 17 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 14 inferred relationships involving `fill_job()` (e.g. with `FillResult` and `slug_for()`) actually correct?**
   _`fill_job()` has 14 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 11 inferred relationships involving `FillResult` (e.g. with `fill_job()` and `Candidate`) actually correct?**

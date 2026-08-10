@@ -78,6 +78,7 @@ for every non-project post, with a 3-engine fallback chain + cached safety net.
 1. IDEAS come from three sources:
    ├── Agent session discoveries → log_experience.py → "idea" status
    ├── Trending topics → trend_finder.py → "idea" status
+   ├── SESSION SCANNER → scan_sessions.py → mines all 5 brains for post ideas
    └── 20 seeded project showcases → already in DB as "idea"
 
 2. DRAFTING: Agent reads idea + copywriter skill → writes copy + generates image prompt → "drafted"
@@ -86,6 +87,21 @@ for every non-project post, with a 3-engine fallback chain + cached safety net.
 
 4. DISPATCH: dispatch_engine.py → generates image → posts via Playwright → "posted"
 ```
+
+## Session Scanner (`tools/scan_sessions.py`)
+
+Mines ALL 5 knowledge sources for post-worthy content:
+
+| Source | Path | What It Finds |
+|--------|------|---------------|
+| Brain 3 | `graphify-out/log.md` | Session problems/solutions/decisions |
+| Brain 2 | `docs/knowledge/*.md` | Engineering decisions (D1-D36+), architectural insights |
+| Claude | `~/.claude/projects/d--linkdin-automation/*.jsonl` | User problem descriptions from Claude sessions |
+| Antigravity | `~/.gemini/antigravity-ide/brain/*/transcript.jsonl` | User discussions from Antigravity sessions |
+| Obsidian | `~/Desktop/obsedian/AntigravityKnowledge/` | Cross-project patterns and lessons |
+
+Uses **signal word scoring** (root cause, fix, bug, gotcha, trap, built, decision, etc.)
+to rank candidates by how "post-worthy" they are. Deduplicates against existing Content Hub entries.
 
 ## Key Commands
 

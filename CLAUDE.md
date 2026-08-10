@@ -124,6 +124,9 @@ py -3 tools/content_hub_db.py --stats          # hub statistics
 py -3 tools/content_hub_db.py --list           # list all posts
 py -3 tools/log_experience.py --list           # same as above
 py -3 tools/trend_finder.py --dry-run          # preview trends
+py -3 tools/scan_sessions.py                   # mine ALL brains for post ideas (Brain 1-3 + transcripts)
+py -3 tools/scan_sessions.py --add             # mine + add top 10 to Content Hub
+py -3 tools/scan_sessions.py --source claude   # mine only Claude session transcripts
 py -3 tools/post_creator/dispatch_engine.py --dry-run --post-id N  # preview dispatch
 ```
 

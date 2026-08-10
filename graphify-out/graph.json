@@ -1065,71 +1065,79 @@
       "source_file": "apps\\autopilot\\replies.py",
       "source_location": "L1",
       "id": "replies",
-      "community": 8
+      "community": 6
     },
     {
       "label": "Thread",
       "file_type": "code",
       "source_file": "apps\\autopilot\\replies.py",
-      "source_location": "L60",
+      "source_location": "L62",
       "id": "replies_thread",
-      "community": 8
+      "community": 6
     },
     {
       "label": "needs_attention()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\replies.py",
-      "source_location": "L69",
+      "source_location": "L71",
       "id": "replies_needs_attention",
-      "community": 8
+      "community": 6
     },
     {
       "label": "InboxReport",
       "file_type": "code",
       "source_file": "apps\\autopilot\\replies.py",
-      "source_location": "L74",
+      "source_location": "L76",
       "id": "replies_inboxreport",
-      "community": 8
+      "community": 6
     },
     {
       "label": "waiting()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\replies.py",
-      "source_location": "L79",
+      "source_location": "L81",
       "id": "replies_waiting",
-      "community": 8
+      "community": 6
     },
     {
       "label": "classify()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\replies.py",
-      "source_location": "L83",
+      "source_location": "L85",
       "id": "replies_classify",
-      "community": 8
+      "community": 6
     },
     {
       "label": "_rows()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\replies.py",
-      "source_location": "L100",
+      "source_location": "L102",
       "id": "replies_rows",
-      "community": 8
+      "community": 6
     },
     {
       "label": "scan()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\replies.py",
-      "source_location": "L127",
+      "source_location": "L129",
       "id": "replies_scan",
-      "community": 8
+      "community": 6
+    },
+    {
+      "label": "notify()",
+      "file_type": "code",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L145",
+      "id": "replies_notify",
+      "community": 6
     },
     {
       "label": "main()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\replies.py",
-      "source_location": "L143",
+      "source_location": "L181",
       "id": "replies_main",
-      "community": 8
+      "community": 6
     },
     {
       "label": "Read the LinkedIn inbox and report threads where THEY spoke last.  WHY THIS EXIS",
@@ -1137,23 +1145,31 @@
       "source_file": "apps\\autopilot\\replies.py",
       "source_location": "L1",
       "id": "replies_rationale_1",
-      "community": 8
+      "community": 6
     },
     {
       "label": "Decide who spoke last in one conversation row.      Pure, so the rule is testabl",
       "file_type": "rationale",
       "source_file": "apps\\autopilot\\replies.py",
-      "source_location": "L84",
-      "id": "replies_rationale_84",
-      "community": 8
+      "source_location": "L86",
+      "id": "replies_rationale_86",
+      "community": 6
     },
     {
       "label": "(name, preview) for each conversation in the list.",
       "file_type": "rationale",
       "source_file": "apps\\autopilot\\replies.py",
-      "source_location": "L101",
-      "id": "replies_rationale_101",
-      "community": 8
+      "source_location": "L103",
+      "id": "replies_rationale_103",
+      "community": 6
+    },
+    {
+      "label": "Push waiting threads to Slack.      A scheduled task that only writes to a log f",
+      "file_type": "rationale",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L146",
+      "id": "replies_rationale_146",
+      "community": 6
     },
     {
       "label": "run.py",
@@ -2049,7 +2065,7 @@
       "source_file": "tests\\test_replies.py",
       "source_location": "L1",
       "id": "test_replies",
-      "community": 8
+      "community": 6
     },
     {
       "label": "test_the_real_missed_reply_is_flagged()",
@@ -2057,7 +2073,7 @@
       "source_file": "tests\\test_replies.py",
       "source_location": "L17",
       "id": "test_replies_test_the_real_missed_reply_is_flagged",
-      "community": 8
+      "community": 6
     },
     {
       "label": "test_our_own_last_message_is_not_flagged()",
@@ -2065,7 +2081,7 @@
       "source_file": "tests\\test_replies.py",
       "source_location": "L29",
       "id": "test_replies_test_our_own_last_message_is_not_flagged",
-      "community": 8
+      "community": 6
     },
     {
       "label": "test_sponsored_inmail_is_not_a_reply()",
@@ -2073,7 +2089,7 @@
       "source_file": "tests\\test_replies.py",
       "source_location": "L33",
       "id": "test_replies_test_sponsored_inmail_is_not_a_reply",
-      "community": 8
+      "community": 6
     },
     {
       "label": "test_an_empty_preview_escalates_rather_than_going_quiet()",
@@ -2081,7 +2097,7 @@
       "source_file": "tests\\test_replies.py",
       "source_location": "L40",
       "id": "test_replies_test_an_empty_preview_escalates_rather_than_going_quiet",
-      "community": 8
+      "community": 6
     },
     {
       "label": "test_an_unfamiliar_preview_shape_escalates()",
@@ -2089,7 +2105,7 @@
       "source_file": "tests\\test_replies.py",
       "source_location": "L47",
       "id": "test_replies_test_an_unfamiliar_preview_shape_escalates",
-      "community": 8
+      "community": 6
     },
     {
       "label": "test_a_read_failure_is_not_an_empty_inbox()",
@@ -2097,7 +2113,7 @@
       "source_file": "tests\\test_replies.py",
       "source_location": "L53",
       "id": "test_replies_test_a_read_failure_is_not_an_empty_inbox",
-      "community": 8
+      "community": 6
     },
     {
       "label": "test_waiting_excludes_sponsored_but_keeps_undetermined()",
@@ -2105,7 +2121,7 @@
       "source_file": "tests\\test_replies.py",
       "source_location": "L63",
       "id": "test_replies_test_waiting_excludes_sponsored_but_keeps_undetermined",
-      "community": 8
+      "community": 6
     },
     {
       "label": "Tests for the LinkedIn inbox reply detector.  The bug being locked down (D35): a",
@@ -2113,7 +2129,7 @@
       "source_file": "tests\\test_replies.py",
       "source_location": "L1",
       "id": "test_replies_rationale_1",
-      "community": 8
+      "community": 6
     },
     {
       "label": "THE test. This is the actual preview LinkedIn showed for fifteen unanswered days",
@@ -2121,7 +2137,7 @@
       "source_file": "tests\\test_replies.py",
       "source_location": "L18",
       "id": "test_replies_rationale_18",
-      "community": 8
+      "community": 6
     },
     {
       "label": "LinkedIn shows ads in the same list as real conversations.",
@@ -2129,7 +2145,7 @@
       "source_file": "tests\\test_replies.py",
       "source_location": "L34",
       "id": "test_replies_rationale_34",
-      "community": 8
+      "community": 6
     },
     {
       "label": "Could not tell' must never be rendered as 'nothing to do'. That equivalence IS t",
@@ -2137,7 +2153,7 @@
       "source_file": "tests\\test_replies.py",
       "source_location": "L41",
       "id": "test_replies_rationale_41",
-      "community": 8
+      "community": 6
     },
     {
       "label": "A locale or thread type we have not seen must land in the WAITING pile, not be d",
@@ -2145,7 +2161,7 @@
       "source_file": "tests\\test_replies.py",
       "source_location": "L48",
       "id": "test_replies_rationale_48",
-      "community": 8
+      "community": 6
     },
     {
       "label": "An error must not produce the same output as a clean, empty scan.",
@@ -2153,7 +2169,7 @@
       "source_file": "tests\\test_replies.py",
       "source_location": "L54",
       "id": "test_replies_rationale_54",
-      "community": 8
+      "community": 6
     },
     {
       "label": "test_sourcing.py",
@@ -2537,7 +2553,7 @@
       "source_file": "tools\\content_hub_db.py",
       "source_location": "L1",
       "id": "content_hub_db",
-      "community": 6
+      "community": 7
     },
     {
       "label": "connect()",
@@ -2545,7 +2561,7 @@
       "source_file": "tools\\content_hub_db.py",
       "source_location": "L62",
       "id": "content_hub_db_connect",
-      "community": 6
+      "community": 7
     },
     {
       "label": "_now()",
@@ -2553,7 +2569,7 @@
       "source_file": "tools\\content_hub_db.py",
       "source_location": "L71",
       "id": "content_hub_db_now",
-      "community": 6
+      "community": 7
     },
     {
       "label": "add_idea()",
@@ -2561,7 +2577,7 @@
       "source_file": "tools\\content_hub_db.py",
       "source_location": "L75",
       "id": "content_hub_db_add_idea",
-      "community": 6
+      "community": 7
     },
     {
       "label": "update_draft()",
@@ -2569,7 +2585,7 @@
       "source_file": "tools\\content_hub_db.py",
       "source_location": "L105",
       "id": "content_hub_db_update_draft",
-      "community": 6
+      "community": 7
     },
     {
       "label": "approve_post()",
@@ -2577,7 +2593,7 @@
       "source_file": "tools\\content_hub_db.py",
       "source_location": "L126",
       "id": "content_hub_db_approve_post",
-      "community": 6
+      "community": 7
     },
     {
       "label": "mark_posted()",
@@ -2585,7 +2601,7 @@
       "source_file": "tools\\content_hub_db.py",
       "source_location": "L138",
       "id": "content_hub_db_mark_posted",
-      "community": 6
+      "community": 7
     },
     {
       "label": "get_todays_post()",
@@ -2593,7 +2609,7 @@
       "source_file": "tools\\content_hub_db.py",
       "source_location": "L158",
       "id": "content_hub_db_get_todays_post",
-      "community": 6
+      "community": 7
     },
     {
       "label": "get_next_drafts()",
@@ -2601,7 +2617,7 @@
       "source_file": "tools\\content_hub_db.py",
       "source_location": "L188",
       "id": "content_hub_db_get_next_drafts",
-      "community": 6
+      "community": 7
     },
     {
       "label": "get_posts_by_status()",
@@ -2609,7 +2625,7 @@
       "source_file": "tools\\content_hub_db.py",
       "source_location": "L197",
       "id": "content_hub_db_get_posts_by_status",
-      "community": 6
+      "community": 7
     },
     {
       "label": "all_posts()",
@@ -2617,7 +2633,7 @@
       "source_file": "tools\\content_hub_db.py",
       "source_location": "L205",
       "id": "content_hub_db_all_posts",
-      "community": 6
+      "community": 7
     },
     {
       "label": "stats()",
@@ -2625,7 +2641,7 @@
       "source_file": "tools\\content_hub_db.py",
       "source_location": "L213",
       "id": "content_hub_db_stats",
-      "community": 6
+      "community": 7
     },
     {
       "label": "_get_post()",
@@ -2633,7 +2649,7 @@
       "source_file": "tools\\content_hub_db.py",
       "source_location": "L228",
       "id": "content_hub_db_get_post",
-      "community": 6
+      "community": 7
     },
     {
       "label": "_log()",
@@ -2641,7 +2657,7 @@
       "source_file": "tools\\content_hub_db.py",
       "source_location": "L233",
       "id": "content_hub_db_log",
-      "community": 6
+      "community": 7
     },
     {
       "label": "Add a new content idea to the hub. Returns the row id.",
@@ -2649,7 +2665,7 @@
       "source_file": "tools\\content_hub_db.py",
       "source_location": "L85",
       "id": "content_hub_db_rationale_85",
-      "community": 6
+      "community": 7
     },
     {
       "label": "Move a post from 'idea' to 'drafted' with copy and image prompt.",
@@ -2657,7 +2673,7 @@
       "source_file": "tools\\content_hub_db.py",
       "source_location": "L113",
       "id": "content_hub_db_rationale_113",
-      "community": 6
+      "community": 7
     },
     {
       "label": "Mark a post as approved for publishing.",
@@ -2665,7 +2681,7 @@
       "source_file": "tools\\content_hub_db.py",
       "source_location": "L127",
       "id": "content_hub_db_rationale_127",
-      "community": 6
+      "community": 7
     },
     {
       "label": "Mark a post as published on LinkedIn.",
@@ -2673,7 +2689,7 @@
       "source_file": "tools\\content_hub_db.py",
       "source_location": "L144",
       "id": "content_hub_db_rationale_144",
-      "community": 6
+      "community": 7
     },
     {
       "label": "Get the next approved post for today (by scheduled_date or day-of-week).",
@@ -2681,7 +2697,7 @@
       "source_file": "tools\\content_hub_db.py",
       "source_location": "L159",
       "id": "content_hub_db_rationale_159",
-      "community": 6
+      "community": 7
     },
     {
       "label": "Get the next N drafted posts awaiting approval.",
@@ -2689,7 +2705,7 @@
       "source_file": "tools\\content_hub_db.py",
       "source_location": "L189",
       "id": "content_hub_db_rationale_189",
-      "community": 6
+      "community": 7
     },
     {
       "label": "Get all posts with a given status.",
@@ -2697,7 +2713,7 @@
       "source_file": "tools\\content_hub_db.py",
       "source_location": "L198",
       "id": "content_hub_db_rationale_198",
-      "community": 6
+      "community": 7
     },
     {
       "label": "Get all posts ordered by date.",
@@ -2705,7 +2721,7 @@
       "source_file": "tools\\content_hub_db.py",
       "source_location": "L206",
       "id": "content_hub_db_rationale_206",
-      "community": 6
+      "community": 7
     },
     {
       "label": "Summary statistics for the content hub.",
@@ -2713,7 +2729,7 @@
       "source_file": "tools\\content_hub_db.py",
       "source_location": "L214",
       "id": "content_hub_db_rationale_214",
-      "community": 6
+      "community": 7
     },
     {
       "label": "daily-discovery.ps1",
@@ -2977,7 +2993,7 @@
       "source_file": "tools\\log_experience.py",
       "source_location": "L1",
       "id": "log_experience",
-      "community": 6
+      "community": 7
     },
     {
       "label": "main()",
@@ -2985,7 +3001,7 @@
       "source_file": "tools\\log_experience.py",
       "source_location": "L23",
       "id": "log_experience_main",
-      "community": 6
+      "community": 7
     },
     {
       "label": "notion_push.py",
@@ -4409,7 +4425,7 @@
       "source_file": "tools\\seed_content_hub.py",
       "source_location": "L1",
       "id": "seed_content_hub",
-      "community": 6
+      "community": 7
     },
     {
       "label": "main()",
@@ -4417,7 +4433,7 @@
       "source_file": "tools\\seed_content_hub.py",
       "source_location": "L120",
       "id": "seed_content_hub_main",
-      "community": 6
+      "community": 7
     },
     {
       "label": "send_queue.py",
@@ -4465,7 +4481,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L1",
       "id": "serve_dashboard",
-      "community": 7
+      "community": 8
     },
     {
       "label": "discover_packets()",
@@ -4473,7 +4489,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L63",
       "id": "serve_dashboard_discover_packets",
-      "community": 7
+      "community": 8
     },
     {
       "label": "read()",
@@ -4481,7 +4497,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L100",
       "id": "serve_dashboard_read",
-      "community": 7
+      "community": 8
     },
     {
       "label": "cv_paths()",
@@ -4489,7 +4505,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L107",
       "id": "serve_dashboard_cv_paths",
-      "community": 7
+      "community": 8
     },
     {
       "label": "parse_contact()",
@@ -4497,7 +4513,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L121",
       "id": "serve_dashboard_parse_contact",
-      "community": 7
+      "community": 8
     },
     {
       "label": "build_packets()",
@@ -4505,7 +4521,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L149",
       "id": "serve_dashboard_build_packets",
-      "community": 7
+      "community": 8
     },
     {
       "label": "slack_feed()",
@@ -4513,7 +4529,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L173",
       "id": "serve_dashboard_slack_feed",
-      "community": 7
+      "community": 8
     },
     {
       "label": "bootstrap()",
@@ -4521,7 +4537,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L195",
       "id": "serve_dashboard_bootstrap",
-      "community": 7
+      "community": 8
     },
     {
       "label": "zip_bytes()",
@@ -4529,7 +4545,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L226",
       "id": "serve_dashboard_zip_bytes",
-      "community": 7
+      "community": 8
     },
     {
       "label": "packet_zip()",
@@ -4537,7 +4553,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L234",
       "id": "serve_dashboard_packet_zip",
-      "community": 7
+      "community": 8
     },
     {
       "label": "all_zip()",
@@ -4545,7 +4561,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L257",
       "id": "serve_dashboard_all_zip",
-      "community": 7
+      "community": 8
     },
     {
       "label": "Handler",
@@ -4553,7 +4569,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L271",
       "id": "serve_dashboard_handler",
-      "community": 7
+      "community": 8
     },
     {
       "label": "BaseHTTPRequestHandler",
@@ -4561,7 +4577,7 @@
       "source_file": "",
       "source_location": "",
       "id": "basehttprequesthandler",
-      "community": 7
+      "community": 8
     },
     {
       "label": ".log_message()",
@@ -4569,7 +4585,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L274",
       "id": "serve_dashboard_handler_log_message",
-      "community": 7
+      "community": 8
     },
     {
       "label": "._send()",
@@ -4577,7 +4593,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L278",
       "id": "serve_dashboard_handler_send",
-      "community": 7
+      "community": 8
     },
     {
       "label": "._json()",
@@ -4585,7 +4601,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L289",
       "id": "serve_dashboard_handler_json",
-      "community": 7
+      "community": 8
     },
     {
       "label": "._fail()",
@@ -4593,7 +4609,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L293",
       "id": "serve_dashboard_handler_fail",
-      "community": 7
+      "community": 8
     },
     {
       "label": "._attachment()",
@@ -4601,7 +4617,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L296",
       "id": "serve_dashboard_handler_attachment",
-      "community": 7
+      "community": 8
     },
     {
       "label": ".do_HEAD()",
@@ -4609,7 +4625,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L313",
       "id": "serve_dashboard_handler_do_head",
-      "community": 7
+      "community": 8
     },
     {
       "label": ".do_GET()",
@@ -4617,7 +4633,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L316",
       "id": "serve_dashboard_handler_do_get",
-      "community": 7
+      "community": 8
     },
     {
       "label": ".do_POST()",
@@ -4625,7 +4641,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L339",
       "id": "serve_dashboard_handler_do_post",
-      "community": 7
+      "community": 8
     },
     {
       "label": "._static()",
@@ -4633,7 +4649,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L392",
       "id": "serve_dashboard_handler_static",
-      "community": 7
+      "community": 8
     },
     {
       "label": "._download()",
@@ -4641,7 +4657,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L405",
       "id": "serve_dashboard_handler_download",
-      "community": 7
+      "community": 8
     },
     {
       "label": "main()",
@@ -4649,7 +4665,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L435",
       "id": "serve_dashboard_main",
-      "community": 7
+      "community": 8
     },
     {
       "label": "Find packets by scanning disk, so one built five minutes ago shows up.\r \r     Ea",
@@ -4657,7 +4673,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L64",
       "id": "serve_dashboard_rationale_64",
-      "community": 7
+      "community": 8
     },
     {
       "label": "Tailored CVs live under cv/tailored; the general one sits in cv/.",
@@ -4665,7 +4681,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L108",
       "id": "serve_dashboard_rationale_108",
-      "community": 7
+      "community": 8
     },
     {
       "label": "Pull the headline contact facts out of contact.md.\r \r     contact.md is written",
@@ -4673,7 +4689,7 @@
       "source_file": "tools\\serve_dashboard.py",
       "source_location": "L122",
       "id": "serve_dashboard_rationale_122",
-      "community": 7
+      "community": 8
     },
     {
       "label": "set_status.py",
@@ -6941,7 +6957,7 @@
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\replies.py",
-      "source_location": "L39",
+      "source_location": "L41",
       "weight": 0.8,
       "_src": "replies_thread",
       "_tgt": "fill_linkedinloggedout",
@@ -6953,7 +6969,7 @@
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\replies.py",
-      "source_location": "L39",
+      "source_location": "L41",
       "weight": 0.8,
       "_src": "replies_inboxreport",
       "_tgt": "fill_linkedinloggedout",
@@ -6965,7 +6981,7 @@
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\replies.py",
-      "source_location": "L39",
+      "source_location": "L41",
       "weight": 0.8,
       "_src": "replies_rationale_1",
       "_tgt": "fill_linkedinloggedout",
@@ -6977,24 +6993,36 @@
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\replies.py",
-      "source_location": "L39",
+      "source_location": "L41",
       "weight": 0.8,
-      "_src": "replies_rationale_84",
+      "_src": "replies_rationale_86",
       "_tgt": "fill_linkedinloggedout",
       "source": "fill_linkedinloggedout",
-      "target": "replies_rationale_84",
+      "target": "replies_rationale_86",
       "confidence_score": 0.5
     },
     {
       "relation": "uses",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\replies.py",
-      "source_location": "L39",
+      "source_location": "L41",
       "weight": 0.8,
-      "_src": "replies_rationale_101",
+      "_src": "replies_rationale_103",
       "_tgt": "fill_linkedinloggedout",
       "source": "fill_linkedinloggedout",
-      "target": "replies_rationale_101",
+      "target": "replies_rationale_103",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L41",
+      "weight": 0.8,
+      "_src": "replies_rationale_146",
+      "_tgt": "fill_linkedinloggedout",
+      "source": "fill_linkedinloggedout",
+      "target": "replies_rationale_146",
       "confidence_score": 0.5
     },
     {
@@ -8513,7 +8541,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\replies.py",
-      "source_location": "L60",
+      "source_location": "L62",
       "weight": 1.0,
       "_src": "replies",
       "_tgt": "replies_thread",
@@ -8525,7 +8553,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\replies.py",
-      "source_location": "L69",
+      "source_location": "L71",
       "weight": 1.0,
       "_src": "replies",
       "_tgt": "replies_needs_attention",
@@ -8537,7 +8565,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\replies.py",
-      "source_location": "L74",
+      "source_location": "L76",
       "weight": 1.0,
       "_src": "replies",
       "_tgt": "replies_inboxreport",
@@ -8549,7 +8577,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\replies.py",
-      "source_location": "L79",
+      "source_location": "L81",
       "weight": 1.0,
       "_src": "replies",
       "_tgt": "replies_waiting",
@@ -8561,7 +8589,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\replies.py",
-      "source_location": "L83",
+      "source_location": "L85",
       "weight": 1.0,
       "_src": "replies",
       "_tgt": "replies_classify",
@@ -8573,7 +8601,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\replies.py",
-      "source_location": "L100",
+      "source_location": "L102",
       "weight": 1.0,
       "_src": "replies",
       "_tgt": "replies_rows",
@@ -8585,7 +8613,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\replies.py",
-      "source_location": "L127",
+      "source_location": "L129",
       "weight": 1.0,
       "_src": "replies",
       "_tgt": "replies_scan",
@@ -8597,7 +8625,19 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\replies.py",
-      "source_location": "L143",
+      "source_location": "L145",
+      "weight": 1.0,
+      "_src": "replies",
+      "_tgt": "replies_notify",
+      "source": "replies",
+      "target": "replies_notify",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L181",
       "weight": 1.0,
       "_src": "replies",
       "_tgt": "replies_main",
@@ -8621,7 +8661,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\replies.py",
-      "source_location": "L93",
+      "source_location": "L95",
       "weight": 0.8,
       "_src": "replies_classify",
       "_tgt": "replies_thread",
@@ -8705,7 +8745,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\replies.py",
-      "source_location": "L128",
+      "source_location": "L130",
       "weight": 0.8,
       "_src": "replies_scan",
       "_tgt": "replies_inboxreport",
@@ -8789,7 +8829,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\replies.py",
-      "source_location": "L135",
+      "source_location": "L137",
       "weight": 0.8,
       "_src": "replies_scan",
       "_tgt": "replies_classify",
@@ -8801,19 +8841,19 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\replies.py",
-      "source_location": "L84",
+      "source_location": "L86",
       "weight": 1.0,
-      "_src": "replies_rationale_84",
+      "_src": "replies_rationale_86",
       "_tgt": "replies_classify",
       "source": "replies_classify",
-      "target": "replies_rationale_84",
+      "target": "replies_rationale_86",
       "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\replies.py",
-      "source_location": "L134",
+      "source_location": "L136",
       "weight": 0.8,
       "_src": "replies_scan",
       "_tgt": "replies_rows",
@@ -8825,25 +8865,49 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\replies.py",
-      "source_location": "L101",
+      "source_location": "L103",
       "weight": 1.0,
-      "_src": "replies_rationale_101",
+      "_src": "replies_rationale_103",
       "_tgt": "replies_rows",
       "source": "replies_rows",
-      "target": "replies_rationale_101",
+      "target": "replies_rationale_103",
       "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\replies.py",
-      "source_location": "L149",
+      "source_location": "L188",
       "weight": 0.8,
       "_src": "replies_main",
       "_tgt": "replies_scan",
       "source": "replies_scan",
       "target": "replies_main",
       "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L216",
+      "weight": 0.8,
+      "_src": "replies_main",
+      "_tgt": "replies_notify",
+      "source": "replies_notify",
+      "target": "replies_main",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\replies.py",
+      "source_location": "L146",
+      "weight": 1.0,
+      "_src": "replies_rationale_146",
+      "_tgt": "replies_notify",
+      "source": "replies_notify",
+      "target": "replies_rationale_146",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
