@@ -205,6 +205,16 @@ FIELD_MAP: dict[str, Spec] = {
         text="compensation.current_ctc", numeric="compensation.current_ctc", kind=NUMERIC,
         note="0 — fresher, no salaried employment",
     ),
+    # MUST precede `notice_period`. "Do you HAVE TO SERVE a notice period?" is a Yes/No
+    # question, not a duration - matching it to the duration spec tried to answer "0" and the
+    # radio had no such option, so the field stayed blank and the form could not submit
+    # (2026-08-10). He is a fresher with no employer, so there is no notice to serve.
+    "must_serve_notice": Spec(
+        (r"(have|need) to serve.{0,20}notice", r"are you serving.{0,15}notice",
+         r"do you have a notice period\b"),
+        text="availability._answer_no", kind=CHOICE,
+        note="Yes/No form of the notice question: no current employer, so nothing to serve",
+    ),
     "notice_period": Spec(
         (r"notice period", r"how soon can you (join|start)", r"earliest (start|joining)", r"when can you (join|start)"),
         text="availability.notice_period", numeric="availability.notice_period_days", kind=NUMERIC,
@@ -298,6 +308,7 @@ FIELD_MAP: dict[str, Spec] = {
 SYNTHETIC: dict[str, str] = {
     "_derived.linkedin": "LinkedIn",
     "availability._answer_yes": "Yes",
+    "availability._answer_no": "No",
     "eligibility._answer_yes": "Yes",
     "eligibility._answer_no": "No",
 }

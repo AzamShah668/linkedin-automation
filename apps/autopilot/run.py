@@ -491,16 +491,28 @@ def cmd_applyall(args: argparse.Namespace) -> int:
         # ten minutes lands on ONE recruiter's desk and reads as scattershot rather than
         # interested - the board notes already say one contact covers all of an agency's rows
         # (D8). The highest-fit role goes first because the plan is sorted by fit.
-        seen_count = sum(1 for c, _ in plan if c.company.lower() == cand.company.lower())
+        # Counted across the LEDGER too, not just this run. A per-run-only cap let Crossing
+        # Hurdles receive two applications on consecutive runs (2026-08-09 and 08-10), which is
+        # the same "three roles at one agency" problem the owner flagged, just spread over time.
+        already = sum(
+            1 for row in _ledger_rows()
+            if row.get("company", "").lower() == cand.company.lower()
+        )
+        seen_count = already + sum(
+            1 for c, _ in plan if c.company.lower() == cand.company.lower()
+        )
         if seen_count >= args.max_per_company:
             skipped.append((f"{cand.company} - {cand.job}",
                             f"already applying to {seen_count} role(s) at this company this run"))
             continue
         plan.append((cand, choice))
 
-    plan = plan[: args.limit]
-
-    print(f"\nPLAN: {len(plan)} application(s), {len(skipped)} skipped")
+    # --limit caps APPLICATIONS SENT, not rows examined. Capping the plan meant "--limit 5"
+    # took the five highest-fit rows, which are all external-ATS companies with no Easy Apply
+    # button, and submitted nothing at all (2026-08-09). The loop below walks the whole list
+    # and stops once `limit` applications have actually gone out.
+    print(f"\nPLAN: up to {args.limit} application(s) from {len(plan)} candidate row(s), "
+          f"{len(skipped)} skipped")
     for cand, choice in plan:
         print(f"  [{cand.fit:>3}] {cand.company[:22]:<22} {cand.job[:34]:<34} {choice.label}")
     if skipped:
@@ -512,8 +524,9 @@ def cmd_applyall(args: argparse.Namespace) -> int:
         print("\nDRY RUN - nothing was opened or submitted.")
         return 0
 
-    est = len(plan) * ((args.min_gap + args.max_gap) / 2 + 45) / 60
-    print(f"\nSUBMITTING FOR REAL. Estimated {est:.0f} minutes with {args.min_gap}-{args.max_gap}s gaps.\n")
+    est = args.limit * ((args.min_gap + args.max_gap) / 2 + 45) / 60
+    print(f"\nSUBMITTING FOR REAL. Up to {args.limit} applications, roughly {est:.0f} minutes "
+          f"with {args.min_gap}-{args.max_gap}s gaps between them.\n")
 
     results: list[FillResult] = []
     with sync_playwright() as pw:
@@ -526,7 +539,12 @@ def cmd_applyall(args: argparse.Namespace) -> int:
             context.close()
             return 2
 
+        submitted_count = 0
         for i, (cand, choice) in enumerate(plan, 1):
+            if submitted_count >= args.limit:
+                print(f"\nReached the {args.limit}-application limit. "
+                      f"{len(plan) - i + 1} row(s) left unexamined.")
+                break
             print(f"[{i}/{len(plan)}] {cand.company} - {cand.job}")
             try:
                 result = fill_job(page, cand.url, bank, cv_pdf=choice.pdf,
@@ -541,6 +559,7 @@ def cmd_applyall(args: argparse.Namespace) -> int:
 
             if result.status in ("submitted", "submitted-unconfirmed"):
                 _mark_applied(cand, result)
+                submitted_count += 1
 
             # THROTTLE ONLY AFTER A REAL SUBMISSION. The gap exists because LinkedIn watches
             # APPLICATION velocity; a job with no Easy Apply button submitted nothing, so there
@@ -587,6 +606,11 @@ def cmd_applyall(args: argparse.Namespace) -> int:
         for label, count in blocking.most_common(20):
             print(f"    {count:>3}x  {label[:100]}")
     return 0
+
+
+def _ledger_rows() -> list[dict]:
+    from apps.autopilot import ledger
+    return ledger.load()
 
 
 def _mark_applied(cand: Candidate, result: FillResult) -> None:
