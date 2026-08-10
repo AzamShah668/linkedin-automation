@@ -957,6 +957,284 @@ Whether **Recruiter-E (SkillsCapital, CTO)** accepted. That is the **93-fit row,
 whose JD asks for exactly this candidate. If he accepted on, say, 08-07, the pitch is two days late and
 nothing in the system knows. The other two are Mirai Alpha (Recruiter-F) and Hired (Recruiter-D).
 
+## Accept watch — 2026-08-09 later (the blind spot cleared; all three genuinely still pending)
+
+Second run of the day, after the BLIND RUN above. **All three steps completed this time.** Nothing accepted,
+nothing due, nothing expired → runbook step 5's quiet exit: **no Slack post, no Notion writes, nothing sent.**
+
+- **Step 1 `expire`:** `Nothing older than 14 days still pending.` Wall is 08-20.
+- **Step 2 (the poll that failed this morning):** `mcp-server-linkedin` **registered normally this session**
+  and all three `get_person_profile` calls succeeded.
+
+| Who | Company · role | Degree | Badge | Verdict |
+|---|---|---|---|---|
+| **Recruiter-E** (CTO) | SkillsCapital · SWE Intern (AI/ML & Agentic AI) **93** | `3rd` | `Pending` | not accepted |
+| **Recruiter-F** (Co-Founder) | Mirai Alpha · AI Engineering Intern | `3rd` | `Pending` | not accepted |
+| **Recruiter-D** (Recruitment Consultant) | Hired · AI/ML Engineer (keep-on-file) | `3rd` | `Pending` | not accepted |
+
+- **Step 3 `due`:** `[]`. Correct — nothing is accepted, so nothing can be ripe.
+
+### ⚠️ The morning's blindness was SESSION-SCOPED, not a broken install
+
+This is the correction that matters. The BLIND RUN above concluded the LinkedIn MCP had no tools, verified
+across four `ToolSearch` lookups. **Hours later, same machine, same config, the tools were simply there.**
+So the failure is a **per-session MCP registration flake**, not a persistent breakage — nothing was fixed
+between the two runs, and no fix should be hunted for. Same family as the D13 "session expired" false alarm
+and [[usage-limit-before-clever-theories]]: **the second observation is what decides which reading was
+right.** Practical rule: when the LinkedIn tools are missing, **retry in a fresh session before concluding
+anything** — and never let a blind run's silence be recorded as a healthy quiet exit.
+
+### What this run actually buys
+
+The three `Pending` badges settle the open question from the BLIND RUN — *"did Recruiter-E accept days ago
+and nobody noticed?"* **No.** All three invites are genuinely delivered and genuinely unanswered at 3 days
+old, so no pitch is late. The badge also re-confirms stage 1 did not silently fail (the D12
+`custom_note_limit_reached` hole): a row `pending` **with** a `Pending` badge is real; without one, stage 1
+lied.
+
+- ⚠️ **`last_checked` is still `null` on all three.** `invite_tracker.py` only stamps it inside
+  `mark-accepted`, so this run polled three profiles and left **no trace in the state file** — for the second
+  time today. This section is the only record that the poll happened. Still worth a one-line fix.
+- `tools/poll_invites.py` remains **unrun and un-allowlisted**; the MCP path worked, so the fallback was not
+  needed this run. It is still the right insurance for the next flake. Owner line, unchanged:
+  `"Bash(py -3 tools/poll_invites.py:*)",`
+- 🪤 **PYMK trap, fourth confirmation.** Kashmiri-sounding names appear again in the scraped `references` of
+  both the SkillsCapital and Hired profiles. They are LinkedIn "people you may know" suggestions rendered
+  against Azam's own account on every profile page. **Never a warm path.**
+- 👀 **Observed in passing:** Recruiter-F is now hiring a *Founder's Office Intern — Research & Strategic
+  Growth* (Bengaluru, hybrid). That is a research/strategy req, **not** the engineering role Azam was
+  pitched for, and the original AI Engineering Intern posting is closed. Do not silently re-aim the packet
+  at it — it is a different job.
+
+## Reply check — 2026-08-09 (fifth clean run; zero replies, but FIVE applications went out unrecorded)
+
+Same 5 `Applied` rows (Infosys 90, CodeRound AI 89, Innova ESI 87, GoodSpace AI 85, Recro 82), same 5
+domains. **Zero recruiter replies. No Notion writes** — correct per the de-dupe rule; every row still reads
+`Reply = ☐`, `Status = Applied`.
+
+- **Query proven before the zero was believed**, per the standing rule: bare `newer_than:14d in:inbox`
+  returned **201** threads and `(from:linkedin.com OR from:infosys.com)` was live. Only then was the empty
+  5-domain result trusted. Widened to `newer_than:30d in:anywhere` — also empty.
+- **Bounces clean** at `newer_than:14d in:anywhere`.
+- **Personal-address sweep run again** (the standard fifth query): returned **only Azam's own sent mail**.
+  No recruiter has replied from a gmail/outlook address either.
+- **Campus channel: nothing new.** The scoped sender sweep (naukricampus, doselect, hackerrank, hackerearth,
+  mettl, imocha, codility, epam, hirevue) returned only the three known EPAM items, the newest being the
+  **08-05 cancellation**. Closed on 08-06 and still closed. Fifth run in a row done by hand; "Immediate next
+  work" #6 is still **unbuilt**.
+- Slack posted (`--event info`) — zero replies plus the submission finding below.
+
+### 🚨 FIVE Easy Apply submissions went out today and **nothing recorded them**
+
+This is the run's real finding, and it did not come from the reply search — it came from the LinkedIn
+`jobs-noreply@` acks sitting in the inbox. **Every job ID was matched against the board**, not guessed:
+
+| Time (08-09) | Company · role | LinkedIn job ID | Notion row said |
+|---|---|---|---|
+| 09:35 | Energy Exemplar · DevOps Engineer (72) | `4436200537` | `To Apply` |
+| 10:43 | SkillsCapital · Site Reliability Engineer (83) | `4446772164` | `New` |
+| 10:46 | SkillsCapital · DevOps Engineer (82) | `4444671688` | `New` |
+| 10:48 | Crossing Hurdles · DevOps Engineer $60/hr (82) | `4444896795` | `New` |
+| 10:50 | SkillsCapital · Cloud Engineer (82) | `4444834246` | `New` |
+
+**This is the Recro trap again** ([[20-first-email-batch-and-task-verification]]): a real submission that the
+board does not know about is one sweep away from a **duplicate application to the same employer**. The rows
+were left untouched this run because recording submissions is the apply runbook's job, not this one's — but
+they must be set to `Applied` with today's date before anything else touches them.
+
+- ⚠️ **The three SkillsCapital sends are the WRONG three.** The 08-01 packet note warned explicitly:
+  SkillsCapital has four board rows and **only the SWE Intern (AI/ML & Agentic AI, fit 93) is in-house** —
+  SRE 83 / Cloud 82 / DevOps 82 are SkillsCapital placing candidates *at a client*. All three client rows
+  were applied to; **the 93 was not.** It still reads `Invite sent`. The single highest-fit row on the board,
+  whose JD asks for exactly this candidate, remains unsent while three lower-value staffing reqs consumed the
+  approach. Whatever selected these jobs is ranking by something other than fit score.
+- **Nothing here is a reply**, so nothing was ticked. `Reply = ✓` on a "your application was sent to X"
+  auto-ack would silently kill the Day-3/Day-7 nudges — see [[linkedin-autoack-is-not-a-reply]].
+
+### The one inbound that looks like a reply and is not
+
+`notifications@ceipalmail.com`, **10:48:47 — four seconds after** the Crossing Hurdles submission. Reads like
+a personal note (*"I'm from Crossing Hurdles, we would like to refer you"*) but it is a templated ATS
+auto-response that funnels the applicant to **`jobs.micro1.ai` with a referral code**. Classified
+**Auto-ack**, no action, no Notion write. Worth knowing the shape: a staffing firm's ATS can answer within
+seconds, in the first person, and it is still not a human. Timestamp proximity to your own submission is the
+cheapest tell.
+
+### Follow-ups did go out — the 11-day silence was broken this morning
+
+The name sweep turned up **three follow-up emails sent 2026-08-09 10:00** to Innova ESI, GoodSpace and
+CodeRound (`Re:` on the original 07-30 threads). So the overdue Day-3/Day-7 cadence flagged on 08-06 has
+been actioned for three of the five. **Infosys and Recro still have none.** Notion `Follow-ups Sent` was
+**not** incremented by whatever sent them, so the counter still reads 0/null on all five and will keep
+reporting the nudges as never sent.
+
+> ⚠️ **Corrected 2026-08-10: it was FOUR follow-ups, not three.** The same 10:00 batch also sent
+> `Re: Software Engineer Intern (AI/ML & Agentic AI)` to **`careers@skillscapital.io`**. It was missed here
+> because the 08-09 name sweep keyed on recruiter first names and the five `Applied` companies, and
+> SkillsCapital is neither. See the 08-10 reply check below for what that changes.
+
+## Accept watch — 2026-08-10 (all three still pending, day 4; quiet exit)
+
+Ran per [[13-accept-watch-runbook]]. **All three steps completed.** Nothing accepted, nothing due, nothing
+expired → step 5's quiet exit: **no Slack post, no Notion writes, nothing sent.**
+
+- **Step 1 `expire`:** `Nothing older than 14 days still pending.` Wall is 08-20.
+- **Step 2 (the poll):** `mcp-server-linkedin` registered normally; all three `get_person_profile` calls
+  succeeded, which is also the trustworthy auth check.
+
+| Who | Company · role | Degree | Badge | Verdict |
+|---|---|---|---|---|
+| **Recruiter-E** (CTO) | SkillsCapital · SWE Intern (AI/ML & Agentic AI) **93** | `3rd` | `Pending` | not accepted |
+| **Recruiter-F** (Co-Founder) | Mirai Alpha · AI Engineering Intern | `3rd` | `Pending` | not accepted |
+| **Recruiter-D** (Recruitment Consultant) | Hired · AI/ML Engineer (keep-on-file) | `3rd` | `Pending` | not accepted |
+
+- **Step 3 `due`:** `[]`. Correct — nothing accepted, so nothing can be ripe.
+
+### Nothing new, and that is the point of writing it down
+
+Third consecutive run reading identically (08-06 16:23, 08-09 later, today). The `Pending` badges keep
+confirming stage 1 did not silently fail (the D12 `custom_note_limit_reached` hole), so the invites are
+genuinely delivered and genuinely unanswered at **4 days old**. That is still normal latency for a cold
+connect; no pitch is late.
+
+- ⚠️ **`last_checked` is still `null` on all three** — `invite_tracker.py` only stamps it inside
+  `mark-accepted`, so this run polled three profiles and again left **no trace in the state file**. Third
+  time recorded. This section remains the only evidence the poll happened.
+- `tools/poll_invites.py` is still **unrun and un-allowlisted**. The MCP path worked again, so the fallback
+  was not needed — it stays the insurance against the 08-09 morning registration flake.
+  Owner line, unchanged: `"Bash(py -3 tools/poll_invites.py:*)",`
+- 🪤 **PYMK trap, fifth confirmation.** Kashmiri-sounding names appear again in the scraped `references` of
+  the SkillsCapital and Hired profiles. LinkedIn "people you may know" suggestions, **never a warm path**.
+- 👀 **Recruiter-F's profile still advertises only the *Founder's Office Intern — Research & Strategic
+  Growth*** req; the AI Engineering Intern posting she was pitched for stays closed. Unchanged from 08-09 —
+  do not silently re-aim the packet at a different job.
+
+### ⚠️ The LinkedIn channel to SkillsCapital is idle while the email route sits unused
+
+Not this runbook's job to fix, but it is the same company twice over and worth stating in one place: the
+**93-fit SWE Intern row** has an invite pending with the CTO since 08-06 **and** a direct
+`careers@skillscapital.io` path that has never been used, while the 08-09 batch applied to the **three
+client-placement SkillsCapital rows instead** (SRE 83 / Cloud 82 / DevOps 82). Waiting on this accept is
+not the only move available, and it is currently the only one being made.
+
+> ⚠️ **STRUCK 2026-08-10 — the email route was NOT unused; it was used twice.** Gmail holds an application
+> to `careers@skillscapital.io` sent **2026-08-01 12:45** and a follow-up on the same thread **2026-08-09
+> 10:00**. So the 93-fit row has had *three* approaches (email, follow-up, pending CTO invite) and has
+> simply had no answer to any of them. The paragraph above was written from the packet files and the Notion
+> row, neither of which records a send — **`Status = Invite sent` with no `Applied Date` is not evidence
+> that nothing went out.** Check the Sent folder before declaring a channel unused; this is the same class
+> of error as the five unrecorded Easy Apply submissions.
+
+## Reply check — 2026-08-10 (sixth clean run; zero replies, and a channel wrongly recorded as unused)
+
+Same 5 `Applied` rows (Infosys 90, CodeRound AI 89, Innova ESI 87, GoodSpace AI 85, Recro 82), same 5
+domains (`infosys.com`, `coderound.ai`, `innovaesi.com`, `goodspace.ai`, `recro.io`). **Zero recruiter
+replies. No Notion writes** — correct per the de-dupe rule; every row still reads `Reply = ☐`,
+`Status = Applied`, and no row's classification changed.
+
+- **Query proven before the zero was believed**, per the standing rule: bare `newer_than:14d in:inbox`
+  returned **201** threads and `(from:linkedin.com OR from:infosys.com)` was live. Only then was the empty
+  5-domain result trusted. Widened to `newer_than:30d in:anywhere` — also empty.
+- **Bounces clean** at `newer_than:14d in:anywhere` (mailer-daemon / postmaster / Undeliverable /
+  Delivery Status Notification / Address not found).
+- **Personal-address sweep run again** (the standard fifth query): the only inbound hits were the two
+  auto-acks below. No recruiter has replied from a gmail/outlook address.
+- **Campus channel: nothing new.** The scoped sender sweep (naukricampus, doselect, hackerrank,
+  hackerearth, mettl, imocha, codility, hirevue, epam) returned only the three known EPAM items, newest
+  still the **08-05 cancellation**. Sixth run in a row done by hand; "Immediate next work" #6 is still
+  **unbuilt**.
+- Slack posted (`--event info`). No `--event reply` alert fired, because nothing was a reply.
+
+### Two auto-acks, both correctly NOT ticked
+
+| From | When | Verdict |
+|---|---|---|
+| `no-reply@energyexemplar.com` — *"Thank you for applying to Energy Exemplar"* | 08-09 09:36 | **Auto-ack** |
+| `notifications@ceipalmail.com` — Crossing Hurdles / Micro1 referral template | 08-09 10:48 | **Auto-ack** (already classified 08-09) |
+
+The Energy Exemplar one is new to this file. Read FULL: *"we have received your application, and ... we're
+looking forward to reviewing it in due course."* No human, no next step, no action.
+Ticking `Reply = ✓` on either would silently kill the Day-3/Day-7 nudges — [[linkedin-autoack-is-not-a-reply]].
+
+**It is still worth something as evidence.** It arrived **1 minute after** the 09:35 Easy Apply submission,
+from the *employer's own ATS* rather than from LinkedIn. That is independent confirmation the Energy
+Exemplar submission genuinely reached the company, which a `jobs-noreply@linkedin.com` ack alone cannot
+prove. Same tell as the Ceipal case, read the other way: **timestamp proximity to your own submission
+identifies an auto-ack, and a non-LinkedIn sender identifies which system actually received you.**
+
+### 🚨 The five 08-09 submissions are STILL unrecorded, now day 2
+
+Re-checked in Notion this run, not assumed:
+
+| Company · role | Fit | Notion still says |
+|---|---|---|
+| Energy Exemplar · DevOps Engineer | 72 | `To Apply` |
+| SkillsCapital · Site Reliability Engineer | 83 | `New` |
+| SkillsCapital · DevOps Engineer | 82 | `New` |
+| SkillsCapital · Cloud Engineer | 82 | `New` |
+| Crossing Hurdles · DevOps Engineer $60/hr | 82 | `New` |
+
+All five still `New`/`To Apply` with `Applied Date` null. Recording them is the apply runbook's job, not
+this one's, so they were again left untouched — but this is the **Recro trap** ([[20-first-email-batch-and-task-verification]])
+sitting open for a second day, and every one of them is one sweep from a duplicate application.
+
+### ⚠️ A channel was recorded as "never used" while two emails sat in Sent
+
+The finding worth keeping. This file stated the `careers@skillscapital.io` route "has never been used".
+Gmail says otherwise: an application **2026-08-01 12:45** and a follow-up on the same thread **2026-08-09
+10:00**. Both struck through above.
+
+The error is structural, not careless. The claim was derived from the **packet files** and the **Notion
+row** (`Invite sent`, `Applied Date` null) — and *neither of those is written by the act of sending an
+email*. Notion's `Status` only moves when a runbook moves it, so an absence there records "no runbook
+recorded a send", never "no send happened". This is the same failure as the five rows above and as Recro
+before them, and it has now produced a wrong sentence in the project's own live-state file.
+
+**Practical rule: the mailbox is the system of record for what left the building.** Before writing that a
+channel is idle, unused or silent, search Sent for the address. It is one query and it is the only source
+that cannot be out of date. Note also that the 08-09 name sweep missed this because it keyed on the five
+`Applied` companies and the recruiters' first names — **any company you have emailed but not marked
+`Applied` is invisible to that query by construction.** Sweep by address, not only by company.
+
+## Reply check — 2026-08-10 later (seventh clean run; nothing new since the morning run)
+
+Second run of the same day, re-run on request. Same 5 `Applied` rows (Infosys 90, CodeRound AI 89, Innova
+ESI 87, GoodSpace AI 85, Recro 82), same 5 domains. **Zero recruiter replies. No Notion writes, no
+`--event reply` alert.** Every row still reads `Reply = ☐`, `Status = Applied`.
+
+- **Query proven before the zero was believed:** bare `newer_than:14d in:inbox` returned **201** threads and
+  `(from:linkedin.com OR from:infosys.com)` was live. Widened to `newer_than:30d in:anywhere` — also empty.
+- **Bounces clean** at `newer_than:14d in:anywhere`. **Campus sweep** returned only the three known EPAM
+  items, newest still the 08-05 cancellation. Seventh run in a row done by hand; "next work" #6 still unbuilt.
+- **Address sweep, not just company names** (the 08-10 morning lesson applied): the recruiter-name +
+  company query now also carries `SkillsCapital`, `Energy Exemplar` and `Mirai Alpha`. It returned **only
+  Azam's own sent mail** — the 07-30 batch, the 08-01 SkillsCapital application and the four 08-09 10:00
+  follow-ups. No recruiter has replied from a personal address either.
+- **A control for "has anything arrived at all?"** — `newer_than:2d in:inbox` minus the known newsletter
+  senders returned 5 threads, all marketing plus the two auto-acks already classified. Nothing inbound is
+  unaccounted for.
+- Slack posted (`--event info`).
+
+### Nothing was reclassified, and no new mail arrived
+
+The two auto-acks (`no-reply@energyexemplar.com` 08-09 09:36, `notifications@ceipalmail.com` 08-09 10:48)
+are unchanged from the morning run and stay **Auto-ack** — ticking `Reply = ✓` on either would silently kill
+the Day-3/Day-7 nudges ([[linkedin-autoack-is-not-a-reply]]). The classify/update/alert branches of this
+runbook remain **unexercised**: seven runs, zero real replies, so no `Reply` tick and no `Status` move has
+ever been written by this recipe.
+
+### 🚨 The five 08-09 submissions are STILL unrecorded — day 2, third consecutive run flagging it
+
+Re-queried, not assumed. Energy Exemplar DevOps (72) reads `To Apply`; SkillsCapital SRE 83 / DevOps 82 /
+Cloud 82 and Crossing Hurdles DevOps $60/hr (82) all read `New`. **`Applied Date` is null on all five.**
+Recording them is the apply runbook's job, not this one's — but this is the **Recro trap** open for a second
+day, and each row is one sweep from a duplicate application to the same employer.
+
+Also unchanged: **SkillsCapital SWE Intern (93)**, the highest-fit row on the board, still reads
+`Invite sent` with a null `Applied Date` despite three real approaches (email 08-01, follow-up 08-09,
+CTO invite pending since 08-06). Per the struck paragraph above, that status is **not** evidence nothing
+went out — it means no runbook recorded it.
+
 ## Immediate next work
 
 > **Two tracks now run in parallel.** Track A is the job hunt (below) — it does not wait for the rewrite.

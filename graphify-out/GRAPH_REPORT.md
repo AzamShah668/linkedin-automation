@@ -5,8 +5,8 @@
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 568 nodes · 854 edges · 61 communities detected
-- Extraction: 60% EXTRACTED · 40% INFERRED · 0% AMBIGUOUS · INFERRED: 338 edges (avg confidence: 0.5)
+- 570 nodes · 856 edges · 61 communities detected
+- Extraction: 61% EXTRACTED · 39% INFERRED · 0% AMBIGUOUS · INFERRED: 338 edges (avg confidence: 0.5)
 - Token cost: 0 input · 0 output
 
 ## God Nodes (most connected - your core abstractions)
@@ -96,7 +96,7 @@ Cohesion: 0.23
 Nodes (14): all_of(), build_card(), first(), first_blockquote(), load_env(), main(), post(), Role, score, recipient, the exact message the robot will send, marker. Nothing e (+6 more)
 
 ### Community 15 - "Community 15"
-Cohesion: 0.18
+Cohesion: 0.15
 Nodes (7): Tests for role-family routing.  The risk being tested: a job silently getting th, MLOps postings ask for model lifecycle work, not cluster work — even though the, Both families fit; DevOps leads with the better-evidenced half of the portfolio., No CV must never mean 'apply with whatever LinkedIn pre-filled'., test_ai_devops_hybrids_go_to_devops(), test_missing_family_cv_is_reported_not_silently_skipped(), test_mlops_goes_to_ai_not_devops()
 
 ### Community 16 - "Community 16"

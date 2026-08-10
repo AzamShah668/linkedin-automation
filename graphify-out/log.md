@@ -302,3 +302,45 @@ not just this one. It costs one MCP call and it saved a 7-minute packet plus an 
 about a req that closed.
 Row set to Skipped in Notion and re-synced into the mirror (94 roles, 37 closed). Nothing built, nothing sent.
 
+## [2026-08-09 17:20] session | Accept watch: MCP blindness cleared
+Touched: none
+All 3 invites polled successfully (3rd degree + Pending badge) - none accepted, none due, none expired.
+Quiet exit per runbook step 5: nothing sent, no Slack, no Notion writes.
+Key correction: this morning's "LinkedIn MCP has no tools" was a per-session registration flake, not a
+broken install - the same config worked hours later with no fix applied. Retry in a fresh session before
+concluding the tooling is broken.
+
+## [2026-08-09 21:30] session | Reply check: 0 replies, 5 unrecorded applies
+Touched: none
+Fifth clean reply check: zero recruiter replies across the 5 Applied rows, controls proven first, bounces
+clean, campus channel quiet. Real finding came from the LinkedIn auto-acks, not the reply search: five Easy
+Apply submissions went out today (Energy Exemplar, SkillsCapital x3, Crossing Hurdles) and every row still
+reads New/To Apply - the Recro duplicate-submission trap again. Worse, the three SkillsCapital sends were
+the 82-83 client-placement rows; the in-house 93-fit intern role was skipped.
+
+## [2026-08-10 12:00] session | Accept watch: three still pending
+Touched: none
+Ran 13-accept-watch-runbook end to end. expire: nothing past 14 days (wall 08-20). Polled all three pending
+invites via get_person_profile (SkillsCapital CTO, Mirai Alpha co-founder, Hired consultant) - all read 3rd
+degree with a Pending badge, so none accepted and stage 1 is confirmed not to have silently failed. due: [].
+Nothing sent, nothing written to Notion, no Slack post (runbook step 5 quiet exit). LinkedIn MCP registered
+normally, unlike the 08-09 morning flake. last_checked stays null after a poll for the third run running, so
+07-current-state is again the only record the poll happened.
+
+## [2026-08-10] session | Reply check: 0 replies, 2 auto-acks
+Touched: none
+Sixth clean reply check. All 5 Applied rows (Infosys, CodeRound, Innova ESI, GoodSpace, Recro) checked over
+newer_than:14d in:inbox, widened to 30d in:anywhere. Zero recruiter replies, no bounces, no Notion writes, no
+reply alert. Two auto-acks classified and deliberately NOT ticked: Energy Exemplar (no-reply@, 08-09 09:36)
+and the known Ceipal/Crossing Hurdles template. Correction to 07-current-state: careers@skillscapital.io was
+recorded as "never used", but Gmail holds an application 08-01 and a follow-up 08-09, so the 08-09 follow-up
+batch was four contacts not three. The mailbox, not Notion, is the record of what actually left.
+
+## [2026-08-10 later] session | Reply check, seventh clean run
+Touched: none. Brain 2: 07-current-state (new reply-check section).
+Note: re-run of the same day's check. 5 Applied rows, 5 domains, control query proven (201 threads) before the
+zero was believed. Zero replies, no bounces, no new inbound at all since the morning run; the two 08-09
+auto-acks unchanged and still not ticked. Address sweep now carries SkillsCapital / Energy Exemplar / Mirai
+Alpha, per the morning's "sweep by address, not only by company" lesson - returned only Azam's own sent mail.
+The five 08-09 Easy Apply submissions are STILL unrecorded in Notion (day 2, third run flagging it).
+

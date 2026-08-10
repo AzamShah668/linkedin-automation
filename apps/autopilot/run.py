@@ -21,7 +21,7 @@ import time
 from dataclasses import dataclass
 from pathlib import Path
 
-from apps.autopilot import answers, cv
+from apps.autopilot import answers, cv, families
 from apps.autopilot.fill import (
     DEFAULT_USER_DATA_DIR,
     FillResult,
@@ -236,10 +236,13 @@ def cmd_fill(args: argparse.Namespace) -> int:
         print(f"\nfilling {len(jobs)} job(s):")
         pdfs: dict[str, Path | None] = {}
         for cand in jobs:
-            packet = cv.find_packet(cand.row_id) if cand.row_id else None
-            pdf = packet.pdf if packet and packet.pdf.exists() else None
+            # Same CV choice the batch makes: tailored packet first, family CV otherwise.
+            # `fill` used to look only for a packet, so a dry run attached a different CV from
+            # the one a real submission would - which makes the dry run worth less than nothing.
+            choice = families.pick_cv(cand.row_id, cand.company, cand.job) if cand.row_id else None
+            pdf = choice.pdf if choice else None
             pdfs[cand.url] = pdf
-            tag = f"CV {pdf.name}" if pdf else "NO PACKET - generic CV stays attached"
+            tag = f"CV {choice.label}" if choice and pdf else "NO CV - generic stays attached"
             print(f"  {cand.company[:22]:<22} {tag}")
             print(f"    {cand.url}")
         print()
