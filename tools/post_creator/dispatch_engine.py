@@ -66,22 +66,42 @@ def build_image_prompt(post: dict, templates: dict) -> str:
 
 
 def generate_hero_image(prompt: str, post_id: int) -> str:
-    """Generate a hero image using the image studio. Returns the file path."""
+    """Generate a hero image using the image studio. Returns the file path.
+    Falls back to a pre-generated cache image if all engines fail."""
     from image_studio import create_high_res_image
 
     output_dir = str(OUTPUT_DIR / "hero_images")
     filename = f"hero_post_{post_id}_{int(dt.datetime.now().timestamp())}.png"
 
-    print(f"[Dispatch] Generating hero image via FLUX.1...")
-    result = create_high_res_image(
-        prompt=prompt,
-        aspect_ratio="4:5",
-        output_dir=output_dir,
-        filename=filename,
-        style_preset="3d-render",
-    )
-    print(f"[Dispatch] Image saved: {result['file_path']}")
-    return result["file_path"]
+    try:
+        print(f"[Dispatch] Generating hero image via FLUX.1...")
+        result = create_high_res_image(
+            prompt=prompt,
+            aspect_ratio="4:5",
+            output_dir=output_dir,
+            filename=filename,
+            style_preset="3d-render",
+        )
+        print(f"[Dispatch] Image saved: {result['file_path']}")
+        return result["file_path"]
+    except Exception as e:
+        print(f"[Dispatch] Image generation failed: {e}")
+        print(f"[Dispatch] Falling back to cached image...")
+        return _get_fallback_image()
+
+
+def _get_fallback_image() -> str:
+    """Pick a random fallback image from the pre-generated cache."""
+    cache_dir = OUTPUT_DIR / "fallback_cache"
+    if cache_dir.exists():
+        cached = list(cache_dir.glob("fallback_*.png"))
+        if cached:
+            chosen = random.choice(cached)
+            print(f"[Dispatch] Using fallback: {chosen.name}")
+            return str(chosen)
+    # Last resort: return empty string (post will go without image)
+    print("[Dispatch] No fallback images available. Posting without image.")
+    return ""
 
 
 def dispatch_to_linkedin(

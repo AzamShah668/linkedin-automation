@@ -87,6 +87,47 @@ Retrieval order each session: **Brain 2 → Brain 3 → raw files.**
 - Respect each API's ToS, robots.txt, and rate limits; randomized throttling + daily caps.
 - Validate all external data (API responses, parsed emails) at the boundary.
 
+## LinkedIn Content Hub (7-Day Content Engine)
+
+**Built 2026-08-10.** A full content calendar system for daily LinkedIn posting.
+
+### Architecture
+- **Content Hub DB**: `tools/content_hub_db.py` — SQLite store at `output/content_hub/content_hub.sqlite3`
+- **Experience Logger**: `tools/log_experience.py` — logs pair-programming discoveries as post ideas
+- **Trend Finder**: `tools/trend_finder.py` — fetches trending topics from Hacker News (free, no key)
+- **Dispatch Engine**: `tools/post_creator/dispatch_engine.py` — unified orchestrator that generates images + posts
+- **Image Prompt Templates**: `tools/post_creator/prompt_templates.json` — per-post-type visual styles
+- **Fallback Cache**: `tools/post_creator/generate_fallback_cache.py` — pre-generated images for FLUX.1 downtime
+
+### 7-Day Posting Calendar
+| Day | Type | Visual |
+|-----|------|--------|
+| Mon | Daily Build Story | 1× FLUX.1 Hero Image |
+| **Tue** | **Project Showcase** | **6-Page PDF Carousel** |
+| Wed | Trending Tech Take | 1× FLUX.1 Infographic |
+| **Thu** | **Project Showcase** | **6-Page PDF Carousel** |
+| Fri | Engineering Lesson | 1× FLUX.1 Hero Image |
+| Sat | Behind The Scenes | 1× FLUX.1 Scene |
+| Sun | Tech Reflection | 1× FLUX.1 Concept Art |
+
+### Workflow
+1. **Log ideas**: `py -3 tools/log_experience.py --title "..." --insight "..." --type daily-build`
+2. **Fetch trends**: `py -3 tools/trend_finder.py --count 3`
+3. **Draft copy**: Agent rewrites idea into humanized copy (via `linkedin-post-copywriter` skill)
+4. **Approve**: Human marks post as "approved" in the database
+5. **Dispatch**: `py -3 tools/post_creator/dispatch_engine.py` (or scheduled task at 9 AM)
+6. **Verify**: Post appears on LinkedIn with image
+
+### Key Commands
+```bash
+py -3 tools/content_hub_db.py --stats          # hub statistics
+py -3 tools/content_hub_db.py --list           # list all posts
+py -3 tools/log_experience.py --list           # same as above
+py -3 tools/trend_finder.py --dry-run          # preview trends
+py -3 tools/post_creator/dispatch_engine.py --dry-run --post-id N  # preview dispatch
+```
+
+
 ## Current status
 
 - **2026-07-24** — Project kicked off. Plan + Brain 2 knowledge base + this file created. Git initialized.

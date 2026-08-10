@@ -42,6 +42,7 @@ relevant topic file. Cross-link with `[[file]]`. Keep it distilled — skip cosm
 - [[23-phase-0-results]] — Phase 0 of the rewrite: what worked, the metric that lied, and the environment traps
 - [[26-apply-at-volume]] — **⚠️ read before running `apply-all`.** Family CVs, the never-resubmit ledger, the four bugs the owner caught by watching, the wrong answer that passed every guard (D31), and the research half the batch left out (D32)
 - [[21-linkedin-content-strategy-and-research-engine]] — Deep research strategy & 4-slide storytelling copywriting framework.
+- [[27-linkedin-content-engine]] — **7-Day Content Engine**: Content Hub SQLite DB, experience logger, trend finder, dispatch engine, image prompt templates, fallback cache. Decisions D37-D40.
 - [[25-linkedin-profile-reframe]] — **the complete profile rewrite**: headline, about, 3-role Verventech experience, ECC open-source entry, skills, education (B.Tech completed), ready-to-paste copy in `output/linkedin/profile-ready-to-paste.md`
 - [[10-advanced-ideas]] — advanced enhancements (email classifier, interview prep, ATS auditor, Exa AI, HN parser, Slack buttons)
 

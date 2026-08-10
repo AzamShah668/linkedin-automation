@@ -1083,3 +1083,26 @@ queue**, never out of it. A deprioritized row is still applied to.
 
 Related: D32 (an application that reaches no human is unfinished) · D35 (the opposite asymmetry) ·
 [[26-apply-at-volume]] §6
+
+---
+
+## D37-D40 — the LinkedIn Content Engine's design decisions (2026-08-10)
+
+Recorded in full in [[27-linkedin-content-engine]]. Registered here because **this file is the single
+numbering authority**, and these four were originally written as D33-D36 — numbers already taken by
+four unrelated decisions on the same day, from a parallel session. A duplicate decision number makes
+every future `D33` reference ambiguous forever, which is why they were renumbered rather than left.
+
+- **D37 — SQLite over Notion as the content store.** Notion is only reachable through MCP during an
+  active agent session; the content hub must work offline from a scheduled task. Same reasoning that
+  produced `board_db.py`, and the same reasoning as D23/D29 about not depending on a remote store.
+- **D38 — agent-agnostic pipeline.** Claude and Antigravity share `.mcp.json`, the Playwright profile,
+  `output/` and `tools/*.py`; the database is the shared state, so either can log, draft, approve
+  and dispatch.
+- **D39 — human approval before posting.** The dispatcher only posts `status='approved'`, and does
+  nothing when nothing is approved. Same gate as outreach.
+- **D40 — every post gets a visual**, with a 3-engine fallback chain and a cached safety net.
+
+> **Process note:** two sessions on one day both reached for "the next decision number" and collided.
+> The register is append-only and has no allocator, so concurrent writers cannot see each other's
+> claim. Cheap mitigation: **grep `^## D` here before numbering anything.**

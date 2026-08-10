@@ -393,3 +393,17 @@ checks reported "zero replies" - none of them had ever opened LinkedIn messaging
 apps/autopilot/replies.py (pure classifier + Playwright inbox read, escalates anything unparseable,
 a read error can never render as an empty inbox). 66 tests passing. Verified live against the real
 inbox: 6 threads scanned, the missed reply flagged, the two we spoke last in correctly ignored.
+
+## [2026-08-10 21:30] session | 7-Day LinkedIn Content Engine built
+Touched: none (AST-only graph; new code in tools/, not graphed)
+Built the complete 7-day LinkedIn content calendar engine. New files: tools/content_hub_db.py (SQLite
+content calendar, same pattern as board_db.py), tools/log_experience.py (CLI experience logger),
+tools/seed_content_hub.py (seeded 20 projects Aug 11 – Oct 15), tools/trend_finder.py (Hacker News +
+NewsData.io + Currents API topic fetcher), tools/post_creator/dispatch_engine.py (unified orchestrator:
+reads queue, generates FLUX.1 hero image or uses PDF carousel, dispatches via Playwright, marks posted),
+tools/post_creator/prompt_templates.json (per-post-type image prompt templates with randomizable vars),
+tools/post_creator/generate_fallback_cache.py (10 pre-gen safety-net images),
+tools/post_creator/install-dispatch-task.cmd (Windows Scheduled Task at 9 AM IST).
+Decisions: D33 SQLite over Notion (offline-first), D34 agent-agnostic (Claude + Antigravity share all
+infra), D35 human-in-the-loop approval, D36 every post gets a visual. CLAUDE.md updated with Content Hub
+section. Brain 2: NEW 27-linkedin-content-engine, 00-INDEX updated.
