@@ -1713,7 +1713,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L1",
       "id": "test_families",
-      "community": 18
+      "community": 19
     },
     {
       "label": "test_family_routing()",
@@ -1721,7 +1721,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L38",
       "id": "test_families_test_family_routing",
-      "community": 18
+      "community": 19
     },
     {
       "label": "test_mlops_goes_to_ai_not_devops()",
@@ -1729,7 +1729,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L42",
       "id": "test_families_test_mlops_goes_to_ai_not_devops",
-      "community": 18
+      "community": 19
     },
     {
       "label": "test_ai_devops_hybrids_go_to_devops()",
@@ -1737,7 +1737,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L49",
       "id": "test_families_test_ai_devops_hybrids_go_to_devops",
-      "community": 18
+      "community": 19
     },
     {
       "label": "test_every_family_has_a_cv_stem()",
@@ -1745,7 +1745,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L55",
       "id": "test_families_test_every_family_has_a_cv_stem",
-      "community": 18
+      "community": 19
     },
     {
       "label": "test_a_tailored_packet_always_beats_the_family_cv()",
@@ -1753,7 +1753,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L60",
       "id": "test_families_test_a_tailored_packet_always_beats_the_family_cv",
-      "community": 18
+      "community": 19
     },
     {
       "label": "test_missing_family_cv_is_reported_not_silently_skipped()",
@@ -1761,7 +1761,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L74",
       "id": "test_families_test_missing_family_cv_is_reported_not_silently_skipped",
-      "community": 18
+      "community": 19
     },
     {
       "label": "test_questions_that_must_not_be_answered_with_the_candidates_city()",
@@ -1769,7 +1769,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L110",
       "id": "test_families_test_questions_that_must_not_be_answered_with_the_candidates_city",
-      "community": 18
+      "community": 19
     },
     {
       "label": "test_real_location_questions_still_match()",
@@ -1777,7 +1777,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L124",
       "id": "test_families_test_real_location_questions_still_match",
-      "community": 18
+      "community": 19
     },
     {
       "label": "Tests for role-family routing.  The risk being tested: a job silently getting th",
@@ -1785,7 +1785,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L1",
       "id": "test_families_rationale_1",
-      "community": 18
+      "community": 19
     },
     {
       "label": "MLOps postings ask for model lifecycle work, not cluster work \u2014 even though the",
@@ -1793,7 +1793,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L43",
       "id": "test_families_rationale_43",
-      "community": 18
+      "community": 19
     },
     {
       "label": "Both families fit; DevOps leads with the better-evidenced half of the portfolio.",
@@ -1801,7 +1801,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L50",
       "id": "test_families_rationale_50",
-      "community": 18
+      "community": 19
     },
     {
       "label": "No CV must never mean 'apply with whatever LinkedIn pre-filled'.",
@@ -1809,7 +1809,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L75",
       "id": "test_families_rationale_75",
-      "community": 18
+      "community": 19
     },
     {
       "label": "test_ledger.py",
@@ -3361,7 +3361,7 @@
       "source_file": "tools\\post_creator\\dispatch_engine.py",
       "source_location": "L1",
       "id": "dispatch_engine",
-      "community": 19
+      "community": 17
     },
     {
       "label": "load_templates()",
@@ -3369,7 +3369,7 @@
       "source_file": "tools\\post_creator\\dispatch_engine.py",
       "source_location": "L38",
       "id": "dispatch_engine_load_templates",
-      "community": 19
+      "community": 17
     },
     {
       "label": "build_image_prompt()",
@@ -3377,7 +3377,7 @@
       "source_file": "tools\\post_creator\\dispatch_engine.py",
       "source_location": "L44",
       "id": "dispatch_engine_build_image_prompt",
-      "community": 19
+      "community": 17
     },
     {
       "label": "generate_hero_image()",
@@ -3385,31 +3385,39 @@
       "source_file": "tools\\post_creator\\dispatch_engine.py",
       "source_location": "L68",
       "id": "dispatch_engine_generate_hero_image",
-      "community": 19
+      "community": 17
+    },
+    {
+      "label": "_get_fallback_image()",
+      "file_type": "code",
+      "source_file": "tools\\post_creator\\dispatch_engine.py",
+      "source_location": "L93",
+      "id": "dispatch_engine_get_fallback_image",
+      "community": 17
     },
     {
       "label": "dispatch_to_linkedin()",
       "file_type": "code",
       "source_file": "tools\\post_creator\\dispatch_engine.py",
-      "source_location": "L87",
+      "source_location": "L107",
       "id": "dispatch_engine_dispatch_to_linkedin",
-      "community": 19
+      "community": 17
     },
     {
       "label": "send_slack_notification()",
       "file_type": "code",
       "source_file": "tools\\post_creator\\dispatch_engine.py",
-      "source_location": "L174",
+      "source_location": "L194",
       "id": "dispatch_engine_send_slack_notification",
-      "community": 19
+      "community": 17
     },
     {
       "label": "main()",
       "file_type": "code",
       "source_file": "tools\\post_creator\\dispatch_engine.py",
-      "source_location": "L216",
+      "source_location": "L236",
       "id": "dispatch_engine_main",
-      "community": 19
+      "community": 17
     },
     {
       "label": "Load image prompt templates.",
@@ -3417,7 +3425,7 @@
       "source_file": "tools\\post_creator\\dispatch_engine.py",
       "source_location": "L39",
       "id": "dispatch_engine_rationale_39",
-      "community": 19
+      "community": 17
     },
     {
       "label": "Build a randomized image prompt based on the post type.",
@@ -3425,31 +3433,39 @@
       "source_file": "tools\\post_creator\\dispatch_engine.py",
       "source_location": "L45",
       "id": "dispatch_engine_rationale_45",
-      "community": 19
+      "community": 17
     },
     {
-      "label": "Generate a hero image using the image studio. Returns the file path.",
+      "label": "Generate a hero image using the image studio. Returns the file path.     Falls b",
       "file_type": "rationale",
       "source_file": "tools\\post_creator\\dispatch_engine.py",
       "source_location": "L69",
       "id": "dispatch_engine_rationale_69",
-      "community": 19
+      "community": 17
+    },
+    {
+      "label": "Pick a random fallback image from the pre-generated cache.",
+      "file_type": "rationale",
+      "source_file": "tools\\post_creator\\dispatch_engine.py",
+      "source_location": "L94",
+      "id": "dispatch_engine_rationale_94",
+      "community": 17
     },
     {
       "label": "Post to LinkedIn via Playwright with persistent browser session.",
       "file_type": "rationale",
       "source_file": "tools\\post_creator\\dispatch_engine.py",
-      "source_location": "L92",
-      "id": "dispatch_engine_rationale_92",
-      "community": 19
+      "source_location": "L112",
+      "id": "dispatch_engine_rationale_112",
+      "community": 17
     },
     {
       "label": "Send a Slack notification about the post status.",
       "file_type": "rationale",
       "source_file": "tools\\post_creator\\dispatch_engine.py",
-      "source_location": "L175",
-      "id": "dispatch_engine_rationale_175",
-      "community": 19
+      "source_location": "L195",
+      "id": "dispatch_engine_rationale_195",
+      "community": 17
     },
     {
       "label": "execute_2step_ai_3d_hero_pipeline.py",
@@ -3537,6 +3553,22 @@
       "source_file": "tools\\post_creator\\generate_4slide_carousel.py",
       "source_location": "L1",
       "id": "generate_4slide_carousel_rationale_1",
+      "community": 0
+    },
+    {
+      "label": "generate_fallback_cache.py",
+      "file_type": "code",
+      "source_file": "tools\\post_creator\\generate_fallback_cache.py",
+      "source_location": "L1",
+      "id": "generate_fallback_cache",
+      "community": 0
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "tools\\post_creator\\generate_fallback_cache.py",
+      "source_location": "L36",
+      "id": "generate_fallback_cache_main",
       "community": 0
     },
     {
@@ -4993,7 +5025,7 @@
       "source_file": "tools\\trend_finder.py",
       "source_location": "L1",
       "id": "trend_finder",
-      "community": 17
+      "community": 18
     },
     {
       "label": "fetch_trending_via_newsdata()",
@@ -5001,7 +5033,7 @@
       "source_file": "tools\\trend_finder.py",
       "source_location": "L45",
       "id": "trend_finder_fetch_trending_via_newsdata",
-      "community": 17
+      "community": 18
     },
     {
       "label": "fetch_trending_via_currents()",
@@ -5009,7 +5041,7 @@
       "source_file": "tools\\trend_finder.py",
       "source_location": "L66",
       "id": "trend_finder_fetch_trending_via_currents",
-      "community": 17
+      "community": 18
     },
     {
       "label": "fetch_trending_via_hacker_news()",
@@ -5017,7 +5049,7 @@
       "source_file": "tools\\trend_finder.py",
       "source_location": "L87",
       "id": "trend_finder_fetch_trending_via_hacker_news",
-      "community": 17
+      "community": 18
     },
     {
       "label": "deduplicate_topics()",
@@ -5025,7 +5057,7 @@
       "source_file": "tools\\trend_finder.py",
       "source_location": "L121",
       "id": "trend_finder_deduplicate_topics",
-      "community": 17
+      "community": 18
     },
     {
       "label": "determine_post_type()",
@@ -5033,7 +5065,7 @@
       "source_file": "tools\\trend_finder.py",
       "source_location": "L139",
       "id": "trend_finder_determine_post_type",
-      "community": 17
+      "community": 18
     },
     {
       "label": "generate_hashtags()",
@@ -5041,7 +5073,7 @@
       "source_file": "tools\\trend_finder.py",
       "source_location": "L151",
       "id": "trend_finder_generate_hashtags",
-      "community": 17
+      "community": 18
     },
     {
       "label": "main()",
@@ -5049,7 +5081,7 @@
       "source_file": "tools\\trend_finder.py",
       "source_location": "L174",
       "id": "trend_finder_main",
-      "community": 17
+      "community": 18
     },
     {
       "label": "Fetch headlines from NewsData.io (free tier, 200 credits/day, no key needed for",
@@ -5057,7 +5089,7 @@
       "source_file": "tools\\trend_finder.py",
       "source_location": "L46",
       "id": "trend_finder_rationale_46",
-      "community": 17
+      "community": 18
     },
     {
       "label": "Fetch from Currents API (free, ~1000 req/day).",
@@ -5065,7 +5097,7 @@
       "source_file": "tools\\trend_finder.py",
       "source_location": "L67",
       "id": "trend_finder_rationale_67",
-      "community": 17
+      "community": 18
     },
     {
       "label": "Fetch top stories from Hacker News API (free, no key, no limits).",
@@ -5073,7 +5105,7 @@
       "source_file": "tools\\trend_finder.py",
       "source_location": "L88",
       "id": "trend_finder_rationale_88",
-      "community": 17
+      "community": 18
     },
     {
       "label": "Remove near-duplicate titles.",
@@ -5081,7 +5113,7 @@
       "source_file": "tools\\trend_finder.py",
       "source_location": "L122",
       "id": "trend_finder_rationale_122",
-      "community": 17
+      "community": 18
     },
     {
       "label": "Heuristic to classify a trending topic into a post type.",
@@ -5089,7 +5121,7 @@
       "source_file": "tools\\trend_finder.py",
       "source_location": "L140",
       "id": "trend_finder_rationale_140",
-      "community": 17
+      "community": 18
     },
     {
       "label": "Generate relevant hashtags based on topic keywords.",
@@ -5097,7 +5129,7 @@
       "source_file": "tools\\trend_finder.py",
       "source_location": "L152",
       "id": "trend_finder_rationale_152",
-      "community": 17
+      "community": 18
     },
     {
       "label": "watch-accepts.ps1",
@@ -13521,7 +13553,19 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tools\\post_creator\\dispatch_engine.py",
-      "source_location": "L87",
+      "source_location": "L93",
+      "weight": 1.0,
+      "_src": "dispatch_engine",
+      "_tgt": "dispatch_engine_get_fallback_image",
+      "source": "dispatch_engine",
+      "target": "dispatch_engine_get_fallback_image",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tools\\post_creator\\dispatch_engine.py",
+      "source_location": "L107",
       "weight": 1.0,
       "_src": "dispatch_engine",
       "_tgt": "dispatch_engine_dispatch_to_linkedin",
@@ -13533,7 +13577,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tools\\post_creator\\dispatch_engine.py",
-      "source_location": "L174",
+      "source_location": "L194",
       "weight": 1.0,
       "_src": "dispatch_engine",
       "_tgt": "dispatch_engine_send_slack_notification",
@@ -13545,7 +13589,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tools\\post_creator\\dispatch_engine.py",
-      "source_location": "L216",
+      "source_location": "L236",
       "weight": 1.0,
       "_src": "dispatch_engine",
       "_tgt": "dispatch_engine_main",
@@ -13557,7 +13601,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "tools\\post_creator\\dispatch_engine.py",
-      "source_location": "L227",
+      "source_location": "L247",
       "weight": 0.8,
       "_src": "dispatch_engine_main",
       "_tgt": "dispatch_engine_load_templates",
@@ -13581,7 +13625,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "tools\\post_creator\\dispatch_engine.py",
-      "source_location": "L267",
+      "source_location": "L287",
       "weight": 0.8,
       "_src": "dispatch_engine_main",
       "_tgt": "dispatch_engine_build_image_prompt",
@@ -13605,7 +13649,19 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "tools\\post_creator\\dispatch_engine.py",
-      "source_location": "L273",
+      "source_location": "L90",
+      "weight": 0.8,
+      "_src": "dispatch_engine_generate_hero_image",
+      "_tgt": "dispatch_engine_get_fallback_image",
+      "source": "dispatch_engine_generate_hero_image",
+      "target": "dispatch_engine_get_fallback_image",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "tools\\post_creator\\dispatch_engine.py",
+      "source_location": "L293",
       "weight": 0.8,
       "_src": "dispatch_engine_main",
       "_tgt": "dispatch_engine_generate_hero_image",
@@ -13626,34 +13682,46 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "calls",
-      "confidence": "INFERRED",
-      "source_file": "tools\\post_creator\\dispatch_engine.py",
-      "source_location": "L299",
-      "weight": 0.8,
-      "_src": "dispatch_engine_main",
-      "_tgt": "dispatch_engine_dispatch_to_linkedin",
-      "source": "dispatch_engine_dispatch_to_linkedin",
-      "target": "dispatch_engine_main",
-      "confidence_score": 0.5
-    },
-    {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "tools\\post_creator\\dispatch_engine.py",
-      "source_location": "L92",
+      "source_location": "L94",
       "weight": 1.0,
-      "_src": "dispatch_engine_rationale_92",
-      "_tgt": "dispatch_engine_dispatch_to_linkedin",
-      "source": "dispatch_engine_dispatch_to_linkedin",
-      "target": "dispatch_engine_rationale_92",
+      "_src": "dispatch_engine_rationale_94",
+      "_tgt": "dispatch_engine_get_fallback_image",
+      "source": "dispatch_engine_get_fallback_image",
+      "target": "dispatch_engine_rationale_94",
       "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "tools\\post_creator\\dispatch_engine.py",
-      "source_location": "L311",
+      "source_location": "L319",
+      "weight": 0.8,
+      "_src": "dispatch_engine_main",
+      "_tgt": "dispatch_engine_dispatch_to_linkedin",
+      "source": "dispatch_engine_dispatch_to_linkedin",
+      "target": "dispatch_engine_main",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "tools\\post_creator\\dispatch_engine.py",
+      "source_location": "L112",
+      "weight": 1.0,
+      "_src": "dispatch_engine_rationale_112",
+      "_tgt": "dispatch_engine_dispatch_to_linkedin",
+      "source": "dispatch_engine_dispatch_to_linkedin",
+      "target": "dispatch_engine_rationale_112",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "tools\\post_creator\\dispatch_engine.py",
+      "source_location": "L331",
       "weight": 0.8,
       "_src": "dispatch_engine_main",
       "_tgt": "dispatch_engine_send_slack_notification",
@@ -13665,12 +13733,12 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "tools\\post_creator\\dispatch_engine.py",
-      "source_location": "L175",
+      "source_location": "L195",
       "weight": 1.0,
-      "_src": "dispatch_engine_rationale_175",
+      "_src": "dispatch_engine_rationale_195",
       "_tgt": "dispatch_engine_send_slack_notification",
       "source": "dispatch_engine_send_slack_notification",
-      "target": "dispatch_engine_rationale_175",
+      "target": "dispatch_engine_rationale_195",
       "confidence_score": 1.0
     },
     {
@@ -13828,6 +13896,30 @@
       "source": "generate_4slide_carousel_render_edge_screenshot",
       "target": "generate_4slide_carousel_generate_upgraded_4slide_carousel",
       "confidence_score": 0.5
+    },
+    {
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "tools\\post_creator\\generate_fallback_cache.py",
+      "source_location": "L18",
+      "weight": 1.0,
+      "_src": "generate_fallback_cache",
+      "_tgt": "image_studio",
+      "source": "generate_fallback_cache",
+      "target": "image_studio",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tools\\post_creator\\generate_fallback_cache.py",
+      "source_location": "L36",
+      "weight": 1.0,
+      "_src": "generate_fallback_cache",
+      "_tgt": "generate_fallback_cache_main",
+      "source": "generate_fallback_cache",
+      "target": "generate_fallback_cache_main",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",

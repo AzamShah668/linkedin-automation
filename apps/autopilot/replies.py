@@ -32,10 +32,12 @@ from __future__ import annotations
 
 import argparse
 import re
+import subprocess
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from apps.autopilot.answers import REPO
 from apps.autopilot.fill import (
     DEFAULT_USER_DATA_DIR,
     LinkedInLoggedOut,
@@ -140,10 +142,47 @@ def scan(user_data_dir: Path = DEFAULT_USER_DATA_DIR, headless: bool = False) ->
     return report
 
 
+def notify(waiting: list[Thread]) -> None:
+    """Push waiting threads to Slack.
+
+    A scheduled task that only writes to a log file reproduces the very failure this module was
+    built to fix: the information exists and nobody sees it. The log is the record; Slack is the
+    part a human actually reads.
+    """
+    if not waiting:
+        return
+    lines = [f"- {t.name}: {t.preview[:110]}" for t in waiting[:10]]
+    body = (
+        f"{len(waiting)} LinkedIn thread(s) where they spoke last and we have not replied:\n"
+        + "\n".join(lines)
+        + "\n\nOpen: https://www.linkedin.com/messaging/"
+    )
+    try:
+        proc = subprocess.run(
+            [sys.executable, str(REPO / "tools" / "slack_notify.py"),
+             "--event", "reply", "--title", f"{len(waiting)} LinkedIn thread(s) waiting on you",
+             "--text", body],
+            cwd=REPO, capture_output=True, text=True, timeout=60,
+        )
+    except (OSError, subprocess.SubprocessError) as exc:
+        # Never let a notification failure look like "nothing was waiting".
+        print(f"  !! could not post to Slack ({exc}); the {len(waiting)} waiting thread(s) above still need a reply")
+        return
+    # Say so either way. A notification step that succeeds silently is indistinguishable in the log
+    # from one that never ran, which is the exact defect this whole module exists to fix.
+    if proc.returncode == 0:
+        print(f"  slack: notified about {len(waiting)} waiting thread(s)")
+    else:
+        print(f"  !! slack REFUSED the alert (exit {proc.returncode}): "
+              f"{(proc.stderr or proc.stdout or '').strip()[:200]}")
+        print(f"     the {len(waiting)} waiting thread(s) above still need a reply")
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description="Report LinkedIn threads where they spoke last.")
     ap.add_argument("--headless", action="store_true")
     ap.add_argument("--all", action="store_true", help="show every thread, not just the waiting ones")
+    ap.add_argument("--notify", action="store_true", help="post waiting threads to Slack")
     args = ap.parse_args(argv)
 
     report = scan(headless=args.headless)
@@ -173,6 +212,8 @@ def main(argv: list[str] | None = None) -> int:
     print()
     if waiting:
         print(f"** {len(waiting)} thread(s) WAITING ON A REPLY FROM US")
+        if args.notify:
+            notify(waiting)
     else:
         print("no thread is waiting on us")
     return 0

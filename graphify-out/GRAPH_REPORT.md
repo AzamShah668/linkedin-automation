@@ -1,12 +1,12 @@
 # Graph Report - .  (2026-08-10)
 
 ## Corpus Check
-- 83 files · ~0 words
+- 84 files · ~0 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 699 nodes · 1037 edges · 68 communities detected
-- Extraction: 62% EXTRACTED · 38% INFERRED · 0% AMBIGUOUS · INFERRED: 398 edges (avg confidence: 0.5)
+- 703 nodes · 1042 edges · 68 communities detected
+- Extraction: 62% EXTRACTED · 38% INFERRED · 0% AMBIGUOUS · INFERRED: 399 edges (avg confidence: 0.5)
 - Token cost: 0 input · 0 output
 
 ## God Nodes (most connected - your core abstractions)
@@ -105,15 +105,15 @@ Nodes (14): all_of(), build_card(), first(), first_blockquote(), load_env(), mai
 
 ### Community 17 - "Community 17"
 Cohesion: 0.21
-Nodes (13): deduplicate_topics(), determine_post_type(), fetch_trending_via_currents(), fetch_trending_via_hacker_news(), fetch_trending_via_newsdata(), generate_hashtags(), main(), Remove near-duplicate titles. (+5 more)
+Nodes (13): build_image_prompt(), dispatch_to_linkedin(), generate_hero_image(), _get_fallback_image(), load_templates(), main(), Post to LinkedIn via Playwright with persistent browser session., Send a Slack notification about the post status. (+5 more)
 
 ### Community 18 - "Community 18"
-Cohesion: 0.15
-Nodes (7): Tests for role-family routing.  The risk being tested: a job silently getting th, MLOps postings ask for model lifecycle work, not cluster work — even though the, Both families fit; DevOps leads with the better-evidenced half of the portfolio., No CV must never mean 'apply with whatever LinkedIn pre-filled'., test_ai_devops_hybrids_go_to_devops(), test_missing_family_cv_is_reported_not_silently_skipped(), test_mlops_goes_to_ai_not_devops()
+Cohesion: 0.21
+Nodes (13): deduplicate_topics(), determine_post_type(), fetch_trending_via_currents(), fetch_trending_via_hacker_news(), fetch_trending_via_newsdata(), generate_hashtags(), main(), Remove near-duplicate titles. (+5 more)
 
 ### Community 19 - "Community 19"
-Cohesion: 0.24
-Nodes (11): build_image_prompt(), dispatch_to_linkedin(), generate_hero_image(), load_templates(), main(), Send a Slack notification about the post status., Load image prompt templates., Build a randomized image prompt based on the post type. (+3 more)
+Cohesion: 0.15
+Nodes (7): Tests for role-family routing.  The risk being tested: a job silently getting th, MLOps postings ask for model lifecycle work, not cluster work — even though the, Both families fit; DevOps leads with the better-evidenced half of the portfolio., No CV must never mean 'apply with whatever LinkedIn pre-filled'., test_ai_devops_hybrids_go_to_devops(), test_missing_family_cv_is_reported_not_silently_skipped(), test_mlops_goes_to_ai_not_devops()
 
 ### Community 20 - "Community 20"
 Cohesion: 0.25
@@ -308,7 +308,7 @@ Cohesion: 1.0
 Nodes (0): 
 
 ## Knowledge Gaps
-- **170 isolated node(s):** `Job Hunt Autopilot — the Python runtime that replaces the Claude-Code-as-server`, `The answer bank and the FIELD_MAP — the only legal source of form values.  THE`, `Read a dotted path out of the bank. Returns None for missing OR null — both mean`, `One mappable question.      patterns  regexes matched (case-insensitive) again`, `Answer 'Are you currently located in <city>?' by COMPARING, never by assuming.` (+165 more)
+- **171 isolated node(s):** `Job Hunt Autopilot — the Python runtime that replaces the Claude-Code-as-server`, `The answer bank and the FIELD_MAP — the only legal source of form values.  THE`, `Read a dotted path out of the bank. Returns None for missing OR null — both mean`, `One mappable question.      patterns  regexes matched (case-insensitive) again`, `Answer 'Are you currently located in <city>?' by COMPARING, never by assuming.` (+166 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **Thin community `Community 50`** (2 nodes): `__init__.py`, `Job Hunt Autopilot — the Python runtime that replaces the Claude-Code-as-server`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
@@ -351,7 +351,7 @@ Nodes (0):
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `LinkedInLoggedOut` connect `Community 3` to `Community 8`, `Community 1`, `Community 4`?**
-  _High betweenness centrality (0.033) - this node is a cross-community bridge._
+  _High betweenness centrality (0.032) - this node is a cross-community bridge._
 - **Why does `BankMissing` connect `Community 11` to `Community 4`?**
   _High betweenness centrality (0.011) - this node is a cross-community bridge._
 - **Are the 16 inferred relationships involving `LinkedInLoggedOut` (e.g. with `check_logged_in()` and `Thread`) actually correct?**
@@ -363,4 +363,4 @@ _Questions this graph is uniquely positioned to answer:_
 - **Are the 8 inferred relationships involving `_scan()` (e.g. with `Control` and `_group_label()`) actually correct?**
   _`_scan()` has 8 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `Job Hunt Autopilot — the Python runtime that replaces the Claude-Code-as-server`, `The answer bank and the FIELD_MAP — the only legal source of form values.  THE`, `Read a dotted path out of the bank. Returns None for missing OR null — both mean` to the rest of the system?**
-  _170 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _171 weakly-connected nodes found - possible documentation gaps or missing edges._
