@@ -1326,6 +1326,43 @@ in the first person, and it is still not a human.** The subject line is also how
 AWS Cloud Engineer row rather than the DevOps row — Crossing Hurdles has two `$60/hr Remote` rows and the
 role name in the auto-ack subject disambiguated them without parsing LinkedIn's HTML.
 
+## Accept watch — 2026-08-10 21:02 (third run of the day; fifth consecutive identical result)
+
+Ran per [[13-accept-watch-runbook]]. **All three steps completed. Nothing accepted, nothing due, nothing
+expired** → step 5's quiet exit: **no Slack post, no Notion writes, nothing sent.**
+
+- **Step 1 `expire`:** `Nothing older than 14 days still pending.` Wall is still 08-20.
+- **Step 2 (the poll):** all three `get_person_profile` calls returned — which doubles as the only
+  trustworthy auth check, so the LinkedIn session is healthy at 21:02.
+
+| Who | Company · role | Degree | Badge | Verdict |
+|---|---|---|---|---|
+| **Recruiter-E** (CTO) | SkillsCapital · SWE Intern (AI/ML & Agentic AI) **93** | `3rd` | `Pending` | not accepted |
+| **Recruiter-F** (Co-Founder) | Mirai Alpha · AI Engineering Intern | `3rd` | `Pending` | not accepted |
+| **Recruiter-D** (Recruitment Consultant) | Hired · AI/ML Engineer (keep-on-file) | `3rd` | `Pending` | not accepted |
+
+- **Step 3 `due`:** `[]`. **Verified as genuinely empty, not a business-hours hold** —
+  `list --status accepted` returns `[]`, so there is no ripe row being held. This distinction matters at
+  21:02: the 09:00–21:00 gate had just closed, and `cmd_due` returns `[]` for *both* reasons with the same
+  output. A quiet `due` is only trustworthy once you have checked whether anything is `accepted` at all.
+
+Fifth consecutive run reading identically; the invites are at **day 4** since 08-06, still normal latency
+for a cold connect, and no pitch is late. The `Pending` badges keep ruling out the D12
+`custom_note_limit_reached` hole — stage 1 genuinely delivered.
+
+- ⚠️ **`last_checked` is still `null` on all three** — `invite_tracker.py` only stamps it inside
+  `mark-accepted`, so this run polled three profiles and again left **no trace in the state file**. Fifth
+  time recorded; these sections remain the only evidence any poll ever happened.
+- 👀 **Recruiter-F's profile still advertises only the *Founder's Office Intern — Research & Strategic
+  Growth*** req; the AI Engineering Intern posting she was pitched for stays closed. Unchanged since 08-09.
+- 🪤 **PYMK trap, seventh confirmation.** The Indian-name sidebar `references` on all three profiles are
+  LinkedIn "people you may know" suggestions, **never a warm path**.
+
+**Nothing here is actionable, and that is the point of the quiet exit** — but this runbook has now reported
+"no change" five times running while the open levers sit elsewhere: Track A **A0** (Infosys Junior AI
+Engineer 90, where Recruiter-A is already 1st-degree so no accept is needed at all) and **A2** (Energy
+Exemplar's outreach, drafted 08-06 and still unsent).
+
 ## Apply at volume — 2026-08-09/10 (the batch runner ran; read [[26-apply-at-volume]])
 
 **Thirteen applications now exist. Zero replies.** 5 email + 1 LinkedIn DM (tailored packets) and
@@ -1378,6 +1415,66 @@ All four are D30's disease — a plausible report over a wrong action.
 31 candidate rows planned and ready; 8 skipped (1 ledger, 7 company cap). ~60% of the wider board is
 external ATS with no Easy Apply path built. Answer bank gained passport / night-shifts / middle-name /
 previously-employed-here from the owner on 08-09.
+
+## Closing the D32 gap — 2026-08-10 evening (first humans contacted for the batch submissions)
+
+The batch had produced 8 Easy Apply submissions with **five of them reaching nobody**. This is the
+first pass at fixing that, and it changed three of the five.
+
+### ✅ Energy Exemplar — the email that had existed since 08-06 was finally SENT
+
+Touch 1 went to the recruiter's **verified** address (he published it himself in a public LinkedIn
+hiring post). Gmail thread `19fec506e940b383`, 2026-08-10 15:35 UTC.
+
+- **MX checked first, per [[drive-sharing-mx-decides]]:** `energyexemplar.com` resolves to
+  `au-smtp-inbound-*.mimecast.com`. Mimecast almost always fronts Microsoft 365, which matches an
+  Azure-first engineering team, so a Drive link restricted to his address would have shown
+  "You need access".
+- **CV delivery changed at send time.** The tailored PDF could **not** be attached: Composio's Gmail
+  attachment needs an `s3key` staged inside *its own* sandbox, and that sandbox cannot see a local
+  file ([[cloud-tools-cannot-touch-local-files]], confirmed again). Sent the public general CV link
+  instead — which is the standing rule anyway ("email links ONE general CV, never publish tailored
+  variants") and is itself the DevOps CV, matching this DevOps role.
+- The email names the **Azure gap** in the owner's own voice rather than hiding it. Deliberate.
+
+### ✅ Celigo and Neurones IT Asia — recruiters found, bare invites sent
+
+Both were previously "no packet, no contact, no outreach". Both now have `contact.md` and a drafted
+touch-2, and a **bare connection request (no note, D12)** is pending on each. Registered in
+`pending-invites.json`, so `watch-accepts` schedules the follow-up automatically.
+
+| Company | Target | Why |
+|---|---|---|
+| Celigo | Lead, Recruiting (Hyderabad, 3rd) | seniority + explicit SaaS hiring; Celigo is iPaaS |
+| Neurones IT Asia | TA Partner (Singapore, 3rd) | headline names **DevOps and Cloud explicitly**, in-house, end-to-end ownership |
+
+⭐ **The Neurones partner's profile says she sources through "LinkedIn, GitHub, and niche tech
+communities" with zero agency dependency.** That is the best hook available to this candidate, whose
+whole differentiator is public GitHub work, and the touch-2 draft now leads with it.
+
+### ❌ Crossing Hurdles — no contact exists, and that is the finding
+
+`search_people("Crossing Hurdles recruiter talent")` returned **zero people employed there**. Combined
+with the `ceipalmail.com` auto-ack that fires within 3 seconds and funnels to `jobs.micro1.ai` with a
+referral code, the shape is a **staffing shell whose reqs are lead magnets for micro1's funnel**.
+There is no hiring manager behind the posting to reach.
+
+Recorded as a deliberate negative result in `output/outreach/crossing-hurdles/contact.md`, and no
+unrelated recruiter was messaged just to have messaged somebody.
+
+> **The wider point: two of eight application slots went to a company that cannot be followed up.**
+> That is a *sourcing* defect, not an outreach one. Candidate scoring rule worth adding: **if no
+> employee of the company is findable on LinkedIn, the row does not deserve an application slot.**
+
+### Where the 8 stand now
+
+| Company | Contact | Status |
+|---|---|---|
+| Energy Exemplar | ✅ verified email | **emailed 08-10** |
+| Celigo | ✅ found | invite pending |
+| Neurones IT Asia | ✅ found | invite pending |
+| Crossing Hurdles ×2 | ❌ none exist | closed, unreachable by design |
+| SkillsCapital ×3 | ⚠️ contact exists, packet is for a different role | 3 approaches already made, no answer |
 
 ## Immediate next work
 

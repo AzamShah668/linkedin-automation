@@ -70,7 +70,10 @@ When generating a new LinkedIn post:
 1. **Read the skill**: `.agents/skills/viral-architecture-visualizer/SKILL.md` — every time, no exceptions.
 2. **Run the generator**: `$env:PYTHONIOENCODING="utf-8"; py -3 tools/post_creator/generate_unified_post.py`
 3. **Review outputs**: Verify all 4 slides in `output/posts/unified_post/` — check for gibberish text, correct content, no metrics.
-4. **Dispatch**: Via Claude's `mcp-server-linkedin`, or manual upload by the user.
+4. **Dispatch**: Via standard persistent browser profile (`.pw_browser/linkedin_user_data/`) using Playwright / `mcp-server-linkedin`.
+5. **Execution Log**:
+   - **Post 1** (2026-08-09): *I Automated My Entire LinkedIn* (Carousel + Copy) — Posted Live.
+   - **Post 2** (2026-08-10): *PrivateCloud — University Shared Server Story* (Reframed Human Narrative + 4-Slide Carousel Pack + Viral PascalCase Hashtags) — Posted Live (`1m` ago).
 
 ---
 

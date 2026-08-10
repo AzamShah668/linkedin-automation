@@ -151,22 +151,25 @@ Two audience blocks work well:
 
 One line. Comma-separated. This is for the technical credibility audience.
 
-### 3.6 The Closing (emotional, not corporate)
+### 3.6 The Closing (Ending cleanly without AI tells)
 
-NOT: "What do you think? Let me know in the comments!"
-NOT: "Agree? ♻️ Repost if this resonated."
+- ❌ NEVER use generic engagement bait: "What do you think? Let me know in the comments!"
+- ❌ NEVER use "I'd genuinely love to hear your stories" or "Comment below if you agree" (classic AI tells that readers spot immediately)
+- ❌ NEVER use "Agree? ♻️ Repost if this resonated."
 
-Instead, connect back to the universal problem and invite STORIES:
-- "What does your lab infrastructure look like? I'd love to hear the horror stories."
-- "Tell me about that one server in your department that everyone dreads."
-- "What's the worst shared-infrastructure experience you've survived?"
+**What to do instead**:
+- End on a strong, definitive final sentence that leaves an impression.
+- Or drop a sharp, opinionated takeaway that naturally makes people want to respond.
 
-Asking for STORIES drives longer comments (high engagement signal) than asking
-for opinions.
+---
 
 ### 3.7 Hashtags
 
-Maximum 2. More than 2 reduces reach in 2026.
+Use **3–5 targeted hashtags** in **PascalCase** at the very end. Combine 1–2 broad tags with 2–3 niche tags relevant to the post topic.
+
+Examples for Cloud/DevOps:
+`#DevOps #CloudComputing #PlatformEngineering #SoftwareEngineering #SelfHosted`
+
 
 ---
 
