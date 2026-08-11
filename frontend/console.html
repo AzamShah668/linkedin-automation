@@ -19,6 +19,8 @@
   </a>
   <nav class="tabs" id="nav"></nav>
   <div class="topbar-right">
+    <span class="live" id="live" title="This page re-reads the backend on its own"><i></i>live</span>
+    <button class="btn" id="refreshBtn" type="button">Refresh now</button>
     <a class="btn btn-primary" href="/controls">Run something</a>
     <span class="stamp" id="stamp">loading</span>
   </div>
@@ -28,6 +30,7 @@
 
   <p class="pagelede">Everything that has happened, what it proved, and the few things only you can do.</p>
 
+  <div class="freshness" id="freshness"></div>
   <div class="metrics" id="metrics"></div>
 
   <div class="callout" id="callout" hidden></div>

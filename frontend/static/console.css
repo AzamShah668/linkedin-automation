@@ -124,3 +124,42 @@
 }
 @media (prefers-reduced-motion: reduce) { .tip { transition:none; } }
 @media (min-width:900px) { .split { grid-template-columns:1fr 1fr; } }
+
+/* ---- live indicator + freshness strip ----
+   The page polls, so it must SAY it polls, and say when each source was last written. A page
+   that silently refreshes is indistinguishable from a page that has frozen — and one that shows
+   a single "updated 2s ago" would be telling the truth about the fetch and lying about the data. */
+.live {
+  display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:10.5px;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--good);
+  padding:3px 9px; border:1px solid var(--good-line); background:var(--good-bg); border-radius:99px;
+}
+.live i {
+  width:6px; height:6px; border-radius:50%; background:var(--good); display:block;
+  animation:pulse 2.4s ease-in-out infinite;
+}
+.live.paused { color:var(--faint); border-color:var(--line); background:var(--surface-2); }
+.live.paused i { background:var(--faint); animation:none; }
+.live.err { color:var(--crit); border-color:var(--crit-line); background:var(--crit-bg); }
+.live.err i { background:var(--crit); animation:none; }
+@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:.25; } }
+@media (prefers-reduced-motion: reduce) { .live i { animation:none; } }
+
+.freshness { display:flex; flex-wrap:wrap; gap:8px; }
+.fr {
+  display:flex; align-items:center; gap:8px; padding:6px 11px; border-radius:99px;
+  border:1px solid var(--line); background:var(--surface); font-size:12px; color:var(--muted);
+}
+.fr b { font-weight:600; color:var(--ink); font-size:12px; }
+.fr .when { font-family:var(--mono); font-size:11px; color:var(--faint); }
+.fr.stale { border-color:var(--warn-line); background:var(--warn-bg); color:var(--warn); }
+.fr.stale b { color:var(--warn); }
+.fr.stale .when { color:var(--warn); }
+.fr button {
+  font-family:var(--mono); font-size:10px; letter-spacing:.06em; text-transform:uppercase;
+  padding:2px 8px; border-radius:99px; cursor:pointer;
+  border:1px solid var(--accent-line); background:var(--accent-soft); color:var(--accent);
+}
+.fr button:hover { filter:brightness(1.06); }
+.fr button[disabled] { opacity:.55; cursor:default; }
+#refreshBtn.busy { opacity:.6; pointer-events:none; }

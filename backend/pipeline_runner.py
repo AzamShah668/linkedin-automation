@@ -113,6 +113,21 @@ register(
            "Writes every status you changed here into the Notion pages, refreshes the local capture so "
            "nothing can revert, and clears the queue. Needs NOTION_TOKEN in .env; without it, it still "
            "keeps the local side consistent and tells you what is left."),
+    Action("triage", "Re-check which jobs are Easy Apply", "safe",
+           [PY, "apps/autopilot/triage.py", "--recheck"],
+           "Opens every live posting and records whether it still has an Easy Apply button, or has "
+           "closed. This is what the Console page's Easy Apply / external split is built from. "
+           "Read-only on LinkedIn and applies to nothing. Takes a few minutes.",
+           touches_linkedin=True),
+    Action("coverage", "Which applications reached nobody", "safe",
+           [PY, "apps/autopilot/coverage.py"],
+           "Counts how many applications have a named human attached and lists the ones that do not. "
+           "Reads only local records; contacts no one."),
+    Action("inbox", "Read the LinkedIn inbox", "safe",
+           [PY, "apps/autopilot/replies.py", "--headless"],
+           "Lists LinkedIn threads where the other person spoke last and we have not replied. "
+           "Read-only: it opens the inbox and reports, it never sends.",
+           touches_linkedin=True),
     Action("approvals", "Read the Slack approval gate", "safe",
            [PY, "tools/check_approvals.py"],
            "Scans the channel for the cards you ticked with a check mark, and which are already stamped as sent."),

@@ -48,6 +48,7 @@ for _p in (_HERE, _ROOT / "database"):
 
 import pipeline_runner as runner  # noqa: E402
 from board_db import (  # noqa: E402
+    DB_PATH,
     ALLOWED_STATUS,
     all_rows,
     connect,
@@ -200,6 +201,25 @@ def slack_feed() -> list[dict]:
     return msgs
 
 
+def _age(path: Path, label: str, stale_after_h: float) -> dict:
+    """When a source was last written, and whether that is too long ago.
+
+    Freshness is reported per source rather than for the page as a whole, because these four
+    update on completely different clocks: the board changes when discovery runs, the ledger only
+    when something is actually sent, and the triage cache only when someone re-probes LinkedIn.
+    A single page-level "updated 3s ago" would be true about the FETCH and a lie about the DATA —
+    which is the failure this project keeps rediscovering under different names (D23, D29, D35).
+    """
+    if not path.exists():
+        return {"label": label, "updated": None, "ageH": None, "stale": True,
+                "why": "never written"}
+    ts = dt.datetime.fromtimestamp(path.stat().st_mtime)
+    age_h = (dt.datetime.now() - ts).total_seconds() / 3600
+    return {"label": label, "updated": ts.isoformat(timespec="seconds"),
+            "ageH": round(age_h, 2), "stale": age_h > stale_after_h,
+            "why": f"older than {stale_after_h:g}h" if age_h > stale_after_h else ""}
+
+
 def console() -> dict:
     """Everything the /console page shows, assembled from the pipeline's own records.
 
@@ -251,7 +271,19 @@ def console() -> dict:
 
     return {
         "generated": today.isoformat(),
+        "fetched": dt.datetime.now().isoformat(timespec="seconds"),
         "warnings": warnings,
+        # Each source carries its own age. The refresh action that fixes a stale one is named
+        # here so the page can offer the button instead of just complaining.
+        "sources": [
+            dict(_age(DB_PATH, "Job board", 48), action="sync-board"),
+            dict(_age(ROOT / "output" / "apply-log" / "triage.json",
+                      "Easy Apply / external split", 24), action="triage"),
+            dict(_age(ROOT / "output" / "apply-log" / "submitted.jsonl",
+                      "Applications sent", 24 * 30), action=None),
+            dict(_age(OUT / "outreach" / "pending-invites.json",
+                      "Connection invites", 24 * 7), action="watch-accepts"),
+        ],
         "headline": {
             "board": len(rows), "applications": len(applied), "companies": len(companies),
             "replies": sum(1 for r in rows if r.get("reply")),

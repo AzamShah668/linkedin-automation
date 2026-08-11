@@ -6,12 +6,66 @@
    applied to?), the append-only apply ledger, and the coverage report. */
 JH.ready(function () {
   "use strict";
-  var el = JH.el, $ = JH.$, api = JH.api;
+  var el = JH.el, $ = JH.$, api = JH.api, post = JH.post;
 
-  api("/api/console").then(render).catch(function (e) {
-    var m = $("main");
-    m.insertBefore(el("p", "lede", "Could not load the console: " + e.message), m.firstChild);
+  /* ---------------- the live loop ----------------
+     The page polls instead of being loaded once. Two rules it must not break:
+
+     1. It SAYS it is polling, and shows when each source was last written. A page that silently
+        refreshes is indistinguishable from a page that has frozen.
+     2. Polling STOPS while the tab is hidden and resumes on focus. A background tab hammering
+        the backend every few seconds is how a local server ends up blamed for being slow. */
+  var POLL_MS = 15000;
+  var timer = null, inflight = false, failures = 0, lastData = null;
+
+  function setLive(state, text) {
+    var n = $("live");
+    n.className = "live" + (state ? " " + state : "");
+    n.lastChild.nodeValue = text;
+  }
+
+  function tick(manual) {
+    if (inflight) { return; }
+    inflight = true;
+    if (manual) { $("refreshBtn").classList.add("busy"); }
+    return api("/api/console").then(function (D) {
+      failures = 0;
+      lastData = D;
+      render(D);
+      setLive("", "live");
+    }).catch(function (e) {
+      failures++;
+      // Never let a failed poll leave stale numbers looking current.
+      setLive("err", "stale · " + (e.message || "backend unreachable"));
+      if (failures === 1 && !lastData) {
+        var m = $("main");
+        m.insertBefore(el("p", "lede", "Could not load the console: " + e.message), m.firstChild);
+      }
+    }).then(function () {
+      inflight = false;
+      $("refreshBtn").classList.remove("busy");
+    });
+  }
+
+  function start() {
+    if (timer) { return; }
+    tick();
+    timer = setInterval(function () {
+      if (document.hidden) { return; }
+      tick();
+    }, POLL_MS);
+  }
+
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden) {
+      setLive("paused", "paused");
+    } else {
+      setLive("", "live");
+      tick();   // catch up immediately rather than waiting out the interval
+    }
   });
+  $("refreshBtn").addEventListener("click", function () { tick(true); });
+  start();
 
   /* ---------------- helpers ---------------- */
   var SVGNS = "http://www.w3.org/2000/svg";
@@ -46,6 +100,18 @@ JH.ready(function () {
   function render(D) {
     var H = D.headline;
 
+    // Idempotent by construction: every host is emptied before it is drawn. render() runs on
+    // every poll, so anything that appends without clearing would grow the page forever.
+    ["metrics", "freshness", "acts", "c-time", "c-funnel", "c-chan", "c-kind",
+     "sk-demand", "sk-gap", "caps", "tl"].forEach(function (id) { JH.clear($(id)); });
+    ["t-easy", "t-ext", "t-sent"].forEach(function (id) {
+      JH.clear($(id).querySelector("tbody"));
+    });
+
+    freshness(D.sources || []);
+    var stamp = $("stamp");
+    if (stamp) { stamp.textContent = "read " + (D.fetched || "").replace("T", " "); }
+
     // A source that failed must say so. A page rendering zeros looks identical to a page whose
     // data vanished — the exact confusion this project has been bitten by repeatedly.
     if (D.warnings && D.warnings.length) {
@@ -78,6 +144,40 @@ JH.ready(function () {
     skills();
     capabilities();
     timeline();
+  }
+
+  function humanAge(h) {
+    if (h == null) { return "never"; }
+    if (h < 1) { return Math.max(1, Math.round(h * 60)) + " min ago"; }
+    if (h < 48) { return Math.round(h) + "h ago"; }
+    return Math.round(h / 24) + " days ago";
+  }
+
+  /* Per-source freshness. These four update on completely different clocks, so one page-level
+     "updated 2s ago" would be true about the fetch and a lie about the data. A stale source also
+     offers the button that fixes it, rather than only complaining. */
+  function freshness(sources) {
+    var host = $("freshness");
+    sources.forEach(function (s) {
+      var n = el("div", "fr" + (s.stale ? " stale" : ""));
+      n.appendChild(el("b", null, s.label));
+      n.appendChild(el("span", "when", humanAge(s.ageH) + (s.stale ? " · stale" : "")));
+      if (s.stale && s.action) {
+        var b = el("button", null, "Refresh");
+        b.type = "button";
+        b.addEventListener("click", function () {
+          b.disabled = true; b.textContent = "running…";
+          post("/api/run", { action: s.action, confirm: true }).then(function () {
+            JH.toast("Started: " + s.label + ". This page will pick it up when it finishes.");
+          }).catch(function (e) {
+            b.disabled = false; b.textContent = "Refresh";
+            JH.toast("Could not start it: " + e.message);
+          });
+        });
+        n.appendChild(b);
+      }
+      host.appendChild(n);
+    });
   }
 
   function metrics(H) {
