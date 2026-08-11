@@ -418,3 +418,32 @@ ticked + note appended, Status left Applied, Slack alerted. Nothing sent.
 Note: apps.autopilot.replies was permission-refused in this interactive session, so the LinkedIn MCP
 get_inbox path was used instead - the unit-tested code path is the one that did not run.
 Brain 2: 07-current-state gained the 08-11 reply-check section plus a new top item in "Immediate next work".
+
+## [2026-08-11 13:02] session | Accept watch - five pending now, none accepted
+Touched: none
+Ran 13-accept-watch-runbook end to end. expire: nothing over 14 days (wall 08-20 for the 08-06 trio,
+08-24 for the two added 08-10 21:10). Polled all FIVE pending invites - SkillsCapital CTO, Mirai Alpha
+co-founder, Hired consultant (day 5) plus Celigo lead recruiter and Neurones IT Asia talent partner
+(day 0). Every one still 3rd degree + Pending; nothing accepted. due: [] AND list --status accepted: []
+too, so genuinely empty rather than a business-hours hold. Runbook step 5 quiet exit: no Slack post, no
+Notion writes, nothing sent.
+Positive finding: this was the first poll since the two D32 outreach invites went out last night, and
+both read Pending - which rules out the D12 custom_note_limit_reached hole where connect_with_person
+reports success and silently sends nothing. Stage 1 worked on both.
+last_checked is still null on all five (6th run recorded) - invite_tracker only stamps it inside
+mark-accepted, so the polling history exists only in 07-current-state prose that no script can read.
+Brain 2: 07-current-state gained the 08-11 13:02 accept-watch section.
+
+## [2026-08-11 14:05] session | D34 resolved; brains brought to date
+Touched: none (AST-only graph)
+D34 resolved: a company's second role was unbuildable because the runbook refused to overwrite
+output/outreach/<company>/ while cv.py looked packets up by JOB ID - neither condition satisfiable, so
+Infosys AI/ML Engineer and Junior AI Engineer (90, best row on the board) reported FAIL forever. Split the
+units: outreach per company (D8 intact), CV per role in <company>--<role>/ reusing the company contact.
+First role keeps the plain folder so nothing on disk moved. Unblocks 9 rows (Infosys x5, SkillsCapital x4).
+Trap: a folder slug is NOT a comparison key - skillscapital vs skills-capital compare unequal and the
+tailored CV silently loses to the family one; use alphanumeric-only keys like the ledger does.
+Also: the 08-11 12:49 scheduled reply check found the 16-day-old warm-insider reply through the normal
+path - first inbound signal this project has ever caught by machine. 98 tests (was 50 on 08-09).
+Brains updated: CLAUDE.md (corrected the false "13 applications, 0 replies" that reordered the whole plan),
+07-current-state, 05-decisions (D34 marked resolved), Obsidian, graph at 780 nodes.

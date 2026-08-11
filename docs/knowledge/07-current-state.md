@@ -1535,6 +1535,121 @@ reply — and the one reply came from the *first* warm-insider approach the proj
 highest-fit company, within two hours. The outreach design is not what failed; the reading of the channel
 was. Notion now carries that fact, so the next session cannot re-derive the wrong number from the board.
 
+## Accept watch — 2026-08-11 13:02 (sixth consecutive quiet run; the queue is now FIVE, not three)
+
+Ran per [[13-accept-watch-runbook]]. **All three steps completed. Nothing accepted, nothing due, nothing
+expired** → step 5's quiet exit: **no Slack post, no Notion writes, nothing sent.**
+
+- **Step 1 `expire`:** `Nothing older than 14 days still pending.` Wall for the 08-06 trio is **08-20**;
+  for the two added last night it is **08-24**.
+- **Step 2 (the poll):** all five `get_person_profile` calls returned — which doubles as the only
+  trustworthy auth check, so the LinkedIn session is healthy at 13:02.
+
+| Who | Company · role | Sent | Day | Degree | Badge |
+|---|---|---|---|---|---|
+| **Recruiter-E** (CTO) | SkillsCapital · SWE Intern (AI/ML & Agentic AI) **93** | 08-06 | 5 | `3rd` | `Pending` |
+| **Recruiter-F** (Co-Founder) | Mirai Alpha · AI Engineering Intern | 08-06 | 5 | `3rd` | `Pending` |
+| **Recruiter-D** (Recruitment Consultant) | Hired · AI/ML Engineer (keep-on-file) | 08-06 | 5 | `3rd` | `Pending` |
+| **Recruiter-G** (Lead Recruiter, Hyderabad) | Celigo · AI Integration Engineer 80 | 08-10 | 0 | `3rd` | `Pending` |
+| **Recruiter-H** (Talent Partner, Singapore) | Neurones IT Asia · DevOps Engineer 82 | 08-10 | 0 | `3rd` | `Pending` |
+
+- **Step 3 `due`:** `[]`, **and verified genuinely empty** — `list --status accepted` also returns `[]`, so
+  no ripe row is being held. 13:02 is inside business hours anyway, so a hold would have been a real bug;
+  checking the `accepted` bucket is what distinguishes the two, per the 08-10 21:02 note.
+
+### ✅ The two D32 invites from last night were genuinely delivered
+
+This is the first poll since Celigo and Neurones IT Asia were added at 21:10 on 08-10, and the finding is
+positive: **both read `Pending`, which rules out the D12 `custom_note_limit_reached` hole** — the failure
+mode where `connect_with_person` returns success and silently sends nothing. Stage 1 worked on both. They
+are at **day 0**; there is nothing to conclude from silence yet.
+
+The 08-06 trio is at **day 5**. Still normal latency for a cold connect; no pitch is late, nothing is
+expired, and the correct action on all five is to wait.
+
+- ⚠️ **`last_checked` is still `null` on all five** — `invite_tracker.py` only stamps it inside
+  `mark-accepted`, so this run polled five profiles and again left **no trace in the state file**. **Sixth
+  time recorded.** These sections remain the only evidence any poll has ever happened, which means the
+  polling history lives in prose a script cannot read. Worth one line in `cmd_list` or a `mark-checked`.
+- 👀 **Recruiter-F's profile still advertises only the *Founder's Office Intern — Research & Strategic
+  Growth*** req; the AI Engineering Intern posting she was pitched for stays closed. Unchanged since 08-09 —
+  do not silently re-aim the packet at a different job.
+- ⭐ Recruiter-H's own profile confirms the hook already in her touch-2 draft: *"zero agency dependency —
+  building strong pipelines through LinkedIn, GitHub, and niche tech communities"*, and her headline names
+  **DevOps, Cloud and AI** explicitly. Best-matched cold approach on the board for a GitHub-first candidate.
+- 🪤 **PYMK trap, eighth confirmation.** The Indian-name sidebar `references` on all five profiles are
+  LinkedIn "people you may know" suggestions, **never a warm path**.
+
+**Sixth consecutive quiet run, and the open levers are still elsewhere** — the 08-11 top item (answer
+Recruiter-A, waiting 16 days), Track A **A0** (Infosys Junior AI Engineer 90, where Recruiter-A is already
+1st-degree so no accept is needed at all) and **A2**, now partly closed: Energy Exemplar's touch-1 was
+finally sent 08-10. Nothing on this runbook's surface is actionable today.
+
+## Engineering — 2026-08-11 (D34 resolved; the pipeline now watches its own blind spots)
+
+Four modules now do in code what a runbook used to do by hand, and two of them proved themselves in
+production the same day.
+
+| Module | What it closes | State |
+|---|---|---|
+| `apps/autopilot/replies.py` | **D35** — the LinkedIn inbox nothing had ever opened | ✅ live in `check-replies.ps1` step 0 |
+| `apps/autopilot/coverage.py` | **D41** — applications that reached no human | ✅ live, found Recro |
+| `apps/autopilot/sourcing.py` | **D36** — slots spent on companies with nobody behind them | ✅ wired into `apply-all` |
+| `apps/autopilot/cv.py` (rework) | **D34** — a company's second role was unbuildable | ✅ resolved |
+
+**98 tests passing** (50 on 08-09). Graph at 780 nodes.
+
+### The 08-11 12:49 scheduled run is the proof
+
+The reply check ran unattended and did the whole thing through the normal path: LinkedIn inbox scanned
+(exit 0), coverage counted, Gmail checked, **the 16-day-old reply found**, Notion ticked, Slack posted.
+No human prompted it. That is the first time this project has caught an inbound signal by machine.
+
+### D34 — resolved, and what it unblocks
+
+Outreach stays per **company** (D8: never message the same recruiter twice). The **CV is per role**:
+
+```
+output/outreach/infosys/                      contact.md + messages
+output/outreach/infosys--junior-ai-engineer/  this role's own tailored CV
+```
+
+The first role keeps the plain folder, so **nothing already on disk moved**. Verified live: *AI
+Application Engineer* still resolves to `infosys/`, *Junior AI Engineer* to
+`infosys--junior-ai-engineer/`, reusing the existing contact.
+
+**Unblocks 9 rows** — Infosys ×5 (incl. **Junior AI Engineer, 90**) and SkillsCapital ×4.
+
+⚠️ Trap worth remembering: **a folder slug is not a comparison key.** `slugify` gives `skillscapital`
+and `skills-capital` for the same employer, and an unequal compare means a tailored CV is not found and
+the **family CV silently goes out instead** — the "fast and generic" outcome [[24-cv-bridge]] exists to
+prevent. Comparison uses an alphanumeric-only key, same as the ledger.
+
+### Two guards, deliberately opposite failure directions
+
+This is the reusable idea from the day:
+
+| Guard | Fails toward | Because |
+|---|---|---|
+| `replies.py` | **shouting** | false alarm = 10 seconds; false silence = 15 lost days |
+| `sourcing.py` | **applying** | false block = a lost job; false pass = ~15 wasted seconds |
+
+> **Decide which direction a check should fail before writing it, and write down why.** "Be safe" is
+> not a direction — safe for whom, against which cost? A guard whose failure direction was never chosen
+> has one anyway, by accident.
+
+### Housekeeping: the decision register had a collision
+
+**D33-D36 were claimed twice** on 08-10 by two parallel sessions. The content engine's four are now
+**D37-D40**, registered in [[05-decisions]] with pointers to [[27-linkedin-content-engine]]. The register
+is append-only with no allocator, so concurrent writers cannot see each other's claim — **grep `^## D`
+before numbering anything.**
+
+### Coverage right now
+
+`py -3 apps/autopilot/coverage.py` → **14 applications across 10 companies · 9 reached a human · 1
+reached nobody** (Recro, applied 07-29). Five invites pending, three accepted and pitched.
+
 ## Immediate next work
 
 > ⚡ **NEW TOP ITEM 2026-08-11: answer Recruiter-A.** He asked for the CV on 07-26 and has been waiting 16

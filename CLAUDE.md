@@ -316,7 +316,8 @@ py -3 tools/post_creator/dispatch_engine.py --dry-run --post-id N  # preview dis
   there is no artifact does the log get to explain why.**
   ⚠️ Packets exist for **8 of ~90 rows** — every other row still attaches the generic CV. Nothing submits.
 
-- **2026-08-09/10 — it applies now. Thirteen applications, zero replies.** Read [[26-apply-at-volume]]
+- **2026-08-09/10 — it applies now.** ~~Thirteen applications, zero replies.~~ ⚠️ **That number was
+  FALSE and it reordered the whole plan — see the 08-11 entry below and D35.** Read [[26-apply-at-volume]]
   + **D31 / D32 / D33** before running `apply-all`. Built `families.py` (three **role-family CVs** —
   DevOps/Platform/SRE, AI/ML, Software Engineer — routed by title, and a missing family CV **skips the row**
   rather than falling back to the generic CV), `ledger.py` (append-only, fsync'd, and it imports nothing
@@ -342,15 +343,59 @@ py -3 tools/post_creator/dispatch_engine.py --dry-run --post-id N  # preview dis
   lone consent box and nothing else), and `--limit 5` submitting **zero** (it capped the plan, and the top
   five rows are all external ATS).
 
-- **NEXT — in this order. The reordering fact is: 13 applications, 0 replies.**
-  1. 🔴 **Fix D33, then apply to Infosys Junior AI Engineer (90).** Ten-minute change; unblocks the single
-     best row in the project, where Recruiter-A is inside and already 1st-degree so no accept is needed.
-  2. 🔴 **Contact one named human per submitted application (D32).** Eight rows are sitting in ATS queues
-     with nobody aware of them. Start with Celigo, Neurones IT Asia, Crossing Hurdles — small and remote,
-     so a founder or hiring manager is findable. And **send Energy Exemplar's outreach**: packet, recruiter
-     and drafts have existed since 08-06, unsent.
-  3. ⏸️ **Phase 1 (own the data) is deliberately NOT next** — it unblocks nothing a recruiter sees, the
-     same argument that moved `cv.py` ahead of it.
+- **2026-08-11 — the number that drove yesterday was wrong, and the pipeline now proves itself.**
+  Read **D34 (resolved) / D35 / D36 / D41** and [[26-apply-at-volume]].
+  🚨 **"13 applications, 0 replies" was false.** On **2026-07-26 at 18:58**, two hours after being pitched,
+  Recruiter-A replied: *"9419280094 / Send ur cv on this number"*. He gave a phone number and asked for the
+  CV. **Nobody answered for 16 days.** Eight consecutive reply checks reported "zero replies" and all eight
+  were honest about the only place they looked — **Gmail**. Nothing in this project had ever opened LinkedIn
+  messaging, so the reply was not missed, it was **unobservable**. *"Looked everywhere, found nothing" and
+  "looked in one place, found nothing there" produce byte-identical output.* The real tally is **1 reply from
+  1 warm-insider approach**, and it arrived on the first try at the highest-fit company — the outreach design
+  never failed, the channel reading did. **D35.**
+  Fixed in code: **`apps/autopilot/replies.py`** reads the LinkedIn inbox through the existing Playwright
+  profile, escalates anything it cannot parse instead of going quiet, and an unreadable inbox prints *"this
+  is NOT no replies"* and exits 2. Wired into `tools/check-replies.ps1` as **step 0**, deliberately in plain
+  Python and deliberately *before* the agent step so a quota wall (D25) cannot blind it. **Proven in
+  production 08-11 12:49**: the scheduled run surfaced the reply through the normal path, ticked Notion and
+  posted Slack.
+  **`apps/autopilot/coverage.py` (D41)** counts, every run, how many applications reached a **named human**.
+  First run found **Recro — applied 07-29, nobody ever contacted**, which every prior audit had missed.
+  Deliberately *not* automated end to end: code finds the gap, an agent finds the recruiter, **the human
+  approves the invite** (D12). Automating a LinkedIn people-search plus auto-connect is the pattern that gets
+  accounts restricted, and it is this project's own red line.
+  **`apps/autopilot/sourcing.py` (D36)** screens a row *before* it spends an application slot. Two of eight
+  submissions went to **Crossing Hurdles — zero employees findable on LinkedIn**, auto-ack funnelling to
+  micro1 in 3 seconds; neither could ever be followed up. The screen immediately found a **third** such row
+  queued. ⚠️ Its failure direction is the **opposite** of `replies.py` on purpose: blocking a real company
+  costs an unrecoverable opportunity, letting a shell through costs ~15 seconds — so **heuristics may only
+  deprioritize; only recorded evidence may block**.
+  **D34 resolved.** A company's second role was unbuildable forever: the runbook refused to overwrite
+  `output/outreach/<company>/` while `cv.py` looked packets up by **job id**. Now outreach stays per company
+  (D8) and the **CV is per role** — `<company>--<role>/`, reusing the company's `contact.md`. **Unblocks 9
+  rows** (Infosys ×5 incl. Junior AI Engineer 90, SkillsCapital ×4). Trap: a folder slug is **not** a
+  comparison key (`skillscapital` vs `skills-capital`), and an unequal compare silently attaches the family
+  CV instead of the tailored one.
+  🔢 **98 tests** (was 50 on 08-09). Also fixed: **D33-D36 were claimed twice** by two parallel sessions —
+  the content engine's four are now **D37-D40**. [[05-decisions]] is the single numbering authority; grep
+  `^## D` before numbering anything.
+
+- **NEXT — in this order. The reordering fact is now: 14 applications, 1 reply, and the reply came from
+  the only warm-insider approach the project has made.**
+  1. 🔴 **Answer Recruiter-A** — 16 days late, on a personal phone number. **Only the owner can do this**;
+     the project deliberately does not automate WhatsApp. It is the warmest lead in the project, inside the
+     company that also holds the board's best unworked row.
+  2. 🔴 **Build the warm-insider finder.** Accepts are not the bottleneck — 3 of 3 older invites were
+     accepted, including two cold ones. **Conversion is**: accept→reply is 1 of 3, and the 1 was the warm
+     one (shared region + mutual connections). D8 says warm-first but it has only ever been done by hand.
+     ⏳ Blocked while the LinkedIn MCP is disconnected; it needs read-only people search.
+  3. 🟡 **Recro** — the one application that reached nobody, 13 days silent. Also needs people search.
+  4. 🟡 **Infosys Junior AI Engineer (90)** — now buildable (D34). Note it is **not Easy Apply**
+     ("Responses managed off LinkedIn"), so the packet's value is a CV the insider can pass on, not an
+     auto-submission.
+  5. ⏸️ **Phase 1 (own the data) and multi-platform (Naukri) are both still NOT next.** Naukri is worth
+     doing later as a **profile/inbound** play — recruiters search that resume database — not as bulk
+     applying, which is a known account-restriction vector.
 
   Also still true: **re-score before building** any packet — the 38 newest rows were scored from title only,
   no JD fetched. And the **re-scan-after-numeric-validation** branch has still never executed, so the first

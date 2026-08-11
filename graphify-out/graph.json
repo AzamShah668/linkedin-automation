@@ -9,7 +9,7 @@
       "source_file": "apps\\autopilot\\__init__.py",
       "source_location": "L1",
       "id": "init",
-      "community": 52
+      "community": 54
     },
     {
       "label": "Job Hunt Autopilot \u2014 the Python runtime that replaces the Claude-Code-as-server",
@@ -17,7 +17,7 @@
       "source_file": "apps\\autopilot\\__init__.py",
       "source_location": "L1",
       "id": "init_rationale_1",
-      "community": 52
+      "community": 54
     },
     {
       "label": "answers.py",
@@ -41,7 +41,7 @@
       "source_file": "",
       "source_location": "",
       "id": "runtimeerror",
-      "community": 5
+      "community": 4
     },
     {
       "label": "load_bank()",
@@ -201,7 +201,7 @@
       "source_file": "apps\\autopilot\\coverage.py",
       "source_location": "L1",
       "id": "coverage",
-      "community": 21
+      "community": 22
     },
     {
       "label": "_norm()",
@@ -209,7 +209,7 @@
       "source_file": "apps\\autopilot\\coverage.py",
       "source_location": "L48",
       "id": "coverage_norm",
-      "community": 21
+      "community": 22
     },
     {
       "label": "Gap",
@@ -217,7 +217,7 @@
       "source_file": "apps\\autopilot\\coverage.py",
       "source_location": "L53",
       "id": "coverage_gap",
-      "community": 21
+      "community": 22
     },
     {
       "label": "companies_with_a_named_human()",
@@ -225,7 +225,7 @@
       "source_file": "apps\\autopilot\\coverage.py",
       "source_location": "L61",
       "id": "coverage_companies_with_a_named_human",
-      "community": 21
+      "community": 22
     },
     {
       "label": "_company_matches()",
@@ -233,7 +233,7 @@
       "source_file": "apps\\autopilot\\coverage.py",
       "source_location": "L113",
       "id": "coverage_company_matches",
-      "community": 21
+      "community": 22
     },
     {
       "label": "gaps()",
@@ -241,7 +241,7 @@
       "source_file": "apps\\autopilot\\coverage.py",
       "source_location": "L125",
       "id": "coverage_gaps",
-      "community": 21
+      "community": 22
     },
     {
       "label": "notify()",
@@ -249,7 +249,7 @@
       "source_file": "apps\\autopilot\\coverage.py",
       "source_location": "L157",
       "id": "coverage_notify",
-      "community": 21
+      "community": 22
     },
     {
       "label": "main()",
@@ -257,7 +257,7 @@
       "source_file": "apps\\autopilot\\coverage.py",
       "source_location": "L179",
       "id": "coverage_main",
-      "community": 21
+      "community": 22
     },
     {
       "label": "Which applications have reached a human, and which are sitting in a queue alone.",
@@ -265,7 +265,7 @@
       "source_file": "apps\\autopilot\\coverage.py",
       "source_location": "L1",
       "id": "coverage_rationale_1",
-      "community": 21
+      "community": 22
     },
     {
       "label": "Normalised company -> how we reached them.      Three independent signals, becau",
@@ -273,7 +273,7 @@
       "source_file": "apps\\autopilot\\coverage.py",
       "source_location": "L64",
       "id": "coverage_rationale_64",
-      "community": 21
+      "community": 22
     },
     {
       "label": "Coverage is keyed by folder slug, which is not always the company name verbatim.",
@@ -281,7 +281,7 @@
       "source_file": "apps\\autopilot\\coverage.py",
       "source_location": "L114",
       "id": "coverage_rationale_114",
-      "community": 21
+      "community": 22
     },
     {
       "label": "Applications with no human attached, worst first.",
@@ -289,7 +289,7 @@
       "source_file": "apps\\autopilot\\coverage.py",
       "source_location": "L126",
       "id": "coverage_rationale_126",
-      "community": 21
+      "community": 22
     },
     {
       "label": "cv.py",
@@ -297,7 +297,7 @@
       "source_file": "apps\\autopilot\\cv.py",
       "source_location": "L1",
       "id": "cv",
-      "community": 5
+      "community": 4
     },
     {
       "label": "UsageLimitHit",
@@ -305,7 +305,7 @@
       "source_file": "apps\\autopilot\\cv.py",
       "source_location": "L45",
       "id": "cv_usagelimithit",
-      "community": 5
+      "community": 4
     },
     {
       "label": "PacketBuildFailed",
@@ -313,7 +313,7 @@
       "source_file": "apps\\autopilot\\cv.py",
       "source_location": "L52",
       "id": "cv_packetbuildfailed",
-      "community": 5
+      "community": 4
     },
     {
       "label": "Packet",
@@ -321,7 +321,7 @@
       "source_file": "apps\\autopilot\\cv.py",
       "source_location": "L57",
       "id": "cv_packet",
-      "community": 5
+      "community": 4
     },
     {
       "label": "pdf()",
@@ -329,7 +329,7 @@
       "source_file": "apps\\autopilot\\cv.py",
       "source_location": "L71",
       "id": "cv_pdf",
-      "community": 5
+      "community": 4
     },
     {
       "label": ".complete()",
@@ -337,47 +337,87 @@
       "source_file": "apps\\autopilot\\cv.py",
       "source_location": "L74",
       "id": "cv_packet_complete",
-      "community": 5
+      "community": 4
+    },
+    {
+      "label": "slugify()",
+      "file_type": "code",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L79",
+      "id": "cv_slugify",
+      "community": 4
+    },
+    {
+      "label": "_key()",
+      "file_type": "code",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L84",
+      "id": "cv_key",
+      "community": 4
+    },
+    {
+      "label": "company_slug()",
+      "file_type": "code",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L95",
+      "id": "cv_company_slug",
+      "community": 4
+    },
+    {
+      "label": "packet_dir_for()",
+      "file_type": "code",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L100",
+      "id": "cv_packet_dir_for",
+      "community": 4
+    },
+    {
+      "label": "find_role_packet()",
+      "file_type": "code",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L132",
+      "id": "cv_find_role_packet",
+      "community": 4
     },
     {
       "label": "find_company_packet()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\cv.py",
-      "source_location": "L79",
+      "source_location": "L149",
       "id": "cv_find_company_packet",
-      "community": 5
+      "community": 4
     },
     {
       "label": "find_packet()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\cv.py",
-      "source_location": "L107",
+      "source_location": "L171",
       "id": "cv_find_packet",
-      "community": 5
+      "community": 4
     },
     {
       "label": "_to_packet()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\cv.py",
-      "source_location": "L123",
+      "source_location": "L187",
       "id": "cv_to_packet",
-      "community": 5
+      "community": 4
     },
     {
       "label": "build_packet()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\cv.py",
-      "source_location": "L138",
+      "source_location": "L202",
       "id": "cv_build_packet",
-      "community": 5
+      "community": 4
     },
     {
       "label": "build_many()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\cv.py",
-      "source_location": "L225",
+      "source_location": "L301",
       "id": "cv_build_many",
-      "community": 5
+      "community": 4
     },
     {
       "label": "The bridge to Claude Code \u2014 the one step that keeps a full agent session.  Every",
@@ -385,7 +425,7 @@
       "source_file": "apps\\autopilot\\cv.py",
       "source_location": "L1",
       "id": "cv_rationale_1",
-      "community": 5
+      "community": 4
     },
     {
       "label": "Claude Code refused because of a quota. NOT this job's fault \u2014 stop the whole ba",
@@ -393,7 +433,7 @@
       "source_file": "apps\\autopilot\\cv.py",
       "source_location": "L46",
       "id": "cv_rationale_46",
-      "community": 5
+      "community": 4
     },
     {
       "label": "This job genuinely failed. Safe to record against the job.",
@@ -401,7 +441,7 @@
       "source_file": "apps\\autopilot\\cv.py",
       "source_location": "L53",
       "id": "cv_rationale_53",
-      "community": 5
+      "community": 4
     },
     {
       "label": "A packet without its PDF is half-built (runbook \u00a74) and cannot be attached.",
@@ -409,39 +449,79 @@
       "source_file": "apps\\autopilot\\cv.py",
       "source_location": "L75",
       "id": "cv_rationale_75",
-      "community": 5
+      "community": 4
     },
     {
-      "label": "Any packet already built for this COMPANY, whatever role it was for.      \u26a0\ufe0f The",
+      "label": "Folder-name form: hyphenated, readable on disk.",
       "file_type": "rationale",
       "source_file": "apps\\autopilot\\cv.py",
       "source_location": "L80",
       "id": "cv_rationale_80",
-      "community": 5
+      "community": 4
+    },
+    {
+      "label": "Comparison form: alphanumerics only.      NOT slugify(). \"SkillsCapital\" and \"Sk",
+      "file_type": "rationale",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L85",
+      "id": "cv_rationale_85",
+      "community": 4
+    },
+    {
+      "label": "The folder that owns a company's OUTREACH \u2014 contact.md and the messages.",
+      "file_type": "rationale",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L96",
+      "id": "cv_rationale_96",
+      "community": 4
+    },
+    {
+      "label": "Where THIS ROLE's packet lives (D34).      The two units were conflated. Outreac",
+      "file_type": "rationale",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L101",
+      "id": "cv_rationale_101",
+      "community": 4
+    },
+    {
+      "label": "A packet already built for this exact company AND role, wherever it lives.",
+      "file_type": "rationale",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L133",
+      "id": "cv_rationale_133",
+      "community": 4
+    },
+    {
+      "label": "Any packet already built for this COMPANY, whatever role it was for.      Kept b",
+      "file_type": "rationale",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L150",
+      "id": "cv_rationale_150",
+      "community": 4
     },
     {
       "label": "Locate an already-built packet by job id. Packets are discovered, never hardcode",
       "file_type": "rationale",
       "source_file": "apps\\autopilot\\cv.py",
-      "source_location": "L108",
-      "id": "cv_rationale_108",
-      "community": 5
+      "source_location": "L172",
+      "id": "cv_rationale_172",
+      "community": 4
     },
     {
       "label": "Run Claude Code against the packet runbook for one job. Sends nothing.      Rais",
       "file_type": "rationale",
       "source_file": "apps\\autopilot\\cv.py",
-      "source_location": "L141",
-      "id": "cv_rationale_141",
-      "community": 5
+      "source_location": "L206",
+      "id": "cv_rationale_206",
+      "community": 4
     },
     {
       "label": "Build several packets. Returns (built, [(job_id, error)], usage_limit_message).",
       "file_type": "rationale",
       "source_file": "apps\\autopilot\\cv.py",
-      "source_location": "L230",
-      "id": "cv_rationale_230",
-      "community": 5
+      "source_location": "L307",
+      "id": "cv_rationale_307",
+      "community": 4
     },
     {
       "label": "families.py",
@@ -449,7 +529,7 @@
       "source_file": "apps\\autopilot\\families.py",
       "source_location": "L1",
       "id": "families",
-      "community": 27
+      "community": 29
     },
     {
       "label": "family_for()",
@@ -457,7 +537,7 @@
       "source_file": "apps\\autopilot\\families.py",
       "source_location": "L50",
       "id": "families_family_for",
-      "community": 27
+      "community": 29
     },
     {
       "label": "family_pdf()",
@@ -465,7 +545,7 @@
       "source_file": "apps\\autopilot\\families.py",
       "source_location": "L62",
       "id": "families_family_pdf",
-      "community": 27
+      "community": 29
     },
     {
       "label": "CvChoice",
@@ -473,7 +553,7 @@
       "source_file": "apps\\autopilot\\families.py",
       "source_location": "L67",
       "id": "families_cvchoice",
-      "community": 27
+      "community": 29
     },
     {
       "label": "pick_cv()",
@@ -481,7 +561,7 @@
       "source_file": "apps\\autopilot\\families.py",
       "source_location": "L73",
       "id": "families_pick_cv",
-      "community": 27
+      "community": 29
     },
     {
       "label": "Role families \u2014 one reusable CV per family, instead of one per company.  WHY THI",
@@ -489,7 +569,7 @@
       "source_file": "apps\\autopilot\\families.py",
       "source_location": "L1",
       "id": "families_rationale_1",
-      "community": 27
+      "community": 29
     },
     {
       "label": "Which family CV this role should receive.",
@@ -497,7 +577,7 @@
       "source_file": "apps\\autopilot\\families.py",
       "source_location": "L51",
       "id": "families_rationale_51",
-      "community": 27
+      "community": 29
     },
     {
       "label": "A company-tailored CV if one exists, otherwise the family CV. Never the generic",
@@ -505,7 +585,7 @@
       "source_file": "apps\\autopilot\\families.py",
       "source_location": "L74",
       "id": "families_rationale_74",
-      "community": 27
+      "community": 29
     },
     {
       "label": "fill.py",
@@ -529,7 +609,7 @@
       "source_file": "apps\\autopilot\\fill.py",
       "source_location": "L86",
       "id": "fill_linkedinloggedout",
-      "community": 4
+      "community": 5
     },
     {
       "label": "Filled",
@@ -545,7 +625,7 @@
       "source_file": "apps\\autopilot\\fill.py",
       "source_location": "L98",
       "id": "fill_fillresult",
-      "community": 4
+      "community": 5
     },
     {
       "label": "_attr_q()",
@@ -809,7 +889,7 @@
       "source_file": "apps\\autopilot\\fill.py",
       "source_location": "L87",
       "id": "fill_rationale_87",
-      "community": 4
+      "community": 5
     },
     {
       "label": "text_content(), which unlike inner_text() also returns visually-hidden text.",
@@ -929,7 +1009,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L1",
       "id": "ledger",
-      "community": 13
+      "community": 14
     },
     {
       "label": "_norm()",
@@ -937,7 +1017,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L50",
       "id": "ledger_norm",
-      "community": 13
+      "community": 14
     },
     {
       "label": "company_role_key()",
@@ -945,7 +1025,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L55",
       "id": "ledger_company_role_key",
-      "community": 13
+      "community": 14
     },
     {
       "label": "linkedin_job_id()",
@@ -953,7 +1033,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L59",
       "id": "ledger_linkedin_job_id",
-      "community": 13
+      "community": 14
     },
     {
       "label": "Entry",
@@ -961,7 +1041,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L65",
       "id": "ledger_entry",
-      "community": 13
+      "community": 14
     },
     {
       "label": ".to_json()",
@@ -969,7 +1049,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L76",
       "id": "ledger_entry_to_json",
-      "community": 13
+      "community": 14
     },
     {
       "label": "load()",
@@ -977,7 +1057,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L94",
       "id": "ledger_load",
-      "community": 13
+      "community": 14
     },
     {
       "label": "recent_company_submissions()",
@@ -985,7 +1065,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L130",
       "id": "ledger_recent_company_submissions",
-      "community": 13
+      "community": 14
     },
     {
       "label": "already_applied()",
@@ -993,7 +1073,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L161",
       "id": "ledger_already_applied",
-      "community": 13
+      "community": 14
     },
     {
       "label": "record()",
@@ -1001,7 +1081,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L182",
       "id": "ledger_record",
-      "community": 13
+      "community": 14
     },
     {
       "label": "seed()",
@@ -1009,7 +1089,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L244",
       "id": "ledger_seed",
-      "community": 13
+      "community": 14
     },
     {
       "label": "describe()",
@@ -1017,7 +1097,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L256",
       "id": "ledger_describe",
-      "community": 13
+      "community": 14
     },
     {
       "label": "today()",
@@ -1025,7 +1105,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L269",
       "id": "ledger_today",
-      "community": 13
+      "community": 14
     },
     {
       "label": "The never-resubmit ledger \u2014 the guard that must exist before submitting can.  \"O",
@@ -1033,7 +1113,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L1",
       "id": "ledger_rationale_1",
-      "community": 13
+      "community": 14
     },
     {
       "label": "Fold to a comparable key: lowercase, alphanumeric only.",
@@ -1041,7 +1121,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L51",
       "id": "ledger_rationale_51",
-      "community": 13
+      "community": 14
     },
     {
       "label": "Every recorded submission. A malformed line is skipped but never silently droppe",
@@ -1049,7 +1129,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L95",
       "id": "ledger_rationale_95",
-      "community": 13
+      "community": 14
     },
     {
       "label": "Rows for `company` on `channels` submitted within the last `within_days` days.",
@@ -1057,7 +1137,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L137",
       "id": "ledger_rationale_137",
-      "community": 13
+      "community": 14
     },
     {
       "label": "Reason string if this company+role (or this exact posting) was already submitted",
@@ -1065,7 +1145,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L164",
       "id": "ledger_rationale_164",
-      "community": 13
+      "community": 14
     },
     {
       "label": "Append one confirmed submission, durably.      Called ONLY after a submission is",
@@ -1073,7 +1153,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L183",
       "id": "ledger_rationale_183",
-      "community": 13
+      "community": 14
     },
     {
       "label": "Add any missing seed rows. Idempotent. Returns (added, already_present).",
@@ -1081,7 +1161,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L245",
       "id": "ledger_rationale_245",
-      "community": 13
+      "community": 14
     },
     {
       "label": "llm.py",
@@ -1089,7 +1169,7 @@
       "source_file": "apps\\autopilot\\llm.py",
       "source_location": "L1",
       "id": "llm",
-      "community": 5
+      "community": 26
     },
     {
       "label": "LLMError",
@@ -1097,7 +1177,7 @@
       "source_file": "apps\\autopilot\\llm.py",
       "source_location": "L30",
       "id": "llm_llmerror",
-      "community": 5
+      "community": 26
     },
     {
       "label": "_require_env()",
@@ -1105,7 +1185,7 @@
       "source_file": "apps\\autopilot\\llm.py",
       "source_location": "L34",
       "id": "llm_require_env",
-      "community": 5
+      "community": 26
     },
     {
       "label": "_ask_anthropic()",
@@ -1113,7 +1193,7 @@
       "source_file": "apps\\autopilot\\llm.py",
       "source_location": "L44",
       "id": "llm_ask_anthropic",
-      "community": 5
+      "community": 26
     },
     {
       "label": "_ask_openai_compatible()",
@@ -1121,7 +1201,7 @@
       "source_file": "apps\\autopilot\\llm.py",
       "source_location": "L62",
       "id": "llm_ask_openai_compatible",
-      "community": 5
+      "community": 26
     },
     {
       "label": "ask()",
@@ -1129,7 +1209,7 @@
       "source_file": "apps\\autopilot\\llm.py",
       "source_location": "L86",
       "id": "llm_ask",
-      "community": 5
+      "community": 26
     },
     {
       "label": "The single LLM entry point for the whole app.  One function: ask(prompt, max_tok",
@@ -1137,7 +1217,7 @@
       "source_file": "apps\\autopilot\\llm.py",
       "source_location": "L1",
       "id": "llm_rationale_1",
-      "community": 5
+      "community": 26
     },
     {
       "label": "Any failure to get usable text out of a provider. Always carries the raw respons",
@@ -1145,7 +1225,7 @@
       "source_file": "apps\\autopilot\\llm.py",
       "source_location": "L31",
       "id": "llm_rationale_31",
-      "community": 5
+      "community": 26
     },
     {
       "label": "Send one prompt, get one string back. Raises LLMError rather than returning junk",
@@ -1153,7 +1233,7 @@
       "source_file": "apps\\autopilot\\llm.py",
       "source_location": "L87",
       "id": "llm_rationale_87",
-      "community": 5
+      "community": 26
     },
     {
       "label": "replies.py",
@@ -1273,7 +1353,7 @@
       "source_file": "apps\\autopilot\\run.py",
       "source_location": "L1",
       "id": "run",
-      "community": 4
+      "community": 5
     },
     {
       "label": "_user_data_dir()",
@@ -1281,7 +1361,7 @@
       "source_file": "apps\\autopilot\\run.py",
       "source_location": "L45",
       "id": "run_user_data_dir",
-      "community": 4
+      "community": 5
     },
     {
       "label": "Candidate",
@@ -1289,7 +1369,7 @@
       "source_file": "apps\\autopilot\\run.py",
       "source_location": "L51",
       "id": "run_candidate",
-      "community": 4
+      "community": 5
     },
     {
       "label": "board_candidates()",
@@ -1297,7 +1377,7 @@
       "source_file": "apps\\autopilot\\run.py",
       "source_location": "L59",
       "id": "run_board_candidates",
-      "community": 4
+      "community": 5
     },
     {
       "label": "select_live_jobs()",
@@ -1305,7 +1385,7 @@
       "source_file": "apps\\autopilot\\run.py",
       "source_location": "L83",
       "id": "run_select_live_jobs",
-      "community": 4
+      "community": 5
     },
     {
       "label": "report()",
@@ -1313,7 +1393,7 @@
       "source_file": "apps\\autopilot\\run.py",
       "source_location": "L101",
       "id": "run_report",
-      "community": 4
+      "community": 5
     },
     {
       "label": "cmd_fill()",
@@ -1321,7 +1401,7 @@
       "source_file": "apps\\autopilot\\run.py",
       "source_location": "L180",
       "id": "run_cmd_fill",
-      "community": 4
+      "community": 5
     },
     {
       "label": "cmd_login()",
@@ -1329,7 +1409,7 @@
       "source_file": "apps\\autopilot\\run.py",
       "source_location": "L271",
       "id": "run_cmd_login",
-      "community": 4
+      "community": 5
     },
     {
       "label": "cmd_packet()",
@@ -1337,79 +1417,79 @@
       "source_file": "apps\\autopilot\\run.py",
       "source_location": "L298",
       "id": "run_cmd_packet",
-      "community": 4
+      "community": 5
     },
     {
       "label": "_job_description()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L350",
+      "source_location": "L357",
       "id": "run_job_description",
-      "community": 4
+      "community": 5
     },
     {
       "label": "cmd_prune()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L372",
+      "source_location": "L379",
       "id": "run_cmd_prune",
-      "community": 4
+      "community": 5
     },
     {
       "label": "answers_today()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L457",
+      "source_location": "L464",
       "id": "run_answers_today",
-      "community": 4
+      "community": 5
     },
     {
       "label": "cmd_applyall()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L462",
+      "source_location": "L469",
       "id": "run_cmd_applyall",
-      "community": 4
+      "community": 5
     },
     {
       "label": "_ledger_rows()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L648",
+      "source_location": "L655",
       "id": "run_ledger_rows",
-      "community": 4
+      "community": 5
     },
     {
       "label": "_mark_applied()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L653",
+      "source_location": "L660",
       "id": "run_mark_applied",
-      "community": 4
+      "community": 5
     },
     {
       "label": "cmd_ledger()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L666",
+      "source_location": "L673",
       "id": "run_cmd_ledger",
-      "community": 4
+      "community": 5
     },
     {
       "label": "cmd_fieldmap()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L678",
+      "source_location": "L685",
       "id": "run_cmd_fieldmap",
-      "community": 4
+      "community": 5
     },
     {
       "label": "main()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L683",
+      "source_location": "L690",
       "id": "run_main",
-      "community": 4
+      "community": 5
     },
     {
       "label": "CLI entry point for the autopilot.\r \r     py -3 -m apps.autopilot.run fieldmap",
@@ -1417,7 +1497,7 @@
       "source_file": "apps\\autopilot\\run.py",
       "source_location": "L1",
       "id": "run_rationale_1",
-      "community": 4
+      "community": 5
     },
     {
       "label": "Best-fit-first board rows, already-done excluded.",
@@ -1425,7 +1505,7 @@
       "source_file": "apps\\autopilot\\run.py",
       "source_location": "L60",
       "id": "run_rationale_60",
-      "community": 4
+      "community": 5
     },
     {
       "label": "Probe candidates until `wanted` postings actually show an Easy Apply button.",
@@ -1433,7 +1513,7 @@
       "source_file": "apps\\autopilot\\run.py",
       "source_location": "L84",
       "id": "run_rationale_84",
-      "community": 4
+      "community": 5
     },
     {
       "label": "Open the profile and wait for the OWNER to sign in by hand.\r \r     This is not a",
@@ -1441,7 +1521,7 @@
       "source_file": "apps\\autopilot\\run.py",
       "source_location": "L272",
       "id": "run_rationale_272",
-      "community": 4
+      "community": 5
     },
     {
       "label": "Build tailored CV packets via Claude Code. Sends nothing.",
@@ -1449,39 +1529,39 @@
       "source_file": "apps\\autopilot\\run.py",
       "source_location": "L299",
       "id": "run_rationale_299",
-      "community": 4
+      "community": 5
     },
     {
       "label": "The JD text, or '' if no real description was found. Never returns chrome.",
       "file_type": "rationale",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L351",
-      "id": "run_rationale_351",
-      "community": 4
+      "source_location": "L358",
+      "id": "run_rationale_358",
+      "community": 5
     },
     {
       "label": "Probe every board row for liveness; mark dead ones and save survivors' job descr",
       "file_type": "rationale",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L373",
-      "id": "run_rationale_373",
-      "community": 4
+      "source_location": "L380",
+      "id": "run_rationale_380",
+      "community": 5
     },
     {
       "label": "Apply to every eligible live row using tailored packets first, family CVs otherw",
       "file_type": "rationale",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L463",
-      "id": "run_rationale_463",
-      "community": 4
+      "source_location": "L470",
+      "id": "run_rationale_470",
+      "community": 5
     },
     {
       "label": "Show or seed the never-resubmit ledger.",
       "file_type": "rationale",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L667",
-      "id": "run_rationale_667",
-      "community": 4
+      "source_location": "L674",
+      "id": "run_rationale_674",
+      "community": 5
     },
     {
       "label": "sourcing.py",
@@ -1489,7 +1569,7 @@
       "source_file": "apps\\autopilot\\sourcing.py",
       "source_location": "L1",
       "id": "sourcing",
-      "community": 22
+      "community": 23
     },
     {
       "label": "_norm()",
@@ -1497,7 +1577,7 @@
       "source_file": "apps\\autopilot\\sourcing.py",
       "source_location": "L53",
       "id": "sourcing_norm",
-      "community": 22
+      "community": 23
     },
     {
       "label": "Verdict",
@@ -1505,7 +1585,7 @@
       "source_file": "apps\\autopilot\\sourcing.py",
       "source_location": "L70",
       "id": "sourcing_verdict",
-      "community": 22
+      "community": 23
     },
     {
       "label": "blocks()",
@@ -1513,7 +1593,7 @@
       "source_file": "apps\\autopilot\\sourcing.py",
       "source_location": "L75",
       "id": "sourcing_blocks",
-      "community": 22
+      "community": 23
     },
     {
       "label": "load_unreachable()",
@@ -1521,7 +1601,7 @@
       "source_file": "apps\\autopilot\\sourcing.py",
       "source_location": "L79",
       "id": "sourcing_load_unreachable",
-      "community": 22
+      "community": 23
     },
     {
       "label": "record_unreachable()",
@@ -1529,7 +1609,7 @@
       "source_file": "apps\\autopilot\\sourcing.py",
       "source_location": "L93",
       "id": "sourcing_record_unreachable",
-      "community": 22
+      "community": 23
     },
     {
       "label": "screen()",
@@ -1537,7 +1617,7 @@
       "source_file": "apps\\autopilot\\sourcing.py",
       "source_location": "L113",
       "id": "sourcing_screen",
-      "community": 22
+      "community": 23
     },
     {
       "label": "Screen a board row before it consumes an application slot.  WHY THIS EXISTS ----",
@@ -1545,7 +1625,7 @@
       "source_file": "apps\\autopilot\\sourcing.py",
       "source_location": "L1",
       "id": "sourcing_rationale_1",
-      "community": 22
+      "community": 23
     },
     {
       "label": "Companies PROVEN to have nobody to follow up with. Keyed by normalised company n",
@@ -1553,7 +1633,7 @@
       "source_file": "apps\\autopilot\\sourcing.py",
       "source_location": "L80",
       "id": "sourcing_rationale_80",
-      "community": 22
+      "community": 23
     },
     {
       "label": "Mark a company as having no findable human. Requires evidence, in words, on purp",
@@ -1561,7 +1641,7 @@
       "source_file": "apps\\autopilot\\sourcing.py",
       "source_location": "L96",
       "id": "sourcing_rationale_96",
-      "community": 22
+      "community": 23
     },
     {
       "label": "Decide whether this row deserves an application slot.      Pure enough to test:",
@@ -1569,7 +1649,7 @@
       "source_file": "apps\\autopilot\\sourcing.py",
       "source_location": "L114",
       "id": "sourcing_rationale_114",
-      "community": 22
+      "community": 23
     },
     {
       "label": "setup-hooks.py",
@@ -1577,7 +1657,7 @@
       "source_file": "scripts\\setup-hooks.py",
       "source_location": "L1",
       "id": "setup_hooks",
-      "community": 24
+      "community": 25
     },
     {
       "label": "_bash_path()",
@@ -1585,7 +1665,7 @@
       "source_file": "scripts\\setup-hooks.py",
       "source_location": "L39",
       "id": "setup_hooks_bash_path",
-      "community": 24
+      "community": 25
     },
     {
       "label": "_selector()",
@@ -1593,7 +1673,7 @@
       "source_file": "scripts\\setup-hooks.py",
       "source_location": "L47",
       "id": "setup_hooks_selector",
-      "community": 24
+      "community": 25
     },
     {
       "label": "find_interpreter()",
@@ -1601,7 +1681,7 @@
       "source_file": "scripts\\setup-hooks.py",
       "source_location": "L61",
       "id": "setup_hooks_find_interpreter",
-      "community": 24
+      "community": 25
     },
     {
       "label": "hook_status()",
@@ -1609,7 +1689,7 @@
       "source_file": "scripts\\setup-hooks.py",
       "source_location": "L88",
       "id": "setup_hooks_hook_status",
-      "community": 24
+      "community": 25
     },
     {
       "label": "install()",
@@ -1617,7 +1697,7 @@
       "source_file": "scripts\\setup-hooks.py",
       "source_location": "L108",
       "id": "setup_hooks_install",
-      "community": 24
+      "community": 25
     },
     {
       "label": "main()",
@@ -1625,7 +1705,7 @@
       "source_file": "scripts\\setup-hooks.py",
       "source_location": "L130",
       "id": "setup_hooks_main",
-      "community": 24
+      "community": 25
     },
     {
       "label": "C:\\\\Foo\\\\python.exe -> /c/Foo/python.exe, which is what Git Bash needs.",
@@ -1633,7 +1713,7 @@
       "source_file": "scripts\\setup-hooks.py",
       "source_location": "L40",
       "id": "setup_hooks_rationale_40",
-      "community": 24
+      "community": 25
     },
     {
       "label": "An interpreter that can actually import graphify. Prefer the one running this sc",
@@ -1641,7 +1721,7 @@
       "source_file": "scripts\\setup-hooks.py",
       "source_location": "L62",
       "id": "setup_hooks_rationale_62",
-      "community": 24
+      "community": 25
     },
     {
       "label": "(name, ok, detail) per hook. `ok` means it names an interpreter that has graphif",
@@ -1649,7 +1729,7 @@
       "source_file": "scripts\\setup-hooks.py",
       "source_location": "L89",
       "id": "setup_hooks_rationale_89",
-      "community": 24
+      "community": 25
     },
     {
       "label": "test_coverage.py",
@@ -1657,7 +1737,7 @@
       "source_file": "tests\\test_coverage.py",
       "source_location": "L1",
       "id": "test_coverage",
-      "community": 14
+      "community": 15
     },
     {
       "label": "tree()",
@@ -1665,7 +1745,7 @@
       "source_file": "tests\\test_coverage.py",
       "source_location": "L20",
       "id": "test_coverage_tree",
-      "community": 14
+      "community": 15
     },
     {
       "label": "_contact()",
@@ -1673,7 +1753,7 @@
       "source_file": "tests\\test_coverage.py",
       "source_location": "L30",
       "id": "test_coverage_contact",
-      "community": 14
+      "community": 15
     },
     {
       "label": "_row()",
@@ -1681,7 +1761,7 @@
       "source_file": "tests\\test_coverage.py",
       "source_location": "L36",
       "id": "test_coverage_row",
-      "community": 14
+      "community": 15
     },
     {
       "label": "test_an_application_with_no_contact_is_a_gap()",
@@ -1689,7 +1769,7 @@
       "source_file": "tests\\test_coverage.py",
       "source_location": "L40",
       "id": "test_coverage_test_an_application_with_no_contact_is_a_gap",
-      "community": 14
+      "community": 15
     },
     {
       "label": "test_a_researched_company_is_covered()",
@@ -1697,7 +1777,7 @@
       "source_file": "tests\\test_coverage.py",
       "source_location": "L44",
       "id": "test_coverage_test_a_researched_company_is_covered",
-      "community": 14
+      "community": 15
     },
     {
       "label": "test_a_pending_invite_counts_as_coverage()",
@@ -1705,7 +1785,7 @@
       "source_file": "tests\\test_coverage.py",
       "source_location": "L50",
       "id": "test_coverage_test_a_pending_invite_counts_as_coverage",
-      "community": 14
+      "community": 15
     },
     {
       "label": "test_a_contact_file_recording_NOBODY_is_not_coverage()",
@@ -1713,7 +1793,7 @@
       "source_file": "tests\\test_coverage.py",
       "source_location": "L57",
       "id": "test_coverage_test_a_contact_file_recording_nobody_is_not_coverage",
-      "community": 14
+      "community": 15
     },
     {
       "label": "test_a_company_recorded_unreachable_is_not_reported_as_a_gap()",
@@ -1721,7 +1801,7 @@
       "source_file": "tests\\test_coverage.py",
       "source_location": "L69",
       "id": "test_coverage_test_a_company_recorded_unreachable_is_not_reported_as_a_gap",
-      "community": 14
+      "community": 15
     },
     {
       "label": "test_company_name_and_folder_slug_need_not_match_exactly()",
@@ -1729,7 +1809,7 @@
       "source_file": "tests\\test_coverage.py",
       "source_location": "L77",
       "id": "test_coverage_test_company_name_and_folder_slug_need_not_match_exactly",
-      "community": 14
+      "community": 15
     },
     {
       "label": "test_each_company_is_reported_once_not_once_per_application()",
@@ -1737,7 +1817,7 @@
       "source_file": "tests\\test_coverage.py",
       "source_location": "L83",
       "id": "test_coverage_test_each_company_is_reported_once_not_once_per_application",
-      "community": 14
+      "community": 15
     },
     {
       "label": "test_oldest_gap_comes_first()",
@@ -1745,7 +1825,7 @@
       "source_file": "tests\\test_coverage.py",
       "source_location": "L90",
       "id": "test_coverage_test_oldest_gap_comes_first",
-      "community": 14
+      "community": 15
     },
     {
       "label": "test_an_unreadable_invites_file_does_not_fabricate_coverage()",
@@ -1753,7 +1833,7 @@
       "source_file": "tests\\test_coverage.py",
       "source_location": "L95",
       "id": "test_coverage_test_an_unreadable_invites_file_does_not_fabricate_coverage",
-      "community": 14
+      "community": 15
     },
     {
       "label": "Tests for the \"did this application reach a human?\" report.  The defect being lo",
@@ -1761,7 +1841,7 @@
       "source_file": "tests\\test_coverage.py",
       "source_location": "L1",
       "id": "test_coverage_rationale_1",
-      "community": 14
+      "community": 15
     },
     {
       "label": "Crossing Hurdles has a contact.md whose content is 'no contact findable'.      T",
@@ -1769,7 +1849,7 @@
       "source_file": "tests\\test_coverage.py",
       "source_location": "L58",
       "id": "test_coverage_rationale_58",
-      "community": 14
+      "community": 15
     },
     {
       "label": "A dead end is not an outstanding task. Reporting it forever would train the read",
@@ -1777,7 +1857,7 @@
       "source_file": "tests\\test_coverage.py",
       "source_location": "L70",
       "id": "test_coverage_rationale_70",
-      "community": 14
+      "community": 15
     },
     {
       "label": "SkillsCapital took four slots. Four identical lines would bury the other gaps.",
@@ -1785,7 +1865,7 @@
       "source_file": "tests\\test_coverage.py",
       "source_location": "L84",
       "id": "test_coverage_rationale_84",
-      "community": 14
+      "community": 15
     },
     {
       "label": "Failing toward 'covered' would hide gaps. Fail toward reporting them.",
@@ -1793,7 +1873,7 @@
       "source_file": "tests\\test_coverage.py",
       "source_location": "L96",
       "id": "test_coverage_rationale_96",
-      "community": 14
+      "community": 15
     },
     {
       "label": "test_cv_bridge.py",
@@ -1916,7 +1996,7 @@
       "community": 12
     },
     {
-      "label": "Regression, 2026-08-06 first real run.\r \r     The Energy Exemplar packet built c",
+      "label": "Regression, 2026-08-06 first real run.      The Energy Exemplar packet built com",
       "file_type": "rationale",
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L32",
@@ -1969,7 +2049,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L1",
       "id": "test_families",
-      "community": 20
+      "community": 21
     },
     {
       "label": "test_family_routing()",
@@ -1977,7 +2057,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L38",
       "id": "test_families_test_family_routing",
-      "community": 20
+      "community": 21
     },
     {
       "label": "test_mlops_goes_to_ai_not_devops()",
@@ -1985,7 +2065,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L42",
       "id": "test_families_test_mlops_goes_to_ai_not_devops",
-      "community": 20
+      "community": 21
     },
     {
       "label": "test_ai_devops_hybrids_go_to_devops()",
@@ -1993,7 +2073,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L49",
       "id": "test_families_test_ai_devops_hybrids_go_to_devops",
-      "community": 20
+      "community": 21
     },
     {
       "label": "test_every_family_has_a_cv_stem()",
@@ -2001,7 +2081,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L55",
       "id": "test_families_test_every_family_has_a_cv_stem",
-      "community": 20
+      "community": 21
     },
     {
       "label": "test_a_tailored_packet_always_beats_the_family_cv()",
@@ -2009,7 +2089,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L60",
       "id": "test_families_test_a_tailored_packet_always_beats_the_family_cv",
-      "community": 20
+      "community": 21
     },
     {
       "label": "test_missing_family_cv_is_reported_not_silently_skipped()",
@@ -2017,7 +2097,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L74",
       "id": "test_families_test_missing_family_cv_is_reported_not_silently_skipped",
-      "community": 20
+      "community": 21
     },
     {
       "label": "test_questions_that_must_not_be_answered_with_the_candidates_city()",
@@ -2025,7 +2105,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L110",
       "id": "test_families_test_questions_that_must_not_be_answered_with_the_candidates_city",
-      "community": 20
+      "community": 21
     },
     {
       "label": "test_real_location_questions_still_match()",
@@ -2033,7 +2113,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L124",
       "id": "test_families_test_real_location_questions_still_match",
-      "community": 20
+      "community": 21
     },
     {
       "label": "Tests for role-family routing.  The risk being tested: a job silently getting th",
@@ -2041,7 +2121,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L1",
       "id": "test_families_rationale_1",
-      "community": 20
+      "community": 21
     },
     {
       "label": "MLOps postings ask for model lifecycle work, not cluster work \u2014 even though the",
@@ -2049,7 +2129,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L43",
       "id": "test_families_rationale_43",
-      "community": 20
+      "community": 21
     },
     {
       "label": "Both families fit; DevOps leads with the better-evidenced half of the portfolio.",
@@ -2057,7 +2137,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L50",
       "id": "test_families_rationale_50",
-      "community": 20
+      "community": 21
     },
     {
       "label": "No CV must never mean 'apply with whatever LinkedIn pre-filled'.",
@@ -2065,7 +2145,7 @@
       "source_file": "tests\\test_families.py",
       "source_location": "L75",
       "id": "test_families_rationale_75",
-      "community": 20
+      "community": 21
     },
     {
       "label": "test_ledger.py",
@@ -2300,6 +2380,174 @@
       "community": 6
     },
     {
+      "label": "test_packet_layout.py",
+      "file_type": "code",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L1",
+      "id": "test_packet_layout",
+      "community": 13
+    },
+    {
+      "label": "out()",
+      "file_type": "code",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L22",
+      "id": "test_packet_layout_out",
+      "community": 13
+    },
+    {
+      "label": "_packet()",
+      "file_type": "code",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L28",
+      "id": "test_packet_layout_packet",
+      "community": 13
+    },
+    {
+      "label": "test_the_first_role_keeps_the_plain_company_folder()",
+      "file_type": "code",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L38",
+      "id": "test_packet_layout_test_the_first_role_keeps_the_plain_company_folder",
+      "community": 13
+    },
+    {
+      "label": "test_a_second_role_gets_its_own_folder()",
+      "file_type": "code",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L43",
+      "id": "test_packet_layout_test_a_second_role_gets_its_own_folder",
+      "community": 13
+    },
+    {
+      "label": "test_the_second_role_folder_is_stable()",
+      "file_type": "code",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L50",
+      "id": "test_packet_layout_test_the_second_role_folder_is_stable",
+      "community": 13
+    },
+    {
+      "label": "test_find_role_packet_matches_company_and_role_not_job_id()",
+      "file_type": "code",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L58",
+      "id": "test_packet_layout_test_find_role_packet_matches_company_and_role_not_job_id",
+      "community": 13
+    },
+    {
+      "label": "test_a_different_role_at_the_same_company_is_NOT_a_match()",
+      "file_type": "code",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L66",
+      "id": "test_packet_layout_test_a_different_role_at_the_same_company_is_not_a_match",
+      "community": 13
+    },
+    {
+      "label": "test_matching_survives_case_and_punctuation_differences()",
+      "file_type": "code",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L72",
+      "id": "test_packet_layout_test_matching_survives_case_and_punctuation_differences",
+      "community": 13
+    },
+    {
+      "label": "test_the_company_packet_is_still_discoverable_for_contact_reuse()",
+      "file_type": "code",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L79",
+      "id": "test_packet_layout_test_the_company_packet_is_still_discoverable_for_contact_reuse",
+      "community": 13
+    },
+    {
+      "label": "test_a_company_with_no_packet_has_no_sibling()",
+      "file_type": "code",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L86",
+      "id": "test_packet_layout_test_a_company_with_no_packet_has_no_sibling",
+      "community": 13
+    },
+    {
+      "label": "test_the_role_already_in_the_company_folder_resolves_to_that_folder()",
+      "file_type": "code",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L90",
+      "id": "test_packet_layout_test_the_role_already_in_the_company_folder_resolves_to_that_folder",
+      "community": 13
+    },
+    {
+      "label": "test_an_unreadable_company_packet_does_not_cause_an_overwrite()",
+      "file_type": "code",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L96",
+      "id": "test_packet_layout_test_an_unreadable_company_packet_does_not_cause_an_overwrite",
+      "community": 13
+    },
+    {
+      "label": "Tests for role-scoped packets (D34).  The deadlock being fixed: the runbook writ",
+      "file_type": "rationale",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L1",
+      "id": "test_packet_layout_rationale_1",
+      "community": 13
+    },
+    {
+      "label": "Nothing must move. Eight packets already exist at output/outreach/<company>/.",
+      "file_type": "rationale",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L39",
+      "id": "test_packet_layout_rationale_39",
+      "community": 13
+    },
+    {
+      "label": "Same role asked twice must resolve to the same place, or builds duplicate foreve",
+      "file_type": "rationale",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L51",
+      "id": "test_packet_layout_rationale_51",
+      "community": 13
+    },
+    {
+      "label": "The board row id and the packet's job_id need not agree; company+role is the rea",
+      "file_type": "rationale",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L59",
+      "id": "test_packet_layout_rationale_59",
+      "community": 13
+    },
+    {
+      "label": "THE safety property. A CV tailored to one req must never be served for another.",
+      "file_type": "rationale",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L67",
+      "id": "test_packet_layout_rationale_67",
+      "community": 13
+    },
+    {
+      "label": "The second role must reuse the first's contact.md, so the sibling has to be find",
+      "file_type": "rationale",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L80",
+      "id": "test_packet_layout_rationale_80",
+      "community": 13
+    },
+    {
+      "label": "Otherwise one role gets split across two folders and the first is orphaned.",
+      "file_type": "rationale",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L91",
+      "id": "test_packet_layout_rationale_91",
+      "community": 13
+    },
+    {
+      "label": "Fail toward a separate folder. Guessing 'same role' on corrupt JSON would destro",
+      "file_type": "rationale",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L97",
+      "id": "test_packet_layout_rationale_97",
+      "community": 13
+    },
+    {
       "label": "test_replies.py",
       "file_type": "code",
       "source_file": "tests\\test_replies.py",
@@ -2417,7 +2665,7 @@
       "source_file": "tests\\test_sourcing.py",
       "source_location": "L1",
       "id": "test_sourcing",
-      "community": 16
+      "community": 17
     },
     {
       "label": "book()",
@@ -2425,7 +2673,7 @@
       "source_file": "tests\\test_sourcing.py",
       "source_location": "L22",
       "id": "test_sourcing_book",
-      "community": 16
+      "community": 17
     },
     {
       "label": "test_a_company_with_recorded_evidence_is_blocked()",
@@ -2433,7 +2681,7 @@
       "source_file": "tests\\test_sourcing.py",
       "source_location": "L26",
       "id": "test_sourcing_test_a_company_with_recorded_evidence_is_blocked",
-      "community": 16
+      "community": 17
     },
     {
       "label": "test_an_ordinary_company_is_applied_to()",
@@ -2441,7 +2689,7 @@
       "source_file": "tests\\test_sourcing.py",
       "source_location": "L34",
       "id": "test_sourcing_test_an_ordinary_company_is_applied_to",
-      "community": 16
+      "community": 17
     },
     {
       "label": "test_agency_tells_deprioritize_but_never_block()",
@@ -2449,7 +2697,7 @@
       "source_file": "tests\\test_sourcing.py",
       "source_location": "L48",
       "id": "test_sourcing_test_agency_tells_deprioritize_but_never_block",
-      "community": 16
+      "community": 17
     },
     {
       "label": "test_a_legitimate_contract_role_is_not_lost()",
@@ -2457,7 +2705,7 @@
       "source_file": "tests\\test_sourcing.py",
       "source_location": "L54",
       "id": "test_sourcing_test_a_legitimate_contract_role_is_not_lost",
-      "community": 16
+      "community": 17
     },
     {
       "label": "test_evidence_beats_heuristics_but_both_are_reported()",
@@ -2465,7 +2713,7 @@
       "source_file": "tests\\test_sourcing.py",
       "source_location": "L61",
       "id": "test_sourcing_test_evidence_beats_heuristics_but_both_are_reported",
-      "community": 16
+      "community": 17
     },
     {
       "label": "test_recording_requires_actual_evidence()",
@@ -2473,7 +2721,7 @@
       "source_file": "tests\\test_sourcing.py",
       "source_location": "L70",
       "id": "test_sourcing_test_recording_requires_actual_evidence",
-      "community": 16
+      "community": 17
     },
     {
       "label": "test_company_matching_ignores_case_and_punctuation()",
@@ -2481,7 +2729,7 @@
       "source_file": "tests\\test_sourcing.py",
       "source_location": "L78",
       "id": "test_sourcing_test_company_matching_ignores_case_and_punctuation",
-      "community": 16
+      "community": 17
     },
     {
       "label": "test_recording_is_idempotent_and_keeps_the_evidence()",
@@ -2489,7 +2737,7 @@
       "source_file": "tests\\test_sourcing.py",
       "source_location": "L83",
       "id": "test_sourcing_test_recording_is_idempotent_and_keeps_the_evidence",
-      "community": 16
+      "community": 17
     },
     {
       "label": "test_a_missing_evidence_file_blocks_nobody()",
@@ -2497,7 +2745,7 @@
       "source_file": "tests\\test_sourcing.py",
       "source_location": "L91",
       "id": "test_sourcing_test_a_missing_evidence_file_blocks_nobody",
-      "community": 16
+      "community": 17
     },
     {
       "label": "test_a_corrupt_evidence_file_is_reported_and_blocks_nobody()",
@@ -2505,7 +2753,7 @@
       "source_file": "tests\\test_sourcing.py",
       "source_location": "L96",
       "id": "test_sourcing_test_a_corrupt_evidence_file_is_reported_and_blocks_nobody",
-      "community": 16
+      "community": 17
     },
     {
       "label": "Tests for pre-application sourcing screens.  The asymmetry under test is the who",
@@ -2513,7 +2761,7 @@
       "source_file": "tests\\test_sourcing.py",
       "source_location": "L1",
       "id": "test_sourcing_rationale_1",
-      "community": 16
+      "community": 17
     },
     {
       "label": "THE test. Crossing Hurdles took two application slots and could never be followe",
@@ -2521,7 +2769,7 @@
       "source_file": "tests\\test_sourcing.py",
       "source_location": "L27",
       "id": "test_sourcing_rationale_27",
-      "community": 16
+      "community": 17
     },
     {
       "label": "A real employer CAN post an hourly rate. Deprioritized is fine; dropped is not.",
@@ -2529,7 +2777,7 @@
       "source_file": "tests\\test_sourcing.py",
       "source_location": "L55",
       "id": "test_sourcing_rationale_55",
-      "community": 16
+      "community": 17
     },
     {
       "label": "A bare assertion must not be able to block a company.",
@@ -2537,7 +2785,7 @@
       "source_file": "tests\\test_sourcing.py",
       "source_location": "L71",
       "id": "test_sourcing_rationale_71",
-      "community": 16
+      "community": 17
     },
     {
       "label": "Fail toward applying. An unreadable list must not silently block every company.",
@@ -2545,7 +2793,7 @@
       "source_file": "tests\\test_sourcing.py",
       "source_location": "L97",
       "id": "test_sourcing_rationale_97",
-      "community": 16
+      "community": 17
     },
     {
       "label": "ats_audit.py",
@@ -2553,7 +2801,7 @@
       "source_file": "tools\\ats_audit.py",
       "source_location": "L1",
       "id": "ats_audit",
-      "community": 29
+      "community": 31
     },
     {
       "label": "read_text()",
@@ -2561,7 +2809,7 @@
       "source_file": "tools\\ats_audit.py",
       "source_location": "L26",
       "id": "ats_audit_read_text",
-      "community": 29
+      "community": 31
     },
     {
       "label": "norm()",
@@ -2569,7 +2817,7 @@
       "source_file": "tools\\ats_audit.py",
       "source_location": "L35",
       "id": "ats_audit_norm",
-      "community": 29
+      "community": 31
     },
     {
       "label": "present()",
@@ -2577,7 +2825,7 @@
       "source_file": "tools\\ats_audit.py",
       "source_location": "L39",
       "id": "ats_audit_present",
-      "community": 29
+      "community": 31
     },
     {
       "label": "keywords_from_jd()",
@@ -2585,7 +2833,7 @@
       "source_file": "tools\\ats_audit.py",
       "source_location": "L46",
       "id": "ats_audit_keywords_from_jd",
-      "community": 29
+      "community": 31
     },
     {
       "label": "main()",
@@ -2593,7 +2841,7 @@
       "source_file": "tools\\ats_audit.py",
       "source_location": "L56",
       "id": "ats_audit_main",
-      "community": 29
+      "community": 31
     },
     {
       "label": "Keyword is present if it appears as a token/phrase in the CV text.",
@@ -2601,7 +2849,7 @@
       "source_file": "tools\\ats_audit.py",
       "source_location": "L40",
       "id": "ats_audit_rationale_40",
-      "community": 29
+      "community": 31
     },
     {
       "label": "auto-apply.ps1",
@@ -2609,7 +2857,7 @@
       "source_file": "tools\\auto-apply.ps1",
       "source_location": "L1",
       "id": "auto_apply",
-      "community": 60
+      "community": 62
     },
     {
       "label": "board_db.py",
@@ -2753,7 +3001,7 @@
       "source_file": "tools\\build-packet.ps1",
       "source_location": "L1",
       "id": "build_packet",
-      "community": 61
+      "community": 63
     },
     {
       "label": "check-replies.ps1",
@@ -2761,7 +3009,7 @@
       "source_file": "tools\\check-replies.ps1",
       "source_location": "L1",
       "id": "check_replies",
-      "community": 62
+      "community": 64
     },
     {
       "label": "check_approvals.py",
@@ -2769,7 +3017,7 @@
       "source_file": "tools\\check_approvals.py",
       "source_location": "L1",
       "id": "check_approvals",
-      "community": 43
+      "community": 45
     },
     {
       "label": "load_env()",
@@ -2777,7 +3025,7 @@
       "source_file": "tools\\check_approvals.py",
       "source_location": "L32",
       "id": "check_approvals_load_env",
-      "community": 43
+      "community": 45
     },
     {
       "label": "main()",
@@ -2785,7 +3033,7 @@
       "source_file": "tools\\check_approvals.py",
       "source_location": "L43",
       "id": "check_approvals_main",
-      "community": 43
+      "community": 45
     },
     {
       "label": "content_hub_db.py",
@@ -2977,7 +3225,7 @@
       "source_file": "tools\\daily-discovery.ps1",
       "source_location": "L1",
       "id": "daily_discovery",
-      "community": 63
+      "community": 65
     },
     {
       "label": "flush-approved.ps1",
@@ -2985,7 +3233,7 @@
       "source_file": "tools\\flush-approved.ps1",
       "source_location": "L1",
       "id": "flush_approved",
-      "community": 64
+      "community": 66
     },
     {
       "label": "followups.py",
@@ -2993,7 +3241,7 @@
       "source_file": "tools\\followups.py",
       "source_location": "L1",
       "id": "followups",
-      "community": 34
+      "community": 36
     },
     {
       "label": "as_bool()",
@@ -3001,7 +3249,7 @@
       "source_file": "tools\\followups.py",
       "source_location": "L42",
       "id": "followups_as_bool",
-      "community": 34
+      "community": 36
     },
     {
       "label": "due_for()",
@@ -3009,7 +3257,7 @@
       "source_file": "tools\\followups.py",
       "source_location": "L46",
       "id": "followups_due_for",
-      "community": 34
+      "community": 36
     },
     {
       "label": "notify()",
@@ -3017,7 +3265,7 @@
       "source_file": "tools\\followups.py",
       "source_location": "L69",
       "id": "followups_notify",
-      "community": 34
+      "community": 36
     },
     {
       "label": "main()",
@@ -3025,7 +3273,7 @@
       "source_file": "tools\\followups.py",
       "source_location": "L77",
       "id": "followups_main",
-      "community": 34
+      "community": 36
     },
     {
       "label": "invite_tracker.py",
@@ -3321,7 +3569,7 @@
       "source_file": "tools\\pipeline-lock.ps1",
       "source_location": "L1",
       "id": "pipeline_lock",
-      "community": 30
+      "community": 32
     },
     {
       "label": "Enter-PipelineLock()",
@@ -3329,7 +3577,7 @@
       "source_file": "tools\\pipeline-lock.ps1",
       "source_location": "L27",
       "id": "pipeline_lock_enter_pipelinelock",
-      "community": 30
+      "community": 32
     },
     {
       "label": "Exit-PipelineLock()",
@@ -3337,7 +3585,7 @@
       "source_file": "tools\\pipeline-lock.ps1",
       "source_location": "L80",
       "id": "pipeline_lock_exit_pipelinelock",
-      "community": 30
+      "community": 32
     },
     {
       "label": "Read-PipelineLockText()",
@@ -3345,7 +3593,7 @@
       "source_file": "tools\\pipeline-lock.ps1",
       "source_location": "L88",
       "id": "pipeline_lock_read_pipelinelocktext",
-      "community": 30
+      "community": 32
     },
     {
       "label": "Get-PipelineLockOwner()",
@@ -3353,7 +3601,7 @@
       "source_file": "tools\\pipeline-lock.ps1",
       "source_location": "L105",
       "id": "pipeline_lock_get_pipelinelockowner",
-      "community": 30
+      "community": 32
     },
     {
       "label": "Remove-StalePipelineLock()",
@@ -3361,7 +3609,7 @@
       "source_file": "tools\\pipeline-lock.ps1",
       "source_location": "L113",
       "id": "pipeline_lock_remove_stalepipelinelock",
-      "community": 30
+      "community": 32
     },
     {
       "label": "Write-LockLine()",
@@ -3369,7 +3617,7 @@
       "source_file": "tools\\pipeline-lock.ps1",
       "source_location": "L168",
       "id": "pipeline_lock_write_lockline",
-      "community": 30
+      "community": 32
     },
     {
       "label": "pipeline_runner.py",
@@ -3377,7 +3625,7 @@
       "source_file": "tools\\pipeline_runner.py",
       "source_location": "L1",
       "id": "pipeline_runner",
-      "community": 15
+      "community": 16
     },
     {
       "label": "Action",
@@ -3385,7 +3633,7 @@
       "source_file": "tools\\pipeline_runner.py",
       "source_location": "L44",
       "id": "pipeline_runner_action",
-      "community": 15
+      "community": 16
     },
     {
       "label": ".__init__()",
@@ -3393,7 +3641,7 @@
       "source_file": "tools\\pipeline_runner.py",
       "source_location": "L45",
       "id": "pipeline_runner_action_init",
-      "community": 15
+      "community": 16
     },
     {
       "label": ".as_json()",
@@ -3401,7 +3649,7 @@
       "source_file": "tools\\pipeline_runner.py",
       "source_location": "L57",
       "id": "pipeline_runner_action_as_json",
-      "community": 15
+      "community": 16
     },
     {
       "label": ".resolve()",
@@ -3409,7 +3657,7 @@
       "source_file": "tools\\pipeline_runner.py",
       "source_location": "L65",
       "id": "pipeline_runner_action_resolve",
-      "community": 15
+      "community": 16
     },
     {
       "label": "register()",
@@ -3417,7 +3665,7 @@
       "source_file": "tools\\pipeline_runner.py",
       "source_location": "L79",
       "id": "pipeline_runner_register",
-      "community": 15
+      "community": 16
     },
     {
       "label": "linkedin_servers()",
@@ -3425,7 +3673,7 @@
       "source_file": "tools\\pipeline_runner.py",
       "source_location": "L189",
       "id": "pipeline_runner_linkedin_servers",
-      "community": 15
+      "community": 16
     },
     {
       "label": "preflight()",
@@ -3433,7 +3681,7 @@
       "source_file": "tools\\pipeline_runner.py",
       "source_location": "L210",
       "id": "pipeline_runner_preflight",
-      "community": 15
+      "community": 16
     },
     {
       "label": "_pump()",
@@ -3441,7 +3689,7 @@
       "source_file": "tools\\pipeline_runner.py",
       "source_location": "L240",
       "id": "pipeline_runner_pump",
-      "community": 15
+      "community": 16
     },
     {
       "label": "busy_linkedin_run()",
@@ -3449,7 +3697,7 @@
       "source_file": "tools\\pipeline_runner.py",
       "source_location": "L253",
       "id": "pipeline_runner_busy_linkedin_run",
-      "community": 15
+      "community": 16
     },
     {
       "label": "start()",
@@ -3457,7 +3705,7 @@
       "source_file": "tools\\pipeline_runner.py",
       "source_location": "L261",
       "id": "pipeline_runner_start",
-      "community": 15
+      "community": 16
     },
     {
       "label": "stop()",
@@ -3465,7 +3713,7 @@
       "source_file": "tools\\pipeline_runner.py",
       "source_location": "L308",
       "id": "pipeline_runner_stop",
-      "community": 15
+      "community": 16
     },
     {
       "label": "snapshot()",
@@ -3473,7 +3721,7 @@
       "source_file": "tools\\pipeline_runner.py",
       "source_location": "L322",
       "id": "pipeline_runner_snapshot",
-      "community": 15
+      "community": 16
     },
     {
       "label": "get()",
@@ -3481,7 +3729,7 @@
       "source_file": "tools\\pipeline_runner.py",
       "source_location": "L331",
       "id": "pipeline_runner_get",
-      "community": 15
+      "community": 16
     },
     {
       "label": "recent()",
@@ -3489,7 +3737,7 @@
       "source_file": "tools\\pipeline_runner.py",
       "source_location": "L337",
       "id": "pipeline_runner_recent",
-      "community": 15
+      "community": 16
     },
     {
       "label": "catalogue()",
@@ -3497,7 +3745,7 @@
       "source_file": "tools\\pipeline_runner.py",
       "source_location": "L346",
       "id": "pipeline_runner_catalogue",
-      "community": 15
+      "community": 16
     },
     {
       "label": "Count real MCP servers (python only \u2014 each session also spawns 2 uvx wrappers).",
@@ -3505,7 +3753,7 @@
       "source_file": "tools\\pipeline_runner.py",
       "source_location": "L190",
       "id": "pipeline_runner_rationale_190",
-      "community": 15
+      "community": 16
     },
     {
       "label": "What the owner needs to know before firing a LinkedIn action.",
@@ -3513,7 +3761,7 @@
       "source_file": "tools\\pipeline_runner.py",
       "source_location": "L211",
       "id": "pipeline_runner_rationale_211",
-      "community": 15
+      "community": 16
     },
     {
       "label": "poll_invites.py",
@@ -3521,7 +3769,7 @@
       "source_file": "tools\\poll_invites.py",
       "source_location": "L1",
       "id": "poll_invites",
-      "community": 35
+      "community": 37
     },
     {
       "label": "degree_of()",
@@ -3529,7 +3777,7 @@
       "source_file": "tools\\poll_invites.py",
       "source_location": "L41",
       "id": "poll_invites_degree_of",
-      "community": 35
+      "community": 37
     },
     {
       "label": "poll()",
@@ -3537,7 +3785,7 @@
       "source_file": "tools\\poll_invites.py",
       "source_location": "L49",
       "id": "poll_invites_poll",
-      "community": 35
+      "community": 37
     },
     {
       "label": "main()",
@@ -3545,7 +3793,7 @@
       "source_file": "tools\\poll_invites.py",
       "source_location": "L65",
       "id": "poll_invites_main",
-      "community": 35
+      "community": 37
     },
     {
       "label": "Read-only accept-watch poll: degree + invite badge for each pending invite.  [[1",
@@ -3553,7 +3801,7 @@
       "source_file": "tools\\poll_invites.py",
       "source_location": "L1",
       "id": "poll_invites_rationale_1",
-      "community": 35
+      "community": 37
     },
     {
       "label": "create_iterative_architecture_hero.py",
@@ -3593,7 +3841,7 @@
       "source_file": "tools\\post_creator\\create_privatecloud_pdf_carousel.py",
       "source_location": "L1",
       "id": "create_privatecloud_pdf_carousel",
-      "community": 53
+      "community": 55
     },
     {
       "label": "process_and_create_pdf()",
@@ -3601,7 +3849,7 @@
       "source_file": "tools\\post_creator\\create_privatecloud_pdf_carousel.py",
       "source_location": "L21",
       "id": "create_privatecloud_pdf_carousel_process_and_create_pdf",
-      "community": 53
+      "community": 55
     },
     {
       "label": "daily_post_scheduler.ps1",
@@ -3609,7 +3857,7 @@
       "source_file": "tools\\post_creator\\daily_post_scheduler.ps1",
       "source_location": "L1",
       "id": "daily_post_scheduler",
-      "community": 65
+      "community": 67
     },
     {
       "label": "dispatch_engine.py",
@@ -3617,7 +3865,7 @@
       "source_file": "tools\\post_creator\\dispatch_engine.py",
       "source_location": "L1",
       "id": "dispatch_engine",
-      "community": 18
+      "community": 2
     },
     {
       "label": "load_templates()",
@@ -3625,7 +3873,7 @@
       "source_file": "tools\\post_creator\\dispatch_engine.py",
       "source_location": "L38",
       "id": "dispatch_engine_load_templates",
-      "community": 18
+      "community": 2
     },
     {
       "label": "build_image_prompt()",
@@ -3633,7 +3881,7 @@
       "source_file": "tools\\post_creator\\dispatch_engine.py",
       "source_location": "L44",
       "id": "dispatch_engine_build_image_prompt",
-      "community": 18
+      "community": 2
     },
     {
       "label": "generate_hero_image()",
@@ -3641,7 +3889,7 @@
       "source_file": "tools\\post_creator\\dispatch_engine.py",
       "source_location": "L68",
       "id": "dispatch_engine_generate_hero_image",
-      "community": 18
+      "community": 2
     },
     {
       "label": "_get_fallback_image()",
@@ -3649,7 +3897,7 @@
       "source_file": "tools\\post_creator\\dispatch_engine.py",
       "source_location": "L93",
       "id": "dispatch_engine_get_fallback_image",
-      "community": 18
+      "community": 2
     },
     {
       "label": "dispatch_to_linkedin()",
@@ -3657,7 +3905,7 @@
       "source_file": "tools\\post_creator\\dispatch_engine.py",
       "source_location": "L107",
       "id": "dispatch_engine_dispatch_to_linkedin",
-      "community": 18
+      "community": 2
     },
     {
       "label": "send_slack_notification()",
@@ -3665,7 +3913,7 @@
       "source_file": "tools\\post_creator\\dispatch_engine.py",
       "source_location": "L194",
       "id": "dispatch_engine_send_slack_notification",
-      "community": 18
+      "community": 2
     },
     {
       "label": "main()",
@@ -3673,7 +3921,7 @@
       "source_file": "tools\\post_creator\\dispatch_engine.py",
       "source_location": "L236",
       "id": "dispatch_engine_main",
-      "community": 18
+      "community": 2
     },
     {
       "label": "Load image prompt templates.",
@@ -3681,7 +3929,7 @@
       "source_file": "tools\\post_creator\\dispatch_engine.py",
       "source_location": "L39",
       "id": "dispatch_engine_rationale_39",
-      "community": 18
+      "community": 2
     },
     {
       "label": "Build a randomized image prompt based on the post type.",
@@ -3689,7 +3937,7 @@
       "source_file": "tools\\post_creator\\dispatch_engine.py",
       "source_location": "L45",
       "id": "dispatch_engine_rationale_45",
-      "community": 18
+      "community": 2
     },
     {
       "label": "Generate a hero image using the image studio. Returns the file path.     Falls b",
@@ -3697,7 +3945,7 @@
       "source_file": "tools\\post_creator\\dispatch_engine.py",
       "source_location": "L69",
       "id": "dispatch_engine_rationale_69",
-      "community": 18
+      "community": 2
     },
     {
       "label": "Pick a random fallback image from the pre-generated cache.",
@@ -3705,7 +3953,7 @@
       "source_file": "tools\\post_creator\\dispatch_engine.py",
       "source_location": "L94",
       "id": "dispatch_engine_rationale_94",
-      "community": 18
+      "community": 2
     },
     {
       "label": "Post to LinkedIn via Playwright with persistent browser session.",
@@ -3713,7 +3961,7 @@
       "source_file": "tools\\post_creator\\dispatch_engine.py",
       "source_location": "L112",
       "id": "dispatch_engine_rationale_112",
-      "community": 18
+      "community": 2
     },
     {
       "label": "Send a Slack notification about the post status.",
@@ -3721,7 +3969,7 @@
       "source_file": "tools\\post_creator\\dispatch_engine.py",
       "source_location": "L195",
       "id": "dispatch_engine_rationale_195",
-      "community": 18
+      "community": 2
     },
     {
       "label": "execute_2step_ai_3d_hero_pipeline.py",
@@ -3833,7 +4081,7 @@
       "source_file": "tools\\post_creator\\generate_post1_job_hunt_carousel.py",
       "source_location": "L1",
       "id": "generate_post1_job_hunt_carousel",
-      "community": 37
+      "community": 39
     },
     {
       "label": "render_edge_screenshot()",
@@ -3841,7 +4089,7 @@
       "source_file": "tools\\post_creator\\generate_post1_job_hunt_carousel.py",
       "source_location": "L360",
       "id": "generate_post1_job_hunt_carousel_render_edge_screenshot",
-      "community": 37
+      "community": 39
     },
     {
       "label": "generate_upgraded_post1_carousel()",
@@ -3849,7 +4097,7 @@
       "source_file": "tools\\post_creator\\generate_post1_job_hunt_carousel.py",
       "source_location": "L369",
       "id": "generate_post1_job_hunt_carousel_generate_upgraded_post1_carousel",
-      "community": 37
+      "community": 39
     },
     {
       "label": "Upgraded Post 1 Carousel Generator \u2014 Job Hunt Autopilot Features ZERO AI gibberi",
@@ -3857,7 +4105,7 @@
       "source_file": "tools\\post_creator\\generate_post1_job_hunt_carousel.py",
       "source_location": "L1",
       "id": "generate_post1_job_hunt_carousel_rationale_1",
-      "community": 37
+      "community": 39
     },
     {
       "label": "generate_privatecloud_carousel.py",
@@ -3865,7 +4113,7 @@
       "source_file": "tools\\post_creator\\generate_privatecloud_carousel.py",
       "source_location": "L1",
       "id": "generate_privatecloud_carousel",
-      "community": 54
+      "community": 56
     },
     {
       "label": "generate_slides()",
@@ -3873,7 +4121,7 @@
       "source_file": "tools\\post_creator\\generate_privatecloud_carousel.py",
       "source_location": "L452",
       "id": "generate_privatecloud_carousel_generate_slides",
-      "community": 54
+      "community": 56
     },
     {
       "label": "generate_true_3d_slide1_images.py",
@@ -4025,7 +4273,7 @@
       "source_file": "tools\\post_creator\\html_infographic_studio.py",
       "source_location": "L1",
       "id": "html_infographic_studio",
-      "community": 38
+      "community": 40
     },
     {
       "label": "render_html_to_png()",
@@ -4033,7 +4281,7 @@
       "source_file": "tools\\post_creator\\html_infographic_studio.py",
       "source_location": "L262",
       "id": "html_infographic_studio_render_html_to_png",
-      "community": 38
+      "community": 40
     },
     {
       "label": "HTML/CSS 3D Isometric Neon Architecture Infographic Generator",
@@ -4041,7 +4289,7 @@
       "source_file": "tools\\post_creator\\html_infographic_studio.py",
       "source_location": "L1",
       "id": "html_infographic_studio_rationale_1",
-      "community": 38
+      "community": 40
     },
     {
       "label": "Renders HTML string into high-res PNG image via headless Edge.",
@@ -4049,7 +4297,7 @@
       "source_file": "tools\\post_creator\\html_infographic_studio.py",
       "source_location": "L263",
       "id": "html_infographic_studio_rationale_263",
-      "community": 38
+      "community": 40
     },
     {
       "label": "image_studio.py",
@@ -4169,7 +4417,7 @@
       "source_file": "tools\\post_creator\\linkedin_publisher.py",
       "source_location": "L20",
       "id": "linkedin_publisher_rationale_20",
-      "community": 66
+      "community": 68
     },
     {
       "label": "Simulates or executes publishing of the ready package to LinkedIn.         If Li",
@@ -4177,7 +4425,7 @@
       "source_file": "tools\\post_creator\\linkedin_publisher.py",
       "source_location": "L50",
       "id": "linkedin_publisher_rationale_50",
-      "community": 67
+      "community": 69
     },
     {
       "label": "mcp_server.py",
@@ -4217,7 +4465,7 @@
       "source_file": "tools\\post_creator\\package_post2_content_studio.py",
       "source_location": "L1",
       "id": "package_post2_content_studio",
-      "community": 44
+      "community": 46
     },
     {
       "label": "package_post_2()",
@@ -4225,7 +4473,7 @@
       "source_file": "tools\\post_creator\\package_post2_content_studio.py",
       "source_location": "L53",
       "id": "package_post2_content_studio_package_post_2",
-      "community": 44
+      "community": 46
     },
     {
       "label": "Post 2 Packager \u2014 AI Visual Content Studio Packages the ALREADY-BUILT 4-slide ca",
@@ -4233,7 +4481,7 @@
       "source_file": "tools\\post_creator\\package_post2_content_studio.py",
       "source_location": "L1",
       "id": "package_post2_content_studio_rationale_1",
-      "community": 44
+      "community": 46
     },
     {
       "label": "playwright_linkedin_about_editor.py",
@@ -4241,7 +4489,7 @@
       "source_file": "tools\\post_creator\\playwright_linkedin_about_editor.py",
       "source_location": "L1",
       "id": "playwright_linkedin_about_editor",
-      "community": 45
+      "community": 47
     },
     {
       "label": "add_about()",
@@ -4249,7 +4497,7 @@
       "source_file": "tools\\post_creator\\playwright_linkedin_about_editor.py",
       "source_location": "L34",
       "id": "playwright_linkedin_about_editor_add_about",
-      "community": 45
+      "community": 47
     },
     {
       "label": "LinkedIn Profile Editor \u2014 Add About Section. The profile page shows \"Write a sum",
@@ -4257,7 +4505,7 @@
       "source_file": "tools\\post_creator\\playwright_linkedin_about_editor.py",
       "source_location": "L1",
       "id": "playwright_linkedin_about_editor_rationale_1",
-      "community": 45
+      "community": 47
     },
     {
       "label": "playwright_linkedin_diagnose.py",
@@ -4265,7 +4513,7 @@
       "source_file": "tools\\post_creator\\playwright_linkedin_diagnose.py",
       "source_location": "L1",
       "id": "playwright_linkedin_diagnose",
-      "community": 46
+      "community": 48
     },
     {
       "label": "check()",
@@ -4273,7 +4521,7 @@
       "source_file": "tools\\post_creator\\playwright_linkedin_diagnose.py",
       "source_location": "L9",
       "id": "playwright_linkedin_diagnose_check",
-      "community": 46
+      "community": 48
     },
     {
       "label": "Quick check: scroll the profile to see the experience section.",
@@ -4281,7 +4529,7 @@
       "source_file": "tools\\post_creator\\playwright_linkedin_diagnose.py",
       "source_location": "L1",
       "id": "playwright_linkedin_diagnose_rationale_1",
-      "community": 46
+      "community": 48
     },
     {
       "label": "playwright_linkedin_experience_editor.py",
@@ -4289,7 +4537,7 @@
       "source_file": "tools\\post_creator\\playwright_linkedin_experience_editor.py",
       "source_location": "L1",
       "id": "playwright_linkedin_experience_editor",
-      "community": 25
+      "community": 27
     },
     {
       "label": "delete_all_experience()",
@@ -4297,7 +4545,7 @@
       "source_file": "tools\\post_creator\\playwright_linkedin_experience_editor.py",
       "source_location": "L42",
       "id": "playwright_linkedin_experience_editor_delete_all_experience",
-      "community": 25
+      "community": 27
     },
     {
       "label": "navigate_to_add_position()",
@@ -4305,7 +4553,7 @@
       "source_file": "tools\\post_creator\\playwright_linkedin_experience_editor.py",
       "source_location": "L161",
       "id": "playwright_linkedin_experience_editor_navigate_to_add_position",
-      "community": 25
+      "community": 27
     },
     {
       "label": "fill_position()",
@@ -4313,7 +4561,7 @@
       "source_file": "tools\\post_creator\\playwright_linkedin_experience_editor.py",
       "source_location": "L210",
       "id": "playwright_linkedin_experience_editor_fill_position",
-      "community": 25
+      "community": 27
     },
     {
       "label": "main()",
@@ -4321,7 +4569,7 @@
       "source_file": "tools\\post_creator\\playwright_linkedin_experience_editor.py",
       "source_location": "L335",
       "id": "playwright_linkedin_experience_editor_main",
-      "community": 25
+      "community": 27
     },
     {
       "label": "LinkedIn Experience Cleanup + Re-add v6 Step 1: Delete the 3 empty experience en",
@@ -4329,7 +4577,7 @@
       "source_file": "tools\\post_creator\\playwright_linkedin_experience_editor.py",
       "source_location": "L1",
       "id": "playwright_linkedin_experience_editor_rationale_1",
-      "community": 25
+      "community": 27
     },
     {
       "label": "Delete all existing experience entries by navigating to the experience section.",
@@ -4337,7 +4585,7 @@
       "source_file": "tools\\post_creator\\playwright_linkedin_experience_editor.py",
       "source_location": "L43",
       "id": "playwright_linkedin_experience_editor_rationale_43",
-      "community": 25
+      "community": 27
     },
     {
       "label": "Add section -> Core -> Add position.",
@@ -4345,7 +4593,7 @@
       "source_file": "tools\\post_creator\\playwright_linkedin_experience_editor.py",
       "source_location": "L162",
       "id": "playwright_linkedin_experience_editor_rationale_162",
-      "community": 25
+      "community": 27
     },
     {
       "label": "Fill the experience form using POSITION-BASED field indexing.",
@@ -4353,7 +4601,7 @@
       "source_file": "tools\\post_creator\\playwright_linkedin_experience_editor.py",
       "source_location": "L211",
       "id": "playwright_linkedin_experience_editor_rationale_211",
-      "community": 25
+      "community": 27
     },
     {
       "label": "playwright_linkedin_poster.py",
@@ -4361,7 +4609,7 @@
       "source_file": "tools\\post_creator\\playwright_linkedin_poster.py",
       "source_location": "L1",
       "id": "playwright_linkedin_poster",
-      "community": 39
+      "community": 41
     },
     {
       "label": "auto_post_to_linkedin()",
@@ -4369,7 +4617,7 @@
       "source_file": "tools\\post_creator\\playwright_linkedin_poster.py",
       "source_location": "L16",
       "id": "playwright_linkedin_poster_auto_post_to_linkedin",
-      "community": 39
+      "community": 41
     },
     {
       "label": "Automated Playwright LinkedIn Post Dispatcher Uses Playwright browser automation",
@@ -4377,7 +4625,7 @@
       "source_file": "tools\\post_creator\\playwright_linkedin_poster.py",
       "source_location": "L1",
       "id": "playwright_linkedin_poster_rationale_1",
-      "community": 39
+      "community": 41
     },
     {
       "label": "Automates posting to LinkedIn using Playwright Chromium with persistent user pro",
@@ -4385,7 +4633,7 @@
       "source_file": "tools\\post_creator\\playwright_linkedin_poster.py",
       "source_location": "L21",
       "id": "playwright_linkedin_poster_rationale_21",
-      "community": 39
+      "community": 41
     },
     {
       "label": "playwright_linkedin_profile_editor.py",
@@ -4393,7 +4641,7 @@
       "source_file": "tools\\post_creator\\playwright_linkedin_profile_editor.py",
       "source_location": "L1",
       "id": "playwright_linkedin_profile_editor",
-      "community": 47
+      "community": 49
     },
     {
       "label": "edit_profile()",
@@ -4401,7 +4649,7 @@
       "source_file": "tools\\post_creator\\playwright_linkedin_profile_editor.py",
       "source_location": "L15",
       "id": "playwright_linkedin_profile_editor_edit_profile",
-      "community": 47
+      "community": 49
     },
     {
       "label": "LinkedIn Profile Editor v6 \u2014 TARGETED. The headline is a TipTap ProseMirror cont",
@@ -4409,7 +4657,7 @@
       "source_file": "tools\\post_creator\\playwright_linkedin_profile_editor.py",
       "source_location": "L1",
       "id": "playwright_linkedin_profile_editor_rationale_1",
-      "community": 47
+      "community": 49
     },
     {
       "label": "playwright_linkedin_skills_editor.py",
@@ -4417,7 +4665,7 @@
       "source_file": "tools\\post_creator\\playwright_linkedin_skills_editor.py",
       "source_location": "L1",
       "id": "playwright_linkedin_skills_editor",
-      "community": 31
+      "community": 33
     },
     {
       "label": "check_and_cleanup()",
@@ -4425,7 +4673,7 @@
       "source_file": "tools\\post_creator\\playwright_linkedin_skills_editor.py",
       "source_location": "L22",
       "id": "playwright_linkedin_skills_editor_check_and_cleanup",
-      "community": 31
+      "community": 33
     },
     {
       "label": "add_skills()",
@@ -4433,7 +4681,7 @@
       "source_file": "tools\\post_creator\\playwright_linkedin_skills_editor.py",
       "source_location": "L79",
       "id": "playwright_linkedin_skills_editor_add_skills",
-      "community": 31
+      "community": 33
     },
     {
       "label": "main()",
@@ -4441,7 +4689,7 @@
       "source_file": "tools\\post_creator\\playwright_linkedin_skills_editor.py",
       "source_location": "L238",
       "id": "playwright_linkedin_skills_editor_main",
-      "community": 31
+      "community": 33
     },
     {
       "label": "LinkedIn Profile Cleanup & Skills Add: 1. Scroll through experience section to c",
@@ -4449,7 +4697,7 @@
       "source_file": "tools\\post_creator\\playwright_linkedin_skills_editor.py",
       "source_location": "L1",
       "id": "playwright_linkedin_skills_editor_rationale_1",
-      "community": 31
+      "community": 33
     },
     {
       "label": "Check the experience section for empty or duplicate entries.",
@@ -4457,7 +4705,7 @@
       "source_file": "tools\\post_creator\\playwright_linkedin_skills_editor.py",
       "source_location": "L23",
       "id": "playwright_linkedin_skills_editor_rationale_23",
-      "community": 31
+      "community": 33
     },
     {
       "label": "Add skills via Add section -> Core -> Add skills.",
@@ -4465,7 +4713,7 @@
       "source_file": "tools\\post_creator\\playwright_linkedin_skills_editor.py",
       "source_location": "L80",
       "id": "playwright_linkedin_skills_editor_rationale_80",
-      "community": 31
+      "community": 33
     },
     {
       "label": "post_generator.py",
@@ -4513,7 +4761,7 @@
       "source_file": "tools\\post_creator\\post_generator.py",
       "source_location": "L35",
       "id": "post_generator_rationale_35",
-      "community": 68
+      "community": 70
     },
     {
       "label": "post_privatecloud_to_linkedin.py",
@@ -4521,7 +4769,7 @@
       "source_file": "tools\\post_creator\\post_privatecloud_to_linkedin.py",
       "source_location": "L1",
       "id": "post_privatecloud_to_linkedin",
-      "community": 55
+      "community": 57
     },
     {
       "label": "publish_privatecloud_bundle()",
@@ -4529,7 +4777,7 @@
       "source_file": "tools\\post_creator\\post_privatecloud_to_linkedin.py",
       "source_location": "L55",
       "id": "post_privatecloud_to_linkedin_publish_privatecloud_bundle",
-      "community": 55
+      "community": 57
     },
     {
       "label": "render_distinct_slide1_covers.py",
@@ -4537,7 +4785,7 @@
       "source_file": "tools\\post_creator\\render_distinct_slide1_covers.py",
       "source_location": "L1",
       "id": "render_distinct_slide1_covers",
-      "community": 40
+      "community": 42
     },
     {
       "label": "render_edge_screenshot()",
@@ -4545,7 +4793,7 @@
       "source_file": "tools\\post_creator\\render_distinct_slide1_covers.py",
       "source_location": "L424",
       "id": "render_distinct_slide1_covers_render_edge_screenshot",
-      "community": 40
+      "community": 42
     },
     {
       "label": "render_distinct_covers()",
@@ -4553,7 +4801,7 @@
       "source_file": "tools\\post_creator\\render_distinct_slide1_covers.py",
       "source_location": "L433",
       "id": "render_distinct_slide1_covers_render_distinct_covers",
-      "community": 40
+      "community": 42
     },
     {
       "label": "Distinct Slide 1 Hero Cover Generator Renders 2 distinct, highly detailed Slide",
@@ -4561,7 +4809,7 @@
       "source_file": "tools\\post_creator\\render_distinct_slide1_covers.py",
       "source_location": "L1",
       "id": "render_distinct_slide1_covers_rationale_1",
-      "community": 40
+      "community": 42
     },
     {
       "label": "render_hybrid_slide1_covers.py",
@@ -4569,7 +4817,7 @@
       "source_file": "tools\\post_creator\\render_hybrid_slide1_covers.py",
       "source_location": "L1",
       "id": "render_hybrid_slide1_covers",
-      "community": 41
+      "community": 43
     },
     {
       "label": "render_edge_screenshot()",
@@ -4577,7 +4825,7 @@
       "source_file": "tools\\post_creator\\render_hybrid_slide1_covers.py",
       "source_location": "L462",
       "id": "render_hybrid_slide1_covers_render_edge_screenshot",
-      "community": 41
+      "community": 43
     },
     {
       "label": "render_hybrid_slide1_covers()",
@@ -4585,7 +4833,7 @@
       "source_file": "tools\\post_creator\\render_hybrid_slide1_covers.py",
       "source_location": "L471",
       "id": "render_hybrid_slide1_covers_render_hybrid_slide1_covers",
-      "community": 41
+      "community": 43
     },
     {
       "label": "Hybrid Vector Composite Slide 1 Cover Studio Combines pristine 3D Command Center",
@@ -4593,7 +4841,7 @@
       "source_file": "tools\\post_creator\\render_hybrid_slide1_covers.py",
       "source_location": "L1",
       "id": "render_hybrid_slide1_covers_rationale_1",
-      "community": 41
+      "community": 43
     },
     {
       "label": "render_readable_architecture.py",
@@ -4601,7 +4849,7 @@
       "source_file": "tools\\post_creator\\render_readable_architecture.py",
       "source_location": "L1",
       "id": "render_readable_architecture",
-      "community": 48
+      "community": 50
     },
     {
       "label": "render_image()",
@@ -4609,7 +4857,7 @@
       "source_file": "tools\\post_creator\\render_readable_architecture.py",
       "source_location": "L343",
       "id": "render_readable_architecture_render_image",
-      "community": 48
+      "community": 50
     },
     {
       "label": "Render High-Density, Ultra-Detailed Technical Architecture Visual (Slide 2 Upgra",
@@ -4617,7 +4865,7 @@
       "source_file": "tools\\post_creator\\render_readable_architecture.py",
       "source_location": "L1",
       "id": "render_readable_architecture_rationale_1",
-      "community": 48
+      "community": 50
     },
     {
       "label": "test_linkedin_post_dispatch.py",
@@ -4625,7 +4873,7 @@
       "source_file": "tools\\post_creator\\test_linkedin_post_dispatch.py",
       "source_location": "L1",
       "id": "test_linkedin_post_dispatch",
-      "community": 49
+      "community": 51
     },
     {
       "label": "create_ready_to_publish_bundle()",
@@ -4633,7 +4881,7 @@
       "source_file": "tools\\post_creator\\test_linkedin_post_dispatch.py",
       "source_location": "L19",
       "id": "test_linkedin_post_dispatch_create_ready_to_publish_bundle",
-      "community": 49
+      "community": 51
     },
     {
       "label": "Test LinkedIn Post Dispatch & Verification Script Packages the exact 4-slide vis",
@@ -4641,7 +4889,7 @@
       "source_file": "tools\\post_creator\\test_linkedin_post_dispatch.py",
       "source_location": "L1",
       "id": "test_linkedin_post_dispatch_rationale_1",
-      "community": 49
+      "community": 51
     },
     {
       "label": "run-pipeline.ps1",
@@ -4649,7 +4897,7 @@
       "source_file": "tools\\run-pipeline.ps1",
       "source_location": "L1",
       "id": "run_pipeline",
-      "community": 56
+      "community": 58
     },
     {
       "label": "Say()",
@@ -4657,7 +4905,7 @@
       "source_file": "tools\\run-pipeline.ps1",
       "source_location": "L35",
       "id": "run_pipeline_say",
-      "community": 56
+      "community": 58
     },
     {
       "label": "scan_sessions.py",
@@ -4793,7 +5041,7 @@
       "source_file": "tools\\send_queue.py",
       "source_location": "L1",
       "id": "send_queue",
-      "community": 36
+      "community": 38
     },
     {
       "label": "load_env()",
@@ -4801,7 +5049,7 @@
       "source_file": "tools\\send_queue.py",
       "source_location": "L37",
       "id": "send_queue_load_env",
-      "community": 36
+      "community": 38
     },
     {
       "label": "cap()",
@@ -4809,7 +5057,7 @@
       "source_file": "tools\\send_queue.py",
       "source_location": "L49",
       "id": "send_queue_cap",
-      "community": 36
+      "community": 38
     },
     {
       "label": "fmt()",
@@ -4817,7 +5065,7 @@
       "source_file": "tools\\send_queue.py",
       "source_location": "L56",
       "id": "send_queue_fmt",
-      "community": 36
+      "community": 38
     },
     {
       "label": "main()",
@@ -4825,7 +5073,7 @@
       "source_file": "tools\\send_queue.py",
       "source_location": "L61",
       "id": "send_queue_main",
-      "community": 36
+      "community": 38
     },
     {
       "label": "serve_dashboard.py",
@@ -5065,7 +5313,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L1",
       "id": "slack_action_card",
-      "community": 17
+      "community": 18
     },
     {
       "label": "load_env()",
@@ -5073,7 +5321,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L37",
       "id": "slack_action_card_load_env",
-      "community": 17
+      "community": 18
     },
     {
       "label": "read()",
@@ -5081,7 +5329,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L48",
       "id": "slack_action_card_read",
-      "community": 17
+      "community": 18
     },
     {
       "label": "first()",
@@ -5089,7 +5337,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L52",
       "id": "slack_action_card_first",
-      "community": 17
+      "community": 18
     },
     {
       "label": "all_of()",
@@ -5097,7 +5345,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L57",
       "id": "slack_action_card_all_of",
-      "community": 17
+      "community": 18
     },
     {
       "label": "first_blockquote()",
@@ -5105,7 +5353,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L61",
       "id": "slack_action_card_first_blockquote",
-      "community": 17
+      "community": 18
     },
     {
       "label": "section_quote()",
@@ -5113,7 +5361,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L78",
       "id": "slack_action_card_section_quote",
-      "community": 17
+      "community": 18
     },
     {
       "label": "resolve_slots()",
@@ -5121,7 +5369,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L87",
       "id": "slack_action_card_resolve_slots",
-      "community": 17
+      "community": 18
     },
     {
       "label": "build_card()",
@@ -5129,7 +5377,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L110",
       "id": "slack_action_card_build_card",
-      "community": 17
+      "community": 18
     },
     {
       "label": "post()",
@@ -5137,7 +5385,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L150",
       "id": "slack_action_card_post",
-      "community": 17
+      "community": 18
     },
     {
       "label": "main()",
@@ -5145,7 +5393,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L169",
       "id": "slack_action_card_main",
-      "community": 17
+      "community": 18
     },
     {
       "label": "Return the first contiguous block of '> ' lines, cleaned, as one string.",
@@ -5153,7 +5401,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L62",
       "id": "slack_action_card_rationale_62",
-      "community": 17
+      "community": 18
     },
     {
       "label": "The blockquote directly under the first heading matching heading_re.",
@@ -5161,7 +5409,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L79",
       "id": "slack_action_card_rationale_79",
-      "community": 17
+      "community": 18
     },
     {
       "label": "Fill the drafting slots so the preview reads exactly as the recipient will see i",
@@ -5169,7 +5417,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L88",
       "id": "slack_action_card_rationale_88",
-      "community": 17
+      "community": 18
     },
     {
       "label": "Role, score, recipient, the exact message the robot will send, marker. Nothing e",
@@ -5177,7 +5425,7 @@
       "source_file": "tools\\slack_action_card.py",
       "source_location": "L111",
       "id": "slack_action_card_rationale_111",
-      "community": 17
+      "community": 18
     },
     {
       "label": "slack_export.py",
@@ -5185,7 +5433,7 @@
       "source_file": "tools\\slack_export.py",
       "source_location": "L1",
       "id": "slack_export",
-      "community": 32
+      "community": 34
     },
     {
       "label": "load_env()",
@@ -5193,7 +5441,7 @@
       "source_file": "tools\\slack_export.py",
       "source_location": "L26",
       "id": "slack_export_load_env",
-      "community": 32
+      "community": 34
     },
     {
       "label": "call()",
@@ -5201,7 +5449,7 @@
       "source_file": "tools\\slack_export.py",
       "source_location": "L40",
       "id": "slack_export_call",
-      "community": 32
+      "community": 34
     },
     {
       "label": "resolve_users()",
@@ -5209,7 +5457,7 @@
       "source_file": "tools\\slack_export.py",
       "source_location": "L53",
       "id": "slack_export_resolve_users",
-      "community": 32
+      "community": 34
     },
     {
       "label": "main()",
@@ -5217,7 +5465,7 @@
       "source_file": "tools\\slack_export.py",
       "source_location": "L66",
       "id": "slack_export_main",
-      "community": 32
+      "community": 34
     },
     {
       "label": "Map user/bot ids to display names so the export is readable.",
@@ -5225,7 +5473,7 @@
       "source_file": "tools\\slack_export.py",
       "source_location": "L54",
       "id": "slack_export_rationale_54",
-      "community": 32
+      "community": 34
     },
     {
       "label": "slack_notify.py",
@@ -5233,7 +5481,7 @@
       "source_file": "tools\\slack_notify.py",
       "source_location": "L1",
       "id": "slack_notify",
-      "community": 50
+      "community": 52
     },
     {
       "label": "load_env()",
@@ -5241,7 +5489,7 @@
       "source_file": "tools\\slack_notify.py",
       "source_location": "L28",
       "id": "slack_notify_load_env",
-      "community": 50
+      "community": 52
     },
     {
       "label": "main()",
@@ -5249,7 +5497,7 @@
       "source_file": "tools\\slack_notify.py",
       "source_location": "L40",
       "id": "slack_notify_main",
-      "community": 50
+      "community": 52
     },
     {
       "label": "slack_react.py",
@@ -5257,7 +5505,7 @@
       "source_file": "tools\\slack_react.py",
       "source_location": "L1",
       "id": "slack_react",
-      "community": 33
+      "community": 35
     },
     {
       "label": "load_env()",
@@ -5265,7 +5513,7 @@
       "source_file": "tools\\slack_react.py",
       "source_location": "L35",
       "id": "slack_react_load_env",
-      "community": 33
+      "community": 35
     },
     {
       "label": "call()",
@@ -5273,7 +5521,7 @@
       "source_file": "tools\\slack_react.py",
       "source_location": "L46",
       "id": "slack_react_call",
-      "community": 33
+      "community": 35
     },
     {
       "label": "find_ts()",
@@ -5281,7 +5529,7 @@
       "source_file": "tools\\slack_react.py",
       "source_location": "L59",
       "id": "slack_react_find_ts",
-      "community": 33
+      "community": 35
     },
     {
       "label": "main()",
@@ -5289,7 +5537,7 @@
       "source_file": "tools\\slack_react.py",
       "source_location": "L72",
       "id": "slack_react_main",
-      "community": 33
+      "community": 35
     },
     {
       "label": "Locate the newest card carrying `ref:<slug>`.",
@@ -5297,7 +5545,7 @@
       "source_file": "tools\\slack_react.py",
       "source_location": "L60",
       "id": "slack_react_rationale_60",
-      "community": 33
+      "community": 35
     },
     {
       "label": "slack_upload.py",
@@ -5305,7 +5553,7 @@
       "source_file": "tools\\slack_upload.py",
       "source_location": "L1",
       "id": "slack_upload",
-      "community": 42
+      "community": 44
     },
     {
       "label": "load_env()",
@@ -5313,7 +5561,7 @@
       "source_file": "tools\\slack_upload.py",
       "source_location": "L25",
       "id": "slack_upload_load_env",
-      "community": 42
+      "community": 44
     },
     {
       "label": "api()",
@@ -5321,7 +5569,7 @@
       "source_file": "tools\\slack_upload.py",
       "source_location": "L36",
       "id": "slack_upload_api",
-      "community": 42
+      "community": 44
     },
     {
       "label": "main()",
@@ -5329,7 +5577,7 @@
       "source_file": "tools\\slack_upload.py",
       "source_location": "L49",
       "id": "slack_upload_main",
-      "community": 42
+      "community": 44
     },
     {
       "label": "sweep-packets.ps1",
@@ -5337,7 +5585,7 @@
       "source_file": "tools\\sweep-packets.ps1",
       "source_location": "L1",
       "id": "sweep_packets",
-      "community": 57
+      "community": 59
     },
     {
       "label": "Say()",
@@ -5345,7 +5593,7 @@
       "source_file": "tools\\sweep-packets.ps1",
       "source_location": "L28",
       "id": "sweep_packets_say",
-      "community": 57
+      "community": 59
     },
     {
       "label": "sync_board.py",
@@ -5393,7 +5641,7 @@
       "source_file": "tools\\trend_finder.py",
       "source_location": "L1",
       "id": "trend_finder",
-      "community": 2
+      "community": 20
     },
     {
       "label": "fetch_trending_via_newsdata()",
@@ -5401,7 +5649,7 @@
       "source_file": "tools\\trend_finder.py",
       "source_location": "L45",
       "id": "trend_finder_fetch_trending_via_newsdata",
-      "community": 2
+      "community": 20
     },
     {
       "label": "fetch_trending_via_currents()",
@@ -5409,7 +5657,7 @@
       "source_file": "tools\\trend_finder.py",
       "source_location": "L66",
       "id": "trend_finder_fetch_trending_via_currents",
-      "community": 2
+      "community": 20
     },
     {
       "label": "fetch_trending_via_hacker_news()",
@@ -5417,7 +5665,7 @@
       "source_file": "tools\\trend_finder.py",
       "source_location": "L87",
       "id": "trend_finder_fetch_trending_via_hacker_news",
-      "community": 2
+      "community": 20
     },
     {
       "label": "deduplicate_topics()",
@@ -5425,7 +5673,7 @@
       "source_file": "tools\\trend_finder.py",
       "source_location": "L121",
       "id": "trend_finder_deduplicate_topics",
-      "community": 2
+      "community": 20
     },
     {
       "label": "determine_post_type()",
@@ -5433,7 +5681,7 @@
       "source_file": "tools\\trend_finder.py",
       "source_location": "L139",
       "id": "trend_finder_determine_post_type",
-      "community": 2
+      "community": 20
     },
     {
       "label": "generate_hashtags()",
@@ -5441,7 +5689,7 @@
       "source_file": "tools\\trend_finder.py",
       "source_location": "L151",
       "id": "trend_finder_generate_hashtags",
-      "community": 2
+      "community": 20
     },
     {
       "label": "main()",
@@ -5449,7 +5697,7 @@
       "source_file": "tools\\trend_finder.py",
       "source_location": "L174",
       "id": "trend_finder_main",
-      "community": 2
+      "community": 20
     },
     {
       "label": "Fetch headlines from NewsData.io (free tier, 200 credits/day, no key needed for",
@@ -5457,7 +5705,7 @@
       "source_file": "tools\\trend_finder.py",
       "source_location": "L46",
       "id": "trend_finder_rationale_46",
-      "community": 2
+      "community": 20
     },
     {
       "label": "Fetch from Currents API (free, ~1000 req/day).",
@@ -5465,7 +5713,7 @@
       "source_file": "tools\\trend_finder.py",
       "source_location": "L67",
       "id": "trend_finder_rationale_67",
-      "community": 2
+      "community": 20
     },
     {
       "label": "Fetch top stories from Hacker News API (free, no key, no limits).",
@@ -5473,7 +5721,7 @@
       "source_file": "tools\\trend_finder.py",
       "source_location": "L88",
       "id": "trend_finder_rationale_88",
-      "community": 2
+      "community": 20
     },
     {
       "label": "Remove near-duplicate titles.",
@@ -5481,7 +5729,7 @@
       "source_file": "tools\\trend_finder.py",
       "source_location": "L122",
       "id": "trend_finder_rationale_122",
-      "community": 2
+      "community": 20
     },
     {
       "label": "Heuristic to classify a trending topic into a post type.",
@@ -5489,7 +5737,7 @@
       "source_file": "tools\\trend_finder.py",
       "source_location": "L140",
       "id": "trend_finder_rationale_140",
-      "community": 2
+      "community": 20
     },
     {
       "label": "Generate relevant hashtags based on topic keywords.",
@@ -5497,7 +5745,7 @@
       "source_file": "tools\\trend_finder.py",
       "source_location": "L152",
       "id": "trend_finder_rationale_152",
-      "community": 2
+      "community": 20
     },
     {
       "label": "watch-accepts.ps1",
@@ -5505,7 +5753,7 @@
       "source_file": "tools\\watch-accepts.ps1",
       "source_location": "L1",
       "id": "watch_accepts",
-      "community": 69
+      "community": 71
     },
     {
       "label": "common.js",
@@ -5721,7 +5969,7 @@
       "source_file": "web\\static\\page-board.js",
       "source_location": "L1",
       "id": "page_board",
-      "community": 28
+      "community": 30
     },
     {
       "label": "stage()",
@@ -5729,7 +5977,7 @@
       "source_file": "web\\static\\page-board.js",
       "source_location": "L27",
       "id": "page_board_stage",
-      "community": 28
+      "community": 30
     },
     {
       "label": "task()",
@@ -5737,7 +5985,7 @@
       "source_file": "web\\static\\page-board.js",
       "source_location": "L38",
       "id": "page_board_task",
-      "community": 28
+      "community": 30
     },
     {
       "label": "leg()",
@@ -5745,7 +5993,7 @@
       "source_file": "web\\static\\page-board.js",
       "source_location": "L47",
       "id": "page_board_leg",
-      "community": 28
+      "community": 30
     },
     {
       "label": "inviteUnit()",
@@ -5753,7 +6001,7 @@
       "source_file": "web\\static\\page-board.js",
       "source_location": "L53",
       "id": "page_board_inviteunit",
-      "community": 28
+      "community": 30
     },
     {
       "label": "grab()",
@@ -5761,7 +6009,7 @@
       "source_file": "web\\static\\page-board.js",
       "source_location": "L152",
       "id": "page_board_grab",
-      "community": 28
+      "community": 30
     },
     {
       "label": "match()",
@@ -5769,7 +6017,7 @@
       "source_file": "web\\static\\page-board.js",
       "source_location": "L182",
       "id": "page_board_match",
-      "community": 28
+      "community": 30
     },
     {
       "label": "renderTable()",
@@ -5777,7 +6025,7 @@
       "source_file": "web\\static\\page-board.js",
       "source_location": "L193",
       "id": "page_board_rendertable",
-      "community": 28
+      "community": 30
     },
     {
       "label": "page-controls.js",
@@ -5785,7 +6033,7 @@
       "source_file": "web\\static\\page-controls.js",
       "source_location": "L1",
       "id": "page_controls",
-      "community": 26
+      "community": 28
     },
     {
       "label": "renderPreflight()",
@@ -5793,7 +6041,7 @@
       "source_file": "web\\static\\page-controls.js",
       "source_location": "L23",
       "id": "page_controls_renderpreflight",
-      "community": 26
+      "community": 28
     },
     {
       "label": "loadPreflight()",
@@ -5801,7 +6049,7 @@
       "source_file": "web\\static\\page-controls.js",
       "source_location": "L45",
       "id": "page_controls_loadpreflight",
-      "community": 26
+      "community": 28
     },
     {
       "label": "actionCard()",
@@ -5809,7 +6057,7 @@
       "source_file": "web\\static\\page-controls.js",
       "source_location": "L53",
       "id": "page_controls_actioncard",
-      "community": 26
+      "community": 28
     },
     {
       "label": "confirmPanel()",
@@ -5817,7 +6065,7 @@
       "source_file": "web\\static\\page-controls.js",
       "source_location": "L76",
       "id": "page_controls_confirmpanel",
-      "community": 26
+      "community": 28
     },
     {
       "label": "fire()",
@@ -5825,7 +6073,7 @@
       "source_file": "web\\static\\page-controls.js",
       "source_location": "L101",
       "id": "page_controls_fire",
-      "community": 26
+      "community": 28
     },
     {
       "label": "renderRun()",
@@ -5833,7 +6081,7 @@
       "source_file": "web\\static\\page-controls.js",
       "source_location": "L113",
       "id": "page_controls_renderrun",
-      "community": 26
+      "community": 28
     },
     {
       "label": "watch()",
@@ -5841,7 +6089,7 @@
       "source_file": "web\\static\\page-controls.js",
       "source_location": "L140",
       "id": "page_controls_watch",
-      "community": 26
+      "community": 28
     },
     {
       "label": "loadHistory()",
@@ -5849,7 +6097,7 @@
       "source_file": "web\\static\\page-controls.js",
       "source_location": "L158",
       "id": "page_controls_loadhistory",
-      "community": 26
+      "community": 28
     },
     {
       "label": "page-downloads.js",
@@ -5857,7 +6105,7 @@
       "source_file": "web\\static\\page-downloads.js",
       "source_location": "L1",
       "id": "page_downloads",
-      "community": 51
+      "community": 53
     },
     {
       "label": "section()",
@@ -5865,7 +6113,7 @@
       "source_file": "web\\static\\page-downloads.js",
       "source_location": "L7",
       "id": "page_downloads_section",
-      "community": 51
+      "community": 53
     },
     {
       "label": "card()",
@@ -5873,7 +6121,7 @@
       "source_file": "web\\static\\page-downloads.js",
       "source_location": "L14",
       "id": "page_downloads_card",
-      "community": 51
+      "community": 53
     },
     {
       "label": "page-jobs.js",
@@ -5881,7 +6129,7 @@
       "source_file": "web\\static\\page-jobs.js",
       "source_location": "L1",
       "id": "page_jobs",
-      "community": 23
+      "community": 24
     },
     {
       "label": "renderList()",
@@ -5889,7 +6137,7 @@
       "source_file": "web\\static\\page-jobs.js",
       "source_location": "L7",
       "id": "page_jobs_renderlist",
-      "community": 23
+      "community": 24
     },
     {
       "label": "statusControl()",
@@ -5897,7 +6145,7 @@
       "source_file": "web\\static\\page-jobs.js",
       "source_location": "L33",
       "id": "page_jobs_statuscontrol",
-      "community": 23
+      "community": 24
     },
     {
       "label": "notionRow()",
@@ -5905,7 +6153,7 @@
       "source_file": "web\\static\\page-jobs.js",
       "source_location": "L78",
       "id": "page_jobs_notionrow",
-      "community": 23
+      "community": 24
     },
     {
       "label": "change()",
@@ -5913,7 +6161,7 @@
       "source_file": "web\\static\\page-jobs.js",
       "source_location": "L112",
       "id": "page_jobs_change",
-      "community": 23
+      "community": 24
     },
     {
       "label": "recount()",
@@ -5921,7 +6169,7 @@
       "source_file": "web\\static\\page-jobs.js",
       "source_location": "L134",
       "id": "page_jobs_recount",
-      "community": 23
+      "community": 24
     },
     {
       "label": "applyPanel()",
@@ -5929,7 +6177,7 @@
       "source_file": "web\\static\\page-jobs.js",
       "source_location": "L142",
       "id": "page_jobs_applypanel",
-      "community": 23
+      "community": 24
     },
     {
       "label": "cvPanel()",
@@ -5937,7 +6185,7 @@
       "source_file": "web\\static\\page-jobs.js",
       "source_location": "L200",
       "id": "page_jobs_cvpanel",
-      "community": 23
+      "community": 24
     },
     {
       "label": "show()",
@@ -5945,7 +6193,7 @@
       "source_file": "web\\static\\page-jobs.js",
       "source_location": "L249",
       "id": "page_jobs_show",
-      "community": 23
+      "community": 24
     },
     {
       "label": "buildPanel()",
@@ -5953,7 +6201,7 @@
       "source_file": "web\\static\\page-jobs.js",
       "source_location": "L305",
       "id": "page_jobs_buildpanel",
-      "community": 23
+      "community": 24
     },
     {
       "label": "followBuild()",
@@ -5961,7 +6209,7 @@
       "source_file": "web\\static\\page-jobs.js",
       "source_location": "L355",
       "id": "page_jobs_followbuild",
-      "community": 23
+      "community": 24
     },
     {
       "label": "page-research.js",
@@ -5969,7 +6217,7 @@
       "source_file": "web\\static\\page-research.js",
       "source_location": "L1",
       "id": "page_research",
-      "community": 58
+      "community": 60
     },
     {
       "label": "render()",
@@ -5977,7 +6225,7 @@
       "source_file": "web\\static\\page-research.js",
       "source_location": "L36",
       "id": "page_research_render",
-      "community": 58
+      "community": 60
     },
     {
       "label": "page-slack.js",
@@ -5985,7 +6233,7 @@
       "source_file": "web\\static\\page-slack.js",
       "source_location": "L1",
       "id": "page_slack",
-      "community": 59
+      "community": 61
     },
     {
       "label": "render()",
@@ -5993,7 +6241,7 @@
       "source_file": "web\\static\\page-slack.js",
       "source_location": "L7",
       "id": "page_slack_render",
-      "community": 59
+      "community": 61
     }
   ],
   "links": [
@@ -6676,6 +6924,66 @@
       "source_location": "L79",
       "weight": 1.0,
       "_src": "cv",
+      "_tgt": "cv_slugify",
+      "source": "cv",
+      "target": "cv_slugify",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L84",
+      "weight": 1.0,
+      "_src": "cv",
+      "_tgt": "cv_key",
+      "source": "cv",
+      "target": "cv_key",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L95",
+      "weight": 1.0,
+      "_src": "cv",
+      "_tgt": "cv_company_slug",
+      "source": "cv",
+      "target": "cv_company_slug",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L100",
+      "weight": 1.0,
+      "_src": "cv",
+      "_tgt": "cv_packet_dir_for",
+      "source": "cv",
+      "target": "cv_packet_dir_for",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L132",
+      "weight": 1.0,
+      "_src": "cv",
+      "_tgt": "cv_find_role_packet",
+      "source": "cv",
+      "target": "cv_find_role_packet",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L149",
+      "weight": 1.0,
+      "_src": "cv",
       "_tgt": "cv_find_company_packet",
       "source": "cv",
       "target": "cv_find_company_packet",
@@ -6685,7 +6993,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\cv.py",
-      "source_location": "L107",
+      "source_location": "L171",
       "weight": 1.0,
       "_src": "cv",
       "_tgt": "cv_find_packet",
@@ -6697,7 +7005,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\cv.py",
-      "source_location": "L123",
+      "source_location": "L187",
       "weight": 1.0,
       "_src": "cv",
       "_tgt": "cv_to_packet",
@@ -6709,7 +7017,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\cv.py",
-      "source_location": "L138",
+      "source_location": "L202",
       "weight": 1.0,
       "_src": "cv",
       "_tgt": "cv_build_packet",
@@ -6721,7 +7029,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\cv.py",
-      "source_location": "L225",
+      "source_location": "L301",
       "weight": 1.0,
       "_src": "cv",
       "_tgt": "cv_build_many",
@@ -6745,7 +7053,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\cv.py",
-      "source_location": "L205",
+      "source_location": "L281",
       "weight": 0.8,
       "_src": "cv_build_packet",
       "_tgt": "cv_usagelimithit",
@@ -6769,7 +7077,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\cv.py",
-      "source_location": "L126",
+      "source_location": "L190",
       "weight": 0.8,
       "_src": "cv_to_packet",
       "_tgt": "cv_packetbuildfailed",
@@ -6781,7 +7089,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\cv.py",
-      "source_location": "L154",
+      "source_location": "L252",
       "weight": 0.8,
       "_src": "cv_build_packet",
       "_tgt": "cv_packetbuildfailed",
@@ -6817,7 +7125,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\cv.py",
-      "source_location": "L127",
+      "source_location": "L191",
       "weight": 0.8,
       "_src": "cv_to_packet",
       "_tgt": "cv_packet",
@@ -6829,7 +7137,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\cv.py",
-      "source_location": "L200",
+      "source_location": "L276",
       "weight": 0.8,
       "_src": "cv_build_packet",
       "_tgt": "cv_packet_complete",
@@ -6853,7 +7161,187 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\cv.py",
-      "source_location": "L102",
+      "source_location": "L97",
+      "weight": 0.8,
+      "_src": "cv_company_slug",
+      "_tgt": "cv_slugify",
+      "source": "cv_slugify",
+      "target": "cv_company_slug",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L129",
+      "weight": 0.8,
+      "_src": "cv_packet_dir_for",
+      "_tgt": "cv_slugify",
+      "source": "cv_slugify",
+      "target": "cv_packet_dir_for",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L80",
+      "weight": 1.0,
+      "_src": "cv_rationale_80",
+      "_tgt": "cv_slugify",
+      "source": "cv_slugify",
+      "target": "cv_rationale_80",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L124",
+      "weight": 0.8,
+      "_src": "cv_packet_dir_for",
+      "_tgt": "cv_key",
+      "source": "cv_key",
+      "target": "cv_packet_dir_for",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L135",
+      "weight": 0.8,
+      "_src": "cv_find_role_packet",
+      "_tgt": "cv_key",
+      "source": "cv_key",
+      "target": "cv_find_role_packet",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L85",
+      "weight": 1.0,
+      "_src": "cv_rationale_85",
+      "_tgt": "cv_key",
+      "source": "cv_key",
+      "target": "cv_rationale_85",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L113",
+      "weight": 0.8,
+      "_src": "cv_packet_dir_for",
+      "_tgt": "cv_company_slug",
+      "source": "cv_company_slug",
+      "target": "cv_packet_dir_for",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L158",
+      "weight": 0.8,
+      "_src": "cv_find_company_packet",
+      "_tgt": "cv_company_slug",
+      "source": "cv_company_slug",
+      "target": "cv_find_company_packet",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L227",
+      "weight": 0.8,
+      "_src": "cv_build_packet",
+      "_tgt": "cv_company_slug",
+      "source": "cv_company_slug",
+      "target": "cv_build_packet",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L96",
+      "weight": 1.0,
+      "_src": "cv_rationale_96",
+      "_tgt": "cv_company_slug",
+      "source": "cv_company_slug",
+      "target": "cv_rationale_96",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L225",
+      "weight": 0.8,
+      "_src": "cv_build_packet",
+      "_tgt": "cv_packet_dir_for",
+      "source": "cv_packet_dir_for",
+      "target": "cv_build_packet",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L101",
+      "weight": 1.0,
+      "_src": "cv_rationale_101",
+      "_tgt": "cv_packet_dir_for",
+      "source": "cv_packet_dir_for",
+      "target": "cv_rationale_101",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L143",
+      "weight": 0.8,
+      "_src": "cv_find_role_packet",
+      "_tgt": "cv_to_packet",
+      "source": "cv_find_role_packet",
+      "target": "cv_to_packet",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L221",
+      "weight": 0.8,
+      "_src": "cv_build_packet",
+      "_tgt": "cv_find_role_packet",
+      "source": "cv_find_role_packet",
+      "target": "cv_build_packet",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L133",
+      "weight": 1.0,
+      "_src": "cv_rationale_133",
+      "_tgt": "cv_find_role_packet",
+      "source": "cv_find_role_packet",
+      "target": "cv_rationale_133",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "apps\\autopilot\\cv.py",
+      "source_location": "L166",
       "weight": 0.8,
       "_src": "cv_find_company_packet",
       "_tgt": "cv_to_packet",
@@ -6865,7 +7353,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\cv.py",
-      "source_location": "L152",
+      "source_location": "L226",
       "weight": 0.8,
       "_src": "cv_build_packet",
       "_tgt": "cv_find_company_packet",
@@ -6877,19 +7365,19 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\cv.py",
-      "source_location": "L80",
+      "source_location": "L150",
       "weight": 1.0,
-      "_src": "cv_rationale_80",
+      "_src": "cv_rationale_150",
       "_tgt": "cv_find_company_packet",
       "source": "cv_find_company_packet",
-      "target": "cv_rationale_80",
+      "target": "cv_rationale_150",
       "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\cv.py",
-      "source_location": "L119",
+      "source_location": "L183",
       "weight": 0.8,
       "_src": "cv_find_packet",
       "_tgt": "cv_to_packet",
@@ -6901,7 +7389,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\cv.py",
-      "source_location": "L145",
+      "source_location": "L210",
       "weight": 0.8,
       "_src": "cv_build_packet",
       "_tgt": "cv_find_packet",
@@ -6913,19 +7401,19 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\cv.py",
-      "source_location": "L108",
+      "source_location": "L172",
       "weight": 1.0,
-      "_src": "cv_rationale_108",
+      "_src": "cv_rationale_172",
       "_tgt": "cv_find_packet",
       "source": "cv_find_packet",
-      "target": "cv_rationale_108",
+      "target": "cv_rationale_172",
       "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\cv.py",
-      "source_location": "L239",
+      "source_location": "L316",
       "weight": 0.8,
       "_src": "cv_build_many",
       "_tgt": "cv_build_packet",
@@ -6937,24 +7425,24 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\cv.py",
-      "source_location": "L141",
+      "source_location": "L206",
       "weight": 1.0,
-      "_src": "cv_rationale_141",
+      "_src": "cv_rationale_206",
       "_tgt": "cv_build_packet",
       "source": "cv_build_packet",
-      "target": "cv_rationale_141",
+      "target": "cv_rationale_206",
       "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\cv.py",
-      "source_location": "L230",
+      "source_location": "L307",
       "weight": 1.0,
-      "_src": "cv_rationale_230",
+      "_src": "cv_rationale_307",
       "_tgt": "cv_build_many",
       "source": "cv_build_many",
-      "target": "cv_rationale_230",
+      "target": "cv_rationale_307",
       "confidence_score": 1.0
     },
     {
@@ -7021,7 +7509,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\families.py",
-      "source_location": "L81",
+      "source_location": "L91",
       "weight": 0.8,
       "_src": "families_pick_cv",
       "_tgt": "families_family_for",
@@ -7045,7 +7533,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\families.py",
-      "source_location": "L82",
+      "source_location": "L92",
       "weight": 0.8,
       "_src": "families_pick_cv",
       "_tgt": "families_family_pdf",
@@ -7057,7 +7545,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\families.py",
-      "source_location": "L79",
+      "source_location": "L89",
       "weight": 0.8,
       "_src": "families_pick_cv",
       "_tgt": "families_cvchoice",
@@ -7695,10 +8183,10 @@
       "source_file": "apps\\autopilot\\run.py",
       "source_location": "L25",
       "weight": 0.8,
-      "_src": "run_rationale_351",
+      "_src": "run_rationale_358",
       "_tgt": "fill_linkedinloggedout",
       "source": "fill_linkedinloggedout",
-      "target": "run_rationale_351",
+      "target": "run_rationale_358",
       "confidence_score": 0.5
     },
     {
@@ -7707,10 +8195,10 @@
       "source_file": "apps\\autopilot\\run.py",
       "source_location": "L25",
       "weight": 0.8,
-      "_src": "run_rationale_373",
+      "_src": "run_rationale_380",
       "_tgt": "fill_linkedinloggedout",
       "source": "fill_linkedinloggedout",
-      "target": "run_rationale_373",
+      "target": "run_rationale_380",
       "confidence_score": 0.5
     },
     {
@@ -7719,10 +8207,10 @@
       "source_file": "apps\\autopilot\\run.py",
       "source_location": "L25",
       "weight": 0.8,
-      "_src": "run_rationale_463",
+      "_src": "run_rationale_470",
       "_tgt": "fill_linkedinloggedout",
       "source": "fill_linkedinloggedout",
-      "target": "run_rationale_463",
+      "target": "run_rationale_470",
       "confidence_score": 0.5
     },
     {
@@ -7731,10 +8219,10 @@
       "source_file": "apps\\autopilot\\run.py",
       "source_location": "L25",
       "weight": 0.8,
-      "_src": "run_rationale_667",
+      "_src": "run_rationale_674",
       "_tgt": "fill_linkedinloggedout",
       "source": "fill_linkedinloggedout",
-      "target": "run_rationale_667",
+      "target": "run_rationale_674",
       "confidence_score": 0.5
     },
     {
@@ -7839,10 +8327,10 @@
       "source_file": "apps\\autopilot\\run.py",
       "source_location": "L25",
       "weight": 0.8,
-      "_src": "run_rationale_351",
+      "_src": "run_rationale_358",
       "_tgt": "fill_fillresult",
       "source": "fill_fillresult",
-      "target": "run_rationale_351",
+      "target": "run_rationale_358",
       "confidence_score": 0.5
     },
     {
@@ -7851,10 +8339,10 @@
       "source_file": "apps\\autopilot\\run.py",
       "source_location": "L25",
       "weight": 0.8,
-      "_src": "run_rationale_373",
+      "_src": "run_rationale_380",
       "_tgt": "fill_fillresult",
       "source": "fill_fillresult",
-      "target": "run_rationale_373",
+      "target": "run_rationale_380",
       "confidence_score": 0.5
     },
     {
@@ -7863,10 +8351,10 @@
       "source_file": "apps\\autopilot\\run.py",
       "source_location": "L25",
       "weight": 0.8,
-      "_src": "run_rationale_463",
+      "_src": "run_rationale_470",
       "_tgt": "fill_fillresult",
       "source": "fill_fillresult",
-      "target": "run_rationale_463",
+      "target": "run_rationale_470",
       "confidence_score": 0.5
     },
     {
@@ -7875,10 +8363,10 @@
       "source_file": "apps\\autopilot\\run.py",
       "source_location": "L25",
       "weight": 0.8,
-      "_src": "run_rationale_667",
+      "_src": "run_rationale_674",
       "_tgt": "fill_fillresult",
       "source": "fill_fillresult",
-      "target": "run_rationale_667",
+      "target": "run_rationale_674",
       "confidence_score": 0.5
     },
     {
@@ -9601,7 +10089,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L350",
+      "source_location": "L357",
       "weight": 1.0,
       "_src": "run",
       "_tgt": "run_job_description",
@@ -9613,7 +10101,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L372",
+      "source_location": "L379",
       "weight": 1.0,
       "_src": "run",
       "_tgt": "run_cmd_prune",
@@ -9625,7 +10113,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L457",
+      "source_location": "L464",
       "weight": 1.0,
       "_src": "run",
       "_tgt": "run_answers_today",
@@ -9637,7 +10125,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L462",
+      "source_location": "L469",
       "weight": 1.0,
       "_src": "run",
       "_tgt": "run_cmd_applyall",
@@ -9649,7 +10137,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L648",
+      "source_location": "L655",
       "weight": 1.0,
       "_src": "run",
       "_tgt": "run_ledger_rows",
@@ -9661,7 +10149,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L653",
+      "source_location": "L660",
       "weight": 1.0,
       "_src": "run",
       "_tgt": "run_mark_applied",
@@ -9673,7 +10161,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L666",
+      "source_location": "L673",
       "weight": 1.0,
       "_src": "run",
       "_tgt": "run_cmd_ledger",
@@ -9685,7 +10173,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L678",
+      "source_location": "L685",
       "weight": 1.0,
       "_src": "run",
       "_tgt": "run_cmd_fieldmap",
@@ -9697,7 +10185,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L683",
+      "source_location": "L690",
       "weight": 1.0,
       "_src": "run",
       "_tgt": "run_main",
@@ -9745,7 +10233,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L393",
+      "source_location": "L400",
       "weight": 0.8,
       "_src": "run_cmd_prune",
       "_tgt": "run_user_data_dir",
@@ -9757,7 +10245,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L570",
+      "source_location": "L577",
       "weight": 0.8,
       "_src": "run_cmd_applyall",
       "_tgt": "run_user_data_dir",
@@ -9817,7 +10305,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L476",
+      "source_location": "L483",
       "weight": 0.8,
       "_src": "run_cmd_applyall",
       "_tgt": "run_board_candidates",
@@ -9877,7 +10365,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L744",
+      "source_location": "L751",
       "weight": 0.8,
       "_src": "run_main",
       "_tgt": "run_cmd_fill",
@@ -9889,7 +10377,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L735",
+      "source_location": "L742",
       "weight": 0.8,
       "_src": "run_main",
       "_tgt": "run_cmd_login",
@@ -9913,7 +10401,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L743",
+      "source_location": "L750",
       "weight": 0.8,
       "_src": "run_main",
       "_tgt": "run_cmd_packet",
@@ -9937,7 +10425,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L421",
+      "source_location": "L428",
       "weight": 0.8,
       "_src": "run_cmd_prune",
       "_tgt": "run_job_description",
@@ -9949,19 +10437,19 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L351",
+      "source_location": "L358",
       "weight": 1.0,
-      "_src": "run_rationale_351",
+      "_src": "run_rationale_358",
       "_tgt": "run_job_description",
       "source": "run_job_description",
-      "target": "run_rationale_351",
+      "target": "run_rationale_358",
       "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L438",
+      "source_location": "L445",
       "weight": 0.8,
       "_src": "run_cmd_prune",
       "_tgt": "run_answers_today",
@@ -9973,7 +10461,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L739",
+      "source_location": "L746",
       "weight": 0.8,
       "_src": "run_main",
       "_tgt": "run_cmd_prune",
@@ -9985,19 +10473,19 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L373",
+      "source_location": "L380",
       "weight": 1.0,
-      "_src": "run_rationale_373",
+      "_src": "run_rationale_380",
       "_tgt": "run_cmd_prune",
       "source": "run_cmd_prune",
-      "target": "run_rationale_373",
+      "target": "run_rationale_380",
       "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L657",
+      "source_location": "L664",
       "weight": 0.8,
       "_src": "run_mark_applied",
       "_tgt": "run_answers_today",
@@ -10009,7 +10497,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L598",
+      "source_location": "L605",
       "weight": 0.8,
       "_src": "run_cmd_applyall",
       "_tgt": "run_mark_applied",
@@ -10021,7 +10509,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L737",
+      "source_location": "L744",
       "weight": 0.8,
       "_src": "run_main",
       "_tgt": "run_cmd_applyall",
@@ -10033,19 +10521,19 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L463",
+      "source_location": "L470",
       "weight": 1.0,
-      "_src": "run_rationale_463",
+      "_src": "run_rationale_470",
       "_tgt": "run_cmd_applyall",
       "source": "run_cmd_applyall",
-      "target": "run_rationale_463",
+      "target": "run_rationale_470",
       "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L741",
+      "source_location": "L748",
       "weight": 0.8,
       "_src": "run_main",
       "_tgt": "run_cmd_ledger",
@@ -10057,19 +10545,19 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L667",
+      "source_location": "L674",
       "weight": 1.0,
-      "_src": "run_rationale_667",
+      "_src": "run_rationale_674",
       "_tgt": "run_cmd_ledger",
       "source": "run_cmd_ledger",
-      "target": "run_rationale_667",
+      "target": "run_rationale_674",
       "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\run.py",
-      "source_location": "L733",
+      "source_location": "L740",
       "weight": 0.8,
       "_src": "run_main",
       "_tgt": "run_cmd_fieldmap",
@@ -11635,6 +12123,330 @@
       "_tgt": "test_ledger_test_the_exact_posting_guard_is_untouched_by_the_window",
       "source": "test_ledger_test_the_exact_posting_guard_is_untouched_by_the_window",
       "target": "test_ledger_rationale_178",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L22",
+      "weight": 1.0,
+      "_src": "test_packet_layout",
+      "_tgt": "test_packet_layout_out",
+      "source": "test_packet_layout",
+      "target": "test_packet_layout_out",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L28",
+      "weight": 1.0,
+      "_src": "test_packet_layout",
+      "_tgt": "test_packet_layout_packet",
+      "source": "test_packet_layout",
+      "target": "test_packet_layout_packet",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L38",
+      "weight": 1.0,
+      "_src": "test_packet_layout",
+      "_tgt": "test_packet_layout_test_the_first_role_keeps_the_plain_company_folder",
+      "source": "test_packet_layout",
+      "target": "test_packet_layout_test_the_first_role_keeps_the_plain_company_folder",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L43",
+      "weight": 1.0,
+      "_src": "test_packet_layout",
+      "_tgt": "test_packet_layout_test_a_second_role_gets_its_own_folder",
+      "source": "test_packet_layout",
+      "target": "test_packet_layout_test_a_second_role_gets_its_own_folder",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L50",
+      "weight": 1.0,
+      "_src": "test_packet_layout",
+      "_tgt": "test_packet_layout_test_the_second_role_folder_is_stable",
+      "source": "test_packet_layout",
+      "target": "test_packet_layout_test_the_second_role_folder_is_stable",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L58",
+      "weight": 1.0,
+      "_src": "test_packet_layout",
+      "_tgt": "test_packet_layout_test_find_role_packet_matches_company_and_role_not_job_id",
+      "source": "test_packet_layout",
+      "target": "test_packet_layout_test_find_role_packet_matches_company_and_role_not_job_id",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L66",
+      "weight": 1.0,
+      "_src": "test_packet_layout",
+      "_tgt": "test_packet_layout_test_a_different_role_at_the_same_company_is_not_a_match",
+      "source": "test_packet_layout",
+      "target": "test_packet_layout_test_a_different_role_at_the_same_company_is_not_a_match",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L72",
+      "weight": 1.0,
+      "_src": "test_packet_layout",
+      "_tgt": "test_packet_layout_test_matching_survives_case_and_punctuation_differences",
+      "source": "test_packet_layout",
+      "target": "test_packet_layout_test_matching_survives_case_and_punctuation_differences",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L79",
+      "weight": 1.0,
+      "_src": "test_packet_layout",
+      "_tgt": "test_packet_layout_test_the_company_packet_is_still_discoverable_for_contact_reuse",
+      "source": "test_packet_layout",
+      "target": "test_packet_layout_test_the_company_packet_is_still_discoverable_for_contact_reuse",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L86",
+      "weight": 1.0,
+      "_src": "test_packet_layout",
+      "_tgt": "test_packet_layout_test_a_company_with_no_packet_has_no_sibling",
+      "source": "test_packet_layout",
+      "target": "test_packet_layout_test_a_company_with_no_packet_has_no_sibling",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L90",
+      "weight": 1.0,
+      "_src": "test_packet_layout",
+      "_tgt": "test_packet_layout_test_the_role_already_in_the_company_folder_resolves_to_that_folder",
+      "source": "test_packet_layout",
+      "target": "test_packet_layout_test_the_role_already_in_the_company_folder_resolves_to_that_folder",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L96",
+      "weight": 1.0,
+      "_src": "test_packet_layout",
+      "_tgt": "test_packet_layout_test_an_unreadable_company_packet_does_not_cause_an_overwrite",
+      "source": "test_packet_layout",
+      "target": "test_packet_layout_test_an_unreadable_company_packet_does_not_cause_an_overwrite",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L1",
+      "weight": 1.0,
+      "_src": "test_packet_layout_rationale_1",
+      "_tgt": "test_packet_layout",
+      "source": "test_packet_layout",
+      "target": "test_packet_layout_rationale_1",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L44",
+      "weight": 0.8,
+      "_src": "test_packet_layout_test_a_second_role_gets_its_own_folder",
+      "_tgt": "test_packet_layout_packet",
+      "source": "test_packet_layout_packet",
+      "target": "test_packet_layout_test_a_second_role_gets_its_own_folder",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L52",
+      "weight": 0.8,
+      "_src": "test_packet_layout_test_the_second_role_folder_is_stable",
+      "_tgt": "test_packet_layout_packet",
+      "source": "test_packet_layout_packet",
+      "target": "test_packet_layout_test_the_second_role_folder_is_stable",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L60",
+      "weight": 0.8,
+      "_src": "test_packet_layout_test_find_role_packet_matches_company_and_role_not_job_id",
+      "_tgt": "test_packet_layout_packet",
+      "source": "test_packet_layout_packet",
+      "target": "test_packet_layout_test_find_role_packet_matches_company_and_role_not_job_id",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L68",
+      "weight": 0.8,
+      "_src": "test_packet_layout_test_a_different_role_at_the_same_company_is_not_a_match",
+      "_tgt": "test_packet_layout_packet",
+      "source": "test_packet_layout_packet",
+      "target": "test_packet_layout_test_a_different_role_at_the_same_company_is_not_a_match",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L73",
+      "weight": 0.8,
+      "_src": "test_packet_layout_test_matching_survives_case_and_punctuation_differences",
+      "_tgt": "test_packet_layout_packet",
+      "source": "test_packet_layout_packet",
+      "target": "test_packet_layout_test_matching_survives_case_and_punctuation_differences",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L81",
+      "weight": 0.8,
+      "_src": "test_packet_layout_test_the_company_packet_is_still_discoverable_for_contact_reuse",
+      "_tgt": "test_packet_layout_packet",
+      "source": "test_packet_layout_packet",
+      "target": "test_packet_layout_test_the_company_packet_is_still_discoverable_for_contact_reuse",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L92",
+      "weight": 0.8,
+      "_src": "test_packet_layout_test_the_role_already_in_the_company_folder_resolves_to_that_folder",
+      "_tgt": "test_packet_layout_packet",
+      "source": "test_packet_layout_packet",
+      "target": "test_packet_layout_test_the_role_already_in_the_company_folder_resolves_to_that_folder",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L39",
+      "weight": 1.0,
+      "_src": "test_packet_layout_rationale_39",
+      "_tgt": "test_packet_layout_test_the_first_role_keeps_the_plain_company_folder",
+      "source": "test_packet_layout_test_the_first_role_keeps_the_plain_company_folder",
+      "target": "test_packet_layout_rationale_39",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L51",
+      "weight": 1.0,
+      "_src": "test_packet_layout_rationale_51",
+      "_tgt": "test_packet_layout_test_the_second_role_folder_is_stable",
+      "source": "test_packet_layout_test_the_second_role_folder_is_stable",
+      "target": "test_packet_layout_rationale_51",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L59",
+      "weight": 1.0,
+      "_src": "test_packet_layout_rationale_59",
+      "_tgt": "test_packet_layout_test_find_role_packet_matches_company_and_role_not_job_id",
+      "source": "test_packet_layout_test_find_role_packet_matches_company_and_role_not_job_id",
+      "target": "test_packet_layout_rationale_59",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L67",
+      "weight": 1.0,
+      "_src": "test_packet_layout_rationale_67",
+      "_tgt": "test_packet_layout_test_a_different_role_at_the_same_company_is_not_a_match",
+      "source": "test_packet_layout_test_a_different_role_at_the_same_company_is_not_a_match",
+      "target": "test_packet_layout_rationale_67",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L80",
+      "weight": 1.0,
+      "_src": "test_packet_layout_rationale_80",
+      "_tgt": "test_packet_layout_test_the_company_packet_is_still_discoverable_for_contact_reuse",
+      "source": "test_packet_layout_test_the_company_packet_is_still_discoverable_for_contact_reuse",
+      "target": "test_packet_layout_rationale_80",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L91",
+      "weight": 1.0,
+      "_src": "test_packet_layout_rationale_91",
+      "_tgt": "test_packet_layout_test_the_role_already_in_the_company_folder_resolves_to_that_folder",
+      "source": "test_packet_layout_test_the_role_already_in_the_company_folder_resolves_to_that_folder",
+      "target": "test_packet_layout_rationale_91",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_packet_layout.py",
+      "source_location": "L97",
+      "weight": 1.0,
+      "_src": "test_packet_layout_rationale_97",
+      "_tgt": "test_packet_layout_test_an_unreadable_company_packet_does_not_cause_an_overwrite",
+      "source": "test_packet_layout_test_an_unreadable_company_packet_does_not_cause_an_overwrite",
+      "target": "test_packet_layout_rationale_97",
       "confidence_score": 1.0
     },
     {
