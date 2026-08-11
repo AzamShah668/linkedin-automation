@@ -447,3 +447,16 @@ Also: the 08-11 12:49 scheduled reply check found the 16-day-old warm-insider re
 path - first inbound signal this project has ever caught by machine. 98 tests (was 50 on 08-09).
 Brains updated: CLAUDE.md (corrected the false "13 applications, 0 replies" that reordered the whole plan),
 07-current-state, 05-decisions (D34 marked resolved), Obsidian, graph at 780 nodes.
+
+## [2026-08-11 15:40] session | frontend/backend/database split + console page
+Touched: none (AST-only graph)
+Restructured: web/ -> frontend/, tools/serve_dashboard.py -> backend/server.py, tools/board_db.py ->
+database/board_db.py, output/dashboard/board.sqlite3 -> database/board.sqlite3. Two shims kept because
+board_db had SIXTEEN callers including three PowerShell scripts on Task Scheduler; the shim must load the
+real module BY FILE PATH since both files share a name (a plain import re-imports the shim and dies on a
+circular import - hit on the first attempt). Security catch: output/ was gitignored but database/ was not,
+and the notes column carries real recruiter names on 17 rows in a PUBLIC repo - .gitignore now blocks
+database/*.sqlite3, schema tracked and data not. New: frontend/console.html + page-console.js + console.css
++ /api/console, built on the existing style.css tokens and JH.ready() pattern, showing progress, a ranked
+action queue, the Easy Apply vs external split with links, skills and capabilities. New apps/autopilot/
+triage.py classifies every live posting: 14 easy-apply, 22 external, 4 dead. All 7 routes 200, 98 tests.

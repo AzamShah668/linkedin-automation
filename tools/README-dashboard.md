@@ -1,7 +1,7 @@
 # The dashboard (local website)
 
     dashboard.cmd            # refresh Slack, start the server, open the browser
-    py -3 tools/serve_dashboard.py --port 9000 --no-browser
+    py -3 backend/server.py --port 9000 --no-browser
 
 **Six real pages**, each its own URL — not tabs on one page:
 
@@ -52,7 +52,7 @@ directly. A server can. The Artifact stays useful as the phone view.
 
 | Data | Source | Refresh |
 |---|---|---|
-| Job board | **SQLite** `output/dashboard/board.sqlite3` (mirror of the Notion board) | `/controls` -> Refresh the board, or `py -3 tools/sync_board.py <rows.json>` |
+| Job board | **SQLite** `database/board.sqlite3` (mirror of the Notion board, gitignored) | `/controls` -> Refresh the board, or `py -3 tools/sync_board.py <rows.json>` |
 | Outreach + research | `output/outreach/**` read live off disk | nothing to do |
 | CVs | `output/cv/tailored/*`, `output/pdf/*` read live off disk | nothing to do |
 | Slack | `output/dashboard/slack-export.json` | `/controls` -> Refresh the Slack mirror |

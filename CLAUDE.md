@@ -67,6 +67,27 @@ This is not just compliance — tailored + timely + personal is the approach tha
 - Source adapters: Greenhouse / Lever / Ashby / Workable / SmartRecruiters; Adzuna / Reed / Remotive /
   Arbeitnow; Gmail LinkedIn-alert parser; careers RSS · CLI → FastAPI review dashboard
 
+## Repo layout (restructured 2026-08-11 — see [[28-app-structure]])
+
+```
+frontend/   the dashboard pages + static/ (plain HTML/CSS/vanilla JS, no build step)
+backend/    server.py (the local HTTP API) + pipeline_runner.py
+database/   board_db.py (schema + access) + board.sqlite3 (GITIGNORED — real recruiter names)
+apps/       the autopilot: answers, fill, cv, families, ledger, sourcing, coverage, replies, triage
+tools/      PowerShell runners, Slack, Notion, post creator — everything else
+```
+
+⚠️ **`tools/board_db.py` and `tools/serve_dashboard.py` are SHIMS, not dead files.** Sixteen
+callers import `board_db` by name — three of them PowerShell scripts run by Task Scheduler. The
+shim must load the real module **by file path**; both files share a name, so a plain import
+re-imports the shim and dies on a circular import. Delete only when grep comes back clean.
+
+⚠️ **`database/*.sqlite3` is gitignored on purpose.** The `notes` column holds real recruiter names
+on 17 rows and this repo is public. Schema tracked, data not.
+
+Start the dashboard with `dashboard.cmd`; the new **`/console`** page shows the whole pipeline at
+once (progress, ranked next actions, Easy Apply vs external jobs with links, skills, capabilities).
+
 ## Three Brains integration (per global CLAUDE.md)
 
 - **Brain 2** (the *why*): `docs/knowledge/` — read `00-INDEX.md` first every session.
@@ -346,7 +367,7 @@ py -3 tools/post_creator/dispatch_engine.py --dry-run --post-id N  # preview dis
 - **2026-08-11 — the number that drove yesterday was wrong, and the pipeline now proves itself.**
   Read **D34 (resolved) / D35 / D36 / D41** and [[26-apply-at-volume]].
   🚨 **"13 applications, 0 replies" was false.** On **2026-07-26 at 18:58**, two hours after being pitched,
-  Recruiter-A replied: *"9419280094 / Send ur cv on this number"*. He gave a phone number and asked for the
+  Recruiter-A replied with **his personal phone number** and *"Send ur cv on this number"*. He asked for the
   CV. **Nobody answered for 16 days.** Eight consecutive reply checks reported "zero replies" and all eight
   were honest about the only place they looked — **Gmail**. Nothing in this project had ever opened LinkedIn
   messaging, so the reply was not missed, it was **unobservable**. *"Looked everywhere, found nothing" and

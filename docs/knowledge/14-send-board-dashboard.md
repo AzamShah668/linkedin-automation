@@ -8,7 +8,7 @@ companies have had nothing.** Built 2026-07-26, replacing the static "Control Pa
 | | **Local website** (primary) | **Artifact** (phone view) |
 |---|---|---|
 | Start | `dashboard.cmd` → <http://127.0.0.1:8765/> | the fixed private Artifact URL below |
-| Code | `web/` + `tools/serve_dashboard.py` | `output/dashboard/send-board.html` |
+| Code | `frontend/` + `backend/server.py` | `output/dashboard/send-board.html` |
 | Data | SQLite mirror + files read off disk | live Notion via the `mcp` capability |
 | **Downloads** | ✅ **real PDFs and zips** | ❌ impossible |
 
@@ -79,10 +79,11 @@ Design points worth keeping:
 - Output is captured to a bounded deque (600 lines) and polled, so a long discovery run cannot exhaust memory.
 - There is **no route that takes a command from the request** — actions come from a fixed registry only.
 
-**Backend + database** — `tools/serve_dashboard.py` (stdlib `http.server`, **127.0.0.1 only**),
-`tools/board_db.py` (SQLite schema + stage derivation), `tools/sync_board.py` (ingest),
+**Backend + database** — `backend/server.py` (stdlib `http.server`, **127.0.0.1 only**),
+`database/board_db.py` (SQLite schema + stage derivation), `tools/sync_board.py` (ingest),
 `tools/slack_export.py` (Slack mirror). Notion stays the system of record (D7); SQLite at
-`output/dashboard/board.sqlite3` is a **local mirror** so the site needs no Notion token and works offline.
+`database/board.sqlite3` is a **local mirror** so the site needs no Notion token and works offline.
+**It is gitignored** — the `notes` column carries real recruiter names on 17 rows and this repo is public.
 `sync_board.py` accepts the **raw `notion-query-data-sources` result shape unchanged**, so a Claude session
 pipes the MCP output straight in with no hand-translation — which is where transcription errors would live.
 Full operator notes: `tools/README-dashboard.md`.

@@ -44,6 +44,7 @@ relevant topic file. Cross-link with `[[file]]`. Keep it distilled — skip cosm
 - [[21-linkedin-content-strategy-and-research-engine]] — Deep research strategy & 4-slide storytelling copywriting framework.
 - [[27-linkedin-content-engine]] — **7-Day Content Engine**: Content Hub SQLite DB, experience logger, trend finder, dispatch engine, image prompt templates, fallback cache. Decisions D37-D40.
 - [[25-linkedin-profile-reframe]] — **the complete profile rewrite**: headline, about, 3-role Verventech experience, ECC open-source entry, skills, education (B.Tech completed), ready-to-paste copy in `output/linkedin/profile-ready-to-paste.md`
+- [[28-app-structure]] — **⚠️ read before moving any dashboard file.** frontend / backend / database, the two shims that keep 16 callers alive, why the .sqlite3 left `output/` (real recruiter names, public repo), and the console page
 - [[10-advanced-ideas]] — advanced enhancements (email classifier, interview prep, ATS auditor, Exa AI, HN parser, Slack buttons)
 
 ## North star

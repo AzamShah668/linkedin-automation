@@ -1007,7 +1007,7 @@ Related: D8 (one contact per company) · D30 (fail fast and explain) · [[15-bui
 **What happened.** On **2026-07-26 at 18:58**, two hours after being pitched, the warm Infosys
 insider replied:
 
-> *"9419280094 / Send ur cv on this number / Wa Alaikum As Salam"*
+> *"[phone number] / Send ur cv on this number / Wa Alaikum As Salam"*
 
 He gave his phone number and asked for the CV. **Nobody answered for fifteen days.**
 

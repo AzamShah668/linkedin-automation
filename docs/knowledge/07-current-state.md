@@ -1650,6 +1650,59 @@ before numbering anything.**
 `py -3 apps/autopilot/coverage.py` → **14 applications across 10 companies · 9 reached a human · 1
 reached nobody** (Recro, applied 07-29). Five invites pending, three accepted and pitched.
 
+## App structure — 2026-08-11 evening (frontend / backend / database, and the console page)
+
+Full detail in [[28-app-structure]]. Headlines:
+
+| Was | Now |
+|---|---|
+| `web/` | `frontend/` |
+| `tools/serve_dashboard.py` | `backend/server.py` |
+| `tools/pipeline_runner.py` | `backend/pipeline_runner.py` |
+| `tools/board_db.py` | `database/board_db.py` |
+| `output/dashboard/board.sqlite3` | `database/board.sqlite3` |
+
+### 🔴 Two shims are load-bearing
+
+`board_db` had **sixteen callers**, three of them PowerShell scripts launched by Task Scheduler.
+`tools/board_db.py` now re-exports the real module and **must load it by file path** — both files
+share a name, so a plain import re-imports the shim and dies on a circular import (hit on the
+first attempt). `tools/serve_dashboard.py` redirects for the same reason: `dashboard.cmd`, the
+repo README and four knowledge files all named that path.
+
+### 🔴 The .sqlite3 leaving `output/` created a security problem, immediately handled
+
+`output/` is gitignored; `database/` was not. The board's `notes` column holds **real recruiter
+names on 17 rows**, and **this repo is public**. `.gitignore` now blocks `database/*.sqlite3`;
+verified the file no longer shows as untracked. **Schema tracked, data not.**
+
+Both `board_db.DB_PATH` and `run.BOARD_DB` fall back to the old path if the new one is missing, so
+an un-migrated machine is never handed an *empty board* — which would read as "no jobs" rather
+than as an error.
+
+### The console page
+
+`/console`, in the nav on every page, built on the existing `style.css` tokens and the
+`JH.ready()` pattern rather than as a separate app. It shows 30-day progress, a **ranked action
+queue** tagged *only you can do this* / *the system can do this*, the **Easy Apply vs external
+split with links**, every application with a *reached a person?* column, skills to learn, and the
+capability list.
+
+`/api/console` reads board, triage, ledger and coverage **independently**; a source that fails
+lands in `warnings` and the page says so. *A page rendering zeros looks identical to a page whose
+data vanished* — designed out rather than waited for.
+
+### `triage.py` — the number nobody had
+
+Nothing had ever recorded **which** rows can be one-click applied to. `apps/autopilot/triage.py`
+opens every live posting and caches the answer with a `checked` date.
+
+> **First full run: 14 easy-apply · 22 external · 4 dead.** Three in five live rows have no Easy
+> Apply button — the clearest measure yet of how much of the board the batch runner can reach.
+
+Verified after the move: all 7 routes 200 · `/api/bootstrap` unchanged · the 4 PowerShell Python
+callers still import · `apps.autopilot` finds the board (39 candidates) · 98 tests green.
+
 ## Immediate next work
 
 > ⚡ **NEW TOP ITEM 2026-08-11: answer Recruiter-A.** He asked for the CV on 07-26 and has been waiting 16

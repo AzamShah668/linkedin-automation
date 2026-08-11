@@ -103,10 +103,10 @@ apps/autopilot/        🔜 the rewrite. Not built yet.
 
 | File | Job |
 |---|---|
-| `tools/board_db.py` | Local SQLite mirror of the job board |
+| `database/board_db.py` | Schema + access layer for the board mirror (the `.sqlite3` beside it is gitignored) |
 | `tools/invite_tracker.py` | Two-stage LinkedIn outreach state |
 | `tools/notion_push.py` | Push local status → Notion |
-| `tools/serve_dashboard.py` | Local dashboard server with runner actions |
+| `backend/server.py` | Local dashboard server with runner actions |
 | `tools/pipeline-lock.ps1` | Atomic cross-process lock (debugged in production — see D20) |
 | `tools/sweep-packets.ps1` | Batch packet builder, with usage-limit detection (D25) |
 

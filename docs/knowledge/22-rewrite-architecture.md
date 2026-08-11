@@ -314,7 +314,7 @@ everything after is plumbing. If it does not, stop and re-diagnose before buildi
 - `docs/knowledge/` — 22 documents, 28 decisions. Six weeks of production truth that exists nowhere else.
 - `profile/application-answers.json` — the answer bank, and the rule that governs it
 - `.claude/skills/cv-architect` + `recruiter-outreach` — called by `cv.py`, unchanged
-- `tools/board_db.py`, `invite_tracker.py`, `notion_push.py`, `serve_dashboard.py` — real, working logic
+- `database/board_db.py`, `invite_tracker.py`, `notion_push.py`, `backend/server.py` — real, working logic
 - `tools/pipeline-lock.ps1` — an atomic lock debugged in production; its *lessons* migrate even though the file goes
 
 **Replaced:**
