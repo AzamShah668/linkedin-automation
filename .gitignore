@@ -54,3 +54,11 @@ linkdin automation/
 
 # graphify derived cache - regenerates from source, no value in history
 graphify-out/cache/
+
+# The board mirror moved out of output/ into database/ (2026-08-11) so a cleanup of generated
+# files can never delete the store the whole pipeline plans from. It must stay ignored: the
+# `notes` column holds REAL RECRUITER NAMES on 17 rows, and this repo is public.
+# The schema and access layer (database/board_db.py) ARE tracked. The data is not.
+database/*.sqlite3
+database/*.sqlite
+database/*.db

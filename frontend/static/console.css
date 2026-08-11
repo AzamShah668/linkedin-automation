@@ -1,0 +1,126 @@
+/* Console page only. Extends style.css — every colour here comes from a token defined there,
+   so the two pages stay one system and dark mode is inherited rather than re-solved.
+
+   The five categorical chart colours are the exception: they are NEW tokens, because the base
+   sheet only carries semantic colours (good/warn/crit) and those are reserved for state. Reusing
+   --good for "series 2" would make a neutral category read as a healthy one.
+
+   Both sets were checked for colour-blind separation against their own surface before being
+   written down; the dark steps are chosen, not an automatic lightening of the light ones. */
+:root {
+  --s1:#0E8A72; --s2:#D2622A; --s3:#2E6FB7; --s4:#B03A6E; --s5:#7A8B2E;
+  --grid:#E2E8E6;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --s1:#2FA88E; --s2:#D97440; --s3:#4C86C4; --s4:#C55786; --s5:#87952F;
+    --grid:#1C2E2C;
+  }
+}
+
+/* ---- callout: the one thing to read before anything else ---- */
+.callout {
+  background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--warn);
+  border-radius:var(--r-lg); padding:14px 17px; box-shadow:var(--shadow); margin-top:4px;
+}
+.callout p { margin:0; font-size:14px; color:var(--muted); max-width:82ch; line-height:1.55; }
+.callout strong { color:var(--ink); font-weight:650; }
+
+/* ---- action queue ---- */
+.acts { display:flex; flex-direction:column; gap:9px; }
+.act {
+  display:grid; grid-template-columns:4px 1fr; background:var(--surface);
+  border:1px solid var(--line); border-radius:var(--r-lg); overflow:hidden; box-shadow:var(--shadow);
+}
+.act .stripe { background:var(--faint); }
+.act.p1 .stripe { background:var(--crit); }
+.act.p2 .stripe { background:var(--warn); }
+.act.p3 .stripe { background:var(--accent); }
+.act .body { padding:13px 16px 14px; min-width:0; }
+.act h3 { margin:0; font-size:15px; font-weight:650; letter-spacing:-.01em; }
+.act p { margin:5px 0 0; font-size:13.5px; color:var(--muted); max-width:80ch; line-height:1.5; }
+.act .who {
+  display:inline-block; margin-top:9px; font-family:var(--mono); font-size:10px;
+  letter-spacing:.09em; text-transform:uppercase; padding:2.5px 8px; border-radius:99px;
+  border:1px solid var(--line); color:var(--faint);
+}
+.act .who.you { border-color:var(--crit-line); color:var(--crit); background:var(--crit-bg); }
+
+/* ---- charts ---- */
+.chartgrid { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:14px; }
+.chartgrid .panel, .split .panel { padding:15px 17px 17px; }
+.panel-h { margin:0; font-size:15px; font-weight:650; letter-spacing:-.01em; }
+.panel-c { margin:4px 0 14px; font-size:12.5px; color:var(--faint); line-height:1.45; max-width:60ch; }
+.chartgrid svg, .split svg { display:block; width:100%; overflow:visible; }
+.gl { stroke:var(--grid); stroke-width:1; }
+.ax { fill:var(--faint); font-family:var(--mono); font-size:10px; }
+.vl { fill:var(--ink); font-family:var(--mono); font-size:11px; font-weight:600; }
+.legend { display:flex; flex-wrap:wrap; gap:12px; margin-top:12px; font-size:12px; color:var(--muted); }
+.legend span { display:flex; align-items:center; gap:6px; }
+.legend i { width:10px; height:10px; border-radius:2px; display:block; flex:0 0 auto; }
+
+/* ---- job tables ---- */
+#t-easy, #t-ext, #t-sent { min-width:660px; }
+.fitcell { display:flex; align-items:center; gap:8px; }
+.fitcell b { font-family:var(--mono); font-size:12.5px; font-weight:600; font-variant-numeric:tabular-nums; }
+.fitcell i { height:5px; border-radius:2px; background:var(--s1); display:block; flex:0 0 auto; }
+.fitcell i.lo { background:var(--faint); }
+.rolelink { text-decoration:none; border-bottom:1px solid var(--line); color:var(--ink); }
+.rolelink:hover { color:var(--accent); border-bottom-color:var(--accent-line); }
+.go {
+  font-family:var(--mono); font-size:11px; text-decoration:none; padding:3px 9px;
+  border:1px solid var(--line); border-radius:var(--r); white-space:nowrap;
+  display:inline-block; color:var(--muted);
+}
+.go:hover { border-color:var(--accent-line); color:var(--accent); background:var(--accent-soft); }
+
+/* ---- skills ---- */
+.sk { margin-bottom:11px; }
+.sk:last-child { margin-bottom:0; }
+.sk-top { display:flex; justify-content:space-between; align-items:baseline; gap:10px; font-size:13px; }
+.sk-top b { font-weight:600; }
+.sk-top span { font-family:var(--mono); font-size:11px; color:var(--faint); white-space:nowrap; }
+.sk-bar { height:6px; background:var(--surface-3); border-radius:2px; margin-top:5px; overflow:hidden; }
+.sk-bar i { display:block; height:100%; border-radius:2px; }
+.sk-note { font-size:12px; color:var(--faint); margin-top:3px; line-height:1.45; }
+
+/* ---- capabilities ---- */
+.caps { display:grid; grid-template-columns:repeat(auto-fit,minmax(262px,1fr)); gap:12px; }
+.cap-c {
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--r-lg);
+  padding:14px 16px; box-shadow:var(--shadow);
+}
+.cap-c h3 { margin:0 0 4px; font-size:14px; font-weight:650; letter-spacing:-.01em; }
+.cap-c p { margin:0; font-size:12.5px; color:var(--muted); line-height:1.5; }
+.cap-c code {
+  font-family:var(--mono); font-size:11px; color:var(--faint); display:block;
+  margin-top:8px; word-break:break-all;
+}
+.state {
+  font-family:var(--mono); font-size:9.5px; letter-spacing:.08em; text-transform:uppercase;
+  padding:2px 6px; border-radius:4px; margin-left:7px; vertical-align:2px; white-space:nowrap;
+}
+.state.on { background:var(--good-bg); color:var(--good); border:1px solid var(--good-line); }
+.state.man { background:var(--surface-3); color:var(--faint); border:1px solid var(--line); }
+
+/* ---- timeline ---- */
+.tl { border-left:2px solid var(--line); margin-left:7px; }
+.tl-i { position:relative; padding:0 0 19px 22px; }
+.tl-i:last-child { padding-bottom:0; }
+.tl-i::before {
+  content:""; position:absolute; left:-6px; top:6px; width:9px; height:9px; border-radius:50%;
+  background:var(--faint); border:2px solid var(--ground);
+}
+.tl-i.key::before { background:var(--accent); width:11px; height:11px; left:-7px; }
+.tl-d { font-family:var(--mono); font-size:10.5px; color:var(--faint); letter-spacing:.05em; }
+.tl-i h3 { margin:2px 0 3px; font-size:14.5px; font-weight:650; letter-spacing:-.01em; }
+.tl-i p { margin:0; font-size:13px; color:var(--muted); max-width:78ch; line-height:1.5; }
+
+/* ---- hover readout ---- */
+.tip {
+  position:fixed; pointer-events:none; opacity:0; transition:opacity .1s;
+  background:var(--ink); color:var(--ground); font-family:var(--mono); font-size:11.5px;
+  padding:6px 9px; border-radius:var(--r); z-index:99; white-space:nowrap;
+}
+@media (prefers-reduced-motion: reduce) { .tip { transition:none; } }
+@media (min-width:900px) { .split { grid-template-columns:1fr 1fr; } }

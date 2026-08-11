@@ -197,7 +197,7 @@ window.JH = (function () {
 
   /* ---------------- nav ---------------- */
   var NAV = [
-    ["/", "Board"], ["/jobs", "Jobs & CV"], ["/research", "Research"],
+    ["/", "Board"], ["/console", "Console"], ["/jobs", "Jobs & CV"], ["/research", "Research"],
     ["/slack", "Slack"], ["/downloads", "Downloads"], ["/controls", "Run it"]
   ];
   function renderNav(active) {

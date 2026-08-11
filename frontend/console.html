@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Console — Job Hunt</title>
+<link rel="stylesheet" href="/static/style.css" />
+<link rel="stylesheet" href="/static/console.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brand" href="/">
+    <span class="mark">JH</span>
+    <div>
+      <div class="eyebrow">Job Hunt Autopilot</div>
+      <h1>Console</h1>
+    </div>
+  </a>
+  <nav class="tabs" id="nav"></nav>
+  <div class="topbar-right">
+    <a class="btn btn-primary" href="/controls">Run something</a>
+    <span class="stamp" id="stamp">loading</span>
+  </div>
+</header>
+
+<main id="main">
+
+  <p class="pagelede">Everything that has happened, what it proved, and the few things only you can do.</p>
+
+  <div class="metrics" id="metrics"></div>
+
+  <div class="callout" id="callout" hidden></div>
+
+  <h2 class="sec">What needs doing now</h2>
+  <p class="lede">Ranked by what it unblocks, not by age. Orange means no automation can do it for you.</p>
+  <div class="acts" id="acts"></div>
+
+  <h2 class="sec">The last 30 days</h2>
+  <p class="lede">Hover any mark for the detail behind it.</p>
+  <div class="chartgrid">
+    <div class="panel">
+      <h3 class="panel-h">Applications sent</h3>
+      <p class="panel-c">Every submission by day. Two clusters: the email batch at the end of July,
+        and the Easy Apply batch once the runner worked.</p>
+      <div id="c-time"></div>
+    </div>
+    <div class="panel">
+      <h3 class="panel-h">Where the funnel narrows</h3>
+      <p class="panel-c">Applications are cheap now. Reaching a person is not, and a reply is the
+        only step that has ever started a conversation.</p>
+      <div id="c-funnel"></div>
+    </div>
+    <div class="panel">
+      <h3 class="panel-h">Which channel actually answered</h3>
+      <p class="panel-c">Nine Easy Apply submissions produced nothing. One message to a named, warm
+        contact produced a reply the same evening.</p>
+      <div id="c-chan"></div>
+    </div>
+    <div class="panel">
+      <h3 class="panel-h">How the live board can be applied to</h3>
+      <p class="panel-c">Probed by opening every live posting. Roughly three in five have no Easy
+        Apply button at all.</p>
+      <div id="c-kind"></div>
+    </div>
+  </div>
+
+  <h2 class="sec">Easy Apply — the robot can send these</h2>
+  <p class="lede"><span id="n-easy">0</span> live postings. Each one is about fifteen seconds of machine time.</p>
+  <div class="tablewrap">
+    <table id="t-easy"><thead><tr>
+      <th>Fit</th><th>Company</th><th>Role</th><th>Where</th><th></th>
+    </tr></thead><tbody></tbody></table>
+  </div>
+
+  <h2 class="sec">External site — these need your hands</h2>
+  <p class="lede"><span id="n-ext">0</span> live postings with no Easy Apply button. The link opens the posting; applying happens on the company's own site.</p>
+  <div class="tablewrap">
+    <table id="t-ext"><thead><tr>
+      <th>Fit</th><th>Company</th><th>Role</th><th>Where</th><th></th>
+    </tr></thead><tbody></tbody></table>
+  </div>
+
+  <h2 class="sec">Every application on record</h2>
+  <p class="lede">The append-only ledger. Nothing listed here can ever be sent twice.</p>
+  <div class="tablewrap">
+    <table id="t-sent"><thead><tr>
+      <th>Date</th><th>Company</th><th>Role</th><th>How</th><th>Reached a person?</th>
+    </tr></thead><tbody></tbody></table>
+  </div>
+
+  <h2 class="sec">What to learn next</h2>
+  <p class="lede">Demand counted from the live board. Gaps taken from job descriptions you were actually scored against.</p>
+  <div class="split">
+    <div class="col">
+      <div class="panel">
+        <h3 class="panel-h">What this board is asking for</h3>
+        <p class="panel-c">Your strongest evidence sits exactly where demand is highest, which is why
+          fit scores cluster in the 80s.</p>
+        <div id="sk-demand"></div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="panel">
+        <h3 class="panel-h">The gaps that cost you scores</h3>
+        <p class="panel-c">Energy Exemplar alone fell from 86 to 72 on the Azure gap once the real
+          description was read.</p>
+        <div id="sk-gap"></div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="sec">What the system can do for you</h2>
+  <p class="lede">Green runs on a schedule without being asked. Grey waits for a person, on purpose.</p>
+  <div class="caps" id="caps"></div>
+
+  <h2 class="sec">How it got here</h2>
+  <div class="tl" id="tl"></div>
+
+</main>
+
+<div id="toast" class="toast" hidden></div>
+<div id="tip" class="tip"></div>
+<script src="/static/common.js"></script>
+<script src="/static/page-console.js"></script>
+</body>
+</html>

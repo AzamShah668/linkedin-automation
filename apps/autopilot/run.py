@@ -34,7 +34,11 @@ from apps.autopilot.fill import (
 )
 
 REPO = answers.REPO
-BOARD_DB = REPO / "output" / "dashboard" / "board.sqlite3"
+# The board mirror lives in database/ (moved 2026-08-11). It used to sit in output/dashboard/
+# beside generated HTML, which made the one store the whole pipeline plans from look disposable.
+BOARD_DB = REPO / "database" / "board.sqlite3"
+if not BOARD_DB.exists():  # pragma: no cover - one-time migration fallback
+    BOARD_DB = REPO / "output" / "dashboard" / "board.sqlite3"
 TARGET_SECONDS = 180.0
 
 # Never reopened, regardless of what any board says (runbook: "Never resubmit").
