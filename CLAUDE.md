@@ -85,8 +85,19 @@ re-imports the shim and dies on a circular import. Delete only when grep comes b
 ⚠️ **`database/*.sqlite3` is gitignored on purpose.** The `notes` column holds real recruiter names
 on 17 rows and this repo is public. Schema tracked, data not.
 
-Start the dashboard with `dashboard.cmd`; the new **`/console`** page shows the whole pipeline at
-once (progress, ranked next actions, Easy Apply vs external jobs with links, skills, capabilities).
+Start the dashboard with `dashboard.cmd`. **The console IS the home page** and it is **live** —
+it polls every 15s, pauses in a hidden tab, and shows a **per-source** freshness strip (board /
+triage / ledger / invites) because those four update on completely different clocks. A stale source
+turns amber and offers the button that fixes it.
+
+**Four pages, down from seven** (2026-08-11): Console, Jobs & CV, Downloads, Run it. Deleted the old
+Board index (its live table moved onto the console; it only *looked* stale because it stamped
+"board synced Xd ago", which describes the last Notion capture and nothing else), Research (files
+5-17 days stale) and Slack (a 16-day-old mirror of an app already on the phone). **Actions cut
+16 → 11** — `notion-push`/`notion-queue` could never work because **`NOTION_TOKEN` is not set**.
+
+⚠️ **`database/board.sqlite3` is the real store.** With no Notion token nothing pushes back;
+`apps/autopilot` plans from the local DB. `sync-board` is the only inbound path.
 
 ## Three Brains integration (per global CLAUDE.md)
 

@@ -460,3 +460,17 @@ database/*.sqlite3, schema tracked and data not. New: frontend/console.html + pa
 + /api/console, built on the existing style.css tokens and JH.ready() pattern, showing progress, a ranked
 action queue, the Easy Apply vs external split with links, skills and capabilities. New apps/autopilot/
 triage.py classifies every live posting: 14 easy-apply, 22 external, 4 dead. All 7 routes 200, 98 tests.
+
+## [2026-08-11 16:20] session | Dashboard cull: 7 pages -> 4, 16 actions -> 11
+Touched: none (AST-only graph)
+Audited every page by the AGE OF THE FILE IT READS, not by opinion. Deleted slack.html (mirror of a
+channel already on the phone, newest message 16 days old; check_approvals queries Slack directly so the
+tick-to-send gate is untouched), research.html (files 5-17 days stale, duplicated the Jobs page) and the
+old Board index. The Board finding is the keeper: its data was NEVER stale - it only looked stale because
+it stamped "board synced Xd ago", which describes the last Notion capture and nothing else on the page.
+The stamp was the bug. Its filterable table moved onto the console with better filters and a hidden-row
+count. Actions cut to 11: notion-push/notion-queue could never work because NOTION_TOKEN is not set, and
+invites/invites-due/expire duplicated the console or watch-accepts. Consequence to remember:
+database/board.sqlite3 is now the real store, nothing pushes back to Notion. Two breakages caught by
+curling every route: the startup guard still checked for the deleted index.html, and the Jobs page linked
+to /research. 98 tests, four pages + both APIs verified 200.

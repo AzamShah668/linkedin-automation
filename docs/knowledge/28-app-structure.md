@@ -121,3 +121,66 @@ It is a **cache with a `checked` date on every record**, not a source of truth. 
 All seven routes returned 200 · `/api/bootstrap` unchanged · the four PowerShell Python callers
 still import through the shim · `apps.autopilot` finds the board at its new path (39 candidates) ·
 94 rows readable · 98 tests passing.
+
+---
+
+## 8. The cull — seven pages to four, sixteen actions to eleven (2026-08-11 evening)
+
+The owner's report was *"aside from console, every other page is basically not up to date."*
+Audited by **the age of the file each page reads**, not by opinion:
+
+| Page | Its data source | Verdict |
+|---|---|---|
+| Console | live | keep |
+| Board `/` | DB live, but the Notion capture behind it 10 days old | **fold in** |
+| Slack | **16 days** — newest message 26 Jul | **deleted** |
+| Research | queue 5 days, highlight reel **17 days** | **deleted** |
+| Jobs & CV | packets on disk, live | keep |
+| Downloads | files on disk, live | keep |
+| Run it | live | keep |
+
+### The finding worth keeping: the stamp was the bug, not the data
+
+**The old Board page was never stale.** Its rows came from the local database and were always
+current. It *looked* stale because it printed `board synced 1d 23h ago` in the corner — a stamp
+describing the **last Notion capture** and nothing else on the page.
+
+> A freshness indicator that describes one source while sitting above five is worse than no
+> indicator: it makes live data look dead, and it would equally make dead data look live.
+
+`common.js` now only stamps pages that do not set their own (`stamp.dataset.own`), and the console
+publishes a **per-source** strip instead. Same root cause as D23/D29/D35, showing up in a UI.
+
+### What moved rather than vanished
+
+The board's filterable table is on the console, with filters that match how the board is actually
+used (**still open / all / applied / warm / remote / fit 85+**) and a count of how many rows are
+hidden — the old table silently omitted them.
+
+### Slack: the mirror went, the gate stayed
+
+`slack.html` mirrored a channel already on the owner's phone, and its newest message was 16 days
+old. **`check_approvals.py` queries Slack directly**, so the ✅-to-send gate (D12) is untouched.
+Only the mirror, its `slack-refresh` action, its `/api/bootstrap` payload and the export step in
+`dashboard.cmd` are gone.
+
+### Actions: 16 → 11, because five could not work or duplicated the console
+
+**`NOTION_TOKEN` is not set**, so `notion-push` and `notion-queue` could never do anything —
+they were buttons that were always going to fail. `invites`, `invites-due` and `expire` duplicated
+what the console shows live or what `watch-accepts` already does as its first step.
+
+⚠️ **Consequence to state plainly:** with no Notion token, status changes made on the dashboard
+stay local. **`database/board.sqlite3` is the real store** — `apps/autopilot` plans from it, and
+nothing pushes back to Notion. `sync-board` (import from a manual capture) is kept as the only
+inbound path.
+
+### Two breakages caught in verification, not in production
+
+- The **startup guard still checked for `index.html`** and aborted naming a file nobody had
+  touched.
+- The **Jobs page linked to `/research`**, now a 404. It links to the packet zip instead — same
+  research, current on disk. The first replacement URL was also wrong; the route needs a `.zip`
+  suffix. Both found by curling every route rather than assuming.
+
+**Verified after:** four pages + both APIs 200, `/research` and `/slack` 404, 11 actions, 98 tests.

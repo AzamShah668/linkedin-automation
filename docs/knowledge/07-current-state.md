@@ -1703,6 +1703,37 @@ opens every live posting and caches the answer with a `checked` date.
 Verified after the move: all 7 routes 200 · `/api/bootstrap` unchanged · the 4 PowerShell Python
 callers still import · `apps.autopilot` finds the board (39 candidates) · 98 tests green.
 
+## The dashboard cull — 2026-08-11 evening (7 pages → 4, 16 actions → 11)
+
+Full detail in [[28-app-structure]] §8. Audited by **the age of the file each page reads**:
+
+- **Deleted `slack.html`** — a mirror of a channel already on the phone, newest message **16 days**
+  old. `check_approvals.py` queries Slack directly, so the ✅-to-send gate (D12) is untouched.
+- **Deleted `research.html`** — `REVIEW-QUEUE.md` 5 days, `highlight-reel.md` 17 days, and it
+  duplicated what the Jobs page shows per row.
+- **Deleted the old Board index** — and this is the finding: **its data was never stale.** It only
+  *looked* stale because it stamped `board synced 1d 23h ago`, which describes the last Notion
+  capture and nothing else on the page. **The stamp was the bug.** Its filterable table moved onto
+  the console with better filters and a count of hidden rows.
+
+> A freshness indicator that describes one source while sitting above five is worse than none: it
+> makes live data look dead, and would equally make dead data look live.
+
+**Actions 16 → 11.** `notion-push` and `notion-queue` were removed because **`NOTION_TOKEN` is not
+set** — buttons that were always going to fail. `invites`, `invites-due` and `expire` duplicated
+the console or `watch-accepts`.
+
+⚠️ **State this plainly: `database/board.sqlite3` is now the real store.** With no Notion token,
+status changes made on the dashboard stay local and nothing pushes back. `apps/autopilot` plans
+from the local DB. `sync-board` (import from a manual capture) is the only inbound path, and the
+capture behind it is **10 days old**.
+
+Two breakages caught by curling every route rather than assuming: the startup guard still checked
+for the deleted `index.html`, and the Jobs page linked to `/research` (now 404) — repointed at the
+packet zip, which carries the same research and is current on disk.
+
+**Final shape:** Console (home, live, polls every 15s) · Jobs & CV · Downloads · Run it.
+
 ## Immediate next work
 
 > ⚡ **NEW TOP ITEM 2026-08-11: answer Recruiter-A.** He asked for the CV on 07-26 and has been waiting 16

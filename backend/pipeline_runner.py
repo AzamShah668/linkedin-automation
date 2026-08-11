@@ -92,24 +92,6 @@ register(
            [PY, "tools/sync_board.py"],
            "Re-reads output/dashboard/board-seed.json into the local database. Use after a Claude session "
            "writes a fresh Notion capture. Does not talk to Notion itself."),
-    Action("invites", "Show the invite pipeline", "safe",
-           [PY, "tools/invite_tracker.py", "list"],
-           "Lists every connection request and its state: pending, accepted, pitched, expired."),
-    Action("invites-due", "Which pitches are due now", "safe",
-           [PY, "tools/invite_tracker.py", "due"],
-           "Shows accepted invites whose randomised 3-20 hour delay has elapsed, so a pitch is due."),
-    Action("expire", "Expire stale invites", "safe",
-           [PY, "tools/invite_tracker.py", "expire"],
-           "Marks connection requests older than the expiry window as expired so they stop being tracked."),
-    Action("notion-queue", "What has not reached Notion yet", "safe",
-           [PY, "tools/notion_queue.py"],
-           "Lists status changes you made on the dashboard that Notion has not been told about, with the "
-           "page ids to update. Local edits win over syncs until pushed, so nothing gets reverted."),
-    Action("notion-push", "Push my changes to Notion", "safe",
-           [PY, "tools/notion_push.py"],
-           "Writes every status you changed here into the Notion pages, refreshes the local capture so "
-           "nothing can revert, and clears the queue. Needs NOTION_TOKEN in .env; without it, it still "
-           "keeps the local side consistent and tells you what is left."),
     Action("triage", "Re-check which jobs are Easy Apply", "safe",
            [PY, "apps/autopilot/triage.py", "--recheck"],
            "Opens every live posting and records whether it still has an Easy Apply button, or has "
