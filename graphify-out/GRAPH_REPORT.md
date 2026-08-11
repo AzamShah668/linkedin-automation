@@ -5,16 +5,16 @@
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 815 nodes · 1238 edges · 76 communities detected
-- Extraction: 61% EXTRACTED · 39% INFERRED · 0% AMBIGUOUS · INFERRED: 489 edges (avg confidence: 0.5)
+- 822 nodes · 1251 edges · 76 communities detected
+- Extraction: 60% EXTRACTED · 40% INFERRED · 0% AMBIGUOUS · INFERRED: 495 edges (avg confidence: 0.5)
 - Token cost: 0 input · 0 output
 
 ## God Nodes (most connected - your core abstractions)
 1. `LinkedInLoggedOut` - 21 edges
 2. `fill_job()` - 16 edges
-3. `FillResult` - 12 edges
-4. `Handler` - 12 edges
-5. `render()` - 12 edges
+3. `render()` - 14 edges
+4. `FillResult` - 12 edges
+5. `Handler` - 12 edges
 6. `build_packet()` - 11 edges
 7. `_scan()` - 10 edges
 8. `_row()` - 10 edges
@@ -48,12 +48,12 @@ Cohesion: 0.06
 Nodes (27): execute_iterative_architecture_hero(), Iterative Architecture Diagram & 3D Enrichment Studio Step 1: Renders a clean co, render_edge_screenshot(), execute_2step_pipeline(), 2-Step AI 3D Command Center Slide 1 Hero Studio Step 1: Render clean, readable 5, render_edge_screenshot(), Ultimate Cybernetic HUD Architecture Generator (FLUX.1 & Gemini Engine) Combines, generate_upgraded_4slide_carousel() (+19 more)
 
 ### Community 3 - "Community 3"
-Cohesion: 0.08
-Nodes (24): all_rows(), last_sync(), _parse_ts(), pending_notion(), Compatibility shim — the real module now lives in `database/board_db.py`.  WHY T, Parse an ISO timestamp, tolerating a trailing Z and dropping the timezone., Insert or update by Notion page id. Returns (inserted, updated, protected)., Change a job's status from the dashboard. Returns the updated row.      Record (+16 more)
+Cohesion: 0.13
+Nodes (23): BaseHTTPRequestHandler, _age(), all_zip(), bootstrap(), build_packets(), console(), _coverage_gaps(), cv_paths() (+15 more)
 
 ### Community 4 - "Community 4"
-Cohesion: 0.14
-Nodes (21): BaseHTTPRequestHandler, all_zip(), bootstrap(), build_packets(), console(), _coverage_gaps(), cv_paths(), discover_packets() (+13 more)
+Cohesion: 0.08
+Nodes (24): all_rows(), last_sync(), _parse_ts(), pending_notion(), Compatibility shim — the real module now lives in `database/board_db.py`.  WHY T, Parse an ISO timestamp, tolerating a trailing Z and dropping the timezone., Insert or update by Notion page id. Returns (inserted, updated, protected)., Change a job's status from the dashboard. Returns the updated row.      Record (+16 more)
 
 ### Community 5 - "Community 5"
 Cohesion: 0.11
@@ -72,28 +72,28 @@ Cohesion: 0.14
 Nodes (20): ago(), api(), boot(), clear(), copy(), el(), esc(), fitCell() (+12 more)
 
 ### Community 9 - "Community 9"
+Cohesion: 0.21
+Nodes (24): actions(), bars(), capabilities(), chartChannel(), chartFunnel(), chartKind(), chartTime(), esc() (+16 more)
+
+### Community 10 - "Community 10"
 Cohesion: 0.2
 Nodes (24): cmd_add(), cmd_due(), cmd_expire(), cmd_list(), cmd_mark_accepted(), cmd_mark_failed(), cmd_mark_sent(), find() (+16 more)
 
-### Community 10 - "Community 10"
+### Community 11 - "Community 11"
 Cohesion: 0.12
 Nodes (18): all_values(), BankMissing, dump_field_map(), load_bank(), located_in_answer(), lookup(), match_field(), _norm_place() (+10 more)
 
-### Community 11 - "Community 11"
+### Community 12 - "Community 12"
 Cohesion: 0.12
 Nodes (18): _fake_run(), no_packet(), Tests for the Claude Code bridge — specifically the two rules that cost real day, Runbook §2 — rebuilding silently overwrites drafts the owner may have approved., The remaining jobs must NOT appear in `failed` — that is the D25 mistake., find_packet always returns None — i.e. Claude wrote no artifact., Regression, 2026-08-06 first real run.      The Energy Exemplar packet built com, A late limit stops the batch without throwing away the job that completed. (+10 more)
 
-### Community 12 - "Community 12"
+### Community 13 - "Community 13"
 Cohesion: 0.13
 Nodes (18): _packet(), Tests for role-scoped packets (D34).  The deadlock being fixed: the runbook writ, Nothing must move. Eight packets already exist at output/outreach/<company>/., Same role asked twice must resolve to the same place, or builds duplicate foreve, The board row id and the packet's job_id need not agree; company+role is the rea, THE safety property. A CV tailored to one req must never be served for another., The second role must reuse the first's contact.md, so the sibling has to be find, Otherwise one role gets split across two folders and the first is orphaned. (+10 more)
 
-### Community 13 - "Community 13"
+### Community 14 - "Community 14"
 Cohesion: 0.16
 Nodes (18): already_applied(), company_role_key(), describe(), Entry, linkedin_job_id(), load(), _norm(), The never-resubmit ledger — the guard that must exist before submitting can.  "O (+10 more)
-
-### Community 14 - "Community 14"
-Cohesion: 0.28
-Nodes (19): actions(), bars(), capabilities(), chartChannel(), chartFunnel(), chartKind(), chartTime(), esc() (+11 more)
 
 ### Community 15 - "Community 15"
 Cohesion: 0.18
@@ -340,7 +340,7 @@ Cohesion: 1.0
 Nodes (0): 
 
 ## Knowledge Gaps
-- **202 isolated node(s):** `The board store: schema, access layer, and the SQLite file itself.`, `The answer bank and the FIELD_MAP — the only legal source of form values.  THE`, `Read a dotted path out of the bank. Returns None for missing OR null — both mean`, `One mappable question.      patterns  regexes matched (case-insensitive) again`, `Answer 'Are you currently located in <city>?' by COMPARING, never by assuming.` (+197 more)
+- **203 isolated node(s):** `The board store: schema, access layer, and the SQLite file itself.`, `The answer bank and the FIELD_MAP — the only legal source of form values.  THE`, `Read a dotted path out of the bank. Returns None for missing OR null — both mean`, `One mappable question.      patterns  regexes matched (case-insensitive) again`, `Answer 'Are you currently located in <city>?' by COMPARING, never by assuming.` (+198 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **Thin community `Community 57`** (2 nodes): `__init__.py`, `The board store: schema, access layer, and the SQLite file itself.`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
@@ -385,16 +385,16 @@ Nodes (0):
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `LinkedInLoggedOut` connect `Community 0` to `Community 1`, `Community 5`, `Community 33`?**
-  _High betweenness centrality (0.032) - this node is a cross-community bridge._
-- **Why does `BankMissing` connect `Community 10` to `Community 5`?**
+  _High betweenness centrality (0.031) - this node is a cross-community bridge._
+- **Why does `BankMissing` connect `Community 11` to `Community 5`?**
   _High betweenness centrality (0.009) - this node is a cross-community bridge._
 - **Are the 18 inferred relationships involving `LinkedInLoggedOut` (e.g. with `check_logged_in()` and `Thread`) actually correct?**
   _`LinkedInLoggedOut` has 18 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 14 inferred relationships involving `fill_job()` (e.g. with `FillResult` and `slug_for()`) actually correct?**
   _`fill_job()` has 14 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 13 inferred relationships involving `render()` (e.g. with `tick()` and `freshness()`) actually correct?**
+  _`render()` has 13 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 11 inferred relationships involving `FillResult` (e.g. with `fill_job()` and `Candidate`) actually correct?**
   _`FillResult` has 11 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 11 inferred relationships involving `render()` (e.g. with `metrics()` and `actions()`) actually correct?**
-  _`render()` has 11 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `The board store: schema, access layer, and the SQLite file itself.`, `The answer bank and the FIELD_MAP — the only legal source of form values.  THE`, `Read a dotted path out of the bank. Returns None for missing OR null — both mean` to the rest of the system?**
-  _202 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _203 weakly-connected nodes found - possible documentation gaps or missing edges._

@@ -196,9 +196,12 @@ window.JH = (function () {
   }
 
   /* ---------------- nav ---------------- */
+  /* Four pages, down from seven (2026-08-11). Removed: the old Board index (its live table
+     moved onto the Console), Research (reading files 5-17 days stale, and duplicating Jobs) and
+     Slack (a 16-day-old mirror of an app that is already on your phone). */
   var NAV = [
-    ["/", "Board"], ["/console", "Console"], ["/jobs", "Jobs & CV"], ["/research", "Research"],
-    ["/slack", "Slack"], ["/downloads", "Downloads"], ["/controls", "Run it"]
+    ["/", "Console"], ["/jobs", "Jobs & CV"],
+    ["/downloads", "Downloads"], ["/controls", "Run it"]
   ];
   function renderNav(active) {
     var host = $("nav");
@@ -240,9 +243,14 @@ window.JH = (function () {
     renderNav(active);
     api("/api/bootstrap").then(function (data) {
       D = data;
+      // Only stamp pages that do not set their own. The console overwrites this with a per-source
+      // freshness strip, because one page-level "synced Xd ago" is true about the last Notion
+      // capture and says nothing about the four other sources a page may be showing.
       var sync = (D.stats.last_sync || {}).synced_at;
       var stamp = $("stamp");
-      if (stamp) stamp.textContent = "board synced " + (sync ? ago(sync) : "—");
+      if (stamp && !stamp.dataset.own) {
+        stamp.textContent = "board synced " + (sync ? ago(sync) : "—");
+      }
       waiting.forEach(function (fn) { fn(D); });
       waiting = [];
     }).catch(function (err) {

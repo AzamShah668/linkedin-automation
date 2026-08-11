@@ -5,13 +5,25 @@ you can open and read.
 
 | Page | Route | What it answers |
 |---|---|---|
-| `index.html` | `/` | Where every CV stands right now |
-| `console.html` | `/console` | **Everything at once**: progress, what to do next, the Easy Apply / external split, what to learn |
+| `console.html` | `/` and `/console` | **The home page.** Live: progress, what to do next, the Easy Apply / external split, the whole board, what to learn |
 | `jobs.html` | `/jobs` | One row at a time — packet, CV, status |
-| `research.html` | `/research` | Company research and contacts |
-| `slack.html` | `/slack` | The notification feed |
 | `downloads.html` | `/downloads` | Every artefact, with a real file behind each button |
 | `controls.html` | `/controls` | Run a pipeline action |
+
+## Three pages were removed on 2026-08-11
+
+Not because they were broken, but because they were **out of date and nobody could tell**:
+
+- **`index.html`** (the old Board) — its data was always live; the page only *looked* stale
+  because it stamped "board synced Xd ago", which describes the last Notion capture and nothing
+  else on the page. Its useful half, the filterable table, moved onto the console.
+- **`research.html`** — read `REVIEW-QUEUE.md` (5 days old) and `highlight-reel.md` (17 days old),
+  and duplicated what the Jobs page already shows per row.
+- **`slack.html`** — a mirror of the Slack channel whose newest message was **16 days old**. Slack
+  is already on your phone; a stale copy of a live app is worse than no copy.
+
+Their payloads (`slack`, `research`) were also removed from `/api/bootstrap`, where they were being
+computed on every request for nobody.
 
 ## How a page is wired
 

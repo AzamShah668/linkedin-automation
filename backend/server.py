@@ -293,6 +293,9 @@ def console() -> dict:
             "invitesAccepted": sum(1 for i in invites if i.get("status") == "followed_up"),
         },
         "series30": series,
+        # The whole board, so the console can host the filterable table the old index page had.
+        "board": rows,
+        "statuses": sorted({(r.get("status") or "?") for r in rows}),
         "channels": _tally(applied, "channel"),
         "easyApplyJobs": easy, "externalJobs": ext, "deadJobs": dead,
         "applied": sorted(applied, key=lambda r: r.get("submitted_at", ""), reverse=True),
@@ -335,12 +338,10 @@ def bootstrap() -> dict:
         "stats": st,
         "statuses": list(ALLOWED_STATUS),
         "packets": build_packets(),
-        "slack": slack_feed(),
+        # "slack" and "research" removed with their pages (2026-08-11) — they were computed on
+        # every bootstrap and nothing reads them now.
+
         "invites": json.loads(invites).get("invites", []) if invites else [],
-        "research": {
-            "highlightReel": read(OUT / "outreach" / "highlight-reel.md"),
-            "reviewQueue": read(OUT / "outreach" / "REVIEW-QUEUE.md"),
-        },
         "generalCv": {
             "stem": GENERAL_CV_STEM,
             "has_pdf": general["pdf"].exists(),
@@ -431,11 +432,13 @@ class Handler(BaseHTTPRequestHandler):
     # ---------- routing ----------
     # Each subject is a real page with its own URL, not a tab.
     PAGES = {
-        "/": "index.html", "/index.html": "index.html",
-        "/jobs": "jobs.html", "/research": "research.html",
-        "/slack": "slack.html", "/downloads": "downloads.html",
+        # Console IS the home page (2026-08-11). The old index/board, research and slack pages
+        # were removed: research and slack were reading files 5-17 days stale, and the board's
+        # useful half (the live table) moved onto the console.
+        "/": "console.html", "/console": "console.html", "/index.html": "console.html",
+        "/jobs": "jobs.html",
+        "/downloads": "downloads.html",
         "/controls": "controls.html",
-        "/console": "console.html",
     }
 
     def do_HEAD(self):
@@ -568,8 +571,10 @@ def main() -> None:
     ap.add_argument("--no-browser", action="store_true")
     args = ap.parse_args()
 
-    if not (WEB / "index.html").exists():
-        sys.exit(f"front-end missing: {WEB / 'index.html'}")
+    # Guard on the actual home page. This checked index.html, which was deleted when the console
+    # became home — a startup abort with a message naming a file nobody had touched.
+    if not (WEB / "console.html").exists():
+        sys.exit(f"front-end missing: {WEB / 'console.html'}")
 
     url = f"http://127.0.0.1:{args.port}/"
     srv = ThreadingHTTPServer(("127.0.0.1", args.port), Handler)

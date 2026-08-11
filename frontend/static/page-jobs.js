@@ -294,7 +294,10 @@ JH.ready(function (D) {
     if (p) {
       body.appendChild(el("h4", null, "The message that goes with it"));
       body.appendChild(JH.msgBlock(p.docs.touch2 || p.docs.touch1 || "", "Copy message"));
-      body.appendChild(JH.link("/research?c=" + p.slug, "Full research for " + p.company + " →"));
+      // The research page was removed (2026-08-11) - it read files 5-17 days stale and duplicated
+      // what is already on this row. The packet zip carries the same research, current on disk.
+      body.appendChild(JH.link("/download/packet/" + p.slug + ".zip",
+        "Download " + p.company + "'s full packet (CV, contact, both messages) →"));
     }
     panel.appendChild(body);
     host.appendChild(panel);

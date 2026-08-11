@@ -92,9 +92,6 @@ register(
            [PY, "tools/sync_board.py"],
            "Re-reads output/dashboard/board-seed.json into the local database. Use after a Claude session "
            "writes a fresh Notion capture. Does not talk to Notion itself."),
-    Action("slack-refresh", "Refresh the Slack mirror", "safe",
-           [PY, "tools/slack_export.py"],
-           "Pulls the latest messages and reactions from the Slack channel so the Slack page is current."),
     Action("invites", "Show the invite pipeline", "safe",
            [PY, "tools/invite_tracker.py", "list"],
            "Lists every connection request and its state: pending, accepted, pitched, expired."),

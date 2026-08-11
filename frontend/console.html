@@ -92,6 +92,28 @@
     </tr></thead><tbody></tbody></table>
   </div>
 
+  <h2 class="sec">The whole board</h2>
+  <p class="lede">Every row the pipeline knows about, including the ones already applied to or
+    ruled out. Filter it, or search a company.</p>
+  <div class="toolbar">
+    <div class="filters" id="boardFilters">
+      <button class="chipbtn" data-f="live" aria-pressed="true" type="button">Still open</button>
+      <button class="chipbtn" data-f="all" aria-pressed="false" type="button">All</button>
+      <button class="chipbtn" data-f="applied" aria-pressed="false" type="button">Applied</button>
+      <button class="chipbtn" data-f="warm" aria-pressed="false" type="button">Warm path</button>
+      <button class="chipbtn" data-f="remote" aria-pressed="false" type="button">Remote</button>
+      <button class="chipbtn" data-f="top" aria-pressed="false" type="button">Fit 85+</button>
+    </div>
+    <input class="search" id="boardSearch" type="search" placeholder="Filter company or role"
+           aria-label="Filter the board" />
+  </div>
+  <div class="tablewrap">
+    <table id="boardTable"><thead><tr>
+      <th>Fit</th><th>Company</th><th>Role</th><th>Where</th><th>Status</th><th>Warm</th><th></th>
+    </tr></thead><tbody></tbody></table>
+  </div>
+  <p class="lede" id="boardCount" style="margin-top:8px"></p>
+
   <h2 class="sec">What to learn next</h2>
   <p class="lede">Demand counted from the live board. Gaps taken from job descriptions you were actually scored against.</p>
   <div class="split">

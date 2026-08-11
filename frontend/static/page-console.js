@@ -110,7 +110,10 @@ JH.ready(function () {
 
     freshness(D.sources || []);
     var stamp = $("stamp");
-    if (stamp) { stamp.textContent = "read " + (D.fetched || "").replace("T", " "); }
+    if (stamp) {
+      stamp.dataset.own = "1";   // stop common.js stamping the misleading "board synced Xd ago"
+      stamp.textContent = "read " + (D.fetched || "").replace("T", " ").slice(0, 16);
+    }
 
     // A source that failed must say so. A page rendering zeros looks identical to a page whose
     // data vanished — the exact confusion this project has been bitten by repeatedly.
@@ -141,10 +144,82 @@ JH.ready(function () {
     sentTable(D);
     $("n-easy").textContent = D.easyApplyJobs.length;
     $("n-ext").textContent = D.externalJobs.length;
+    boardState.rows = D.board || [];
+    renderBoard();
     skills();
     capabilities();
     timeline();
   }
+
+  /* ---------------- the whole board ----------------
+     Ported from the old index page, which is gone. Its data was always live — the page only
+     LOOKED stale because it stamped "board synced Xd ago", which describes the last Notion
+     capture and nothing else on the page. */
+  var boardState = { rows: [], filter: "live", query: "" };
+
+  function boardMatch(r) {
+    var q = boardState.query;
+    if (q && ((r.company || "") + " " + (r.job || "")).toLowerCase().indexOf(q) < 0) { return false; }
+    var st = (r.status || "").toLowerCase();
+    switch (boardState.filter) {
+      case "live":    return st !== "applied" && st !== "skipped";
+      case "applied": return st === "applied";
+      case "warm":    return !!(r.warm || r.warm_hinted);
+      case "remote":  return /remote/i.test(r.work_type || "");
+      case "top":     return (r.fit || 0) >= 85;
+      default:        return true;
+    }
+  }
+
+  function renderBoard() {
+    var tb = $("boardTable").tBodies[0];
+    JH.clear(tb);
+    var rows = boardState.rows.filter(boardMatch)
+      .sort(function (a, b) { return (b.fit || 0) - (a.fit || 0); });
+
+    $("boardCount").textContent = rows.length + " of " + boardState.rows.length
+      + " rows shown" + (boardState.filter === "live" ? " · applied and ruled-out rows hidden" : "");
+
+    if (!rows.length) {
+      var tr = tb.insertRow(), td = tr.insertCell();
+      td.colSpan = 7; td.className = "empty"; td.textContent = "Nothing matches that filter.";
+      return;
+    }
+    rows.forEach(function (r) {
+      var tr = tb.insertRow();
+      tr.insertCell().innerHTML = fitCell(r.fit || 0);
+      var c = tr.insertCell(); c.style.fontWeight = "600"; c.style.whiteSpace = "nowrap";
+      c.textContent = r.company || "?";
+      var j = tr.insertCell();
+      if (r.url) {
+        j.innerHTML = '<a class="rolelink" href="' + esc(r.url)
+          + '" target="_blank" rel="noopener">' + esc(r.job) + "</a>";
+      } else { j.textContent = r.job || "?"; }
+      var w = tr.insertCell();
+      w.innerHTML = '<span class="chip' + (/remote/i.test(r.work_type || "") ? " c-good" : "")
+        + '">' + esc(r.work_type || "—") + "</span>";
+      var st = tr.insertCell();
+      st.innerHTML = '<span class="chip">' + esc(r.status || "—") + "</span>";
+      var wa = tr.insertCell(); wa.style.textAlign = "center";
+      wa.innerHTML = (r.warm || r.warm_hinted) ? "★" : '<span style="color:var(--faint)">—</span>';
+      var lc = tr.insertCell(); lc.style.textAlign = "right";
+      lc.innerHTML = '<a class="go" href="/jobs?id=' + encodeURIComponent(r.id) + '">Open →</a>';
+    });
+  }
+
+  $("boardFilters").addEventListener("click", function (e) {
+    var b = e.target.closest(".chipbtn");
+    if (!b) { return; }
+    boardState.filter = b.dataset.f;
+    Array.prototype.forEach.call(this.querySelectorAll(".chipbtn"), function (x) {
+      x.setAttribute("aria-pressed", String(x === b));
+    });
+    renderBoard();
+  });
+  $("boardSearch").addEventListener("input", function () {
+    boardState.query = this.value.trim().toLowerCase();
+    renderBoard();
+  });
 
   function humanAge(h) {
     if (h == null) { return "never"; }
