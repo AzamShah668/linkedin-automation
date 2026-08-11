@@ -28,12 +28,31 @@ doing any new research, or you will redo work that is already paid for.
 If `url` is present, fetch the real job description with the LinkedIn MCP `get_job_details` so the CV is
 tailored to the actual posting rather than to the job title.
 
-### 2. Skip if it is already built
-If `output/outreach/<slug>/packet.json` exists, stop and report that. Rebuilding silently overwrites drafts
-the owner may have already approved.
+### 2. Skip if THIS ROLE is already built
+If a `packet.json` anywhere under `output/outreach/*/` records **this company AND this role**, stop and
+report that. Rebuilding silently overwrites drafts the owner may have already approved.
 
-### 3. Decide the slug
+⚠️ **A packet for a DIFFERENT role at the same company is not a reason to stop** (D34). It used to be:
+this step said "if `output/outreach/<slug>/packet.json` exists, stop", while `cv.py` looked the packet up
+by **job id**. For a company's second role neither condition could ever be satisfied, so the build
+reported FAIL forever. That deadlock cost **Infosys AI/ML Engineer** (2026-08-09) and **Junior AI
+Engineer, fit 90 — the best row on the board** (2026-08-10). Infosys has five rows; SkillsCapital four.
+
+### 3. Decide the folder
 Lower-case, hyphenated company name (`Innova ESI` → `innova-esi`, `Procter & Gamble` → `procter-gamble`).
+
+**A company's second and later roles get `<company>--<role>`** (`infosys--junior-ai-engineer`). The first
+role keeps the plain company folder so nothing already on disk moves. `cv.py` passes the exact target
+folder in the prompt when this applies — use what it gives you.
+
+**Outreach is per company; a CV is per role.** So in a `<company>--<role>` folder:
+
+- **REUSE** the recruiter already researched in `output/outreach/<company>/contact.md`. Do not research a
+  second contact and do not message a second person at the same company (D8 — that is the fastest way to
+  look automated).
+- **The CV is genuinely rebuilt** for this req and needs its own distinct `cv_stem`. Never reuse the other
+  role's stem: attaching a CV tailored to a different posting is the failure the whole bridge exists to
+  prevent.
 One packet per **company**, not per role: several companies on this board have two or three open roles behind
 one contact, and messaging them twice is the fastest way to look automated ([[05-decisions]] D8).
 

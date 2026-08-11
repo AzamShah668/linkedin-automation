@@ -407,3 +407,14 @@ tools/post_creator/install-dispatch-task.cmd (Windows Scheduled Task at 9 AM IST
 Decisions: D33 SQLite over Notion (offline-first), D34 agent-agnostic (Claude + Antigravity share all
 infra), D35 human-in-the-loop approval, D36 every post gets a visual. CLAUDE.md updated with Content Hub
 section. Brain 2: NEW 27-linkedin-content-engine, 00-INDEX updated.
+
+## [2026-08-11] session | Reply check finds the 16-day-old reply
+Touched: none
+Ninth reply check, and the first ever to write a Reply tick. Gmail zero across the 5 Applied domains
+(queries proven live first: 201 bare / 29 OR-group; bounces clean; campus sweep only the 08-05 EPAM
+cancellation). The LinkedIn inbox held Recruiter-A's 2026-07-26 18:58 answer asking for the CV on a
+personal number - unanswered 16 days. Classified Other/action-required (not Interview), Notion Reply
+ticked + note appended, Status left Applied, Slack alerted. Nothing sent.
+Note: apps.autopilot.replies was permission-refused in this interactive session, so the LinkedIn MCP
+get_inbox path was used instead - the unit-tested code path is the one that did not run.
+Brain 2: 07-current-state gained the 08-11 reply-check section plus a new top item in "Immediate next work".

@@ -1476,7 +1476,72 @@ unrelated recruiter was messaged just to have messaged somebody.
 | Crossing Hurdles ×2 | ❌ none exist | closed, unreachable by design |
 | SkillsCapital ×3 | ⚠️ contact exists, packet is for a different role | 3 approaches already made, no answer |
 
+## Reply check — 2026-08-11 (ninth run; the FIRST to find a real reply — and it is 16 days old)
+
+Same 5 `Applied` rows (Infosys 90, CodeRound AI 89, Innova ESI 87, GoodSpace AI 85, Recro 82).
+**Gmail: still zero.** **LinkedIn inbox: one reply, unanswered since 2026-07-26.** This is the first run in
+the project's history to write a `Reply = ✓` or fire an `--event reply` alert.
+
+### 🔴 Recruiter-A (Infosys, AI Application Engineer 90) replied two hours after the pitch
+
+Pitch sent **07-26 16:43**; he answered **07-26 18:58** with his phone number and *"Send ur cv on this
+number"*, plus the salaam returned. **Sixteen days unanswered.** Exactly the D35 case, and D35 was written
+about *this same message* on 08-10 — so the finding is not new, but this is the first **scheduled reply
+check** to surface it through the normal path (Notion + Slack) rather than as an incident write-up.
+
+- **Classified `Other` / action-required, deliberately not `Interview`.** He is not scheduling anything; he
+  is asking for the CV on a channel we do not automate. Calling it an interview would overstate it.
+- **Notion updated** (`AI Application Engineer`, Infosys): `Reply = ✓`, note appended, **`Status` left at
+  `Applied`** — the runbook only moves it for Interview or Rejection. Ticking `Reply` stops the Day-3/Day-7
+  nudges, which is right: the ball has been in *our* court for 16 days, and another nudge would be absurd.
+- **Slack alert posted** (`--event reply`), with the next step named as the owner's: message him on WhatsApp
+  with the tailored Infosys CV. **Nothing was sent by this run** — read-only, per the guardrail.
+
+### The other four rows, and why they are quiet
+
+| Row | Gmail | LinkedIn inbox |
+|---|---|---|
+| Innova ESI (Recruiter-B) | nothing | `You:` — **we** spoke last (2b sent 08-01), no answer |
+| GoodSpace (Recruiter-C) | nothing | `You:` — **we** spoke last (2b sent 08-01), no answer |
+| CodeRound AI | nothing | no thread — email-only channel |
+| Recro | nothing | no thread — Easy Apply only |
+
+6 conversations scanned in total. The remaining two are personal (Jun 25, May 12) and one is a **sponsored
+InMail ad** (Learnbay), which `replies.py` classifies as `ad` precisely so it cannot be misread as a lead.
+
+### ⚠️ The D35 scanner could not be run from this session — the MCP inbox was used instead
+
+`py -3 -m apps.autopilot.replies` was **refused by the permission prompt** in an interactive session, so the
+inbox was read through the LinkedIn MCP `get_inbox` / `get_conversation` tools instead. Same conclusion, and
+the MCP path needs no Playwright profile — but note the consequence: **the tested, unit-tested code path is
+the one that did not run.** The scheduled `check-replies.ps1` STEP 0 runs under Task Scheduler and does not
+consult that allowlist, so this is a session-only gap. It still means the `--notify` branch of `replies.py`
+has never fired in anger; the Slack alert here was posted by hand via `slack_notify.py`.
+
+### Verification done before any zero was believed (standing rule, ninth run)
+
+- Bare `newer_than:14d in:inbox` → **201** threads; `(from:linkedin.com OR from:infosys.com)` → **29**. Both
+  the connector and the `from:` OR-group syntax proven live before the empty 5-domain result was trusted.
+- **Bounces clean** at `newer_than:14d in:anywhere` (mailer-daemon / postmaster / Undeliverable / DSN).
+- **Campus sweep** (naukricampus, doselect, hackerrank, hackerearth, mettl, imocha, codility, hirevue, epam)
+  → only the known **08-05 EPAM cancellation**. Ninth run done by hand; "next work" #6 still unbuilt.
+- Control on today's inbox: 29 threads in 2 days, all newsletters, LinkedIn job alerts and the already
+  classified auto-acks. **Nothing inbound is unaccounted for.**
+
+### The number that has been driving decisions was wrong, and now it is fixed in the board too
+
+"13 applications, 0 replies" reordered all of Track A on 08-10. The true figure is **13 applications, 1
+reply — and the one reply came from the *first* warm-insider approach the project ever made**, on the
+highest-fit company, within two hours. The outreach design is not what failed; the reading of the channel
+was. Notion now carries that fact, so the next session cannot re-derive the wrong number from the board.
+
 ## Immediate next work
+
+> ⚡ **NEW TOP ITEM 2026-08-11: answer Recruiter-A.** He asked for the CV on 07-26 and has been waiting 16
+> days. It costs one WhatsApp message, it is the warmest lead in the project, and it sits inside the
+> company holding the board's best unworked row (Junior AI Engineer, 90). Nothing else on this list is
+> cheaper or warmer. **Only the owner can send it** — the number is a personal channel this project does
+> not automate.
 
 > **Two tracks now run in parallel.** Track A is the job hunt (below) — it does not wait for the rewrite.
 > Track B is [[22-rewrite-architecture]] Phase 0. **Track A is more urgent**: five applications have been

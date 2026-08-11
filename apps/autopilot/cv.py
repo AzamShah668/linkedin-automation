@@ -76,26 +76,90 @@ class Packet:
         return self.pdf.exists()
 
 
-def find_company_packet(company: str) -> Packet | None:
+def slugify(text: str) -> str:
+    """Folder-name form: hyphenated, readable on disk."""
+    return re.sub(r"[^a-z0-9]+", "-", (text or "").lower()).strip("-")
+
+
+def _key(text: str) -> str:
+    """Comparison form: alphanumerics only.
+
+    NOT slugify(). "SkillsCapital" and "Skills Capital" are the same employer but slugify makes
+    them `skillscapital` and `skills-capital`, which compare unequal — and an unequal compare here
+    means a tailored CV is not found and the family CV goes out instead. Same normalisation the
+    ledger uses for exactly the same reason.
+    """
+    return re.sub(r"[^a-z0-9]+", "", (text or "").lower())
+
+
+def company_slug(company: str) -> str:
+    """The folder that owns a company's OUTREACH — contact.md and the messages."""
+    return slugify(company)
+
+
+def packet_dir_for(company: str, role: str, outreach_dir: Path | None = None) -> Path:
+    """Where THIS ROLE's packet lives (D34).
+
+    The two units were conflated. Outreach is per **company** — D8 says messaging the same
+    recruiter twice is the fastest way to look automated, so `contact.md` and the touch messages
+    stay in one folder per company. But a **CV is per role**: a CV tailored to an AI Application
+    Engineer req must never be attached to a Junior AI Engineer one.
+
+    So the first role a company gets keeps the plain company folder (nothing moves, no existing
+    packet is disturbed), and every subsequent role gets `<company>--<role>`, which reuses the
+    company's `contact.md` rather than re-researching the recruiter.
+    """
+    root = outreach_dir if outreach_dir is not None else OUTREACH_DIR
+    base = root / company_slug(company)
+    existing = base / "packet.json"
+    if not existing.exists():
+        return base
+
+    # If the company folder already holds THIS role, that IS this role's home. Returning a new
+    # `<company>--<role>` path would split one role across two folders and quietly orphan the
+    # first. build_packet short-circuits before reaching here, but this function is public and
+    # must be correct on its own.
+    try:
+        data = json.loads(existing.read_text(encoding="utf-8"))
+        if _key(data.get("role", "")) == _key(role) and _key(data.get("company", "")) == _key(company):
+            return base
+    except (OSError, json.JSONDecodeError):
+        pass  # unreadable: treat as occupied, and give this role its own folder
+
+    return root / f"{company_slug(company)}--{slugify(role)}"
+
+
+def find_role_packet(company: str, role: str, outreach_dir: Path | None = None) -> Packet | None:
+    """A packet already built for this exact company AND role, wherever it lives."""
+    root = outreach_dir if outreach_dir is not None else OUTREACH_DIR
+    want = (_key(company), _key(role))
+    for candidate in sorted(root.glob("*/packet.json")):
+        try:
+            data = json.loads(candidate.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        if (_key(data.get("company", "")), _key(data.get("role", ""))) == want:
+            try:
+                return _to_packet(data, candidate)
+            except PacketBuildFailed:
+                return None
+    return None
+
+
+def find_company_packet(company: str, outreach_dir: Path | None = None) -> Packet | None:
     """Any packet already built for this COMPANY, whatever role it was for.
 
-    ⚠️ The runbook (§2, §3) works per COMPANY: one packet per company, because messaging the
-    same recruiter twice is the fastest way to look automated (D8). It refuses to rebuild when
-    `output/outreach/<slug>/packet.json` exists.
-
-    `find_packet` works per JOB ID. For a company's SECOND role the two disagree permanently:
-    Claude refuses to build, cv.py sees no packet for that job id, and the build reports FAIL
-    forever. Proven on Infosys AI/ML Engineer, 2026-08-09.
-
-    This function exposes the collision so a caller can say so plainly instead of retrying.
-    It is NOT a fix: the existing packet's CV is tailored to a DIFFERENT ROLE, so it must not
-    be attached to this one. Outreach is per company; a CV is per role. The packet layout
-    currently conflates them, and that is the thing to resolve.
+    Kept because it is still the thing that tells a caller "this company already has outreach,
+    reuse its contact.md instead of re-researching the recruiter". It is no longer a blocker:
+    before D34 a hit here meant the build could never succeed, because the runbook refused to
+    overwrite `output/outreach/<slug>/` while `find_packet` looked up by job id and saw nothing.
+    That deadlock cost Infosys AI/ML Engineer (08-09) and Junior AI Engineer, fit 90 (08-10).
     """
-    slug = re.sub(r"[^a-z0-9]+", "-", (company or "").lower()).strip("-")
+    slug = company_slug(company)
     if not slug:
         return None
-    candidate = OUTREACH_DIR / slug / "packet.json"
+    candidate = OUTREACH_DIR.joinpath(slug, "packet.json") if outreach_dir is None else \
+        outreach_dir.joinpath(slug, "packet.json")
     if not candidate.exists():
         return None
     try:
@@ -136,7 +200,8 @@ def _to_packet(data: dict, path: Path) -> Packet:
 
 
 def build_packet(
-    job_id: str, timeout: int = DEFAULT_TIMEOUT, force: bool = False, company: str = ""
+    job_id: str, timeout: int = DEFAULT_TIMEOUT, force: bool = False,
+    company: str = "", role: str = "",
 ) -> Packet:
     """Run Claude Code against the packet runbook for one job. Sends nothing.
 
@@ -146,24 +211,35 @@ def build_packet(
     if existing and not force:
         return existing  # runbook §2: rebuilding silently overwrites approved drafts
 
-    # Fail fast and EXPLAIN, rather than burning ~7 minutes of a session-limited resource on a
-    # build the runbook is guaranteed to refuse.
-    if company:
-        clash = find_company_packet(company)
-        if clash:
-            raise PacketBuildFailed(
-                f"{company} already has a packet at {clash.path} (built for "
-                f"{clash.role!r}, cv_stem {clash.cv_stem}).\n"
-                f"The runbook builds ONE packet per company and will refuse to overwrite it, so "
-                f"this build cannot succeed as-is.\n"
-                f"Its CV is tailored to a different role and must NOT be attached to this one.\n"
-                f"Resolve by hand: build the CV under a new stem for this role, or retire the "
-                f"old packet first."
-            )
+    # D34. A company's SECOND role used to be unbuildable forever: the runbook refuses to
+    # overwrite output/outreach/<company>/, and find_packet looks up by job id, so the two could
+    # never agree. Now the role gets its own folder and REUSES the company's existing contact.md,
+    # which keeps D8 intact (one recruiter per company) while letting the CV be per role.
+    prompt = f"Read {RUNBOOK} and follow it for job id {job_id}. Send nothing."
 
-    prompt = (
-        f"Read {RUNBOOK} and follow it for job id {job_id}. Send nothing."
-    )
+    if company and role:
+        existing = find_role_packet(company, role)
+        if existing and not force:
+            return existing  # this exact role is already done
+
+        target = packet_dir_for(company, role)
+        sibling = find_company_packet(company)
+        if sibling and target.name != company_slug(company):
+            prompt = (
+                f"Read {RUNBOOK} and follow it for job id {job_id}. Send nothing.\n\n"
+                f"IMPORTANT - this is {company}'s SECOND role, so the usual one-packet-per-company "
+                f"rule needs adjusting for this build:\n"
+                f"- Write this packet to `output/outreach/{target.name}/`, NOT to "
+                f"`output/outreach/{company_slug(company)}/`. Do not overwrite or modify the "
+                f"existing packet there.\n"
+                f"- REUSE the recruiter already researched in "
+                f"`output/outreach/{company_slug(company)}/contact.md`. Do NOT research a new "
+                f"contact and do NOT message a second person at this company (D8).\n"
+                f"- The CV must be tailored to THIS role ({role!r}) and needs its own distinct "
+                f"cv_stem. The existing stem {sibling.cv_stem!r} belongs to {sibling.role!r} and "
+                f"must not be reused.\n"
+                f"- packet.json must record company={company!r} and role={role!r} exactly."
+            )
     try:
         result = subprocess.run(
             ["claude", "-p", prompt],
@@ -226,6 +302,7 @@ def build_many(
     job_ids: list[str],
     timeout: int = DEFAULT_TIMEOUT,
     companies: dict[str, str] | None = None,
+    roles: dict[str, str] | None = None,
 ) -> tuple[list[Packet], list[tuple[str, str]], str | None]:
     """Build several packets. Returns (built, [(job_id, error)], usage_limit_message).
 
@@ -237,7 +314,9 @@ def build_many(
     for job_id in job_ids:
         try:
             packet = build_packet(
-                job_id, timeout=timeout, company=(companies or {}).get(job_id, "")
+                job_id, timeout=timeout,
+                company=(companies or {}).get(job_id, ""),
+                role=(roles or {}).get(job_id, ""),
             )
         except UsageLimitHit as exc:
             return built, failed, str(exc)

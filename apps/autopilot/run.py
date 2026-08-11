@@ -303,13 +303,20 @@ def cmd_packet(args: argparse.Namespace) -> int:
     # Company name per job id, so a build that the runbook is guaranteed to refuse fails in
     # milliseconds instead of burning ~7 minutes of a session-limited resource.
     conn = sqlite3.connect(BOARD_DB)
-    companies = {
-        jid: (conn.execute("SELECT company FROM jobs WHERE id=?", (jid,)).fetchone() or [""])[0]
+    rows = {
+        jid: (conn.execute("SELECT company, job FROM jobs WHERE id=?", (jid,)).fetchone()
+              or ("", ""))
         for jid in job_ids
     }
     conn.close()
+    companies = {jid: row[0] for jid, row in rows.items()}
+    # The ROLE is what makes a company's second packet buildable at all (D34) — without it,
+    # build_packet cannot tell "already done" from "a different req at the same employer".
+    roles = {jid: row[1] for jid, row in rows.items()}
 
-    built, failed, limit = cv.build_many(job_ids, timeout=args.timeout, companies=companies)
+    built, failed, limit = cv.build_many(
+        job_ids, timeout=args.timeout, companies=companies, roles=roles
+    )
 
     for packet in built:
         print(f"  OK    {packet.company} — {packet.role}")

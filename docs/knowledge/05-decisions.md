@@ -971,9 +971,28 @@ But a clear error is not a fix, and this one has been logged twice without the u
 > holding two different units of work means the second one is unreachable, and the failure looks like a
 > tool bug rather than a schema mistake.
 
-**Interim workaround used today:** `output/outreach/<company>-<role-slug>/` for the second role,
-reusing the company's existing `contact.md` rather than re-researching the recruiter. Good enough to
-unblock; not the fix.
+**RESOLVED 2026-08-11.** Implemented as designed, not as the interim workaround:
+
+- `cv.packet_dir_for(company, role)` — the **first** role keeps the plain company folder, so nothing
+  already on disk moves; every later role gets `<company>--<role>`.
+- `cv.find_role_packet(company, role)` — lookup by **company + role**, not job id, so the board row id
+  and the packet's recorded id no longer have to agree.
+- `build_packet` passes the target folder to Claude and instructs it to **reuse the company's existing
+  `contact.md`** — D8 stays intact (one recruiter per company) while the CV becomes per role.
+- `families.pick_cv` also checks by company+role. Without that a genuinely tailored CV would silently
+  lose to the family CV, which is the "fast and generic" outcome [[24-cv-bridge]] exists to prevent.
+- [[15-build-packet-runbook]] §2 and §3 updated to match; the agent side and the code side now agree.
+
+Two traps found while building it, both worth keeping:
+
+1. **Folder slug is not a comparison key.** `slugify` gives `skillscapital` and `skills-capital` for the
+   same employer. Matching on that would miss a tailored CV and quietly attach the family one, so
+   comparison uses an alphanumeric-only `_key()` — the same normalisation the ledger uses, for the same
+   reason.
+2. **A corrupt `packet.json` must route the new role to its OWN folder**, never to the occupied one.
+   Guessing "probably the same role" on unreadable JSON would overwrite approved drafts.
+
+Unblocks 9 board rows: Infosys ×5 (including Junior AI Engineer, 90) and SkillsCapital ×4. 98 tests.
 
 Related: D8 (one contact per company) · D30 (fail fast and explain) · [[15-build-packet-runbook]] ·
 [[24-cv-bridge]] · [[26-apply-at-volume]] §5

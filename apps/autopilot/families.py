@@ -75,6 +75,16 @@ def pick_cv(row_id: str, company: str, job_title: str) -> CvChoice:
     from apps.autopilot import cv as cv_module
 
     packet = cv_module.find_packet(row_id)
+
+    # D34: a company's second role now lives in `<company>--<role>/`, and its packet.json may
+    # carry a different job_id than the board row (the runbook writes the id it was given). Match
+    # on company+role as well, or a genuinely tailored CV silently loses to the family one — the
+    # exact "fast and generic" outcome the CV bridge was built to prevent.
+    if not (packet and packet.complete()) and company and job_title:
+        by_role = cv_module.find_role_packet(company, job_title)
+        if by_role and by_role.complete():
+            packet = by_role
+
     if packet and packet.complete():
         return CvChoice(packet.pdf, "tailored", f"{packet.pdf.name} (tailored, ATS {packet.ats})")
 
