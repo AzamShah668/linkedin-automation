@@ -1,12 +1,12 @@
-# Graph Report - .  (2026-08-11)
+# Graph Report - .  (2026-08-13)
 
 ## Corpus Check
-- 91 files · ~0 words
+- 94 files · ~0 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 812 nodes · 1245 edges · 72 communities detected
-- Extraction: 60% EXTRACTED · 40% INFERRED · 0% AMBIGUOUS · INFERRED: 496 edges (avg confidence: 0.5)
+- 844 nodes · 1287 edges · 74 communities detected
+- Extraction: 60% EXTRACTED · 40% INFERRED · 0% AMBIGUOUS · INFERRED: 509 edges (avg confidence: 0.5)
 - Token cost: 0 input · 0 output
 
 ## God Nodes (most connected - your core abstractions)
@@ -22,6 +22,8 @@
 10. `InboxReport` - 9 edges
 
 ## Surprising Connections (you probably didn't know these)
+- `Classify every live board row: Easy Apply, external ATS, or dead.  WHY --- Rough` --uses--> `LinkedInLoggedOut`  [INFERRED]
+  apps\autopilot\triage.py → apps\autopilot\fill.py
 - `Read the LinkedIn inbox and report threads where THEY spoke last.  WHY THIS EXIS` --uses--> `LinkedInLoggedOut`  [INFERRED]
   apps\autopilot\replies.py → apps\autopilot\fill.py
 - `Decide who spoke last in one conversation row.      Pure, so the rule is testabl` --uses--> `LinkedInLoggedOut`  [INFERRED]
@@ -30,74 +32,72 @@
   apps\autopilot\replies.py → apps\autopilot\fill.py
 - `Push waiting threads to Slack.      A scheduled task that only writes to a log f` --uses--> `LinkedInLoggedOut`  [INFERRED]
   apps\autopilot\replies.py → apps\autopilot\fill.py
-- `Classify every live board row: Easy Apply, external ATS, or dead.  WHY --- Rough` --uses--> `LinkedInLoggedOut`  [INFERRED]
-  apps\autopilot\triage.py → apps\autopilot\fill.py
 
 ## Communities
 
 ### Community 0 - "Community 0"
-Cohesion: 0.05
-Nodes (41): execute_iterative_architecture_hero(), Iterative Architecture Diagram & 3D Enrichment Studio Step 1: Renders a clean co, render_edge_screenshot(), execute_2step_pipeline(), 2-Step AI 3D Command Center Slide 1 Hero Studio Step 1: Render clean, readable 5, render_edge_screenshot(), Ultimate Cybernetic HUD Architecture Generator (FLUX.1 & Gemini Engine) Combines, generate_upgraded_4slide_carousel() (+33 more)
+Cohesion: 0.07
+Nodes (50): FillResult, LinkedInLoggedOut, The persistent profile is not signed in. Abort the WHOLE run; never attempt a lo, classify(), InboxReport, main(), notify(), Read the LinkedIn inbox and report threads where THEY spoke last.  WHY THIS EXIS (+42 more)
 
 ### Community 1 - "Community 1"
 Cohesion: 0.08
 Nodes (47): _append_monthly_log(), _apply(), _attach_resume(), _attr_q(), _capture_resume(), check_logged_in(), _close_modal(), Control (+39 more)
 
 ### Community 2 - "Community 2"
+Cohesion: 0.06
+Nodes (27): execute_iterative_architecture_hero(), Iterative Architecture Diagram & 3D Enrichment Studio Step 1: Renders a clean co, render_edge_screenshot(), execute_2step_pipeline(), 2-Step AI 3D Command Center Slide 1 Hero Studio Step 1: Render clean, readable 5, render_edge_screenshot(), Ultimate Cybernetic HUD Architecture Generator (FLUX.1 & Gemini Engine) Combines, generate_upgraded_4slide_carousel() (+19 more)
+
+### Community 3 - "Community 3"
 Cohesion: 0.07
 Nodes (34): add_idea(), all_posts(), approve_post(), get_next_drafts(), _get_post(), get_posts_by_status(), get_todays_post(), _log() (+26 more)
 
-### Community 3 - "Community 3"
+### Community 4 - "Community 4"
+Cohesion: 0.09
+Nodes (36): build_many(), build_packet(), company_slug(), find_company_packet(), find_packet(), find_role_packet(), _key(), Packet (+28 more)
+
+### Community 5 - "Community 5"
 Cohesion: 0.13
 Nodes (23): BaseHTTPRequestHandler, _age(), all_zip(), bootstrap(), build_packets(), console(), _coverage_gaps(), cv_paths() (+15 more)
 
-### Community 4 - "Community 4"
+### Community 6 - "Community 6"
 Cohesion: 0.08
 Nodes (24): all_rows(), last_sync(), _parse_ts(), pending_notion(), Compatibility shim — the real module now lives in `database/board_db.py`.  WHY T, Parse an ISO timestamp, tolerating a trailing Z and dropping the timezone., Insert or update by Notion page id. Returns (inserted, updated, protected)., Change a job's status from the dashboard. Returns the updated row.      Record (+16 more)
-
-### Community 5 - "Community 5"
-Cohesion: 0.16
-Nodes (28): FillResult, LinkedInLoggedOut, The persistent profile is not signed in. Abort the WHOLE run; never attempt a lo, answers_today(), board_candidates(), Candidate, cmd_applyall(), cmd_fieldmap() (+20 more)
-
-### Community 6 - "Community 6"
-Cohesion: 0.11
-Nodes (27): build_many(), build_packet(), company_slug(), find_company_packet(), find_packet(), find_role_packet(), _key(), Packet (+19 more)
 
 ### Community 7 - "Community 7"
 Cohesion: 0.09
 Nodes (22): Tests for the never-resubmit ledger.  The load-bearing one is test_second_attemp, THE D33 test. Infosys: one linkedin-dm, weeks old, different role., The cap's actual job: Crossing Hurdles got two on consecutive days., Different channel = a different recruiter surface, and often a different team., Asymmetric failure: over-counting costs a skip, under-counting costs a duplicate, already_applied() must stay LIFETIME. Recency scoping applies to the CAP only —, THE test. Recro was submitted 2026-07-29 and must never be attempted again., Aggregators on this board repost the same req under fresh ids constantly. (+14 more)
 
 ### Community 8 - "Community 8"
-Cohesion: 0.12
-Nodes (22): classify(), InboxReport, main(), notify(), Read the LinkedIn inbox and report threads where THEY spoke last.  WHY THIS EXIS, (name, preview) for each conversation in the list., Push waiting threads to Slack.      A scheduled task that only writes to a log f, Decide who spoke last in one conversation row.      Pure, so the rule is testabl (+14 more)
-
-### Community 9 - "Community 9"
 Cohesion: 0.19
 Nodes (25): actions(), bars(), capabilities(), chartChannel(), chartFunnel(), chartKind(), chartTime(), esc() (+17 more)
 
-### Community 10 - "Community 10"
+### Community 9 - "Community 9"
 Cohesion: 0.14
 Nodes (20): ago(), api(), boot(), clear(), copy(), el(), esc(), fitCell() (+12 more)
 
-### Community 11 - "Community 11"
+### Community 10 - "Community 10"
 Cohesion: 0.2
 Nodes (24): cmd_add(), cmd_due(), cmd_expire(), cmd_list(), cmd_mark_accepted(), cmd_mark_failed(), cmd_mark_sent(), find() (+16 more)
 
-### Community 12 - "Community 12"
+### Community 11 - "Community 11"
 Cohesion: 0.12
 Nodes (18): all_values(), BankMissing, dump_field_map(), load_bank(), located_in_answer(), lookup(), match_field(), _norm_place() (+10 more)
 
-### Community 13 - "Community 13"
+### Community 12 - "Community 12"
 Cohesion: 0.12
 Nodes (18): _fake_run(), no_packet(), Tests for the Claude Code bridge — specifically the two rules that cost real day, Runbook §2 — rebuilding silently overwrites drafts the owner may have approved., The remaining jobs must NOT appear in `failed` — that is the D25 mistake., find_packet always returns None — i.e. Claude wrote no artifact., Regression, 2026-08-06 first real run.      The Energy Exemplar packet built com, A late limit stops the batch without throwing away the job that completed. (+10 more)
 
-### Community 14 - "Community 14"
+### Community 13 - "Community 13"
 Cohesion: 0.13
 Nodes (18): _packet(), Tests for role-scoped packets (D34).  The deadlock being fixed: the runbook writ, Nothing must move. Eight packets already exist at output/outreach/<company>/., Same role asked twice must resolve to the same place, or builds duplicate foreve, The board row id and the packet's job_id need not agree; company+role is the rea, THE safety property. A CV tailored to one req must never be served for another., The second role must reuse the first's contact.md, so the sibling has to be find, Otherwise one role gets split across two folders and the first is orphaned. (+10 more)
 
-### Community 15 - "Community 15"
+### Community 14 - "Community 14"
 Cohesion: 0.16
 Nodes (18): already_applied(), company_role_key(), describe(), Entry, linkedin_job_id(), load(), _norm(), The never-resubmit ledger — the guard that must exist before submitting can.  "O (+10 more)
+
+### Community 15 - "Community 15"
+Cohesion: 0.15
+Nodes (17): _chunk(), fake_openai(), Tests for the LLM entry point — specifically the corruption that has no symptom., No text block at all is 'no answer', not an empty string., One streamed event, shaped like the openai SDK's., Install a stub `openai` module; return the dict recording the call made., The request must set stream=True — the whole point of the fix., The exact regression: the first chunk must survive into the answer. (+9 more)
 
 ### Community 16 - "Community 16"
 Cohesion: 0.18
@@ -112,156 +112,156 @@ Cohesion: 0.12
 Nodes (9): Tests for pre-application sourcing screens.  The asymmetry under test is the who, THE test. Crossing Hurdles took two application slots and could never be followe, A real employer CAN post an hourly rate. Deprioritized is fine; dropped is not., A bare assertion must not be able to block a company., Fail toward applying. An unreadable list must not silently block every company., test_a_company_with_recorded_evidence_is_blocked(), test_a_corrupt_evidence_file_is_reported_and_blocks_nobody(), test_a_legitimate_contract_role_is_not_lost() (+1 more)
 
 ### Community 19 - "Community 19"
+Cohesion: 0.22
+Nodes (14): generate_slide1_hero(), generate_slide2_architecture(), generate_slide3_comparison(), generate_slide4_roadmap(), main(), package_post(), Unified LinkedIn Post Generator — Full Platform Showcase Generates a single, com, Render HTML to PNG via Edge headless. (+6 more)
+
+### Community 20 - "Community 20"
 Cohesion: 0.23
 Nodes (14): all_of(), build_card(), first(), first_blockquote(), load_env(), main(), post(), Role, score, recipient, the exact message the robot will send, marker. Nothing e (+6 more)
 
-### Community 20 - "Community 20"
-Cohesion: 0.21
-Nodes (13): deduplicate_against_hub(), main(), Extract decisions from docs/knowledge/05-decisions.md and other files., Scan Claude Code JSONL transcripts for user problems and AI solutions., Scan Antigravity JSONL transcripts for user problems and solutions., Scan Brain 1 Obsidian vault for patterns and insights., Remove ideas that are already in the Content Hub (by fuzzy title match)., Extract post-worthy entries from graphify-out/log.md session log. (+5 more)
-
 ### Community 21 - "Community 21"
+Cohesion: 0.21
+Nodes (13): build_image_prompt(), dispatch_to_linkedin(), generate_hero_image(), _get_fallback_image(), load_templates(), main(), Post to LinkedIn via Playwright with persistent browser session., Send a Slack notification about the post status. (+5 more)
+
+### Community 22 - "Community 22"
 Cohesion: 0.21
 Nodes (13): deduplicate_topics(), determine_post_type(), fetch_trending_via_currents(), fetch_trending_via_hacker_news(), fetch_trending_via_newsdata(), generate_hashtags(), main(), Remove near-duplicate titles. (+5 more)
 
-### Community 22 - "Community 22"
+### Community 23 - "Community 23"
 Cohesion: 0.15
 Nodes (7): Tests for role-family routing.  The risk being tested: a job silently getting th, MLOps postings ask for model lifecycle work, not cluster work — even though the, Both families fit; DevOps leads with the better-evidenced half of the portfolio., No CV must never mean 'apply with whatever LinkedIn pre-filled'., test_ai_devops_hybrids_go_to_devops(), test_missing_family_cv_is_reported_not_silently_skipped(), test_mlops_goes_to_ai_not_devops()
 
-### Community 23 - "Community 23"
+### Community 24 - "Community 24"
 Cohesion: 0.3
 Nodes (11): companies_with_a_named_human(), _company_matches(), Gap, gaps(), main(), _norm(), notify(), Which applications have reached a human, and which are sitting in a queue alone. (+3 more)
 
-### Community 24 - "Community 24"
+### Community 25 - "Community 25"
 Cohesion: 0.25
 Nodes (9): load_unreachable(), _norm(), Screen a board row before it consumes an application slot.  WHY THIS EXISTS ----, Decide whether this row deserves an application slot.      Pure enough to test:, Companies PROVEN to have nobody to follow up with. Keyed by normalised company n, Mark a company as having no findable human. Requires evidence, in words, on purp, record_unreachable(), screen() (+1 more)
 
-### Community 25 - "Community 25"
+### Community 26 - "Community 26"
 Cohesion: 0.42
 Nodes (10): applyPanel(), buildPanel(), change(), cvPanel(), followBuild(), notionRow(), recount(), renderList() (+2 more)
 
-### Community 26 - "Community 26"
+### Community 27 - "Community 27"
 Cohesion: 0.33
 Nodes (9): _bash_path(), find_interpreter(), hook_status(), install(), main(), C:\\Foo\\python.exe -> /c/Foo/python.exe, which is what Git Bash needs., An interpreter that can actually import graphify. Prefer the one running this sc, (name, ok, detail) per hook. `ok` means it names an interpreter that has graphif (+1 more)
 
-### Community 27 - "Community 27"
-Cohesion: 0.42
-Nodes (8): ask(), _ask_anthropic(), _ask_openai_compatible(), LLMError, The single LLM entry point for the whole app.  One function: ask(prompt, max_tok, Any failure to get usable text out of a provider. Always carries the raw respons, Send one prompt, get one string back. Raises LLMError rather than returning junk, _require_env()
-
 ### Community 28 - "Community 28"
+Cohesion: 0.31
+Nodes (9): _api_key(), ask_once(), list_models(), main(), Find which OmniRoute models can be trusted to return an answer intact.  WHY THIS, True only if every probe round-trips exactly. Ambiguity counts as failure., The gateway key, from the environment or .env. Never hardcoded (repo is public)., Return (answer, model_actually_used). Raises on transport/protocol failure. (+1 more)
+
+### Community 29 - "Community 29"
 Cohesion: 0.44
 Nodes (6): actionCard(), confirmPanel(), fire(), loadHistory(), renderRun(), watch()
 
-### Community 29 - "Community 29"
+### Community 30 - "Community 30"
 Cohesion: 0.31
 Nodes (8): delete_all_experience(), fill_position(), main(), navigate_to_add_position(), LinkedIn Experience Cleanup + Re-add v6 Step 1: Delete the 3 empty experience en, Add section -> Core -> Add position., Fill the experience form using POSITION-BASED field indexing., Delete all existing experience entries by navigating to the experience section.
 
-### Community 30 - "Community 30"
+### Community 31 - "Community 31"
 Cohesion: 0.36
 Nodes (7): CvChoice, family_for(), family_pdf(), pick_cv(), Role families — one reusable CV per family, instead of one per company.  WHY THI, Which family CV this role should receive., A company-tailored CV if one exists, otherwise the family CV. Never the generic
 
-### Community 31 - "Community 31"
+### Community 32 - "Community 32"
 Cohesion: 0.52
 Nodes (6): classify(), live_rows(), load(), main(), Classify every live board row: Easy Apply, external ATS, or dead.  WHY --- Rough, save()
 
-### Community 32 - "Community 32"
+### Community 33 - "Community 33"
 Cohesion: 0.52
 Nodes (6): keywords_from_jd(), main(), norm(), present(), Keyword is present if it appears as a token/phrase in the CV text., read_text()
 
-### Community 33 - "Community 33"
+### Community 34 - "Community 34"
 Cohesion: 0.57
 Nodes (5): Enter-PipelineLock(), Get-PipelineLockOwner(), Read-PipelineLockText(), Remove-StalePipelineLock(), Write-LockLine()
 
-### Community 34 - "Community 34"
+### Community 35 - "Community 35"
 Cohesion: 0.38
 Nodes (6): add_skills(), check_and_cleanup(), main(), LinkedIn Profile Cleanup & Skills Add: 1. Scroll through experience section to c, Check the experience section for empty or duplicate entries., Add skills via Add section -> Core -> Add skills.
 
-### Community 35 - "Community 35"
+### Community 36 - "Community 36"
 Cohesion: 0.6
 Nodes (5): call(), load_env(), main(), Map user/bot ids to display names so the export is readable., resolve_users()
 
-### Community 36 - "Community 36"
+### Community 37 - "Community 37"
 Cohesion: 0.6
 Nodes (5): call(), find_ts(), load_env(), main(), Locate the newest card carrying `ref:<slug>`.
 
-### Community 37 - "Community 37"
+### Community 38 - "Community 38"
 Cohesion: 0.7
 Nodes (4): as_bool(), due_for(), main(), notify()
 
-### Community 38 - "Community 38"
+### Community 39 - "Community 39"
 Cohesion: 0.6
 Nodes (4): degree_of(), main(), poll(), Read-only accept-watch poll: degree + invite badge for each pending invite.  [[1
 
-### Community 39 - "Community 39"
+### Community 40 - "Community 40"
 Cohesion: 0.7
 Nodes (4): cap(), fmt(), load_env(), main()
 
-### Community 40 - "Community 40"
+### Community 41 - "Community 41"
 Cohesion: 0.67
 Nodes (3): generate_upgraded_post1_carousel(), Upgraded Post 1 Carousel Generator — Job Hunt Autopilot Features ZERO AI gibberi, render_edge_screenshot()
 
-### Community 41 - "Community 41"
+### Community 42 - "Community 42"
 Cohesion: 0.5
 Nodes (3): HTML/CSS 3D Isometric Neon Architecture Infographic Generator, Renders HTML string into high-res PNG image via headless Edge., render_html_to_png()
 
-### Community 42 - "Community 42"
+### Community 43 - "Community 43"
 Cohesion: 0.5
 Nodes (3): auto_post_to_linkedin(), Automated Playwright LinkedIn Post Dispatcher Uses Playwright browser automation, Automates posting to LinkedIn using Playwright Chromium with persistent user pro
 
-### Community 43 - "Community 43"
+### Community 44 - "Community 44"
 Cohesion: 0.67
 Nodes (3): Distinct Slide 1 Hero Cover Generator Renders 2 distinct, highly detailed Slide, render_distinct_covers(), render_edge_screenshot()
 
-### Community 44 - "Community 44"
+### Community 45 - "Community 45"
 Cohesion: 0.67
 Nodes (3): Hybrid Vector Composite Slide 1 Cover Studio Combines pristine 3D Command Center, render_edge_screenshot(), render_hybrid_slide1_covers()
 
-### Community 45 - "Community 45"
+### Community 46 - "Community 46"
 Cohesion: 0.83
 Nodes (3): api(), load_env(), main()
 
-### Community 46 - "Community 46"
+### Community 47 - "Community 47"
 Cohesion: 0.67
 Nodes (0): 
 
-### Community 47 - "Community 47"
+### Community 48 - "Community 48"
 Cohesion: 1.0
 Nodes (2): load_env(), main()
-
-### Community 48 - "Community 48"
-Cohesion: 0.67
-Nodes (1): Post 2 Packager — AI Visual Content Studio Packages the ALREADY-BUILT 4-slide ca
 
 ### Community 49 - "Community 49"
 Cohesion: 0.67
-Nodes (1): LinkedIn Profile Editor — Add About Section. The profile page shows "Write a sum
+Nodes (1): Post 2 Packager — AI Visual Content Studio Packages the ALREADY-BUILT 4-slide ca
 
 ### Community 50 - "Community 50"
 Cohesion: 0.67
-Nodes (1): Quick check: scroll the profile to see the experience section.
+Nodes (1): LinkedIn Profile Editor — Add About Section. The profile page shows "Write a sum
 
 ### Community 51 - "Community 51"
 Cohesion: 0.67
-Nodes (1): LinkedIn Profile Editor v6 — TARGETED. The headline is a TipTap ProseMirror cont
+Nodes (1): Quick check: scroll the profile to see the experience section.
 
 ### Community 52 - "Community 52"
 Cohesion: 0.67
-Nodes (1): Render High-Density, Ultra-Detailed Technical Architecture Visual (Slide 2 Upgra
+Nodes (1): LinkedIn Profile Editor v6 — TARGETED. The headline is a TipTap ProseMirror cont
 
 ### Community 53 - "Community 53"
 Cohesion: 0.67
-Nodes (1): Test LinkedIn Post Dispatch & Verification Script Packages the exact 4-slide vis
+Nodes (1): Render High-Density, Ultra-Detailed Technical Architecture Visual (Slide 2 Upgra
 
 ### Community 54 - "Community 54"
-Cohesion: 1.0
-Nodes (2): load_env(), main()
+Cohesion: 0.67
+Nodes (1): Test LinkedIn Post Dispatch & Verification Script Packages the exact 4-slide vis
 
 ### Community 55 - "Community 55"
 Cohesion: 1.0
-Nodes (1): The board store: schema, access layer, and the SQLite file itself.
+Nodes (2): load_env(), main()
 
 ### Community 56 - "Community 56"
 Cohesion: 1.0
-Nodes (0): 
+Nodes (1): The board store: schema, access layer, and the SQLite file itself.
 
 ### Community 57 - "Community 57"
 Cohesion: 1.0
@@ -277,7 +277,7 @@ Nodes (0):
 
 ### Community 60 - "Community 60"
 Cohesion: 1.0
-Nodes (1): Moved. The server now lives at `backend/server.py`.  Kept as a redirect because
+Nodes (0): 
 
 ### Community 61 - "Community 61"
 Cohesion: 1.0
@@ -285,7 +285,7 @@ Nodes (0):
 
 ### Community 62 - "Community 62"
 Cohesion: 1.0
-Nodes (0): 
+Nodes (1): Moved. The server now lives at `backend/server.py`.  Kept as a redirect because
 
 ### Community 63 - "Community 63"
 Cohesion: 1.0
@@ -309,64 +309,74 @@ Nodes (0):
 
 ### Community 68 - "Community 68"
 Cohesion: 1.0
-Nodes (1): Bundles post copy and high-res image into a complete publishing package.
+Nodes (0): 
 
 ### Community 69 - "Community 69"
 Cohesion: 1.0
-Nodes (1): Simulates or executes publishing of the ready package to LinkedIn.         If Li
+Nodes (0): 
 
 ### Community 70 - "Community 70"
 Cohesion: 1.0
-Nodes (1): Dynamically generates post copy and custom image prompt tailored to the given to
+Nodes (1): Bundles post copy and high-res image into a complete publishing package.
 
 ### Community 71 - "Community 71"
+Cohesion: 1.0
+Nodes (1): Simulates or executes publishing of the ready package to LinkedIn.         If Li
+
+### Community 72 - "Community 72"
+Cohesion: 1.0
+Nodes (1): Dynamically generates post copy and custom image prompt tailored to the given to
+
+### Community 73 - "Community 73"
 Cohesion: 1.0
 Nodes (0): 
 
 ## Knowledge Gaps
-- **203 isolated node(s):** `The board store: schema, access layer, and the SQLite file itself.`, `The answer bank and the FIELD_MAP — the only legal source of form values.  THE`, `Read a dotted path out of the bank. Returns None for missing OR null — both mean`, `One mappable question.      patterns  regexes matched (case-insensitive) again`, `Answer 'Are you currently located in <city>?' by COMPARING, never by assuming.` (+198 more)
+- **217 isolated node(s):** `The board store: schema, access layer, and the SQLite file itself.`, `The answer bank and the FIELD_MAP — the only legal source of form values.  THE`, `Read a dotted path out of the bank. Returns None for missing OR null — both mean`, `One mappable question.      patterns  regexes matched (case-insensitive) again`, `Answer 'Are you currently located in <city>?' by COMPARING, never by assuming.` (+212 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **Thin community `Community 55`** (2 nodes): `__init__.py`, `The board store: schema, access layer, and the SQLite file itself.`
+- **Thin community `Community 56`** (2 nodes): `__init__.py`, `The board store: schema, access layer, and the SQLite file itself.`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 56`** (2 nodes): `create_privatecloud_pdf_carousel.py`, `process_and_create_pdf()`
+- **Thin community `Community 57`** (2 nodes): `claude-free.ps1`, `Fail()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 57`** (2 nodes): `generate_privatecloud_carousel.py`, `generate_slides()`
+- **Thin community `Community 58`** (2 nodes): `create_privatecloud_pdf_carousel.py`, `process_and_create_pdf()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 58`** (2 nodes): `post_privatecloud_to_linkedin.py`, `publish_privatecloud_bundle()`
+- **Thin community `Community 59`** (2 nodes): `generate_privatecloud_carousel.py`, `generate_slides()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 59`** (2 nodes): `run-pipeline.ps1`, `Say()`
+- **Thin community `Community 60`** (2 nodes): `post_privatecloud_to_linkedin.py`, `publish_privatecloud_bundle()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 60`** (2 nodes): `serve_dashboard.py`, `Moved. The server now lives at `backend/server.py`.  Kept as a redirect because`
+- **Thin community `Community 61`** (2 nodes): `run-pipeline.ps1`, `Say()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 61`** (2 nodes): `sweep-packets.ps1`, `Say()`
+- **Thin community `Community 62`** (2 nodes): `serve_dashboard.py`, `Moved. The server now lives at `backend/server.py`.  Kept as a redirect because`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 62`** (1 nodes): `auto-apply.ps1`
+- **Thin community `Community 63`** (2 nodes): `sweep-packets.ps1`, `Say()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 63`** (1 nodes): `build-packet.ps1`
+- **Thin community `Community 64`** (1 nodes): `auto-apply.ps1`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 64`** (1 nodes): `check-replies.ps1`
+- **Thin community `Community 65`** (1 nodes): `build-packet.ps1`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 65`** (1 nodes): `daily-discovery.ps1`
+- **Thin community `Community 66`** (1 nodes): `check-replies.ps1`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 66`** (1 nodes): `flush-approved.ps1`
+- **Thin community `Community 67`** (1 nodes): `daily-discovery.ps1`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 67`** (1 nodes): `daily_post_scheduler.ps1`
+- **Thin community `Community 68`** (1 nodes): `flush-approved.ps1`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 68`** (1 nodes): `Bundles post copy and high-res image into a complete publishing package.`
+- **Thin community `Community 69`** (1 nodes): `daily_post_scheduler.ps1`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 69`** (1 nodes): `Simulates or executes publishing of the ready package to LinkedIn.         If Li`
+- **Thin community `Community 70`** (1 nodes): `Bundles post copy and high-res image into a complete publishing package.`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 70`** (1 nodes): `Dynamically generates post copy and custom image prompt tailored to the given to`
+- **Thin community `Community 71`** (1 nodes): `Simulates or executes publishing of the ready package to LinkedIn.         If Li`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 71`** (1 nodes): `watch-accepts.ps1`
+- **Thin community `Community 72`** (1 nodes): `Dynamically generates post copy and custom image prompt tailored to the given to`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 73`** (1 nodes): `watch-accepts.ps1`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `LinkedInLoggedOut` connect `Community 5` to `Community 8`, `Community 1`, `Community 6`, `Community 31`?**
-  _High betweenness centrality (0.032) - this node is a cross-community bridge._
-- **Why does `BankMissing` connect `Community 12` to `Community 6`?**
+- **Why does `LinkedInLoggedOut` connect `Community 0` to `Community 32`, `Community 1`, `Community 4`?**
+  _High betweenness centrality (0.030) - this node is a cross-community bridge._
+- **Why does `BankMissing` connect `Community 11` to `Community 4`?**
   _High betweenness centrality (0.009) - this node is a cross-community bridge._
 - **Are the 18 inferred relationships involving `LinkedInLoggedOut` (e.g. with `check_logged_in()` and `Thread`) actually correct?**
   _`LinkedInLoggedOut` has 18 INFERRED edges - model-reasoned connections that need verification._
@@ -377,4 +387,4 @@ _Questions this graph is uniquely positioned to answer:_
 - **Are the 11 inferred relationships involving `FillResult` (e.g. with `fill_job()` and `Candidate`) actually correct?**
   _`FillResult` has 11 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `The board store: schema, access layer, and the SQLite file itself.`, `The answer bank and the FIELD_MAP — the only legal source of form values.  THE`, `Read a dotted path out of the bank. Returns None for missing OR null — both mean` to the rest of the system?**
-  _203 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _217 weakly-connected nodes found - possible documentation gaps or missing edges._
