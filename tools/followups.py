@@ -31,10 +31,14 @@ MAX_FOLLOWUPS = 2               # stop after Day 7
 ACTIVE_STATUS = "Applied"      # only chase jobs whose Touch 1 was actually sent
 DEAD_STATUSES = {"Interview", "Rejected", "Skipped", "Closed"}
 
+# NO EM-DASHES. These are drafts that go to a real recruiter, and an em-dash is the single
+# most recognisable AI tell in this project's own style rules. Both templates carried one
+# until 2026-08-14 - they were never caught because no nudge had ever actually been drafted
+# from real data (see tools/followups_from_board.py for why). Keep the punctuation plain.
 TEMPLATES = {
-    3: ("Day 3", "Circling back on my application — still very keen, and happy to send anything useful "
+    3: ("Day 3", "Circling back on my application. Still very keen, and happy to send anything useful "
                  "(tailored CV, a quick call). Thanks for considering it."),
-    7: ("Day 7", "Last note from me on this one — I'll assume the timing isn't right, but the door's open "
+    7: ("Day 7", "Last note from me on this one. I'll assume the timing isn't right, but the door is open "
                  "if anything changes. Appreciate your time."),
 }
 

@@ -1339,3 +1339,60 @@ call to appear — which only existed because the fallback stopped going through
 
 Related: D42 (the gateway, the streaming bug) · D26/D27 (free for plumbing, Claude Code for
 the CV) · D30 (nothing observed is not nothing wrong) · [[29-omniroute-gateway]]
+
+---
+
+## D44 — The follow-up engine was finished, correct, and fed by nothing (2026-08-14)
+
+**Found by reading the LinkedIn inbox** (see D43's session): Swaleha Pathan and Saksham
+Sandhu were both pitched on **2026-08-01**, and in both threads the last message is **Azam's
+own**. Thirteen days, no nudge. The design promises Day-3 and Day-7 follow-ups.
+
+`tools/followups.py` is not broken. It computes the cadence correctly and has since the
+completion plan. Its docstring says exactly why it reads JSON on stdin:
+
+> *"there is no Notion token in .env ... The runner (Claude via MCP, or a future scheduler
+> with a token) queries Notion for Status='Applied' jobs and pipes them in."*
+
+**That runner no longer exists.** `NOTION_TOKEN` was never set, and the store moved to
+`database/board.sqlite3`. So the engine has **never once been fed**, by anything, ever.
+
+> **A component with no caller does not fail. It is simply absent.** Nothing errored, no log
+> line was missing, no task reported a problem — because no task ran it. This is D30's family
+> again, but a rung further out: not "silent failure" but *silent non-existence*. A grep for
+> "is it built?" answers yes; only "what calls it?" finds this.
+
+Now wired: **`tools/followups_from_board.py`** reads the Applied rows out of the real store
+and pipes them in. First run: **13 of 13 applications are past their Day-3 nudge**, the oldest
+by **19 days**.
+
+### ⚠️ Two fields the board cannot answer
+
+`jobs` has no `reply` column and no `followups_sent` column — two of the four inputs the
+cadence needs. The feeder emits `reply=false, followups_sent=0` and says so, loudly, **before**
+the list rather than after it.
+
+That direction is chosen, not defaulted (the "choose the failure direction first" rule):
+over-reporting costs one Slack card he ignores; under-reporting lets a lead go cold and is
+invisible. And **nothing sends** — followups.py only drafts, every nudge is still his click.
+The one genuine hazard is a *duplicate* Day-3 to someone already nudged, which is precisely
+what the warning names. The real fix is two columns on `jobs`.
+
+### 🔴 Both nudge templates contained an em-dash
+
+*"Circling back on my application — still very keen…"* and the Day-7 twin. An em-dash is the
+single most recognisable AI tell in this project's own writing rules, and these are drafts
+that go to a **real recruiter**. They sat there since the templates were written.
+
+They were never caught because **no nudge had ever been rendered from real data.** Reading the
+template in the source, nobody sees it; watching thirteen of them print with real company
+names, it is the first thing you see.
+
+> **A template that has never been rendered with real data has never actually been reviewed.**
+
+Same run, same shape: the feeder's caveat printed *after* forty lines of nudges, because the
+child process wrote straight to the console while the parent's `print` sat in a buffer. **A
+warning printed below the thing it warns about is not a warning.** One `sys.stdout.flush()`.
+
+Related: D30 (nothing observed is not nothing wrong) · D23 (the mirror is not the board) ·
+D35 (a channel nobody reads) · D41 (count who reached nobody) · [[30-warm-insider-runbook]]
