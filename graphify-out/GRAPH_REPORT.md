@@ -5,8 +5,8 @@
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 844 nodes · 1287 edges · 74 communities detected
-- Extraction: 60% EXTRACTED · 40% INFERRED · 0% AMBIGUOUS · INFERRED: 509 edges (avg confidence: 0.5)
+- 850 nodes · 1296 edges · 74 communities detected
+- Extraction: 60% EXTRACTED · 40% INFERRED · 0% AMBIGUOUS · INFERRED: 512 edges (avg confidence: 0.5)
 - Token cost: 0 input · 0 output
 
 ## God Nodes (most connected - your core abstractions)
@@ -80,24 +80,24 @@ Cohesion: 0.2
 Nodes (24): cmd_add(), cmd_due(), cmd_expire(), cmd_list(), cmd_mark_accepted(), cmd_mark_failed(), cmd_mark_sent(), find() (+16 more)
 
 ### Community 11 - "Community 11"
-Cohesion: 0.12
-Nodes (18): all_values(), BankMissing, dump_field_map(), load_bank(), located_in_answer(), lookup(), match_field(), _norm_place() (+10 more)
+Cohesion: 0.13
+Nodes (21): _chunk(), fake_openai(), Tests for the LLM entry point — specifically the corruption that has no symptom., A reasoning model puts `thinking` first; content[0].text is not the answer., No text block at all is 'no answer', not an empty string., LLM_STREAM=false exists for providers whose streaming is broken (groq: the     g, A stream of nothing but keepalives is 'no answer', and must be loud.      The ga, One streamed event, shaped like the openai SDK's. (+13 more)
 
 ### Community 12 - "Community 12"
 Cohesion: 0.12
-Nodes (18): _fake_run(), no_packet(), Tests for the Claude Code bridge — specifically the two rules that cost real day, Runbook §2 — rebuilding silently overwrites drafts the owner may have approved., The remaining jobs must NOT appear in `failed` — that is the D25 mistake., find_packet always returns None — i.e. Claude wrote no artifact., Regression, 2026-08-06 first real run.      The Energy Exemplar packet built com, A late limit stops the batch without throwing away the job that completed. (+10 more)
+Nodes (18): all_values(), BankMissing, dump_field_map(), load_bank(), located_in_answer(), lookup(), match_field(), _norm_place() (+10 more)
 
 ### Community 13 - "Community 13"
+Cohesion: 0.12
+Nodes (18): _fake_run(), no_packet(), Tests for the Claude Code bridge — specifically the two rules that cost real day, Runbook §2 — rebuilding silently overwrites drafts the owner may have approved., The remaining jobs must NOT appear in `failed` — that is the D25 mistake., find_packet always returns None — i.e. Claude wrote no artifact., Regression, 2026-08-06 first real run.      The Energy Exemplar packet built com, A late limit stops the batch without throwing away the job that completed. (+10 more)
+
+### Community 14 - "Community 14"
 Cohesion: 0.13
 Nodes (18): _packet(), Tests for role-scoped packets (D34).  The deadlock being fixed: the runbook writ, Nothing must move. Eight packets already exist at output/outreach/<company>/., Same role asked twice must resolve to the same place, or builds duplicate foreve, The board row id and the packet's job_id need not agree; company+role is the rea, THE safety property. A CV tailored to one req must never be served for another., The second role must reuse the first's contact.md, so the sibling has to be find, Otherwise one role gets split across two folders and the first is orphaned. (+10 more)
 
-### Community 14 - "Community 14"
+### Community 15 - "Community 15"
 Cohesion: 0.16
 Nodes (18): already_applied(), company_role_key(), describe(), Entry, linkedin_job_id(), load(), _norm(), The never-resubmit ledger — the guard that must exist before submitting can.  "O (+10 more)
-
-### Community 15 - "Community 15"
-Cohesion: 0.15
-Nodes (17): _chunk(), fake_openai(), Tests for the LLM entry point — specifically the corruption that has no symptom., No text block at all is 'no answer', not an empty string., One streamed event, shaped like the openai SDK's., Install a stub `openai` module; return the dict recording the call made., The request must set stream=True — the whole point of the fix., The exact regression: the first chunk must survive into the answer. (+9 more)
 
 ### Community 16 - "Community 16"
 Cohesion: 0.18
@@ -136,20 +136,20 @@ Cohesion: 0.3
 Nodes (11): companies_with_a_named_human(), _company_matches(), Gap, gaps(), main(), _norm(), notify(), Which applications have reached a human, and which are sitting in a queue alone. (+3 more)
 
 ### Community 25 - "Community 25"
+Cohesion: 0.26
+Nodes (11): _api_key(), ask_once(), list_models(), main(), Find which OmniRoute models can be trusted to return an answer intact.  WHY THIS, True only if every probe round-trips exactly. Ambiguity counts as failure., Probe both transport modes. A model is usable if EITHER passes cleanly., The gateway key, from the environment or .env. Never hardcoded (repo is public). (+3 more)
+
+### Community 26 - "Community 26"
 Cohesion: 0.25
 Nodes (9): load_unreachable(), _norm(), Screen a board row before it consumes an application slot.  WHY THIS EXISTS ----, Decide whether this row deserves an application slot.      Pure enough to test:, Companies PROVEN to have nobody to follow up with. Keyed by normalised company n, Mark a company as having no findable human. Requires evidence, in words, on purp, record_unreachable(), screen() (+1 more)
 
-### Community 26 - "Community 26"
+### Community 27 - "Community 27"
 Cohesion: 0.42
 Nodes (10): applyPanel(), buildPanel(), change(), cvPanel(), followBuild(), notionRow(), recount(), renderList() (+2 more)
 
-### Community 27 - "Community 27"
+### Community 28 - "Community 28"
 Cohesion: 0.33
 Nodes (9): _bash_path(), find_interpreter(), hook_status(), install(), main(), C:\\Foo\\python.exe -> /c/Foo/python.exe, which is what Git Bash needs., An interpreter that can actually import graphify. Prefer the one running this sc, (name, ok, detail) per hook. `ok` means it names an interpreter that has graphif (+1 more)
-
-### Community 28 - "Community 28"
-Cohesion: 0.31
-Nodes (9): _api_key(), ask_once(), list_models(), main(), Find which OmniRoute models can be trusted to return an answer intact.  WHY THIS, True only if every probe round-trips exactly. Ambiguity counts as failure., The gateway key, from the environment or .env. Never hardcoded (repo is public)., Return (answer, model_actually_used). Raises on transport/protocol failure. (+1 more)
 
 ### Community 29 - "Community 29"
 Cohesion: 0.44
@@ -332,7 +332,7 @@ Cohesion: 1.0
 Nodes (0): 
 
 ## Knowledge Gaps
-- **217 isolated node(s):** `The board store: schema, access layer, and the SQLite file itself.`, `The answer bank and the FIELD_MAP — the only legal source of form values.  THE`, `Read a dotted path out of the bank. Returns None for missing OR null — both mean`, `One mappable question.      patterns  regexes matched (case-insensitive) again`, `Answer 'Are you currently located in <city>?' by COMPARING, never by assuming.` (+212 more)
+- **220 isolated node(s):** `The board store: schema, access layer, and the SQLite file itself.`, `The answer bank and the FIELD_MAP — the only legal source of form values.  THE`, `Read a dotted path out of the bank. Returns None for missing OR null — both mean`, `One mappable question.      patterns  regexes matched (case-insensitive) again`, `Answer 'Are you currently located in <city>?' by COMPARING, never by assuming.` (+215 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **Thin community `Community 56`** (2 nodes): `__init__.py`, `The board store: schema, access layer, and the SQLite file itself.`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
@@ -375,8 +375,8 @@ Nodes (0):
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `LinkedInLoggedOut` connect `Community 0` to `Community 32`, `Community 1`, `Community 4`?**
-  _High betweenness centrality (0.030) - this node is a cross-community bridge._
-- **Why does `BankMissing` connect `Community 11` to `Community 4`?**
+  _High betweenness centrality (0.029) - this node is a cross-community bridge._
+- **Why does `BankMissing` connect `Community 12` to `Community 4`?**
   _High betweenness centrality (0.009) - this node is a cross-community bridge._
 - **Are the 18 inferred relationships involving `LinkedInLoggedOut` (e.g. with `check_logged_in()` and `Thread`) actually correct?**
   _`LinkedInLoggedOut` has 18 INFERRED edges - model-reasoned connections that need verification._
@@ -387,4 +387,4 @@ _Questions this graph is uniquely positioned to answer:_
 - **Are the 11 inferred relationships involving `FillResult` (e.g. with `fill_job()` and `Candidate`) actually correct?**
   _`FillResult` has 11 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `The board store: schema, access layer, and the SQLite file itself.`, `The answer bank and the FIELD_MAP — the only legal source of form values.  THE`, `Read a dotted path out of the bank. Returns None for missing OR null — both mean` to the rest of the system?**
-  _217 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _220 weakly-connected nodes found - possible documentation gaps or missing edges._

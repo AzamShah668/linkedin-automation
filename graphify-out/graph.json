@@ -25,7 +25,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L1",
       "id": "answers",
-      "community": 11
+      "community": 12
     },
     {
       "label": "BankMissing",
@@ -33,7 +33,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L65",
       "id": "answers_bankmissing",
-      "community": 11
+      "community": 12
     },
     {
       "label": "RuntimeError",
@@ -49,7 +49,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L69",
       "id": "answers_load_bank",
-      "community": 11
+      "community": 12
     },
     {
       "label": "lookup()",
@@ -57,7 +57,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L78",
       "id": "answers_lookup",
-      "community": 11
+      "community": 12
     },
     {
       "label": "Spec",
@@ -65,7 +65,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L92",
       "id": "answers_spec",
-      "community": 11
+      "community": 12
     },
     {
       "label": "_expected_ctc()",
@@ -73,7 +73,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L118",
       "id": "answers_expected_ctc",
-      "community": 11
+      "community": 12
     },
     {
       "label": "_sponsorship()",
@@ -81,7 +81,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L126",
       "id": "answers_sponsorship",
-      "community": 11
+      "community": 12
     },
     {
       "label": "located_in_answer()",
@@ -89,7 +89,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L322",
       "id": "answers_located_in_answer",
-      "community": 11
+      "community": 12
     },
     {
       "label": "_norm_place()",
@@ -97,7 +97,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L347",
       "id": "answers_norm_place",
-      "community": 11
+      "community": 12
     },
     {
       "label": "match_field()",
@@ -105,7 +105,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L351",
       "id": "answers_match_field",
-      "community": 11
+      "community": 12
     },
     {
       "label": "resolve()",
@@ -113,7 +113,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L369",
       "id": "answers_resolve",
-      "community": 11
+      "community": 12
     },
     {
       "label": "all_values()",
@@ -121,7 +121,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L386",
       "id": "answers_all_values",
-      "community": 11
+      "community": 12
     },
     {
       "label": "dump_field_map()",
@@ -129,7 +129,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L411",
       "id": "answers_dump_field_map",
-      "community": 11
+      "community": 12
     },
     {
       "label": "The answer bank and the FIELD_MAP \u2014 the only legal source of form values.\r \r THE",
@@ -137,7 +137,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L1",
       "id": "answers_rationale_1",
-      "community": 11
+      "community": 12
     },
     {
       "label": "Read a dotted path out of the bank. Returns None for missing OR null \u2014 both mean",
@@ -145,7 +145,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L79",
       "id": "answers_rationale_79",
-      "community": 11
+      "community": 12
     },
     {
       "label": "One mappable question.\r \r     patterns  regexes matched (case-insensitive) again",
@@ -153,7 +153,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L93",
       "id": "answers_rationale_93",
-      "community": 11
+      "community": 12
     },
     {
       "label": "Answer 'Are you currently located in <city>?' by COMPARING, never by assuming.",
@@ -161,7 +161,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L323",
       "id": "answers_rationale_323",
-      "community": 11
+      "community": 12
     },
     {
       "label": "First FIELD_MAP entry whose pattern appears in the label wins. Order = priority.",
@@ -169,7 +169,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L352",
       "id": "answers_rationale_352",
-      "community": 11
+      "community": 12
     },
     {
       "label": "Turn a Spec into the literal string to type, or None meaning LEAVE BLANK.",
@@ -177,7 +177,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L370",
       "id": "answers_rationale_370",
-      "community": 11
+      "community": 12
     },
     {
       "label": "Every scalar in the bank, plus the synthetic answers, as comparable strings.",
@@ -185,7 +185,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L387",
       "id": "answers_rationale_387",
-      "community": 11
+      "community": 12
     },
     {
       "label": "Human-readable FIELD_MAP for review before any run touches a real posting.",
@@ -193,7 +193,7 @@
       "source_file": "apps\\autopilot\\answers.py",
       "source_location": "L412",
       "id": "answers_rationale_412",
-      "community": 11
+      "community": 12
     },
     {
       "label": "coverage.py",
@@ -1009,7 +1009,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L1",
       "id": "ledger",
-      "community": 14
+      "community": 15
     },
     {
       "label": "_norm()",
@@ -1017,7 +1017,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L50",
       "id": "ledger_norm",
-      "community": 14
+      "community": 15
     },
     {
       "label": "company_role_key()",
@@ -1025,7 +1025,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L55",
       "id": "ledger_company_role_key",
-      "community": 14
+      "community": 15
     },
     {
       "label": "linkedin_job_id()",
@@ -1033,7 +1033,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L59",
       "id": "ledger_linkedin_job_id",
-      "community": 14
+      "community": 15
     },
     {
       "label": "Entry",
@@ -1041,7 +1041,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L65",
       "id": "ledger_entry",
-      "community": 14
+      "community": 15
     },
     {
       "label": ".to_json()",
@@ -1049,7 +1049,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L76",
       "id": "ledger_entry_to_json",
-      "community": 14
+      "community": 15
     },
     {
       "label": "load()",
@@ -1057,7 +1057,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L94",
       "id": "ledger_load",
-      "community": 14
+      "community": 15
     },
     {
       "label": "recent_company_submissions()",
@@ -1065,7 +1065,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L130",
       "id": "ledger_recent_company_submissions",
-      "community": 14
+      "community": 15
     },
     {
       "label": "already_applied()",
@@ -1073,7 +1073,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L161",
       "id": "ledger_already_applied",
-      "community": 14
+      "community": 15
     },
     {
       "label": "record()",
@@ -1081,7 +1081,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L182",
       "id": "ledger_record",
-      "community": 14
+      "community": 15
     },
     {
       "label": "seed()",
@@ -1089,7 +1089,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L244",
       "id": "ledger_seed",
-      "community": 14
+      "community": 15
     },
     {
       "label": "describe()",
@@ -1097,7 +1097,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L256",
       "id": "ledger_describe",
-      "community": 14
+      "community": 15
     },
     {
       "label": "today()",
@@ -1105,7 +1105,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L269",
       "id": "ledger_today",
-      "community": 14
+      "community": 15
     },
     {
       "label": "The never-resubmit ledger \u2014 the guard that must exist before submitting can.  \"O",
@@ -1113,7 +1113,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L1",
       "id": "ledger_rationale_1",
-      "community": 14
+      "community": 15
     },
     {
       "label": "Fold to a comparable key: lowercase, alphanumeric only.",
@@ -1121,7 +1121,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L51",
       "id": "ledger_rationale_51",
-      "community": 14
+      "community": 15
     },
     {
       "label": "Every recorded submission. A malformed line is skipped but never silently droppe",
@@ -1129,7 +1129,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L95",
       "id": "ledger_rationale_95",
-      "community": 14
+      "community": 15
     },
     {
       "label": "Rows for `company` on `channels` submitted within the last `within_days` days.",
@@ -1137,7 +1137,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L137",
       "id": "ledger_rationale_137",
-      "community": 14
+      "community": 15
     },
     {
       "label": "Reason string if this company+role (or this exact posting) was already submitted",
@@ -1145,7 +1145,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L164",
       "id": "ledger_rationale_164",
-      "community": 14
+      "community": 15
     },
     {
       "label": "Append one confirmed submission, durably.      Called ONLY after a submission is",
@@ -1153,7 +1153,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L183",
       "id": "ledger_rationale_183",
-      "community": 14
+      "community": 15
     },
     {
       "label": "Add any missing seed rows. Idempotent. Returns (added, already_present).",
@@ -1161,7 +1161,7 @@
       "source_file": "apps\\autopilot\\ledger.py",
       "source_location": "L245",
       "id": "ledger_rationale_245",
-      "community": 14
+      "community": 15
     },
     {
       "label": "llm.py",
@@ -1207,7 +1207,7 @@
       "label": "ask()",
       "file_type": "code",
       "source_file": "apps\\autopilot\\llm.py",
-      "source_location": "L125",
+      "source_location": "L149",
       "id": "llm_ask",
       "community": 4
     },
@@ -1228,7 +1228,7 @@
       "community": 4
     },
     {
-      "label": "Always streams, then joins. This is a correctness requirement, not a preference.",
+      "label": "Streams by default. `LLM_STREAM=false` for providers whose streaming is broken.",
       "file_type": "rationale",
       "source_file": "apps\\autopilot\\llm.py",
       "source_location": "L77",
@@ -1239,8 +1239,8 @@
       "label": "Send one prompt, get one string back. Raises LLMError rather than returning junk",
       "file_type": "rationale",
       "source_file": "apps\\autopilot\\llm.py",
-      "source_location": "L126",
-      "id": "llm_rationale_126",
+      "source_location": "L150",
+      "id": "llm_rationale_150",
       "community": 4
     },
     {
@@ -1577,7 +1577,7 @@
       "source_file": "apps\\autopilot\\sourcing.py",
       "source_location": "L1",
       "id": "sourcing",
-      "community": 25
+      "community": 26
     },
     {
       "label": "_norm()",
@@ -1585,7 +1585,7 @@
       "source_file": "apps\\autopilot\\sourcing.py",
       "source_location": "L53",
       "id": "sourcing_norm",
-      "community": 25
+      "community": 26
     },
     {
       "label": "Verdict",
@@ -1593,7 +1593,7 @@
       "source_file": "apps\\autopilot\\sourcing.py",
       "source_location": "L70",
       "id": "sourcing_verdict",
-      "community": 25
+      "community": 26
     },
     {
       "label": "blocks()",
@@ -1601,7 +1601,7 @@
       "source_file": "apps\\autopilot\\sourcing.py",
       "source_location": "L75",
       "id": "sourcing_blocks",
-      "community": 25
+      "community": 26
     },
     {
       "label": "load_unreachable()",
@@ -1609,7 +1609,7 @@
       "source_file": "apps\\autopilot\\sourcing.py",
       "source_location": "L79",
       "id": "sourcing_load_unreachable",
-      "community": 25
+      "community": 26
     },
     {
       "label": "record_unreachable()",
@@ -1617,7 +1617,7 @@
       "source_file": "apps\\autopilot\\sourcing.py",
       "source_location": "L93",
       "id": "sourcing_record_unreachable",
-      "community": 25
+      "community": 26
     },
     {
       "label": "screen()",
@@ -1625,7 +1625,7 @@
       "source_file": "apps\\autopilot\\sourcing.py",
       "source_location": "L113",
       "id": "sourcing_screen",
-      "community": 25
+      "community": 26
     },
     {
       "label": "Screen a board row before it consumes an application slot.  WHY THIS EXISTS ----",
@@ -1633,7 +1633,7 @@
       "source_file": "apps\\autopilot\\sourcing.py",
       "source_location": "L1",
       "id": "sourcing_rationale_1",
-      "community": 25
+      "community": 26
     },
     {
       "label": "Companies PROVEN to have nobody to follow up with. Keyed by normalised company n",
@@ -1641,7 +1641,7 @@
       "source_file": "apps\\autopilot\\sourcing.py",
       "source_location": "L80",
       "id": "sourcing_rationale_80",
-      "community": 25
+      "community": 26
     },
     {
       "label": "Mark a company as having no findable human. Requires evidence, in words, on purp",
@@ -1649,7 +1649,7 @@
       "source_file": "apps\\autopilot\\sourcing.py",
       "source_location": "L96",
       "id": "sourcing_rationale_96",
-      "community": 25
+      "community": 26
     },
     {
       "label": "Decide whether this row deserves an application slot.      Pure enough to test:",
@@ -1657,7 +1657,7 @@
       "source_file": "apps\\autopilot\\sourcing.py",
       "source_location": "L114",
       "id": "sourcing_rationale_114",
-      "community": 25
+      "community": 26
     },
     {
       "label": "triage.py",
@@ -2793,7 +2793,7 @@
       "source_file": "frontend\\static\\page-jobs.js",
       "source_location": "L1",
       "id": "page_jobs",
-      "community": 26
+      "community": 27
     },
     {
       "label": "renderList()",
@@ -2801,7 +2801,7 @@
       "source_file": "frontend\\static\\page-jobs.js",
       "source_location": "L7",
       "id": "page_jobs_renderlist",
-      "community": 26
+      "community": 27
     },
     {
       "label": "statusControl()",
@@ -2809,7 +2809,7 @@
       "source_file": "frontend\\static\\page-jobs.js",
       "source_location": "L33",
       "id": "page_jobs_statuscontrol",
-      "community": 26
+      "community": 27
     },
     {
       "label": "notionRow()",
@@ -2817,7 +2817,7 @@
       "source_file": "frontend\\static\\page-jobs.js",
       "source_location": "L78",
       "id": "page_jobs_notionrow",
-      "community": 26
+      "community": 27
     },
     {
       "label": "change()",
@@ -2825,7 +2825,7 @@
       "source_file": "frontend\\static\\page-jobs.js",
       "source_location": "L112",
       "id": "page_jobs_change",
-      "community": 26
+      "community": 27
     },
     {
       "label": "recount()",
@@ -2833,7 +2833,7 @@
       "source_file": "frontend\\static\\page-jobs.js",
       "source_location": "L134",
       "id": "page_jobs_recount",
-      "community": 26
+      "community": 27
     },
     {
       "label": "applyPanel()",
@@ -2841,7 +2841,7 @@
       "source_file": "frontend\\static\\page-jobs.js",
       "source_location": "L142",
       "id": "page_jobs_applypanel",
-      "community": 26
+      "community": 27
     },
     {
       "label": "cvPanel()",
@@ -2849,7 +2849,7 @@
       "source_file": "frontend\\static\\page-jobs.js",
       "source_location": "L200",
       "id": "page_jobs_cvpanel",
-      "community": 26
+      "community": 27
     },
     {
       "label": "show()",
@@ -2857,7 +2857,7 @@
       "source_file": "frontend\\static\\page-jobs.js",
       "source_location": "L249",
       "id": "page_jobs_show",
-      "community": 26
+      "community": 27
     },
     {
       "label": "buildPanel()",
@@ -2865,7 +2865,7 @@
       "source_file": "frontend\\static\\page-jobs.js",
       "source_location": "L308",
       "id": "page_jobs_buildpanel",
-      "community": 26
+      "community": 27
     },
     {
       "label": "followBuild()",
@@ -2873,7 +2873,7 @@
       "source_file": "frontend\\static\\page-jobs.js",
       "source_location": "L358",
       "id": "page_jobs_followbuild",
-      "community": 26
+      "community": 27
     },
     {
       "label": "setup-hooks.py",
@@ -2881,7 +2881,7 @@
       "source_file": "scripts\\setup-hooks.py",
       "source_location": "L1",
       "id": "setup_hooks",
-      "community": 27
+      "community": 28
     },
     {
       "label": "_bash_path()",
@@ -2889,7 +2889,7 @@
       "source_file": "scripts\\setup-hooks.py",
       "source_location": "L39",
       "id": "setup_hooks_bash_path",
-      "community": 27
+      "community": 28
     },
     {
       "label": "_selector()",
@@ -2897,7 +2897,7 @@
       "source_file": "scripts\\setup-hooks.py",
       "source_location": "L47",
       "id": "setup_hooks_selector",
-      "community": 27
+      "community": 28
     },
     {
       "label": "find_interpreter()",
@@ -2905,7 +2905,7 @@
       "source_file": "scripts\\setup-hooks.py",
       "source_location": "L61",
       "id": "setup_hooks_find_interpreter",
-      "community": 27
+      "community": 28
     },
     {
       "label": "hook_status()",
@@ -2913,7 +2913,7 @@
       "source_file": "scripts\\setup-hooks.py",
       "source_location": "L88",
       "id": "setup_hooks_hook_status",
-      "community": 27
+      "community": 28
     },
     {
       "label": "install()",
@@ -2921,7 +2921,7 @@
       "source_file": "scripts\\setup-hooks.py",
       "source_location": "L108",
       "id": "setup_hooks_install",
-      "community": 27
+      "community": 28
     },
     {
       "label": "main()",
@@ -2929,7 +2929,7 @@
       "source_file": "scripts\\setup-hooks.py",
       "source_location": "L130",
       "id": "setup_hooks_main",
-      "community": 27
+      "community": 28
     },
     {
       "label": "C:\\\\Foo\\\\python.exe -> /c/Foo/python.exe, which is what Git Bash needs.",
@@ -2937,7 +2937,7 @@
       "source_file": "scripts\\setup-hooks.py",
       "source_location": "L40",
       "id": "setup_hooks_rationale_40",
-      "community": 27
+      "community": 28
     },
     {
       "label": "An interpreter that can actually import graphify. Prefer the one running this sc",
@@ -2945,7 +2945,7 @@
       "source_file": "scripts\\setup-hooks.py",
       "source_location": "L62",
       "id": "setup_hooks_rationale_62",
-      "community": 27
+      "community": 28
     },
     {
       "label": "(name, ok, detail) per hook. `ok` means it names an interpreter that has graphif",
@@ -2953,7 +2953,7 @@
       "source_file": "scripts\\setup-hooks.py",
       "source_location": "L89",
       "id": "setup_hooks_rationale_89",
-      "community": 27
+      "community": 28
     },
     {
       "label": "test_coverage.py",
@@ -3105,7 +3105,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L1",
       "id": "test_cv_bridge",
-      "community": 12
+      "community": 13
     },
     {
       "label": "_fake_run()",
@@ -3113,7 +3113,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L19",
       "id": "test_cv_bridge_fake_run",
-      "community": 12
+      "community": 13
     },
     {
       "label": "no_packet()",
@@ -3121,7 +3121,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L26",
       "id": "test_cv_bridge_no_packet",
-      "community": 12
+      "community": 13
     },
     {
       "label": "test_completed_packet_wins_over_a_usage_limit_message()",
@@ -3129,7 +3129,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L31",
       "id": "test_cv_bridge_test_completed_packet_wins_over_a_usage_limit_message",
-      "community": 12
+      "community": 13
     },
     {
       "label": "test_batch_keeps_the_finished_packet_then_stops()",
@@ -3137,7 +3137,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L64",
       "id": "test_cv_bridge_test_batch_keeps_the_finished_packet_then_stops",
-      "community": 12
+      "community": 13
     },
     {
       "label": "test_usage_limit_raises_its_own_error_not_a_job_failure()",
@@ -3145,7 +3145,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L77",
       "id": "test_cv_bridge_test_usage_limit_raises_its_own_error_not_a_job_failure",
-      "community": 12
+      "community": 13
     },
     {
       "label": "test_usage_limit_detected_even_when_exit_code_is_nonzero()",
@@ -3153,7 +3153,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L88",
       "id": "test_cv_bridge_test_usage_limit_detected_even_when_exit_code_is_nonzero",
-      "community": 12
+      "community": 13
     },
     {
       "label": "test_exit_zero_with_no_artifact_is_a_failure()",
@@ -3161,7 +3161,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L98",
       "id": "test_cv_bridge_test_exit_zero_with_no_artifact_is_a_failure",
-      "community": 12
+      "community": 13
     },
     {
       "label": "test_failure_reports_stdout_because_claude_prints_errors_there()",
@@ -3169,7 +3169,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L105",
       "id": "test_cv_bridge_test_failure_reports_stdout_because_claude_prints_errors_there",
-      "community": 12
+      "community": 13
     },
     {
       "label": "test_missing_cli_is_a_clear_message_not_a_filenotfound()",
@@ -3177,7 +3177,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L114",
       "id": "test_cv_bridge_test_missing_cli_is_a_clear_message_not_a_filenotfound",
-      "community": 12
+      "community": 13
     },
     {
       "label": "test_existing_packet_is_reused_and_claude_is_never_invoked()",
@@ -3185,7 +3185,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L122",
       "id": "test_cv_bridge_test_existing_packet_is_reused_and_claude_is_never_invoked",
-      "community": 12
+      "community": 13
     },
     {
       "label": "test_batch_stops_on_usage_limit_and_leaves_the_rest_untouched()",
@@ -3193,7 +3193,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L133",
       "id": "test_cv_bridge_test_batch_stops_on_usage_limit_and_leaves_the_rest_untouched",
-      "community": 12
+      "community": 13
     },
     {
       "label": "test_batch_records_a_real_failure_against_its_own_job()",
@@ -3201,7 +3201,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L152",
       "id": "test_cv_bridge_test_batch_records_a_real_failure_against_its_own_job",
-      "community": 12
+      "community": 13
     },
     {
       "label": "Tests for the Claude Code bridge \u2014 specifically the two rules that cost real day",
@@ -3209,7 +3209,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L1",
       "id": "test_cv_bridge_rationale_1",
-      "community": 12
+      "community": 13
     },
     {
       "label": "find_packet always returns None \u2014 i.e. Claude wrote no artifact.",
@@ -3217,7 +3217,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L27",
       "id": "test_cv_bridge_rationale_27",
-      "community": 12
+      "community": 13
     },
     {
       "label": "Regression, 2026-08-06 first real run.      The Energy Exemplar packet built com",
@@ -3225,7 +3225,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L32",
       "id": "test_cv_bridge_rationale_32",
-      "community": 12
+      "community": 13
     },
     {
       "label": "A late limit stops the batch without throwing away the job that completed.",
@@ -3233,7 +3233,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L65",
       "id": "test_cv_bridge_rationale_65",
-      "community": 12
+      "community": 13
     },
     {
       "label": "The limit must win over the returncode, or it gets filed as a per-job failure (D",
@@ -3241,7 +3241,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L89",
       "id": "test_cv_bridge_rationale_89",
-      "community": 12
+      "community": 13
     },
     {
       "label": "D17 \u2014 the whole point. A clean exit that wrote nothing is not a success.",
@@ -3249,7 +3249,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L99",
       "id": "test_cv_bridge_rationale_99",
-      "community": 12
+      "community": 13
     },
     {
       "label": "Runbook \u00a72 \u2014 rebuilding silently overwrites drafts the owner may have approved.",
@@ -3257,7 +3257,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L123",
       "id": "test_cv_bridge_rationale_123",
-      "community": 12
+      "community": 13
     },
     {
       "label": "The remaining jobs must NOT appear in `failed` \u2014 that is the D25 mistake.",
@@ -3265,7 +3265,7 @@
       "source_file": "tests\\test_cv_bridge.py",
       "source_location": "L134",
       "id": "test_cv_bridge_rationale_134",
-      "community": 12
+      "community": 13
     },
     {
       "label": "test_families.py",
@@ -3609,79 +3609,95 @@
       "source_file": "tests\\test_llm_streaming.py",
       "source_location": "L1",
       "id": "test_llm_streaming",
-      "community": 15
+      "community": 11
     },
     {
       "label": "_chunk()",
       "file_type": "code",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L24",
+      "source_location": "L34",
       "id": "test_llm_streaming_chunk",
-      "community": 15
+      "community": 11
     },
     {
       "label": "fake_openai()",
       "file_type": "code",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L33",
+      "source_location": "L43",
       "id": "test_llm_streaming_fake_openai",
-      "community": 15
+      "community": 11
     },
     {
       "label": "env()",
       "file_type": "code",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L58",
+      "source_location": "L68",
       "id": "test_llm_streaming_env",
-      "community": 15
+      "community": 11
     },
     {
       "label": "test_streams_rather_than_aggregating()",
       "file_type": "code",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L65",
+      "source_location": "L75",
       "id": "test_llm_streaming_test_streams_rather_than_aggregating",
-      "community": 15
+      "community": 11
     },
     {
       "label": "test_keeps_the_first_chunk()",
       "file_type": "code",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L72",
+      "source_location": "L82",
       "id": "test_llm_streaming_test_keeps_the_first_chunk",
-      "community": 15
+      "community": 11
     },
     {
       "label": "test_survives_chunks_with_no_choices()",
       "file_type": "code",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L78",
+      "source_location": "L88",
       "id": "test_llm_streaming_test_survives_chunks_with_no_choices",
-      "community": 15
+      "community": 11
     },
     {
       "label": "test_empty_stream_raises_rather_than_returning_blank()",
       "file_type": "code",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L84",
+      "source_location": "L94",
       "id": "test_llm_streaming_test_empty_stream_raises_rather_than_returning_blank",
-      "community": 15
+      "community": 11
     },
     {
       "label": "test_anthropic_skips_thinking_blocks()",
       "file_type": "code",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L94",
+      "source_location": "L104",
       "id": "test_llm_streaming_test_anthropic_skips_thinking_blocks",
-      "community": 15
+      "community": 11
     },
     {
       "label": "test_anthropic_with_only_thinking_raises()",
       "file_type": "code",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L115",
+      "source_location": "L125",
       "id": "test_llm_streaming_test_anthropic_with_only_thinking_raises",
-      "community": 15
+      "community": 11
+    },
+    {
+      "label": "test_llm_stream_false_uses_the_non_streaming_call()",
+      "file_type": "code",
+      "source_file": "tests\\test_llm_streaming.py",
+      "source_location": "L144",
+      "id": "test_llm_streaming_test_llm_stream_false_uses_the_non_streaming_call",
+      "community": 11
+    },
+    {
+      "label": "test_keepalive_only_stream_raises()",
+      "file_type": "code",
+      "source_file": "tests\\test_llm_streaming.py",
+      "source_location": "L168",
+      "id": "test_llm_streaming_test_keepalive_only_stream_raises",
+      "community": 11
     },
     {
       "label": "Tests for the LLM entry point \u2014 specifically the corruption that has no symptom.",
@@ -3689,71 +3705,87 @@
       "source_file": "tests\\test_llm_streaming.py",
       "source_location": "L1",
       "id": "test_llm_streaming_rationale_1",
-      "community": 15
+      "community": 11
     },
     {
       "label": "One streamed event, shaped like the openai SDK's.",
       "file_type": "rationale",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L25",
-      "id": "test_llm_streaming_rationale_25",
-      "community": 15
+      "source_location": "L35",
+      "id": "test_llm_streaming_rationale_35",
+      "community": 11
     },
     {
       "label": "Install a stub `openai` module; return the dict recording the call made.",
       "file_type": "rationale",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L34",
-      "id": "test_llm_streaming_rationale_34",
-      "community": 15
+      "source_location": "L44",
+      "id": "test_llm_streaming_rationale_44",
+      "community": 11
     },
     {
       "label": "The request must set stream=True \u2014 the whole point of the fix.",
       "file_type": "rationale",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L66",
-      "id": "test_llm_streaming_rationale_66",
-      "community": 15
+      "source_location": "L76",
+      "id": "test_llm_streaming_rationale_76",
+      "community": 11
     },
     {
       "label": "The exact regression: the first chunk must survive into the answer.",
       "file_type": "rationale",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L73",
-      "id": "test_llm_streaming_rationale_73",
-      "community": 15
+      "source_location": "L83",
+      "id": "test_llm_streaming_rationale_83",
+      "community": 11
     },
     {
       "label": "Free providers emit empty-choices chunks mid-stream; they are skipped, not fatal",
       "file_type": "rationale",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L79",
-      "id": "test_llm_streaming_rationale_79",
-      "community": 15
+      "source_location": "L89",
+      "id": "test_llm_streaming_rationale_89",
+      "community": 11
     },
     {
       "label": "A silent '' would be treated as an answer downstream. It must be loud instead.",
       "file_type": "rationale",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L85",
-      "id": "test_llm_streaming_rationale_85",
-      "community": 15
+      "source_location": "L95",
+      "id": "test_llm_streaming_rationale_95",
+      "community": 11
     },
     {
       "label": "A reasoning model puts `thinking` first; content[0].text is not the answer.",
       "file_type": "rationale",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L95",
-      "id": "test_llm_streaming_rationale_95",
-      "community": 15
+      "source_location": "L105",
+      "id": "test_llm_streaming_rationale_105",
+      "community": 11
     },
     {
       "label": "No text block at all is 'no answer', not an empty string.",
       "file_type": "rationale",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L116",
-      "id": "test_llm_streaming_rationale_116",
-      "community": 15
+      "source_location": "L126",
+      "id": "test_llm_streaming_rationale_126",
+      "community": 11
+    },
+    {
+      "label": "LLM_STREAM=false exists for providers whose streaming is broken (groq: the     g",
+      "file_type": "rationale",
+      "source_file": "tests\\test_llm_streaming.py",
+      "source_location": "L145",
+      "id": "test_llm_streaming_rationale_145",
+      "community": 11
+    },
+    {
+      "label": "A stream of nothing but keepalives is 'no answer', and must be loud.      The ga",
+      "file_type": "rationale",
+      "source_file": "tests\\test_llm_streaming.py",
+      "source_location": "L169",
+      "id": "test_llm_streaming_rationale_169",
+      "community": 11
     },
     {
       "label": "test_packet_layout.py",
@@ -3761,7 +3793,7 @@
       "source_file": "tests\\test_packet_layout.py",
       "source_location": "L1",
       "id": "test_packet_layout",
-      "community": 13
+      "community": 14
     },
     {
       "label": "out()",
@@ -3769,7 +3801,7 @@
       "source_file": "tests\\test_packet_layout.py",
       "source_location": "L22",
       "id": "test_packet_layout_out",
-      "community": 13
+      "community": 14
     },
     {
       "label": "_packet()",
@@ -3777,7 +3809,7 @@
       "source_file": "tests\\test_packet_layout.py",
       "source_location": "L28",
       "id": "test_packet_layout_packet",
-      "community": 13
+      "community": 14
     },
     {
       "label": "test_the_first_role_keeps_the_plain_company_folder()",
@@ -3785,7 +3817,7 @@
       "source_file": "tests\\test_packet_layout.py",
       "source_location": "L38",
       "id": "test_packet_layout_test_the_first_role_keeps_the_plain_company_folder",
-      "community": 13
+      "community": 14
     },
     {
       "label": "test_a_second_role_gets_its_own_folder()",
@@ -3793,7 +3825,7 @@
       "source_file": "tests\\test_packet_layout.py",
       "source_location": "L43",
       "id": "test_packet_layout_test_a_second_role_gets_its_own_folder",
-      "community": 13
+      "community": 14
     },
     {
       "label": "test_the_second_role_folder_is_stable()",
@@ -3801,7 +3833,7 @@
       "source_file": "tests\\test_packet_layout.py",
       "source_location": "L50",
       "id": "test_packet_layout_test_the_second_role_folder_is_stable",
-      "community": 13
+      "community": 14
     },
     {
       "label": "test_find_role_packet_matches_company_and_role_not_job_id()",
@@ -3809,7 +3841,7 @@
       "source_file": "tests\\test_packet_layout.py",
       "source_location": "L58",
       "id": "test_packet_layout_test_find_role_packet_matches_company_and_role_not_job_id",
-      "community": 13
+      "community": 14
     },
     {
       "label": "test_a_different_role_at_the_same_company_is_NOT_a_match()",
@@ -3817,7 +3849,7 @@
       "source_file": "tests\\test_packet_layout.py",
       "source_location": "L66",
       "id": "test_packet_layout_test_a_different_role_at_the_same_company_is_not_a_match",
-      "community": 13
+      "community": 14
     },
     {
       "label": "test_matching_survives_case_and_punctuation_differences()",
@@ -3825,7 +3857,7 @@
       "source_file": "tests\\test_packet_layout.py",
       "source_location": "L72",
       "id": "test_packet_layout_test_matching_survives_case_and_punctuation_differences",
-      "community": 13
+      "community": 14
     },
     {
       "label": "test_the_company_packet_is_still_discoverable_for_contact_reuse()",
@@ -3833,7 +3865,7 @@
       "source_file": "tests\\test_packet_layout.py",
       "source_location": "L79",
       "id": "test_packet_layout_test_the_company_packet_is_still_discoverable_for_contact_reuse",
-      "community": 13
+      "community": 14
     },
     {
       "label": "test_a_company_with_no_packet_has_no_sibling()",
@@ -3841,7 +3873,7 @@
       "source_file": "tests\\test_packet_layout.py",
       "source_location": "L86",
       "id": "test_packet_layout_test_a_company_with_no_packet_has_no_sibling",
-      "community": 13
+      "community": 14
     },
     {
       "label": "test_the_role_already_in_the_company_folder_resolves_to_that_folder()",
@@ -3849,7 +3881,7 @@
       "source_file": "tests\\test_packet_layout.py",
       "source_location": "L90",
       "id": "test_packet_layout_test_the_role_already_in_the_company_folder_resolves_to_that_folder",
-      "community": 13
+      "community": 14
     },
     {
       "label": "test_an_unreadable_company_packet_does_not_cause_an_overwrite()",
@@ -3857,7 +3889,7 @@
       "source_file": "tests\\test_packet_layout.py",
       "source_location": "L96",
       "id": "test_packet_layout_test_an_unreadable_company_packet_does_not_cause_an_overwrite",
-      "community": 13
+      "community": 14
     },
     {
       "label": "Tests for role-scoped packets (D34).  The deadlock being fixed: the runbook writ",
@@ -3865,7 +3897,7 @@
       "source_file": "tests\\test_packet_layout.py",
       "source_location": "L1",
       "id": "test_packet_layout_rationale_1",
-      "community": 13
+      "community": 14
     },
     {
       "label": "Nothing must move. Eight packets already exist at output/outreach/<company>/.",
@@ -3873,7 +3905,7 @@
       "source_file": "tests\\test_packet_layout.py",
       "source_location": "L39",
       "id": "test_packet_layout_rationale_39",
-      "community": 13
+      "community": 14
     },
     {
       "label": "Same role asked twice must resolve to the same place, or builds duplicate foreve",
@@ -3881,7 +3913,7 @@
       "source_file": "tests\\test_packet_layout.py",
       "source_location": "L51",
       "id": "test_packet_layout_rationale_51",
-      "community": 13
+      "community": 14
     },
     {
       "label": "The board row id and the packet's job_id need not agree; company+role is the rea",
@@ -3889,7 +3921,7 @@
       "source_file": "tests\\test_packet_layout.py",
       "source_location": "L59",
       "id": "test_packet_layout_rationale_59",
-      "community": 13
+      "community": 14
     },
     {
       "label": "THE safety property. A CV tailored to one req must never be served for another.",
@@ -3897,7 +3929,7 @@
       "source_file": "tests\\test_packet_layout.py",
       "source_location": "L67",
       "id": "test_packet_layout_rationale_67",
-      "community": 13
+      "community": 14
     },
     {
       "label": "The second role must reuse the first's contact.md, so the sibling has to be find",
@@ -3905,7 +3937,7 @@
       "source_file": "tests\\test_packet_layout.py",
       "source_location": "L80",
       "id": "test_packet_layout_rationale_80",
-      "community": 13
+      "community": 14
     },
     {
       "label": "Otherwise one role gets split across two folders and the first is orphaned.",
@@ -3913,7 +3945,7 @@
       "source_file": "tests\\test_packet_layout.py",
       "source_location": "L91",
       "id": "test_packet_layout_rationale_91",
-      "community": 13
+      "community": 14
     },
     {
       "label": "Fail toward a separate folder. Guessing 'same role' on corrupt JSON would destro",
@@ -3921,7 +3953,7 @@
       "source_file": "tests\\test_packet_layout.py",
       "source_location": "L97",
       "id": "test_packet_layout_rationale_97",
-      "community": 13
+      "community": 14
     },
     {
       "label": "test_replies.py",
@@ -4833,7 +4865,7 @@
       "source_file": "tools\\omniroute_canary.py",
       "source_location": "L1",
       "id": "omniroute_canary",
-      "community": 28
+      "community": 25
     },
     {
       "label": "_api_key()",
@@ -4841,7 +4873,7 @@
       "source_file": "tools\\omniroute_canary.py",
       "source_location": "L63",
       "id": "omniroute_canary_api_key",
-      "community": 28
+      "community": 25
     },
     {
       "label": "ask_once()",
@@ -4849,31 +4881,39 @@
       "source_file": "tools\\omniroute_canary.py",
       "source_location": "L77",
       "id": "omniroute_canary_ask_once",
-      "community": 28
+      "community": 25
+    },
+    {
+      "label": "test_mode()",
+      "file_type": "code",
+      "source_file": "tools\\omniroute_canary.py",
+      "source_location": "L137",
+      "id": "omniroute_canary_test_mode",
+      "community": 25
     },
     {
       "label": "test_model()",
       "file_type": "code",
       "source_file": "tools\\omniroute_canary.py",
-      "source_location": "L123",
+      "source_location": "L164",
       "id": "omniroute_canary_test_model",
-      "community": 28
+      "community": 25
     },
     {
       "label": "list_models()",
       "file_type": "code",
       "source_file": "tools\\omniroute_canary.py",
-      "source_location": "L150",
+      "source_location": "L172",
       "id": "omniroute_canary_list_models",
-      "community": 28
+      "community": 25
     },
     {
       "label": "main()",
       "file_type": "code",
       "source_file": "tools\\omniroute_canary.py",
-      "source_location": "L159",
+      "source_location": "L181",
       "id": "omniroute_canary_main",
-      "community": 28
+      "community": 25
     },
     {
       "label": "Find which OmniRoute models can be trusted to return an answer intact.  WHY THIS",
@@ -4881,7 +4921,7 @@
       "source_file": "tools\\omniroute_canary.py",
       "source_location": "L1",
       "id": "omniroute_canary_rationale_1",
-      "community": 28
+      "community": 25
     },
     {
       "label": "The gateway key, from the environment or .env. Never hardcoded (repo is public).",
@@ -4889,7 +4929,7 @@
       "source_file": "tools\\omniroute_canary.py",
       "source_location": "L64",
       "id": "omniroute_canary_rationale_64",
-      "community": 28
+      "community": 25
     },
     {
       "label": "Return (answer, model_actually_used). Raises on transport/protocol failure.",
@@ -4897,15 +4937,23 @@
       "source_file": "tools\\omniroute_canary.py",
       "source_location": "L78",
       "id": "omniroute_canary_rationale_78",
-      "community": 28
+      "community": 25
     },
     {
       "label": "True only if every probe round-trips exactly. Ambiguity counts as failure.",
       "file_type": "rationale",
       "source_file": "tools\\omniroute_canary.py",
-      "source_location": "L124",
-      "id": "omniroute_canary_rationale_124",
-      "community": 28
+      "source_location": "L138",
+      "id": "omniroute_canary_rationale_138",
+      "community": 25
+    },
+    {
+      "label": "Probe both transport modes. A model is usable if EITHER passes cleanly.",
+      "file_type": "rationale",
+      "source_file": "tools\\omniroute_canary.py",
+      "source_location": "L165",
+      "id": "omniroute_canary_rationale_165",
+      "community": 25
     },
     {
       "label": "pipeline-lock.ps1",
@@ -10013,7 +10061,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\llm.py",
-      "source_location": "L125",
+      "source_location": "L149",
       "weight": 1.0,
       "_src": "llm",
       "_tgt": "llm_ask",
@@ -10061,7 +10109,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\llm.py",
-      "source_location": "L117",
+      "source_location": "L112",
       "weight": 0.8,
       "_src": "llm_ask_openai_compatible",
       "_tgt": "llm_llmerror",
@@ -10073,7 +10121,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\llm.py",
-      "source_location": "L132",
+      "source_location": "L156",
       "weight": 0.8,
       "_src": "llm_ask",
       "_tgt": "llm_llmerror",
@@ -10097,7 +10145,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\llm.py",
-      "source_location": "L95",
+      "source_location": "L99",
       "weight": 0.8,
       "_src": "llm_ask_openai_compatible",
       "_tgt": "llm_require_env",
@@ -10109,7 +10157,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\llm.py",
-      "source_location": "L136",
+      "source_location": "L160",
       "weight": 0.8,
       "_src": "llm_ask",
       "_tgt": "llm_ask_anthropic",
@@ -10121,7 +10169,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "apps\\autopilot\\llm.py",
-      "source_location": "L138",
+      "source_location": "L162",
       "weight": 0.8,
       "_src": "llm_ask",
       "_tgt": "llm_ask_openai_compatible",
@@ -10145,12 +10193,12 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "apps\\autopilot\\llm.py",
-      "source_location": "L126",
+      "source_location": "L150",
       "weight": 1.0,
-      "_src": "llm_rationale_126",
+      "_src": "llm_rationale_150",
       "_tgt": "llm_ask",
       "source": "llm_ask",
-      "target": "llm_rationale_126",
+      "target": "llm_rationale_150",
       "confidence_score": 1.0
     },
     {
@@ -16217,7 +16265,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L24",
+      "source_location": "L34",
       "weight": 1.0,
       "_src": "test_llm_streaming",
       "_tgt": "test_llm_streaming_chunk",
@@ -16229,7 +16277,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L33",
+      "source_location": "L43",
       "weight": 1.0,
       "_src": "test_llm_streaming",
       "_tgt": "test_llm_streaming_fake_openai",
@@ -16241,7 +16289,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L58",
+      "source_location": "L68",
       "weight": 1.0,
       "_src": "test_llm_streaming",
       "_tgt": "test_llm_streaming_env",
@@ -16253,7 +16301,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L65",
+      "source_location": "L75",
       "weight": 1.0,
       "_src": "test_llm_streaming",
       "_tgt": "test_llm_streaming_test_streams_rather_than_aggregating",
@@ -16265,7 +16313,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L72",
+      "source_location": "L82",
       "weight": 1.0,
       "_src": "test_llm_streaming",
       "_tgt": "test_llm_streaming_test_keeps_the_first_chunk",
@@ -16277,7 +16325,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L78",
+      "source_location": "L88",
       "weight": 1.0,
       "_src": "test_llm_streaming",
       "_tgt": "test_llm_streaming_test_survives_chunks_with_no_choices",
@@ -16289,7 +16337,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L84",
+      "source_location": "L94",
       "weight": 1.0,
       "_src": "test_llm_streaming",
       "_tgt": "test_llm_streaming_test_empty_stream_raises_rather_than_returning_blank",
@@ -16301,7 +16349,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L94",
+      "source_location": "L104",
       "weight": 1.0,
       "_src": "test_llm_streaming",
       "_tgt": "test_llm_streaming_test_anthropic_skips_thinking_blocks",
@@ -16313,12 +16361,36 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L115",
+      "source_location": "L125",
       "weight": 1.0,
       "_src": "test_llm_streaming",
       "_tgt": "test_llm_streaming_test_anthropic_with_only_thinking_raises",
       "source": "test_llm_streaming",
       "target": "test_llm_streaming_test_anthropic_with_only_thinking_raises",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_llm_streaming.py",
+      "source_location": "L144",
+      "weight": 1.0,
+      "_src": "test_llm_streaming",
+      "_tgt": "test_llm_streaming_test_llm_stream_false_uses_the_non_streaming_call",
+      "source": "test_llm_streaming",
+      "target": "test_llm_streaming_test_llm_stream_false_uses_the_non_streaming_call",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_llm_streaming.py",
+      "source_location": "L168",
+      "weight": 1.0,
+      "_src": "test_llm_streaming",
+      "_tgt": "test_llm_streaming_test_keepalive_only_stream_raises",
+      "source": "test_llm_streaming",
+      "target": "test_llm_streaming_test_keepalive_only_stream_raises",
       "confidence_score": 1.0
     },
     {
@@ -16337,7 +16409,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L67",
+      "source_location": "L77",
       "weight": 0.8,
       "_src": "test_llm_streaming_test_streams_rather_than_aggregating",
       "_tgt": "test_llm_streaming_chunk",
@@ -16349,7 +16421,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L74",
+      "source_location": "L84",
       "weight": 0.8,
       "_src": "test_llm_streaming_test_keeps_the_first_chunk",
       "_tgt": "test_llm_streaming_chunk",
@@ -16361,7 +16433,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L80",
+      "source_location": "L90",
       "weight": 0.8,
       "_src": "test_llm_streaming_test_survives_chunks_with_no_choices",
       "_tgt": "test_llm_streaming_chunk",
@@ -16373,7 +16445,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L86",
+      "source_location": "L96",
       "weight": 0.8,
       "_src": "test_llm_streaming_test_empty_stream_raises_rather_than_returning_blank",
       "_tgt": "test_llm_streaming_chunk",
@@ -16382,22 +16454,34 @@
       "confidence_score": 0.5
     },
     {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "tests\\test_llm_streaming.py",
+      "source_location": "L173",
+      "weight": 0.8,
+      "_src": "test_llm_streaming_test_keepalive_only_stream_raises",
+      "_tgt": "test_llm_streaming_chunk",
+      "source": "test_llm_streaming_chunk",
+      "target": "test_llm_streaming_test_keepalive_only_stream_raises",
+      "confidence_score": 0.5
+    },
+    {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L25",
+      "source_location": "L35",
       "weight": 1.0,
-      "_src": "test_llm_streaming_rationale_25",
+      "_src": "test_llm_streaming_rationale_35",
       "_tgt": "test_llm_streaming_chunk",
       "source": "test_llm_streaming_chunk",
-      "target": "test_llm_streaming_rationale_25",
+      "target": "test_llm_streaming_rationale_35",
       "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L67",
+      "source_location": "L77",
       "weight": 0.8,
       "_src": "test_llm_streaming_test_streams_rather_than_aggregating",
       "_tgt": "test_llm_streaming_fake_openai",
@@ -16409,7 +16493,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L74",
+      "source_location": "L84",
       "weight": 0.8,
       "_src": "test_llm_streaming_test_keeps_the_first_chunk",
       "_tgt": "test_llm_streaming_fake_openai",
@@ -16421,7 +16505,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L80",
+      "source_location": "L90",
       "weight": 0.8,
       "_src": "test_llm_streaming_test_survives_chunks_with_no_choices",
       "_tgt": "test_llm_streaming_fake_openai",
@@ -16433,7 +16517,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L86",
+      "source_location": "L96",
       "weight": 0.8,
       "_src": "test_llm_streaming_test_empty_stream_raises_rather_than_returning_blank",
       "_tgt": "test_llm_streaming_fake_openai",
@@ -16442,63 +16526,63 @@
       "confidence_score": 0.5
     },
     {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "tests\\test_llm_streaming.py",
+      "source_location": "L173",
+      "weight": 0.8,
+      "_src": "test_llm_streaming_test_keepalive_only_stream_raises",
+      "_tgt": "test_llm_streaming_fake_openai",
+      "source": "test_llm_streaming_fake_openai",
+      "target": "test_llm_streaming_test_keepalive_only_stream_raises",
+      "confidence_score": 0.5
+    },
+    {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L34",
+      "source_location": "L44",
       "weight": 1.0,
-      "_src": "test_llm_streaming_rationale_34",
+      "_src": "test_llm_streaming_rationale_44",
       "_tgt": "test_llm_streaming_fake_openai",
       "source": "test_llm_streaming_fake_openai",
-      "target": "test_llm_streaming_rationale_34",
+      "target": "test_llm_streaming_rationale_44",
       "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L66",
+      "source_location": "L76",
       "weight": 1.0,
-      "_src": "test_llm_streaming_rationale_66",
+      "_src": "test_llm_streaming_rationale_76",
       "_tgt": "test_llm_streaming_test_streams_rather_than_aggregating",
       "source": "test_llm_streaming_test_streams_rather_than_aggregating",
-      "target": "test_llm_streaming_rationale_66",
+      "target": "test_llm_streaming_rationale_76",
       "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L73",
+      "source_location": "L83",
       "weight": 1.0,
-      "_src": "test_llm_streaming_rationale_73",
+      "_src": "test_llm_streaming_rationale_83",
       "_tgt": "test_llm_streaming_test_keeps_the_first_chunk",
       "source": "test_llm_streaming_test_keeps_the_first_chunk",
-      "target": "test_llm_streaming_rationale_73",
+      "target": "test_llm_streaming_rationale_83",
       "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L79",
+      "source_location": "L89",
       "weight": 1.0,
-      "_src": "test_llm_streaming_rationale_79",
+      "_src": "test_llm_streaming_rationale_89",
       "_tgt": "test_llm_streaming_test_survives_chunks_with_no_choices",
       "source": "test_llm_streaming_test_survives_chunks_with_no_choices",
-      "target": "test_llm_streaming_rationale_79",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L85",
-      "weight": 1.0,
-      "_src": "test_llm_streaming_rationale_85",
-      "_tgt": "test_llm_streaming_test_empty_stream_raises_rather_than_returning_blank",
-      "source": "test_llm_streaming_test_empty_stream_raises_rather_than_returning_blank",
-      "target": "test_llm_streaming_rationale_85",
+      "target": "test_llm_streaming_rationale_89",
       "confidence_score": 1.0
     },
     {
@@ -16508,8 +16592,8 @@
       "source_location": "L95",
       "weight": 1.0,
       "_src": "test_llm_streaming_rationale_95",
-      "_tgt": "test_llm_streaming_test_anthropic_skips_thinking_blocks",
-      "source": "test_llm_streaming_test_anthropic_skips_thinking_blocks",
+      "_tgt": "test_llm_streaming_test_empty_stream_raises_rather_than_returning_blank",
+      "source": "test_llm_streaming_test_empty_stream_raises_rather_than_returning_blank",
       "target": "test_llm_streaming_rationale_95",
       "confidence_score": 1.0
     },
@@ -16517,12 +16601,48 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "tests\\test_llm_streaming.py",
-      "source_location": "L116",
+      "source_location": "L105",
       "weight": 1.0,
-      "_src": "test_llm_streaming_rationale_116",
+      "_src": "test_llm_streaming_rationale_105",
+      "_tgt": "test_llm_streaming_test_anthropic_skips_thinking_blocks",
+      "source": "test_llm_streaming_test_anthropic_skips_thinking_blocks",
+      "target": "test_llm_streaming_rationale_105",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_llm_streaming.py",
+      "source_location": "L126",
+      "weight": 1.0,
+      "_src": "test_llm_streaming_rationale_126",
       "_tgt": "test_llm_streaming_test_anthropic_with_only_thinking_raises",
       "source": "test_llm_streaming_test_anthropic_with_only_thinking_raises",
-      "target": "test_llm_streaming_rationale_116",
+      "target": "test_llm_streaming_rationale_126",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_llm_streaming.py",
+      "source_location": "L145",
+      "weight": 1.0,
+      "_src": "test_llm_streaming_rationale_145",
+      "_tgt": "test_llm_streaming_test_llm_stream_false_uses_the_non_streaming_call",
+      "source": "test_llm_streaming_test_llm_stream_false_uses_the_non_streaming_call",
+      "target": "test_llm_streaming_rationale_145",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "tests\\test_llm_streaming.py",
+      "source_location": "L169",
+      "weight": 1.0,
+      "_src": "test_llm_streaming_rationale_169",
+      "_tgt": "test_llm_streaming_test_keepalive_only_stream_raises",
+      "source": "test_llm_streaming_test_keepalive_only_stream_raises",
+      "target": "test_llm_streaming_rationale_169",
       "confidence_score": 1.0
     },
     {
@@ -18821,7 +18941,19 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tools\\omniroute_canary.py",
-      "source_location": "L123",
+      "source_location": "L137",
+      "weight": 1.0,
+      "_src": "omniroute_canary",
+      "_tgt": "omniroute_canary_test_mode",
+      "source": "omniroute_canary",
+      "target": "omniroute_canary_test_mode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tools\\omniroute_canary.py",
+      "source_location": "L164",
       "weight": 1.0,
       "_src": "omniroute_canary",
       "_tgt": "omniroute_canary_test_model",
@@ -18833,7 +18965,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tools\\omniroute_canary.py",
-      "source_location": "L150",
+      "source_location": "L172",
       "weight": 1.0,
       "_src": "omniroute_canary",
       "_tgt": "omniroute_canary_list_models",
@@ -18845,7 +18977,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "tools\\omniroute_canary.py",
-      "source_location": "L159",
+      "source_location": "L181",
       "weight": 1.0,
       "_src": "omniroute_canary",
       "_tgt": "omniroute_canary_main",
@@ -18881,7 +19013,7 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "tools\\omniroute_canary.py",
-      "source_location": "L152",
+      "source_location": "L174",
       "weight": 0.8,
       "_src": "omniroute_canary_list_models",
       "_tgt": "omniroute_canary_api_key",
@@ -18905,12 +19037,12 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "tools\\omniroute_canary.py",
-      "source_location": "L129",
+      "source_location": "L143",
       "weight": 0.8,
-      "_src": "omniroute_canary_test_model",
+      "_src": "omniroute_canary_test_mode",
       "_tgt": "omniroute_canary_ask_once",
       "source": "omniroute_canary_ask_once",
-      "target": "omniroute_canary_test_model",
+      "target": "omniroute_canary_test_mode",
       "confidence_score": 0.5
     },
     {
@@ -18929,7 +19061,31 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "tools\\omniroute_canary.py",
-      "source_location": "L177",
+      "source_location": "L167",
+      "weight": 0.8,
+      "_src": "omniroute_canary_test_model",
+      "_tgt": "omniroute_canary_test_mode",
+      "source": "omniroute_canary_test_mode",
+      "target": "omniroute_canary_test_model",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "tools\\omniroute_canary.py",
+      "source_location": "L138",
+      "weight": 1.0,
+      "_src": "omniroute_canary_rationale_138",
+      "_tgt": "omniroute_canary_test_mode",
+      "source": "omniroute_canary_test_mode",
+      "target": "omniroute_canary_rationale_138",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "source_file": "tools\\omniroute_canary.py",
+      "source_location": "L199",
       "weight": 0.8,
       "_src": "omniroute_canary_main",
       "_tgt": "omniroute_canary_test_model",
@@ -18941,19 +19097,19 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "tools\\omniroute_canary.py",
-      "source_location": "L124",
+      "source_location": "L165",
       "weight": 1.0,
-      "_src": "omniroute_canary_rationale_124",
+      "_src": "omniroute_canary_rationale_165",
       "_tgt": "omniroute_canary_test_model",
       "source": "omniroute_canary_test_model",
-      "target": "omniroute_canary_rationale_124",
+      "target": "omniroute_canary_rationale_165",
       "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "confidence": "INFERRED",
       "source_file": "tools\\omniroute_canary.py",
-      "source_location": "L167",
+      "source_location": "L189",
       "weight": 0.8,
       "_src": "omniroute_canary_main",
       "_tgt": "omniroute_canary_list_models",
