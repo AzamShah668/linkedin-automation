@@ -58,7 +58,12 @@ def main():
     payload = {"channel": channel, "text": f"{title}\n{args.text}", "mrkdwn": True}
 
     if args.dry_run:
-        print("DRY RUN →", json.dumps(payload, ensure_ascii=False))
+        # ascii_only + an ascii arrow ON PURPOSE. The Windows console is cp1252, so an
+        # em-dash or "→" in the payload made this line raise UnicodeEncodeError - the
+        # DRY RUN crashed while the real send (which encodes utf-8 explicitly, below)
+        # would have worked fine. A preview that fails on exactly the messages worth
+        # previewing teaches people to skip the preview and post live instead.
+        print("DRY RUN ->", json.dumps(payload, ensure_ascii=True))
         return
 
     req = urllib.request.Request(
