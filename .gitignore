@@ -71,3 +71,12 @@ graphify-out/cache/
 database/*.sqlite3
 database/*.sqlite
 database/*.db
+
+# Stray screenshots dropped at the repo ROOT by browser automation. On 2026-08-14 a
+# `groq-login.png` sat here showing BOTH of the owner's email addresses - untracked but
+# not ignored, i.e. one `git add .` from a public repo. Same shape as the `api key` file
+# above. Root only, so real assets under subdirectories are unaffected.
+/*.png
+/*.jpg
+/*.jpeg
+/*.webp

@@ -70,6 +70,16 @@ def env(monkeypatch):
     monkeypatch.setenv("LLM_BASE_URL", "http://localhost:20128/v1")
     monkeypatch.setenv("LLM_API_KEY", "local")
     monkeypatch.setenv("LLM_MODEL", "test/model")
+    # The fallback is opt-in. Leaving a stray value set would make every other test in
+    # this file silently exercise a two-endpoint chain, which changes the error path.
+    for name in (
+        "LLM_FALLBACK_BASE_URL",
+        "LLM_FALLBACK_API_KEY",
+        "LLM_FALLBACK_MODEL",
+        "LLM_FALLBACK_STREAM",
+    ):
+        monkeypatch.delenv(name, raising=False)
+    monkeypatch.delenv("LLM_STREAM", raising=False)
 
 
 def test_streams_rather_than_aggregating(fake_openai):
@@ -174,3 +184,114 @@ def test_keepalive_only_stream_raises(fake_openai):
     with pytest.raises(llm.LLMError) as exc:
         llm.ask("echo")
     assert "keepalive" in str(exc.value).lower()
+
+
+# --------------------------------------------------------------------------------------
+# The fallback chain.
+#
+# The primary endpoint is a LOCAL process (OmniRoute on :20128). When the laptop sleeps or
+# the npm process dies, EVERY model behind it dies too, including the Gemini one that
+# works — so a "fallback" pointed at the same gateway is not a fallback at all.
+#
+# Measured 2026-08-13: Groq reached directly answers exactly in both transports, while the
+# SAME key through OmniRoute returns 403 on every completion. The fallback is a second
+# road, not a spare tyre of the same rubber.
+# --------------------------------------------------------------------------------------
+
+PRIMARY_URL = "http://localhost:20128/v1"
+FALLBACK_URL = "https://api.groq.com/openai/v1"
+
+
+@pytest.fixture
+def by_base_url(monkeypatch):
+    """Stub `openai` whose behaviour depends on base_url. Returns the call log.
+
+    Behaviour values: a str answers with it, None streams nothing (an LLMError), an
+    Exception instance is raised as a transport failure.
+    """
+    calls: list[tuple[str, str]] = []
+
+    def install(behaviour: dict):
+        class _Completions:
+            def __init__(self, base_url: str):
+                self._base = base_url
+
+            def create(self, **kwargs):
+                calls.append((self._base, kwargs.get("model")))
+                action = behaviour[self._base]
+                if isinstance(action, Exception):
+                    raise action
+                if action is None:
+                    return iter([_chunk(no_choices=True)])
+                return iter([_chunk(action)])
+
+        class _Client:
+            def __init__(self, **kwargs):
+                self.chat = SimpleNamespace(completions=_Completions(kwargs.get("base_url")))
+
+        monkeypatch.setitem(sys.modules, "openai", SimpleNamespace(OpenAI=_Client))
+        return calls
+
+    return install
+
+
+@pytest.fixture
+def with_fallback(monkeypatch):
+    monkeypatch.setenv("LLM_FALLBACK_BASE_URL", FALLBACK_URL)
+    monkeypatch.setenv("LLM_FALLBACK_API_KEY", "groq-key")
+    monkeypatch.setenv("LLM_FALLBACK_MODEL", "llama-3.3-70b-versatile")
+
+
+def test_fallback_answers_when_the_primary_streams_nothing(by_base_url, with_fallback):
+    """The exact production failure: the gateway 200s with only keepalives."""
+    calls = by_base_url({PRIMARY_URL: None, FALLBACK_URL: "PONG"})
+    assert llm.ask("echo") == "PONG"
+    assert [c[0] for c in calls] == [PRIMARY_URL, FALLBACK_URL]
+
+
+def test_fallback_answers_when_the_primary_is_unreachable(by_base_url, with_fallback):
+    """A dead gateway raises a transport error, not an LLMError. Still must fall over."""
+    calls = by_base_url(
+        {PRIMARY_URL: ConnectionError("connection refused"), FALLBACK_URL: "PONG"}
+    )
+    assert llm.ask("echo") == "PONG"
+    assert [c[0] for c in calls] == [PRIMARY_URL, FALLBACK_URL]
+
+
+def test_fallback_is_not_touched_when_the_primary_works(by_base_url, with_fallback):
+    """A fallback that runs on every call doubles cost and hides a broken primary."""
+    calls = by_base_url({PRIMARY_URL: "PONG", FALLBACK_URL: "WRONG"})
+    assert llm.ask("echo") == "PONG"
+    assert [c[0] for c in calls] == [PRIMARY_URL]
+
+
+def test_all_endpoints_failing_names_every_one(by_base_url, with_fallback):
+    """Never return junk, and never hide WHY each leg died — that just moves the
+    debugging one layer further away."""
+    by_base_url({PRIMARY_URL: None, FALLBACK_URL: ConnectionError("dns")})
+    with pytest.raises(llm.LLMError) as exc:
+        llm.ask("echo")
+    message = str(exc.value)
+    assert "test/model" in message
+    assert "llama-3.3-70b-versatile" in message
+    assert "primary" in message and "fallback" in message
+
+
+def test_single_endpoint_error_is_reraised_unchanged(fake_openai):
+    """With no fallback configured the original error must survive intact, so the
+    message still names the model and the exact failure mode."""
+    fake_openai([_chunk(no_choices=True)])
+    with pytest.raises(llm.LLMError) as exc:
+        llm.ask("echo")
+    assert "keepalive" in str(exc.value).lower()
+    assert "every configured endpoint failed" not in str(exc.value)
+
+
+def test_partial_fallback_config_is_ignored(by_base_url, monkeypatch):
+    """A URL with no model is a half-finished edit, not a fallback. Using it would send
+    the primary's model id to a provider that has never heard of it."""
+    monkeypatch.setenv("LLM_FALLBACK_BASE_URL", FALLBACK_URL)
+    monkeypatch.delenv("LLM_FALLBACK_MODEL", raising=False)
+    calls = by_base_url({PRIMARY_URL: "PONG"})
+    assert llm.ask("echo") == "PONG"
+    assert [c[0] for c in calls] == [PRIMARY_URL]

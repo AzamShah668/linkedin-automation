@@ -1239,3 +1239,103 @@ Full mechanics, including the `/v1`-suffix trap that differs between the two cal
 
 Related: D26/D27 (free for plumbing, Claude Code for the CV) · D2 (the terms line) ·
 D30 (nothing wrong vs nothing observed) · [[24-cv-bridge]]
+
+---
+
+## D43 — The fallback must be a different road, not a wider lane on the same one (2026-08-14)
+
+**Context.** D42 pinned `gemini/gemini-3.5-flash-lite` through OmniRoute and listed
+`gemini/gemini-3.6-flash` and `felo/felo-chat` as fallbacks. Asked to "connect all the
+free providers", this session connected three more (`opencode`, `mimocode`, `auggie`),
+taking the catalog **665 → 1019 models**, then echo-tested 23 models spanning every free
+family.
+
+**Three answered.** Two Gemini and `felo/felo-chat`. Everything else returned 401
+(`pollinations`, 250 models), 402/429 (`g4f-*`), 403 (`oc/*` 92 models incl. an advertised
+`claude-opus-5`, `tllm/*` 26), 502 (`aug/*` 28), 418/429 (`ddgw/*`), or an empty stream.
+
+> **1019 models. Three that work.** Every one of the three is backed by a real API key on
+> a real account. The free-and-anonymous tier is uniformly rate-limited, paywalled or
+> blocked — connecting 200 more of them buys catalog entries, not capacity.
+
+**The decision.** The autopilot's fallback is now **Groq reached directly**
+(`api.groq.com`, no gateway), configured as `LLM_FALLBACK_*` in `.env`. Not another
+OmniRoute model.
+
+**Why the old fallback list was not a fallback.** OmniRoute is a *local npm process on
+:20128*. When the laptop sleeps (which it did for an entire day — D20), the process dies,
+or the gateway wedges, **every model behind it dies together** — the Gemini primary and
+both its listed fallbacks. Three names on one process is one point of failure with three
+labels on it. `llm.py` now tries the primary, then a genuinely separate road, and raises
+loudly naming both if neither answers. 8 new tests; 112 total.
+
+### ⚠️ The gateway is what breaks Groq — the key was always fine
+
+Groq's connection reported `testStatus: "active"` and 403'd every completion. The chain of
+wrong conclusions this invites is the point:
+
+| Step | What it looked like | What it was |
+|---|---|---|
+| OmniRoute 403 | bad Groq key | key is valid |
+| `lastError` cites **Cloudflare** | Groq blocking us | Cloudflare blocking a *client fingerprint* |
+| Python `urllib` 403, `curl` 200 | TLS fingerprinting | the **`User-Agent` string**: `Python-urllib` is banned, any normal UA passes |
+| custom-UA provider node: `/models` **works** | fixed | `POST /chat/completions` still 403 — the fix reached one path, not the other |
+| `openai` client **direct** | should need the UA too | exact answer in **both** transports, default UA, no gateway |
+
+So the same key is simultaneously dead through the gateway and perfect without it. Chasing
+the UA was reasonable and wrong; the variable that mattered was **whether OmniRoute was in
+the path at all**. *When a credential fails in one client and works in another, the
+credential is not the variable — stop tuning it and change the client.*
+
+### ⚠️ `testStatus: "active"` is a green light for the wrong question
+
+`groq` and `opencode` both report **active** while 403'ing every single inference call. The
+dashboard tests that a *connection* can be established, never that a *completion* comes
+back. This is D30's disease in the vendor's own UI: a metric that reports success for
+something nobody asked about. **Only `tools/omniroute_canary.py` — an exact multi-token
+echo — is evidence.** Read the artifact, never the status field.
+
+### Not done, on purpose
+
+- **Multi-key Gemini rotation.** His account holds 7 keys, but they span only **5 projects**
+  and Google meters the free tier **per project, not per key** — so it was 5×, not 7×. And
+  the autopilot makes tens of calls a day against ~1000/project/day: **quota was never the
+  binding constraint.** A multiplier on a resource that is not scarce is not a win.
+  (Cost of learning this: a `navigator.clipboard.readText()` call hung the Playwright MCP
+  for 74 minutes. **Do not read the clipboard through that server.**)
+- **The 31 `web-cookie` providers** (ChatGPT, Perplexity, Copilot, Qwen, Kimi…) run off
+  session cookies harvested from a logged-in browser. Approved by the owner but **not done
+  unattended**: using a web session as an API breaks those services' terms and risks the
+  accounts, `claude-web` most of all — losing that account kills the CV engine (D26/D27),
+  which is the one thing this project cannot replace. Real frontier models, but the
+  autopilot only needs fit-scoring and the odd screening question, which Gemini already
+  does in ~5 s. **Low marginal value against an unrecoverable downside.** Left for a
+  supervised session.
+
+### 🔴 The canary failed the working fallback — the instrument had the bug
+
+The most valuable ten minutes here. With Groq direct **proven working from `llm.py`**,
+`tools/omniroute_canary.py` was pointed at the same endpoint with the same key and
+returned **FAIL, 403, all three models, both transports.**
+
+The canary speaks `urllib`. `llm.py` speaks the `openai` client. urllib's default
+`User-Agent` is `Python-urllib/3.x` — **the one string Groq's Cloudflare bans.** Every
+other UA tested passes, including `curl/8.5.0` and a made-up `omniroute-canary/1.0`. The
+provider was perfect; the measuring instrument was banned.
+
+> **A canary that fails a working provider is exactly as dangerous as one that passes a
+> broken one.** This one would have argued for deleting a fallback that works — and the
+> argument would have looked rigorous, with three models and six probes of evidence.
+
+This file already warned that *"a canary that tests a different path than production
+certifies the wrong thing"* — written about streaming vs non-streaming. The path is wider
+than the transport: **the HTTP client's own default headers are part of it.** `USER_AGENT`
+is now set unconditionally in the canary, with the reason attached so nobody tidies it away.
+
+Second-order point: this session's *screening* script also used urllib, but only ever
+talked to `localhost:20128`, so it was never exposed. The bug needed a **direct** provider
+call to appear — which only existed because the fallback stopped going through the gateway.
+*Removing a layer can expose a defect the layer was hiding.*
+
+Related: D42 (the gateway, the streaming bug) · D26/D27 (free for plumbing, Claude Code for
+the CV) · D30 (nothing observed is not nothing wrong) · [[29-omniroute-gateway]]

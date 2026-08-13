@@ -448,6 +448,44 @@ py -3 tools/post_creator/dispatch_engine.py --dry-run --post-id N  # preview dis
   passes all of these bugs**. ⚠️ Never pin `auto/*`: different provider every call, different correctness.
   Still owner-only: Groq and Cerebras gate signup behind CAPTCHA. Full detail: [[29-omniroute-gateway]] §3-4.
 
+- **2026-08-14 — 1019 models, three answers, and the fallback stopped being a fiction.** Read
+  **D43** + [[29-omniroute-gateway]] §5. Asked to connect every free provider: three more went in
+  (`opencode`, `mimocode`, `auggie`), catalog **665 → 1019**, then 23 models were echo-tested across
+  every family. **Three answer** — two Gemini and `felo/felo-chat` — and all three are backed by a
+  real key on a real account. The rest returned 401/402/403/418/429/502 or an empty stream, including
+  92 `oc/*` models advertising `claude-opus-5`. *A catalog counts what the gateway knows about; the
+  only number worth reporting is how many pass an exact echo.* Six `NOAUTH` ids answered
+  `{"error":"Invalid provider"}` on create **and that was not a failure** — they need no connection
+  record and were already serving.
+  ⚠️ **`testStatus: "active"` is a green light for the wrong question.** `groq` and `opencode` both
+  report **active** while 403-ing every completion — one even carried `errorCode: "403.0"` *and*
+  `active` simultaneously. It tests that a connection opens, never that an answer comes back.
+  🔴 **The gateway is what breaks Groq.** The key is valid; `curl` gets 200; OmniRoute 403s every
+  completion. Four theories died in order — proxy (no), Cloudflare TLS (no), **the `User-Agent`
+  string** (yes, `Python-urllib` is banned, `curl/8.5.0` is not), a custom-UA provider node (its
+  `/models` fetch worked, `POST /chat/completions` still 403'd). Then the `openai` client pointed
+  **straight at api.groq.com**, default UA, no gateway: exact in both transports. *When a credential
+  fails in one client and works in another, the credential is not the variable.*
+  **In code:** `llm.py` gained an optional second endpoint (`LLM_FALLBACK_*`), deliberately **not**
+  another OmniRoute model — the gateway is a *local process*, so when it dies the primary and both
+  its listed fallbacks die together. Primary works → fallback never called; both fail → one error
+  naming every leg; a URL with no model is ignored. **112 tests** (was 104). Verified live: 5.3s
+  normal, 14.7s over to Groq with the primary killed, loud error when both are down.
+  🔴 **The canary then FAILED the working fallback** — 403, three models, both transports — because
+  *it* speaks urllib and production speaks the `openai` client. **The instrument was banned, not the
+  provider.** A canary that fails a working provider is as dangerous as one that passes a broken one;
+  this one would have argued for deleting a working fallback with six probes of evidence. `USER_AGENT`
+  is now unconditional; `--base-url` / `--key-env` added so the fallback is certified on its own path.
+  *The path production uses is wider than the transport — the client's default headers are part of it.*
+  ⏸️ **Two things deliberately not done.** Multi-key Gemini rotation: 7 keys span only **5 projects**
+  and Google meters free tier **per project**, against ~1000/day for an autopilot making tens —
+  **quota was never the constraint.** And the 31 `web-cookie` providers (ChatGPT, Perplexity, Qwen…)
+  need session cookies harvested from a logged-in browser: owner-approved but **not run unattended**,
+  because it breaks those services' terms and risks the accounts — `claude-web` most of all, since
+  losing that one kills the CV engine. Frontier models against an unrecoverable downside, for work
+  Gemini already does in ~5s. ⚠️ Also: **never call `navigator.clipboard.readText()` through the
+  Playwright MCP** — it hung the server for 74 minutes with no output and no error.
+
 - **NEXT — in this order. The reordering fact is now: 14 applications, 1 reply, and the reply came from
   the only warm-insider approach the project has made.**
   1. 🔴 **Answer Recruiter-A** — 16 days late, on a personal phone number. **Only the owner can do this**;

@@ -4,9 +4,14 @@ One function: ask(prompt, max_tokens) -> str. The provider is a config value, no
 architecture decision, so switching costs one line in .env:
 
     LLM_PROVIDER   openrouter (default) | anthropic
-    LLM_BASE_URL   OpenAI-compatible endpoint (OpenRouter / OmniRouter / any gateway)
+    LLM_BASE_URL   OpenAI-compatible endpoint (OpenRouter / OmniRoute / any gateway)
     LLM_API_KEY    key for that endpoint
     LLM_MODEL      model id for that endpoint
+    LLM_STREAM     true (default) | false — see _ask_openai_compatible
+
+An OPTIONAL second endpoint, tried only when the first fails outright:
+
+    LLM_FALLBACK_BASE_URL / _API_KEY / _MODEL / _STREAM
 
 NOT WIRED INTO PHASE 0. fill.py makes zero LLM calls by design — an unanswerable field is
 logged and left blank so the timing run completes. This module exists for Phase 1+ (fit
@@ -21,6 +26,7 @@ the message.
 from __future__ import annotations
 
 import os
+from dataclasses import dataclass
 
 DEFAULT_PROVIDER = "openrouter"
 
@@ -37,6 +43,17 @@ class LLMError(RuntimeError):
     """Any failure to get usable text out of a provider. Always carries the raw response."""
 
 
+@dataclass(frozen=True)
+class _Endpoint:
+    """One OpenAI-compatible place to ask. Immutable; built fresh from env per call."""
+
+    label: str
+    base_url: str
+    api_key: str
+    model: str
+    stream: bool
+
+
 def _require_env(name: str) -> str:
     value = os.getenv(name)
     if not value:
@@ -45,6 +62,44 @@ def _require_env(name: str) -> str:
             f"configure LLM_PROVIDER / LLM_BASE_URL / LLM_API_KEY / LLM_MODEL in .env."
         )
     return value
+
+
+def _wants_stream(name: str, default: str = "true") -> bool:
+    return os.getenv(name, default).strip().lower() not in ("false", "0", "no")
+
+
+def _endpoints() -> list[_Endpoint]:
+    """The primary endpoint, plus the fallback if one is configured.
+
+    The fallback exists because the primary is a LOCAL process. OmniRoute runs on
+    localhost:20128; when the laptop sleeps, the npm process dies, or the gateway wedges,
+    every model behind it goes with it — including the Gemini one that works. Measured
+    2026-08-13: Groq reached DIRECTLY (api.groq.com, no gateway) answers exactly in both
+    transports, while the SAME key through OmniRoute returns 403 on every completion.
+    So the fallback is not a spare tyre of the same rubber: it is a second road.
+    """
+    chain = [
+        _Endpoint(
+            label="primary",
+            base_url=_require_env("LLM_BASE_URL"),
+            api_key=_require_env("LLM_API_KEY"),
+            model=_require_env("LLM_MODEL"),
+            stream=_wants_stream("LLM_STREAM"),
+        )
+    ]
+    fallback_url = os.getenv("LLM_FALLBACK_BASE_URL")
+    fallback_model = os.getenv("LLM_FALLBACK_MODEL")
+    if fallback_url and fallback_model:
+        chain.append(
+            _Endpoint(
+                label="fallback",
+                base_url=fallback_url,
+                api_key=os.getenv("LLM_FALLBACK_API_KEY", ""),
+                model=fallback_model,
+                stream=_wants_stream("LLM_FALLBACK_STREAM"),
+            )
+        )
+    return chain
 
 
 def _ask_anthropic(prompt: str, max_tokens: int) -> str:
@@ -73,19 +128,20 @@ def _ask_anthropic(prompt: str, max_tokens: int) -> str:
     return text.strip()
 
 
-def _ask_openai_compatible(prompt: str, max_tokens: int) -> str:
-    """Streams by default. `LLM_STREAM=false` for providers whose streaming is broken.
+def _ask_endpoint(endpoint: _Endpoint, prompt: str, max_tokens: int) -> str:
+    """Ask one endpoint. Streams by default; `stream=False` for broken streaming.
 
     There is NO single correct setting, because gateways break in both directions.
     Measured 2026-08-13 against OmniRoute, asked to echo "HELLO WORLD":
 
-        provider   streamed                 non-streamed
-        felo       'HELLO WORLD'  correct   'WORLD'        first chunk eaten
-        groq       ''             keepalive 'Hello World'  correct
-        gemini     'HELLO WORLD'  correct   'HELLO WORLD'  correct
+        provider            streamed                 non-streamed
+        felo (gateway)      'HELLO WORLD'  correct   'WORLD'        first chunk eaten
+        groq (gateway)      ''             keepalive  403           unusable either way
+        groq (DIRECT)       'HELLO WORLD'  correct   'HELLO WORLD'  correct
+        gemini (gateway)    'HELLO WORLD'  correct   'HELLO WORLD'  correct
 
-    Both failures return HTTP 200 with well-formed JSON, so neither is detectable from
-    the response shape - only by echoing a known multi-token string and comparing
+    Both gateway failures return HTTP 200 with well-formed JSON, so neither is detectable
+    from the response shape - only by echoing a known multi-token string and comparing
     exactly. That is what tools/omniroute_canary.py does; it reports the safe mode per
     model. Pin a model it passes and set LLM_STREAM to match.
 
@@ -95,16 +151,11 @@ def _ask_openai_compatible(prompt: str, max_tokens: int) -> str:
     """
     from openai import OpenAI
 
-    client = OpenAI(
-        base_url=_require_env("LLM_BASE_URL"),
-        api_key=_require_env("LLM_API_KEY"),
-    )
-    model = _require_env("LLM_MODEL")
-    use_stream = os.getenv("LLM_STREAM", "true").strip().lower() not in ("false", "0", "no")
+    client = OpenAI(base_url=endpoint.base_url, api_key=endpoint.api_key)
 
-    if not use_stream:
+    if not endpoint.stream:
         response = client.chat.completions.create(
-            model=model,
+            model=endpoint.model,
             max_tokens=max_tokens,
             messages=[{"role": "user", "content": prompt}],
         )
@@ -116,7 +167,7 @@ def _ask_openai_compatible(prompt: str, max_tokens: int) -> str:
         return text.strip()
 
     stream = client.chat.completions.create(
-        model=model,
+        model=endpoint.model,
         max_tokens=max_tokens,
         stream=True,
         messages=[{"role": "user", "content": prompt}],
@@ -138,12 +189,38 @@ def _ask_openai_compatible(prompt: str, max_tokens: int) -> str:
     if not text.strip():
         raise LLMError(
             "provider streamed no content at all - only keepalives, or nothing "
-            f"(model={model!r}, base_url={os.getenv('LLM_BASE_URL')!r}). "
+            f"(model={endpoint.model!r}, base_url={endpoint.base_url!r}). "
             "Some providers' streaming is broken through the gateway: check "
             "tools/omniroute_canary.py and try LLM_STREAM=false. "
             "Treat this as 'no answer' - never fall back to a guess."
         )
     return text.strip()
+
+
+def _ask_openai_compatible(prompt: str, max_tokens: int) -> str:
+    """Try each configured endpoint in order; the first real answer wins.
+
+    A single-endpoint chain re-raises the original error UNCHANGED, so the message still
+    names the model and the exact failure. Only a genuine multi-endpoint failure gets
+    wrapped, and the wrapper keeps every sub-message — a fallback that hides why the
+    primary died just moves the debugging one layer further away.
+    """
+    endpoints = _endpoints()
+    failures: list[str] = []
+    for endpoint in endpoints:
+        try:
+            return _ask_endpoint(endpoint, prompt, max_tokens)
+        except LLMError as exc:
+            if len(endpoints) == 1:
+                raise
+            failures.append(f"[{endpoint.label} {endpoint.model}] {exc}")
+        except Exception as exc:  # noqa: BLE001 - transport errors are failures too
+            detail = f"[{endpoint.label} {endpoint.model}] {type(exc).__name__}: {exc}"
+            if len(endpoints) == 1:
+                raise LLMError(detail) from exc
+            failures.append(detail)
+
+    raise LLMError("every configured endpoint failed:\n  " + "\n  ".join(failures))
 
 
 def ask(prompt: str, max_tokens: int = DEFAULT_MAX_TOKENS) -> str:

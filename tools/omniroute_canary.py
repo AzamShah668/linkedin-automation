@@ -40,6 +40,21 @@ from pathlib import Path
 GATEWAY = "http://localhost:20128/v1"
 TIMEOUT_SECONDS = 90
 
+# ⚠️ SET UNCONDITIONALLY, and never remove it.
+#
+# urllib's default User-Agent is `Python-urllib/3.x`, and Groq's Cloudflare BANS that exact
+# string with a 403 (error 1010, "banned based on browser signature"). Any other UA passes
+# - `curl/8.5.0` and this one both do. Measured 2026-08-14.
+#
+# This bit the canary itself: it reported FAIL for all three Groq models at the very moment
+# `apps/autopilot/llm.py` was answering correctly against the same endpoint with the same
+# key, because the `openai` client sends its own UA and urllib did not. A canary that fails
+# a WORKING provider is exactly as dangerous as one that passes a broken one - it would
+# have argued for deleting a fallback that works. This file's own docstring says a canary
+# must exercise the path production uses; the HTTP client's default headers are part of
+# that path.
+USER_AGENT = "omniroute-canary/1.0"
+
 # Generous on purpose. Reasoning models (every current Gemini, and several others here)
 # spend tokens on a hidden thinking pass BEFORE the answer, and the budget is shared. At
 # max_tokens=64, gemini-3.5-flash-lite returned '123' for "12345" and gemini-flash-latest
@@ -60,29 +75,37 @@ PROBES = [
 DEFAULT_CANDIDATES = ["auto/best-fast", "auto/best-coding", "auto/best-reasoning"]
 
 
-def _api_key() -> str:
-    """The gateway key, from the environment or .env. Never hardcoded (repo is public)."""
-    key = os.getenv("LLM_API_KEY")
+def _api_key(env_name: str = "LLM_API_KEY") -> str:
+    """A key, from the environment or .env. Never hardcoded (repo is public)."""
+    key = os.getenv(env_name)
     if key:
         return key.strip()
     env_path = Path(__file__).resolve().parent.parent / ".env"
     if env_path.exists():
+        prefix = f"{env_name}="
         for line in env_path.read_text(encoding="utf-8").splitlines():
             line = line.strip()
-            if line.startswith("LLM_API_KEY=") and not line.startswith("#"):
+            if line.startswith(prefix) and not line.startswith("#"):
                 return line.split("=", 1)[1].strip()
     return "local"
 
 
-def ask_once(model: str, prompt: str, *, stream: bool) -> tuple[str, str]:
+def ask_once(
+    model: str, prompt: str, *, stream: bool, base_url: str = GATEWAY, key_env: str = "LLM_API_KEY"
+) -> tuple[str, str]:
     """Return (answer, model_actually_used). Raises on transport/protocol failure.
 
     Tests BOTH modes because the gateway breaks in both directions, per provider:
     felo eats the first token when not streaming; groq streams nothing but keepalives.
     Certifying only one mode would bless a model that fails in the mode you deploy.
+
+    `base_url` exists because the fallback endpoint (D43) does NOT go through the gateway
+    at all - it talks straight to api.groq.com. A canary that can only probe :20128
+    certifies the primary and leaves the thing that runs when the primary dies untested,
+    which is the failure this file's own docstring warns about.
     """
     request = urllib.request.Request(
-        f"{GATEWAY}/chat/completions",
+        f"{base_url}/chat/completions",
         data=json.dumps(
             {
                 "model": model,
@@ -91,7 +114,11 @@ def ask_once(model: str, prompt: str, *, stream: bool) -> tuple[str, str]:
                 "messages": [{"role": "user", "content": prompt}],
             }
         ).encode("utf-8"),
-        headers={"Content-Type": "application/json", "Authorization": f"Bearer {_api_key()}"},
+        headers={
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {_api_key(key_env)}",
+            "User-Agent": USER_AGENT,
+        },
         method="POST",
     )
 
@@ -134,13 +161,17 @@ def ask_once(model: str, prompt: str, *, stream: bool) -> tuple[str, str]:
     return "".join(chunks).strip(), used
 
 
-def test_mode(model: str, *, stream: bool) -> tuple[bool, list[str]]:
+def test_mode(
+    model: str, *, stream: bool, base_url: str = GATEWAY, key_env: str = "LLM_API_KEY"
+) -> tuple[bool, list[str]]:
     """True only if every probe round-trips exactly. Ambiguity counts as failure."""
     notes: list[str] = []
     ok = True
     for prompt, expected in PROBES:
         try:
-            answer, used = ask_once(model, prompt, stream=stream)
+            answer, used = ask_once(
+                model, prompt, stream=stream, base_url=base_url, key_env=key_env
+            )
         except urllib.error.HTTPError as exc:
             notes.append(f"HTTP {exc.code} ({exc.reason})")
             ok = False
@@ -161,17 +192,20 @@ def test_mode(model: str, *, stream: bool) -> tuple[bool, list[str]]:
     return ok, notes
 
 
-def test_model(model: str) -> dict[str, tuple[bool, list[str]]]:
+def test_model(
+    model: str, *, base_url: str = GATEWAY, key_env: str = "LLM_API_KEY"
+) -> dict[str, tuple[bool, list[str]]]:
     """Probe both transport modes. A model is usable if EITHER passes cleanly."""
     return {
-        "stream": test_mode(model, stream=True),
-        "non-stream": test_mode(model, stream=False),
+        "stream": test_mode(model, stream=True, base_url=base_url, key_env=key_env),
+        "non-stream": test_mode(model, stream=False, base_url=base_url, key_env=key_env),
     }
 
 
-def list_models() -> list[str]:
+def list_models(base_url: str = GATEWAY, key_env: str = "LLM_API_KEY") -> list[str]:
     request = urllib.request.Request(
-        f"{GATEWAY}/models", headers={"Authorization": f"Bearer {_api_key()}"}
+        f"{base_url}/models",
+        headers={"Authorization": f"Bearer {_api_key(key_env)}", "User-Agent": USER_AGENT},
     )
     with urllib.request.urlopen(request, timeout=TIMEOUT_SECONDS) as response:
         payload = json.loads(response.read().decode("utf-8"))
@@ -182,21 +216,32 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--model", action="append", dest="models", help="model id (repeatable)")
     parser.add_argument("--all", action="store_true", help="sweep every model the gateway lists")
+    parser.add_argument(
+        "--base-url",
+        default=GATEWAY,
+        help="endpoint to probe (default the local gateway). Use the provider's own URL to "
+        "certify the FALLBACK, which does not go through the gateway at all - see D43.",
+    )
+    parser.add_argument(
+        "--key-env",
+        default="LLM_API_KEY",
+        help="env/.env name holding the key for --base-url (e.g. LLM_FALLBACK_API_KEY)",
+    )
     args = parser.parse_args()
 
     if args.all:
         try:
-            models = list_models()
+            models = list_models(args.base_url, args.key_env)
         except Exception as exc:  # noqa: BLE001
-            print(f"cannot reach {GATEWAY}/models - is the gateway running? ({exc})")
+            print(f"cannot reach {args.base_url}/models - is it running? ({exc})")
             return 2
     else:
         models = args.models or DEFAULT_CANDIDATES
 
-    print(f"Probing {len(models)} model(s) in both transport modes.\n")
+    print(f"Probing {len(models)} model(s) at {args.base_url} in both transport modes.\n")
     passed: list[tuple[str, str]] = []
     for model in models:
-        results = test_model(model)
+        results = test_model(model, base_url=args.base_url, key_env=args.key_env)
         verdict = "PASS" if any(ok for ok, _ in results.values()) else "FAIL"
         print(f"{verdict}  {model}")
         for mode, (ok, notes) in results.items():
