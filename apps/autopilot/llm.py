@@ -23,7 +23,13 @@ from __future__ import annotations
 import os
 
 DEFAULT_PROVIDER = "openrouter"
-DEFAULT_MAX_TOKENS = 300
+
+# Reasoning models spend tokens on a hidden thinking pass BEFORE the answer, out of the
+# SAME budget. Measured 2026-08-13: at max_tokens=64 gemini-flash-latest returned an empty
+# string with finish_reason=length (thinking consumed all of it) and gemini-3.5-flash-lite
+# answered '123' to "12345". The old default of 300 is in that danger zone for a long
+# prompt. Free providers make a high ceiling cheap, and running out mid-answer is silent.
+DEFAULT_MAX_TOKENS = 1024
 ANTHROPIC_DEFAULT_MODEL = "claude-haiku-4-5"
 
 
@@ -53,33 +59,66 @@ def _ask_anthropic(prompt: str, max_tokens: int) -> str:
     if not response.content:
         raise LLMError(f"anthropic returned no content blocks: {response!r}")
 
-    text = response.content[0].text
-    if not text or not text.strip():
-        raise LLMError(f"anthropic returned empty text: {response!r}")
+    # Do NOT assume content[0] is the answer. A reasoning model puts a `thinking` block
+    # first, so content[0].text is empty or absent and the real answer is further down.
+    # Cost a wrong "the gateway returns empty responses" conclusion on 2026-08-13.
+    text = "".join(
+        block.text
+        for block in response.content
+        if getattr(block, "type", None) == "text" and getattr(block, "text", None)
+    )
+    if not text.strip():
+        kinds = [getattr(b, "type", "?") for b in response.content]
+        raise LLMError(f"anthropic returned no text block (blocks: {kinds}): {response!r}")
     return text.strip()
 
 
 def _ask_openai_compatible(prompt: str, max_tokens: int) -> str:
+    """Always streams, then joins. This is a correctness requirement, not a preference.
+
+    Measured 2026-08-13 against OmniRoute: a NON-streaming request silently loses the
+    first content chunk. Asked to echo "HELLO WORLD" the same provider returned:
+
+        stream=False        -> 'WORLD'          first chunk dropped
+        stream=True joined  -> 'HELLO WORLD'    correct, 4 chunks
+
+    Confirmed on felo-chat, felo-search and big-pickle, on BOTH the OpenAI and the
+    Anthropic paths, so it is the gateway's aggregation and not one bad provider. The
+    HTTP status is 200 and the JSON is well formed, so no structural check can catch it:
+    a fit score comes back plausible and wrong. Streaming avoids the aggregator entirely.
+
+    See docs/knowledge/29-omniroute-gateway.md and tools/omniroute_canary.py.
+    """
     from openai import OpenAI
 
     client = OpenAI(
         base_url=_require_env("LLM_BASE_URL"),
         api_key=_require_env("LLM_API_KEY"),
     )
-    response = client.chat.completions.create(
+    stream = client.chat.completions.create(
         model=_require_env("LLM_MODEL"),
         max_tokens=max_tokens,
+        stream=True,
         messages=[{"role": "user", "content": prompt}],
     )
 
-    # Measured 2026-07-29 — this is the failure that prints nothing if you index blindly.
-    if not getattr(response, "choices", None):
-        raise LLMError(f"provider returned no choices: {response!r}")
+    chunks: list[str] = []
+    for event in stream:
+        # Measured 2026-07-29: free providers emit chunks with an empty choices list.
+        if not getattr(event, "choices", None):
+            continue
+        delta = getattr(event.choices[0], "delta", None)
+        piece = getattr(delta, "content", None) if delta else None
+        if piece:
+            chunks.append(piece)
 
-    message = response.choices[0].message
-    text = getattr(message, "content", None)
-    if not text or not text.strip():
-        raise LLMError(f"provider returned an empty message: {response!r}")
+    text = "".join(chunks)
+    if not text.strip():
+        raise LLMError(
+            "provider streamed no content at all "
+            f"(model={os.getenv('LLM_MODEL')!r}, base_url={os.getenv('LLM_BASE_URL')!r}). "
+            "Treat this as 'no answer' - never fall back to a guess."
+        )
     return text.strip()
 
 

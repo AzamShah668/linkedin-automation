@@ -1176,3 +1176,66 @@ to expose it.
 
 Related: D32 (an application that reaches no human is unfinished) · D12 (the approved send path) ·
 D36 (dead ends) · D30 (nothing wrong vs nothing observed)
+
+---
+
+## D42 — Free models are a launcher, not an environment variable (2026-08-13)
+
+**Decision:** OmniRoute fronts the **high-frequency, machine-read** work (`apps/autopilot/llm.py`
+fit scoring, the one odd screening question). Claude Code keeps the **subscription by default**,
+and the free path is entered by an explicit command — `claude-free.cmd`, wrapping
+`omniroute launch` — never by a global `ANTHROPIC_BASE_URL`.
+
+**Why not just set the env var.** Because it is not scoped to the session the owner is thinking
+about. `ANTHROPIC_BASE_URL` reroutes *every* Claude Code invocation, and one of those is
+`cv.py`'s headless packet build — the tailored CV, the single artifact in this project a human
+reads, kept on a full agent deliberately (D26/D27). The saving is a few free tokens; the cost is
+a recruiter receiving a CV written by whichever free model happened to win the fallback chain,
+with nothing in any log marking the difference.
+
+> **A global switch cannot express a per-purpose decision.** D26 split the work by stakes —
+> plumbing to free models, the human-read artifact to Claude Code. An env var applies to all of
+> it at once, silently undoing the split the architecture is built on.
+
+So the launcher does three things a bare env var cannot: it refuses to start against a dead
+gateway, it **warns if the default was already rerouted** (`~/.claude/settings.json` or a
+persisted User/Machine var — meaning the CV engine is silently no longer Opus 5), and it prints
+a banner naming the engine. The third guards the likeliest failure: the owner forgetting which
+window he is in.
+
+**What this does not change.** D26's terms finding stands unaltered — pooling free keys to clear
+rate limits violates most providers' terms, which is fine for one person's job hunt and
+disqualifying for a paid product (same shape as D2). OmniRoute turning out to be well built is
+not an argument that the pooling became legitimate.
+
+**The corollary, found the same day.** Capsule Hub was requested in the same breath and **cannot**
+be integrated: it is a browser extension plus a **web** SDK whose entire API is DOM
+(`initDropZone('#chat-input')`, `bin: none`, no MCP, no API). Its long supported-platforms list —
+including Antigravity and VS Code — is real *because those are Electron apps rendering HTML*. A
+terminal has no DOM to inject into.
+
+> **A supported-platforms list names surfaces the vendor can reach, not capabilities you can
+> call.** Look for a CLI entry point, an API, or a file format before reading a name on that list
+> as an integration.
+
+**Measured the same day, and it changes how the gateway may be used.** OmniRoute silently
+**drops the first token of every non-streamed answer** — `HELLO WORLD` comes back `WORLD`,
+on both wire formats, reproduced across three providers. HTTP 200, well-formed JSON, no
+symptom. `llm.py` now always streams and joins; `tests/test_llm_streaming.py` fails if
+anyone restores the non-streaming call. And `auto/*` routes to a different provider each
+call with different correctness, so the autopilot must **pin** a model that passes
+`tools/omniroute_canary.py`.
+
+> **A round trip that returns *something* is not a round trip that returns *your answer*.**
+> Echo a known multi-token string and compare exactly. A smoke test asserting 200-and-not-empty
+> passes this bug, and a single-token reply (`4`) survives it — which is how it hides.
+
+⚠️ Still unproven: `claude-free.cmd`'s final exec into an interactive session. Claude Code
+streams by default so it should be on the correct path, but that is inference, not a
+measurement (D30).
+
+Full mechanics, including the `/v1`-suffix trap that differs between the two callers:
+[[29-omniroute-gateway]]
+
+Related: D26/D27 (free for plumbing, Claude Code for the CV) · D2 (the terms line) ·
+D30 (nothing wrong vs nothing observed) · [[24-cv-bridge]]

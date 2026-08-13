@@ -45,6 +45,7 @@ relevant topic file. Cross-link with `[[file]]`. Keep it distilled — skip cosm
 - [[27-linkedin-content-engine]] — **7-Day Content Engine**: Content Hub SQLite DB, experience logger, trend finder, dispatch engine, image prompt templates, fallback cache. Decisions D37-D40.
 - [[25-linkedin-profile-reframe]] — **the complete profile rewrite**: headline, about, 3-role Verventech experience, ECC open-source entry, skills, education (B.Tech completed), ready-to-paste copy in `output/linkedin/profile-ready-to-paste.md`
 - [[28-app-structure]] — **⚠️ read before moving any dashboard file.** frontend / backend / database, the two shims that keep 16 callers alive, why the .sqlite3 left `output/` (real recruiter names, public repo), and the console page
+- [[29-omniroute-gateway]] — **⚠️ read before pointing Claude Code at any gateway.** The OmniRoute toggle (`claude-free.cmd`), the `/v1`-suffix trap that differs between the two callers, why free models are a launcher and not an env var (D42), and why Capsule Hub cannot be wired into a terminal
 - [[10-advanced-ideas]] — advanced enhancements (email classifier, interview prep, ATS auditor, Exa AI, HN parser, Slack buttons)
 
 ## North star

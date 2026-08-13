@@ -6,6 +6,15 @@
 *.pem
 credentials.json
 token.json
+# Loose key files pasted at the repo root. `*.key` does NOT cover an extensionless
+# file literally named "api key" - one appeared on 2026-08-13, untracked but NOT
+# ignored, i.e. one `git add .` from being public. Secrets belong in .env.
+api key
+api-key*
+apikey*
+*api?key*
+*.token
+secrets.*
 
 # Python
 __pycache__/

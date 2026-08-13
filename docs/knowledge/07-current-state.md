@@ -1734,10 +1734,204 @@ packet zip, which carries the same research and is current on disk.
 
 **Final shape:** Console (home, live, polls every 15s) · Jobs & CV · Downloads · Run it.
 
+## Reply check — 2026-08-13 (tenth run; Gmail clean, LinkedIn UNREAD, and a 15th application nobody recorded)
+
+Same 5 `Applied` rows (Infosys 90, CodeRound AI 89, Innova ESI 87, GoodSpace AI 85, Recro 82) against
+`infosys.com`, `coderound.ai`, `innovaesi.com`, `goodspace.ai`, `recro.io`. **Zero new replies in Gmail.
+No Notion writes, no `--event reply` alert** — correct per the de-dupe rule. Slack posted `--event info`.
+
+- **Query proven before the zero was believed.** Bare `newer_than:14d in:inbox` → **201** threads;
+  `(from:linkedin.com OR from:infosys.com)` → live. Widened to `newer_than:30d in:anywhere` — also empty.
+- **Bounces clean** at `newer_than:14d in:anywhere`. **Campus sweep** (naukricampus, doselect, hackerrank,
+  hackerearth, mettl, imocha, codility, hirevue, epam, micro1, ceipalmail) → only the known **08-05 EPAM
+  cancellation**. Tenth consecutive run done by hand; "next work" #6 still unbuilt.
+- **Infosys skipped correctly**: `Reply` was already ✓ from the 08-11 run and no newer message exists in
+  Gmail. The two known auto-acks (Energy Exemplar 08-09, Crossing Hurdles/Micro1 08-09 + 08-10) produced
+  nothing new and stay unticked.
+
+### 🔴 The LinkedIn inbox was NOT read — and the Gmail proxy for it is worthless
+
+Both paths were unavailable: `py -3 -m apps.autopilot.replies` was **refused by the permission prompt**
+again (the same session-only gap recorded on 08-11), and the **LinkedIn MCP is not connected** this
+session, so the 08-11 fallback was gone too. **Say this as "unchecked", never as "no replies"** — that
+distinction is the whole of D35.
+
+**The proxy was tested rather than assumed, and it failed.** LinkedIn does email a notification for some
+inbound messages, so the inbox *looks* observable from Gmail. Calibrating against the one known true
+positive kills it: Recruiter-A replied **2026-07-26 18:58**, and a sweep of every `linkedin.com` sender
+across 07-25 → 07-28 returns **no message notification at all** — only job alerts, "application was sent"
+receipts and marketing. A detector that misses the only true positive it has ever been given is not a
+weak signal, it is **no signal**, and a clean sweep of `messages-noreply@` must not be reported as
+evidence the LinkedIn channel is quiet.
+
+### 🚨 A FIFTEENTH application exists, recorded nowhere — Tata Consultancy Services
+
+`jobs-noreply@linkedin.com`, **2026-08-11 08:28**: *"your application was sent to Tata Consultancy
+Services."* The ledger holds **14** entries and **no TCS row**; Notion's `Tata Consultancy Services ·
+Gen AI Engineer (80)` still reads **`Status = New`, `Applied Date` null**.
+
+This is the **Recro trap** for the fourth time, and it is worse than the 08-09/08-10 batch: those were at
+least written down within two days. Left alone, `apply-all` will re-submit TCS, and both `coverage.py`
+(D41) and the D33 company cap are computing off a send record that is one row short. Recording it belongs
+to the apply runbook, not this one, so **nothing was written** — flagged instead, consistent with how the
+previous five were handled.
+
+**Note how it was found:** not from the board, not from the ledger, but from the employer-side receipt in
+the mailbox. Same rule as the 08-10 SkillsCapital finding — **the mailbox is the system of record for what
+left the building**, and it is the only source that cannot be silently out of date.
+
+⚠️ Leftover to delete by hand: `output/reply-log/slack-2026-08-13.txt` (scratch; the sandbox refused to
+remove it, exactly as it did with `tools/_tmp_test_due_gate.py` on 08-01).
+
+## Accept watch — 2026-08-13 (seventh consecutive quiet run; all five still pending)
+
+Ran per [[13-accept-watch-runbook]]. **All three steps completed. Nothing accepted, nothing due, nothing
+expired** → step 5's quiet exit: **no Slack post, no Notion writes, nothing sent.**
+
+- **Step 1 `expire`:** `Nothing older than 14 days still pending.` The 08-06 trio is at **day 7** (wall
+  **08-20**); the 08-10 pair at **day 3** (wall **08-24**).
+- **Step 2 (the poll):** all five `get_person_profile` calls returned, every one reading `· 3rd` with a
+  `Pending` button. That doubles as the only trustworthy auth check ([[05-decisions]] D13), so **the
+  LinkedIn MCP session is healthy today** — worth stating, because the 08-13 reply check ran a few hours
+  earlier with the MCP *not* connected and had to record the inbox as unchecked.
+
+| Who | Company · role | Sent | Day | Degree | Badge |
+|---|---|---|---|---|---|
+| **Recruiter-E** (CTO) | SkillsCapital · SWE Intern (AI/ML & Agentic AI) **93** | 08-06 | 7 | `3rd` | `Pending` |
+| **Recruiter-F** (Co-Founder) | Mirai Alpha · AI Engineering Intern | 08-06 | 7 | `3rd` | `Pending` |
+| **Recruiter-D** (Recruitment Consultant) | Hired · AI/ML Engineer (keep-on-file) | 08-06 | 7 | `3rd` | `Pending` |
+| **Recruiter-G** (Lead Recruiter, Hyderabad) | Celigo · AI Integration Engineer 80 | 08-10 | 3 | `3rd` | `Pending` |
+| **Recruiter-H** (Talent Partner, Singapore) | Neurones IT Asia · DevOps Engineer 82 | 08-10 | 3 | `3rd` | `Pending` |
+
+- **Step 3 `due`:** `[]`, **and verified genuinely empty** — `list --status accepted` also returns `[]`, so
+  no ripe row is being held behind the business-hours gate. Checking the `accepted` bucket is what
+  distinguishes "nothing to send" from "something held", per the 08-10 21:02 note.
+
+### Nothing here is late, and nothing here is the lever
+
+Day 7 is still ordinary latency for a cold connect with no note, and day 3 is nothing at all. **The correct
+action on all five is to wait** — there is no version of this runbook that makes a stranger accept faster.
+The open levers remain exactly where the 08-11 run left them: answer **Recruiter-A** (now **18 days**),
+Track A **A0** (Infosys Junior AI Engineer 90, where Recruiter-A is already 1st-degree so **no accept is
+needed at all**), and the 15th application (TCS) that the 08-13 reply check found unrecorded.
+
+### One research hook worth keeping, and one non-change
+
+- ⭐ **Recruiter-G's feed is now the Celigo *Ora* + *Agent Builder* launch** — her CEO's post describes a
+  *"multi-agent copilot"* and low-code agentic workflows, reposted by her. That is a genuine, current
+  proof-of-effort detail for her touch-2 if she accepts, and it is much closer to Azam's agentic/MCP stack
+  than her older Node/Java architect reqs. Harvest it from the live profile at send time, not now — a
+  detail drafted today rots the same way a relative time word does ([[05-decisions]] D22).
+- 👀 **Recruiter-F still advertises only the *Founder's Office Intern* req**; the AI Engineering Intern
+  posting she was pitched for stays closed. Unchanged since 08-09 — **do not silently re-aim the packet at
+  a different job.**
+- 🪤 **PYMK trap, ninth confirmation.** The Indian-name sidebar `references` on all five profiles are
+  LinkedIn "people you may know" suggestions, **never a warm path**.
+
+### ⚠️ `last_checked` is still `null` on all five — SEVENTH recording
+
+`invite_tracker.py` stamps `last_checked` only inside `mark-accepted`, so this run polled five profiles and
+again left **no trace in the state file**. These prose sections remain the only evidence any poll has ever
+happened, which means the polling history lives somewhere no script can read — and a quiet run is exactly
+the shape that [[05-decisions]] D30 warns about, since "polled five, none accepted" and "never polled" write
+byte-identical state. It is a ~5-line fix (`cmd_list` stamping, or a `mark-checked` subcommand). Recording
+it a seventh time instead of fixing it is the actual finding here.
+
+## Reply check — 2026-08-13 later (eleventh run; the LinkedIn inbox this time was READ, not skipped)
+
+Same 5 `Applied` rows (Infosys 90, CodeRound AI 89, Innova ESI 87, GoodSpace AI 85, Recro 82) against
+`infosys.com`, `coderound.ai`, `innovaesi.com`, `goodspace.ai`, `recro.io`. **Zero new replies on either
+channel. No Notion writes, no `--event reply` alert** — correct per the de-dupe rule. Slack got `--event info`.
+
+**The point of this run is the channel the tenth one could not open.** At the morning run the LinkedIn MCP
+was disconnected, so the inbox was correctly recorded as **unchecked**. It is connected now, so the same
+question was actually asked, and the answer is *quiet* rather than *unknown*. That is the whole of D35:
+those two words are not synonyms, and only one of them is evidence.
+
+### The LinkedIn inbox, read in full
+
+6 conversations. Nothing inbound is unaccounted for:
+
+| Thread | Last message | Reading |
+|---|---|---|
+| **Recruiter-A** (Infosys) | **07-26 18:58, his** | known reply, already ticked 08-11 — **no newer message** |
+| Recruiter-B (Innova ESI) | 08-01, `You:` | we spoke last, no answer |
+| Recruiter-C (GoodSpace) | 08-01, `You:` | we spoke last, no answer |
+| Learnbay (sponsored InMail) | 08-11 | **ad**, not a lead — see the trap below |
+| Two personal threads | Jun 25 · May 12 | not job traffic |
+
+- **Infosys skipped correctly per de-dupe rule 6**: `Reply` was already ✓ and no newer message exists. That
+  was **verified by opening the thread**, not inferred from the inbox list's date stamp — the list shows a
+  preview, and trusting a preview to prove absence is the same shape of mistake as the Gmail proxy below.
+  His last message is still *"9419280094 / Send ur cv on this number"*. **Eighteen days unanswered.**
+- CodeRound AI and Recro have **no LinkedIn thread at all** — email-only and Easy-Apply-only respectively.
+
+### 🪤 New trap: an ad thread can show `You:` as the last speaker
+
+The Learnbay sponsored InMail now contains **outbound messages from the owner** — he tapped *"Check My
+Eligibility"* and *"Learn More"* on 08-11 12:44, and LinkedIn records those button taps as messages he sent.
+Any future scan that reasons *"`You:` means this is our own outreach awaiting a reply"* will mis-shelve a
+sponsored ad as an outreach thread. `replies.py` classifies it as `ad`, which is why that classifier exists —
+but the heuristic is now demonstrably load-bearing rather than theoretical.
+
+### Verification done before any zero was believed (standing rule, eleventh run)
+
+- Bare `newer_than:14d in:inbox` → **201** threads; `(from:linkedin.com OR from:infosys.com)` → live results.
+  Connector and `from:` OR-group syntax both proven before the empty 5-domain result was trusted.
+- Widened to **`newer_than:30d in:anywhere`** on the same 5 domains → also empty. Not misfiled in spam.
+- **Bounces clean** at `newer_than:14d in:anywhere` (mailer-daemon / postmaster / Undeliverable / DSN).
+- **Campus sweep** (naukricampus, doselect, hackerrank, hackerearth, mettl, imocha, codility, hirevue, epam,
+  micro1, ceipalmail) → only the **three known items**: the 08-05 EPAM cancellation and the two Crossing
+  Hurdles/micro1 `ceipalmail.com` funnel mails (08-09, 08-10). Nothing new. Eleventh run done by hand;
+  "next work" #6 still unbuilt.
+- **The Gmail proxy stays worthless, re-confirmed.** Every `messages-noreply@linkedin.com` item in the window
+  is job-alert marketing (*"HuntingCube and Accenture in India are hiring"*), not a message notification.
+  A clean sweep of that sender still says nothing about the LinkedIn channel — read the inbox or say unchecked.
+
+### ⚠️ `apps.autopilot.replies` was refused by the permission prompt — THIRD consecutive session
+
+`py -3 -m apps.autopilot.replies` was blocked again, so the inbox was read through the LinkedIn MCP
+`get_inbox` / `get_conversation` instead. Same conclusion, but the same standing consequence: **the
+unit-tested code path is the one that keeps not running interactively, and its `--notify` branch has still
+never fired in anger.** This is session-only — the scheduled `check-replies.ps1` STEP 0 runs under Task
+Scheduler and does not consult that allowlist (the 08-11 12:49 run is the proof it works there). Recorded a
+third time rather than worked around.
+
+## Accept watch — 2026-08-13 21:03 (second run of the day; eighth consecutive quiet run)
+
+Ran per [[13-accept-watch-runbook]]. **All three steps completed. Nothing accepted, nothing due, nothing
+expired** → step 5's quiet exit: **no Slack post, no Notion writes, nothing sent.** Identical to the earlier
+08-13 run in every field; recorded only so the polling history stays continuous.
+
+- **Step 1 `expire`:** `Nothing older than 14 days still pending.` 08-06 trio at **day 7** (wall **08-20**),
+  08-10 pair at **day 3** (wall **08-24**).
+- **Step 2 (the poll):** all five `get_person_profile` calls returned, every one `· 3rd` with a `Pending`
+  button. Doubles as the trustworthy auth check ([[05-decisions]] D13) — **the MCP session is healthy at
+  21:00**, which is worth stating because it was *not* connected at the start of this session and only came
+  up mid-run.
+- **Step 3 `due`:** `[]`. Run at **21:03**, i.e. three minutes past the 09:00–21:00 business-hours gate — so
+  the empty result had to be disambiguated: `list --status accepted` is **also `[]`**, so nothing is being
+  held for morning. This is exactly the case the 08-10 21:02 note exists for; without that second check a
+  gate-suppressed row and an empty queue are indistinguishable.
+
+**Nothing here is late and nothing here is the lever.** Day 7 on a cold no-note connect is ordinary; day 3
+is nothing. The open levers are unchanged: answer **Recruiter-A** (now **18 days**), Track A **A0** (Infosys
+Junior AI Engineer 90 — Recruiter-A is already 1st-degree, **no accept needed**), and the unrecorded 15th
+(TCS) application.
+
+### ⚠️ `last_checked` is still `null` on all five — EIGHTH recording
+
+Two accept watches ran on 2026-08-13, ten profile polls between them, and `output/outreach/pending-invites.json`
+is **byte-identical to its 08-06 state**. `invite_tracker.py` stamps `last_checked` only inside
+`mark-accepted`, so "polled ten times, none accepted" and "never polled once" write the same file. These
+prose sections are still the only evidence any poll has happened. It is a ~5-line fix (`cmd_list` stamping,
+or a `mark-checked` subcommand) and it has now been *written down* eight times and *fixed* zero — which
+makes the tally itself the finding, not the bug. Escalated to the owner in chat rather than logged a ninth time.
+
 ## Immediate next work
 
 > ⚡ **NEW TOP ITEM 2026-08-11: answer Recruiter-A.** He asked for the CV on 07-26 and has been waiting 16
-> days. It costs one WhatsApp message, it is the warmest lead in the project, and it sits inside the
+> days (**18 as of 2026-08-13**). It costs one WhatsApp message, it is the warmest lead in the project, and it sits inside the
 > company holding the board's best unworked row (Junior AI Engineer, 90). Nothing else on this list is
 > cheaper or warmer. **Only the owner can send it** — the number is a personal channel this project does
 > not automate.
@@ -1797,3 +1991,44 @@ packet zip, which carries the same research and is current on disk.
    unnoticed again.
 7. **Add the two missing allowlist entries by hand** (see the Allowlist item above) — an AI is blocked
    from doing it.
+
+## OmniRoute gateway live — 2026-08-13 (the autopilot finally has a free model)
+
+**State:** OmniRoute v3.8.49 running on `localhost:20128`. `apps/autopilot/llm.py` is wired to it and
+answering. Config in `.env`: `LLM_BASE_URL=http://localhost:20128/v1` (**with** `/v1`),
+`LLM_MODEL=gemini/gemini-3.5-flash-lite`, `LLM_API_KEY` = the gateway key, `GEMINI_API_KEY` = the
+Google key. Measured: a real question answered in **7.3s**. **104 tests pass** (was 98).
+
+**Providers connected (8):** `gemini` (the working one) plus `pollinations`, `hackclub`,
+`g4f-gemini`, `g4f-groq`, `g4f-nvidia`, `g4f-ollama`, `g4f-pollinations`. Catalog 115 → **665 models**.
+
+**Canary-verified working — one primary, two fallbacks:**
+`gemini/gemini-3.5-flash-lite` · `gemini/gemini-3.6-flash` · `felo/felo-chat`
+
+**Everything else in that 665 does not answer:** `pollinations/*` 401 (its "optional" auth still needs
+an upstream key), `tllm/*` and `oc/*` 403, `ddgw/*` 429, `pepper/*` 502, `mimocode/*` 400. Model count
+is not capability — only an exact echo test is.
+
+### What still needs the owner
+
+- **Groq** (30 req/min) and **Cerebras** (1M tokens/day) — both gate signup behind a CAPTCHA, so an
+  agent cannot and should not complete them. ~5 min each; they are the independent fallbacks that
+  would make this survive a Google outage.
+- **Kiro** — OAuth from the OmniRoute dashboard, free-forever Claude models, no CAPTCHA.
+- **The gateway does not survive a reboot.** It runs in a terminal; nothing starts it automatically.
+  Until a startup task exists, "runs all the time" is not true and `ask()` will fail closed.
+
+### The four things that cost time, all silent
+
+1. **Non-streamed answers lose their first token** (`HELLO WORLD`→`WORLD`), both wire formats,
+   HTTP 200. `llm.py` streams and joins now; a test fails if that is undone.
+2. **`gemini-2.5-flash` is retired for new users**, yet OmniRoute's imported list still advertises it.
+   The provider's own catalog is the only honest source.
+3. **Thinking tokens share `max_tokens`** — at 64, a reasoning model returns `''` or `'123'` for
+   `"12345"`. Default raised to **1024**; canary probes at 512.
+4. **One 404 trips a 65s cooldown**, after which every 429 is the gateway's own circuit breaker
+   rather than the provider — debugging that is debugging the wrong system.
+
+⚠️ **`api key` at the repo root.** The Google key first landed in an extensionless file that `*.key`
+does **not** match — untracked but not ignored, in a public repo. Moved to `.env`, never committed,
+`.gitignore` hardened. Related: [[29-omniroute-gateway]], [[05-decisions]] D42.

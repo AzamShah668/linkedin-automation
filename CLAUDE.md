@@ -412,6 +412,42 @@ py -3 tools/post_creator/dispatch_engine.py --dry-run --post-id N  # preview dis
   the content engine's four are now **D37-D40**. [[05-decisions]] is the single numbering authority; grep
   `^## D` before numbering anything.
 
+- **2026-08-13 — OmniRoute wired in as an opt-in launcher; Capsule Hub cannot be.** Read
+  [[29-omniroute-gateway]] + **D42**. `claude-free.cmd` → `tools/claude-free.ps1` → `omniroute launch`
+  runs a Claude Code session on **free pooled models**; plain `claude` is untouched and stays on the
+  Opus 5 subscription. Deliberately **not** a global `ANTHROPIC_BASE_URL`: that would also reroute
+  `cv.py`'s headless build, so a recruiter could receive a tailored CV written by whichever free model
+  won the fallback chain, with nothing in any log marking it. The launcher refuses a dead gateway,
+  **warns if the default was already rerouted**, and prints which engine is answering.
+  ⚠️ **The two callers differ by a `/v1` suffix**: Claude Code wants `http://localhost:20128` (it
+  appends `/v1/messages`), `apps/autopilot/llm.py` wants `http://localhost:20128/v1`. A published blog
+  post gets this wrong; both mistakes 404 several layers from the cause.
+  **Capsule Hub cannot be integrated** — browser extension + a *web* SDK (`bin: none`, API is
+  `initDropZone('#chat-input')`, no MCP, no CLI). It appears inside Antigravity/VS Code because those
+  are Electron apps rendering HTML; a terminal has no DOM. Brain 0's transcript archive already does
+  the same job better.
+
+- **2026-08-13 (later) — the gateway is live and the autopilot has a free brain.** OmniRoute v3.8.49
+  installed and running on `:20128`. **`LLM_MODEL=gemini/gemini-3.5-flash-lite`** answers a real
+  question in **7.3s**; canary fallbacks `gemini/gemini-3.6-flash` and `felo/felo-chat`. **104 tests.**
+  The Gemini key needed **no signup** — the owner's Chrome was already authenticated and his account
+  already held 7 keys, one named *"linkdin api key"*. Stored as `GEMINI_API_KEY` in `.env`.
+  ⚠️ **The key arrived in a file named `api key` at the repo root** — untracked but **not** ignored,
+  one `git add .` from being public. Never committed, so nothing leaked; `.gitignore` now also blocks
+  `api key` / `apikey*` / `*api?key*` / `*.token` / `secrets.*`. **`*.key` does not match an
+  extensionless file.**
+  🔴 **A gateway bug that has no symptom:** OmniRoute **drops the first token of every non-streamed
+  answer** (`HELLO WORLD`→`WORLD`), on both wire formats, HTTP 200 throughout. `llm.py` now always
+  streams and joins; `tests/test_llm_streaming.py` fails if anyone restores the non-streaming call.
+  Three more traps, each disguised as something else: **`gemini-2.5-flash` is dead to new users** but
+  OmniRoute's cached model list still offers it (ask the provider, not the gateway); the **thinking
+  pass shares `max_tokens`**, so at 64 tokens a reasoning model returns an empty string or `'123'` for
+  `"12345"` — budget overrun that reads exactly like corruption (default now **1024**); and **one 404
+  trips a 65s circuit breaker**, after which every 429 comes from the *gateway*, not the provider.
+  Use `tools/omniroute_canary.py` — it echo-tests exact multi-token strings, because **200-and-non-empty
+  passes all of these bugs**. ⚠️ Never pin `auto/*`: different provider every call, different correctness.
+  Still owner-only: Groq and Cerebras gate signup behind CAPTCHA. Full detail: [[29-omniroute-gateway]] §3-4.
+
 - **NEXT — in this order. The reordering fact is now: 14 applications, 1 reply, and the reply came from
   the only warm-insider approach the project has made.**
   1. 🔴 **Answer Recruiter-A** — 16 days late, on a personal phone number. **Only the owner can do this**;

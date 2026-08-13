@@ -408,6 +408,17 @@ Decisions: D33 SQLite over Notion (offline-first), D34 agent-agnostic (Claude + 
 infra), D35 human-in-the-loop approval, D36 every post gets a visual. CLAUDE.md updated with Content Hub
 section. Brain 2: NEW 27-linkedin-content-engine, 00-INDEX updated.
 
+## [2026-08-13 20:35] session | Live LinkedIn Post Dispatched (AI Agents Trust)
+Touched: none (AST-only graph)
+Successfully posted today's Wednesday Trending Tech Take ("AI agents lie, cheat and steal") live to LinkedIn via Playwright.
+Hero image attached (`hero_ai_agents_trust.png` via Pollinations FLUX.1 in 1.5s). Refined `dispatch_engine.py` Playwright selectors for LinkedIn's post modal (`div[role='textbox']`, `button[aria-label*='Add media']`, `button.share-box-footer__primary-btn`). Skill updated: em-dashes permanently banned in `linkedin-post-copywriter/SKILL.md`. Marked Post #33 as `posted` in Content Hub DB.
+
+## [2026-08-13 20:50] session | Enforced High 3D Visual Complexity (Zero Hollow Space)
+Touched: none
+Upgraded `viral-architecture-visualizer/SKILL.md` (added Rule 6) and `tools/post_creator/prompt_templates.json` to permanently enforce high-complexity, attention-grabbing 3D Octane renders (multi-layered glass holographic UI, glowing cyan + amber dual volumetric lighting, dense server/hardware background depth, zero empty space) for all future automated post image generations.
+
+
+
 ## [2026-08-11] session | Reply check finds the 16-day-old reply
 Touched: none
 Ninth reply check, and the first ever to write a Reply tick. Gmail zero across the 5 Applied domains
@@ -474,3 +485,43 @@ invites/invites-due/expire duplicated the console or watch-accepts. Consequence 
 database/board.sqlite3 is now the real store, nothing pushes back to Notion. Two breakages caught by
 curling every route: the startup guard still checked for the deleted index.html, and the Jobs page linked
 to /research. 98 tests, four pages + both APIs verified 200.
+
+## [2026-08-13] session | accept watch, seventh quiet run
+Touched: none
+Ran 13-accept-watch-runbook end to end. expire: nothing over 14 days. All five pending invites polled
+(SkillsCapital / Mirai Alpha / Hired at day 7, Celigo / Neurones IT Asia at day 3) - every one still 3rd
+degree with a Pending badge. due: [] and accepted: [] so nothing was held behind the business-hours gate.
+Quiet exit per step 5: no Slack, no Notion, nothing sent. last_checked still null on all five, seventh
+recording of the same gap.
+
+## [2026-08-13 17:25] session | reply check 11, LinkedIn inbox actually read
+Touched: none
+Ran 11-reply-classifier-runbook end to end on the 5 Applied rows. Gmail zero across 14d/inbox and the
+widened 30d/anywhere; the control proved live at 201 threads before any zero was believed. Bounces clean,
+campus sweep only the 3 known items. The headline is the channel the morning run had to record as
+UNCHECKED: the LinkedIn MCP is up now, so the inbox was actually read - 6 conversations, no new inbound,
+Infosys skipped per de-dupe (Reply already ticked, thread verified to hold nothing after 07-26 18:58).
+No Notion writes, no --event reply; --event info posted. New trap logged: a sponsored InMail thread shows
+"You:" as the last speaker because button taps count as sent messages. apps.autopilot.replies was refused
+by the permission prompt for the third session running.
+
+## [2026-08-13 21:03] session | accept watch, eighth quiet run
+Touched: none
+Second accept watch of 08-13. expire: nothing over 14 days. All five pending profiles polled - every one
+3rd degree with a Pending button, which also confirms the MCP session healthy at 21:00. due: [] and the
+accepted bucket also [], so the empty result is genuine and not the 21:03 business-hours gate suppressing
+a ripe row. Quiet exit per step 5: no Slack, no Notion, nothing sent. last_checked is still null on all
+five for the eighth recording - ten polls across two runs left the state file byte-identical to 08-06.
+
+## [2026-08-13 21:05] session | OmniRoute gateway live, free model wired
+Touched: none
+Installed OmniRoute v3.8.49 on :20128 and wired apps/autopilot/llm.py to it. Connected 8 providers
+(115 -> 665 models) but only 3 answer correctly - pinned gemini/gemini-3.5-flash-lite (7.3s), with
+gemini-3.6-flash and felo/felo-chat as canary-verified fallbacks. The Gemini key needed no signup:
+the owner's Chrome was already authenticated and the account already held 7 keys. Found and fixed a
+gateway bug with no symptom - non-streamed answers lose their first token on both wire formats at
+HTTP 200 - so llm.py now streams and joins, locked by 6 new tests (98 -> 104). Three further traps:
+gemini-2.5-flash is retired but still advertised by the gateway's cache, thinking tokens share
+max_tokens (default 300 -> 1024), and one 404 trips a 65s circuit breaker whose 429s look upstream.
+Built tools/omniroute_canary.py because 200-and-non-empty passes every one of these. Security: the
+key arrived in a root file named "api key" that *.key does not match - moved to .env, never committed.
