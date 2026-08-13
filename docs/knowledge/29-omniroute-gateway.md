@@ -95,8 +95,31 @@ gateway coming up. Asked to echo a phrase, the *same provider* returned:
 It is not a truncated character, it is the whole **first token**: `PONG`→`ONG`,
 `HELLO WORLD`→`WORLD`, `12345`→`45`. A single-token answer (`4`) survives intact, which is
 exactly how a casual smoke test misses it. Reproduced on `felo-chat`, `felo-search` and
-`big-pickle`, across **both** wire formats — so it is the gateway's non-streaming
-**aggregation**, not one bad provider.
+`big-pickle`, across **both** wire formats.
+
+> ⚠️ **Correction, later the same day.** This was first written as "the gateway's
+> aggregation, not one bad provider." That was **too broad**, and adding Groq disproved it.
+> The gateway breaks in **both** directions, and which way depends on the provider:
+>
+> | Provider | Streamed | Non-streamed |
+> |---|---|---|
+> | `felo` | ✅ correct | ❌ first token eaten |
+> | `groq` | ❌ keepalive frames only, then closes | ✅ correct |
+> | `gemini` | ✅ correct | ✅ correct |
+>
+> Three providers were needed to see the shape; two looked like a universal rule. **A
+> pattern confirmed on one vendor's family is a pattern about that vendor.**
+
+So there is no single correct transport. `LLM_STREAM` (default `true`) selects it, and the
+canary now probes **both** modes and prints the matching `LLM_MODEL`/`LLM_STREAM` pair.
+Streaming stays the default because its failure is **loud** — no content raises `LLMError`
+— while the non-streaming failure is **silent**: a plausible answer missing its first word.
+Given a choice of bugs, take the one that cannot reach an employer's form.
+
+⚠️ **Groq's streaming failure has no error in it at all.** The gateway emits frames with
+`"id":"omniroute-keepalive"` and then closes: HTTP 200, valid SSE, zero content. A parser
+that joins deltas returns `""`. Both `llm.py` and the canary now ignore keepalive frames
+and treat an all-keepalive stream as a loud failure.
 
 **Why this is the dangerous kind of bug.** HTTP 200, well-formed JSON, a plausible answer.
 Nothing structural can catch it. A fit score comes back confident and wrong; a free-text

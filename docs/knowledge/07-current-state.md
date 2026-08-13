@@ -1999,7 +1999,8 @@ answering. Config in `.env`: `LLM_BASE_URL=http://localhost:20128/v1` (**with** 
 `LLM_MODEL=gemini/gemini-3.5-flash-lite`, `LLM_API_KEY` = the gateway key, `GEMINI_API_KEY` = the
 Google key. Measured: a real question answered in **7.3s**. **104 tests pass** (was 98).
 
-**Providers connected (8):** `gemini` (the working one) plus `pollinations`, `hackclub`,
+**Providers connected (9):** `gemini` (the working one), `groq` (key created 08-13, valid at 325ms
+but its streaming through the gateway returns only keepalives - use `LLM_STREAM=false` if pinned), plus `pollinations`, `hackclub`,
 `g4f-gemini`, `g4f-groq`, `g4f-nvidia`, `g4f-ollama`, `g4f-pollinations`. Catalog 115 → **665 models**.
 
 **Canary-verified working — one primary, two fallbacks:**

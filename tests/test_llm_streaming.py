@@ -1,12 +1,22 @@
 """Tests for the LLM entry point — specifically the corruption that has no symptom.
 
-Measured 2026-08-13 against OmniRoute: a NON-streaming request silently loses the first
-content chunk. The same provider, asked to echo "HELLO WORLD", returned 'WORLD' with
-stream=False and 'HELLO WORLD' when streamed and joined. HTTP 200, well-formed JSON,
-nothing to catch. A fit score comes back plausible and wrong (D30, D31).
+Measured 2026-08-13 against OmniRoute. The gateway breaks in BOTH directions, and which
+way depends on the provider:
 
-So `_ask_openai_compatible` MUST stream. These tests exist to stop someone simplifying it
-back to a single non-streaming call, which would look tidier and reintroduce the bug.
+    provider   streamed                  non-streamed
+    felo       'HELLO WORLD'  correct    'WORLD'        first chunk eaten
+    groq       ''             keepalive  'Hello World'  correct
+    gemini     'HELLO WORLD'  correct    'HELLO WORLD'  correct
+
+Both failures are HTTP 200 with well-formed JSON, so neither is visible from the response
+shape. A fit score comes back plausible and wrong (D30, D31).
+
+Streaming is therefore the DEFAULT but not a law: `LLM_STREAM=false` exists for providers
+whose streaming is broken. Streaming is preferred because its failure is loud (no content
+-> LLMError) while the non-streaming failure is silent (an answer missing its first word).
+
+These tests stop someone collapsing this back to a single hardcoded transport, which would
+look tidier and would be wrong for one provider or the other.
 
 Offline — the openai client is stubbed, so no provider is called. See D42.
 """
@@ -129,3 +139,38 @@ def test_anthropic_with_only_thinking_raises(monkeypatch):
     with pytest.raises(llm.LLMError) as exc:
         llm.ask("echo")
     assert "thinking" in str(exc.value)
+
+
+def test_llm_stream_false_uses_the_non_streaming_call(monkeypatch):
+    """LLM_STREAM=false exists for providers whose streaming is broken (groq: the
+    gateway sends only keepalive frames, then closes, at HTTP 200). The stub raises
+    if a stream is requested, proving the flag actually changes transport."""
+    recorded: dict = {}
+
+    class _Completions:
+        def create(self, **kwargs):
+            recorded.update(kwargs)
+            if kwargs.get("stream"):
+                raise AssertionError("LLM_STREAM=false must not request a stream")
+            message = SimpleNamespace(content="PONG")
+            return SimpleNamespace(choices=[SimpleNamespace(message=message)])
+
+    class _Client:
+        def __init__(self, **_kwargs):
+            self.chat = SimpleNamespace(completions=_Completions())
+
+    monkeypatch.setitem(sys.modules, "openai", SimpleNamespace(OpenAI=_Client))
+    monkeypatch.setenv("LLM_STREAM", "false")
+    assert llm.ask("echo") == "PONG"
+    assert not recorded.get("stream")
+
+
+def test_keepalive_only_stream_raises(fake_openai):
+    """A stream of nothing but keepalives is 'no answer', and must be loud.
+
+    The gateway returns HTTP 200 and closes; without this the caller gets ''.
+    """
+    fake_openai([_chunk(no_choices=True), _chunk(no_choices=True)])
+    with pytest.raises(llm.LLMError) as exc:
+        llm.ask("echo")
+    assert "keepalive" in str(exc.value).lower()

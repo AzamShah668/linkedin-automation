@@ -74,12 +74,12 @@ def _api_key() -> str:
     return "local"
 
 
-def ask_once(model: str, prompt: str) -> tuple[str, str]:
+def ask_once(model: str, prompt: str, *, stream: bool) -> tuple[str, str]:
     """Return (answer, model_actually_used). Raises on transport/protocol failure.
 
-    STREAMS, because apps/autopilot/llm.py streams. A canary must exercise the same path
-    as the code it certifies: a non-streaming probe hits the gateway's first-chunk bug and
-    would fail models that are perfectly good through the real client.
+    Tests BOTH modes because the gateway breaks in both directions, per provider:
+    felo eats the first token when not streaming; groq streams nothing but keepalives.
+    Certifying only one mode would bless a model that fails in the mode you deploy.
     """
     request = urllib.request.Request(
         f"{GATEWAY}/chat/completions",
@@ -87,7 +87,7 @@ def ask_once(model: str, prompt: str) -> tuple[str, str]:
             {
                 "model": model,
                 "max_tokens": PROBE_MAX_TOKENS,
-                "stream": True,
+                "stream": stream,
                 "messages": [{"role": "user", "content": prompt}],
             }
         ).encode("utf-8"),
@@ -95,9 +95,19 @@ def ask_once(model: str, prompt: str) -> tuple[str, str]:
         method="POST",
     )
 
-    chunks: list[str] = []
-    used = "?"
     with urllib.request.urlopen(request, timeout=TIMEOUT_SECONDS) as response:
+        if not stream:
+            body = json.loads(response.read().decode("utf-8"))
+            choices = body.get("choices")
+            if not choices:
+                raise RuntimeError(f"no choices in response: {str(body)[:120]}")
+            content = (choices[0].get("message") or {}).get("content")
+            if not content:
+                raise RuntimeError("response contained no content")
+            return content.strip(), body.get("model") or "?"
+
+        chunks: list[str] = []
+        used = "?"
         for raw in response:
             line = raw.decode("utf-8", "replace").strip()
             if not line.startswith("data:"):
@@ -109,6 +119,10 @@ def ask_once(model: str, prompt: str) -> tuple[str, str]:
                 event = json.loads(payload)
             except json.JSONDecodeError:
                 continue
+            # OmniRoute emits `omniroute-keepalive` frames; a stream can be nothing but
+            # those and then close, with HTTP 200 and no error. Do not count them.
+            if event.get("id") == "omniroute-keepalive":
+                continue
             used = event.get("model") or used
             for choice in event.get("choices") or []:
                 piece = (choice.get("delta") or {}).get("content")
@@ -116,17 +130,17 @@ def ask_once(model: str, prompt: str) -> tuple[str, str]:
                     chunks.append(piece)
 
     if not chunks:
-        raise RuntimeError("stream produced no content at all")
+        raise RuntimeError("stream produced no content at all (keepalives only?)")
     return "".join(chunks).strip(), used
 
 
-def test_model(model: str) -> tuple[bool, list[str]]:
+def test_mode(model: str, *, stream: bool) -> tuple[bool, list[str]]:
     """True only if every probe round-trips exactly. Ambiguity counts as failure."""
     notes: list[str] = []
     ok = True
     for prompt, expected in PROBES:
         try:
-            answer, used = ask_once(model, prompt)
+            answer, used = ask_once(model, prompt, stream=stream)
         except urllib.error.HTTPError as exc:
             notes.append(f"HTTP {exc.code} ({exc.reason})")
             ok = False
@@ -140,11 +154,19 @@ def test_model(model: str) -> tuple[bool, list[str]]:
             notes.append(f"ok via {used}")
         else:
             ok = False
-            if expected.endswith(answer) and answer != expected:
+            if expected.endswith(answer):
                 notes.append(f"TRUNCATED via {used}: {answer!r} (lost the first token)")
             else:
                 notes.append(f"WRONG via {used}: {answer!r} != {expected!r}")
     return ok, notes
+
+
+def test_model(model: str) -> dict[str, tuple[bool, list[str]]]:
+    """Probe both transport modes. A model is usable if EITHER passes cleanly."""
+    return {
+        "stream": test_mode(model, stream=True),
+        "non-stream": test_mode(model, stream=False),
+    }
 
 
 def list_models() -> list[str]:
@@ -171,21 +193,25 @@ def main() -> int:
     else:
         models = args.models or DEFAULT_CANDIDATES
 
-    print(f"Probing {len(models)} model(s) for first-token truncation.\n")
-    passed: list[str] = []
+    print(f"Probing {len(models)} model(s) in both transport modes.\n")
+    passed: list[tuple[str, str]] = []
     for model in models:
-        ok, notes = test_model(model)
-        print(f"{'PASS' if ok else 'FAIL'}  {model}")
-        for note in notes:
-            print(f"        {note}")
-        if ok:
-            passed.append(model)
+        results = test_model(model)
+        verdict = "PASS" if any(ok for ok, _ in results.values()) else "FAIL"
+        print(f"{verdict}  {model}")
+        for mode, (ok, notes) in results.items():
+            print(f"    {'ok  ' if ok else 'fail'}  {mode}")
+            for note in notes:
+                print(f"            {note}")
+            if ok:
+                passed.append((model, mode))
 
     print()
     if passed:
-        print("Safe to pin as LLM_MODEL:")
-        for model in passed:
-            print(f"  {model}")
+        print("Safe to pin (set LLM_MODEL, and LLM_STREAM to match the mode):")
+        for model, mode in passed:
+            flag = "true" if mode == "stream" else "false"
+            print(f"  LLM_MODEL={model}   LLM_STREAM={flag}")
     else:
         print("NOTHING PASSED. Do not point the autopilot at this gateway yet.")
         print("An `auto/*` id is a different provider every call - re-run before concluding.")

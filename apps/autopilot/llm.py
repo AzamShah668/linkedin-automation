@@ -74,20 +74,24 @@ def _ask_anthropic(prompt: str, max_tokens: int) -> str:
 
 
 def _ask_openai_compatible(prompt: str, max_tokens: int) -> str:
-    """Always streams, then joins. This is a correctness requirement, not a preference.
+    """Streams by default. `LLM_STREAM=false` for providers whose streaming is broken.
 
-    Measured 2026-08-13 against OmniRoute: a NON-streaming request silently loses the
-    first content chunk. Asked to echo "HELLO WORLD" the same provider returned:
+    There is NO single correct setting, because gateways break in both directions.
+    Measured 2026-08-13 against OmniRoute, asked to echo "HELLO WORLD":
 
-        stream=False        -> 'WORLD'          first chunk dropped
-        stream=True joined  -> 'HELLO WORLD'    correct, 4 chunks
+        provider   streamed                 non-streamed
+        felo       'HELLO WORLD'  correct   'WORLD'        first chunk eaten
+        groq       ''             keepalive 'Hello World'  correct
+        gemini     'HELLO WORLD'  correct   'HELLO WORLD'  correct
 
-    Confirmed on felo-chat, felo-search and big-pickle, on BOTH the OpenAI and the
-    Anthropic paths, so it is the gateway's aggregation and not one bad provider. The
-    HTTP status is 200 and the JSON is well formed, so no structural check can catch it:
-    a fit score comes back plausible and wrong. Streaming avoids the aggregator entirely.
+    Both failures return HTTP 200 with well-formed JSON, so neither is detectable from
+    the response shape - only by echoing a known multi-token string and comparing
+    exactly. That is what tools/omniroute_canary.py does; it reports the safe mode per
+    model. Pin a model it passes and set LLM_STREAM to match.
 
-    See docs/knowledge/29-omniroute-gateway.md and tools/omniroute_canary.py.
+    Streaming stays the default because its failure is LOUD (no content -> LLMError)
+    while the non-streaming failure is SILENT (a plausible answer missing its first
+    word). Given a choice of bugs, take the one that cannot reach an employer's form.
     """
     from openai import OpenAI
 
@@ -95,8 +99,24 @@ def _ask_openai_compatible(prompt: str, max_tokens: int) -> str:
         base_url=_require_env("LLM_BASE_URL"),
         api_key=_require_env("LLM_API_KEY"),
     )
+    model = _require_env("LLM_MODEL")
+    use_stream = os.getenv("LLM_STREAM", "true").strip().lower() not in ("false", "0", "no")
+
+    if not use_stream:
+        response = client.chat.completions.create(
+            model=model,
+            max_tokens=max_tokens,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        if not getattr(response, "choices", None):
+            raise LLMError(f"provider returned no choices: {response!r}")
+        text = getattr(response.choices[0].message, "content", None) or ""
+        if not text.strip():
+            raise LLMError(f"provider returned an empty message: {response!r}")
+        return text.strip()
+
     stream = client.chat.completions.create(
-        model=_require_env("LLM_MODEL"),
+        model=model,
         max_tokens=max_tokens,
         stream=True,
         messages=[{"role": "user", "content": prompt}],
@@ -105,6 +125,8 @@ def _ask_openai_compatible(prompt: str, max_tokens: int) -> str:
     chunks: list[str] = []
     for event in stream:
         # Measured 2026-07-29: free providers emit chunks with an empty choices list.
+        # Measured 2026-08-13: OmniRoute also emits `omniroute-keepalive` frames, and a
+        # stream can consist of NOTHING BUT those and then close, with no error at all.
         if not getattr(event, "choices", None):
             continue
         delta = getattr(event.choices[0], "delta", None)
@@ -115,8 +137,10 @@ def _ask_openai_compatible(prompt: str, max_tokens: int) -> str:
     text = "".join(chunks)
     if not text.strip():
         raise LLMError(
-            "provider streamed no content at all "
-            f"(model={os.getenv('LLM_MODEL')!r}, base_url={os.getenv('LLM_BASE_URL')!r}). "
+            "provider streamed no content at all - only keepalives, or nothing "
+            f"(model={model!r}, base_url={os.getenv('LLM_BASE_URL')!r}). "
+            "Some providers' streaming is broken through the gateway: check "
+            "tools/omniroute_canary.py and try LLM_STREAM=false. "
             "Treat this as 'no answer' - never fall back to a guess."
         )
     return text.strip()
