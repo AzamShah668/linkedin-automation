@@ -525,3 +525,98 @@ gemini-2.5-flash is retired but still advertised by the gateway's cache, thinkin
 max_tokens (default 300 -> 1024), and one 404 trips a 65s circuit breaker whose 429s look upstream.
 Built tools/omniroute_canary.py because 200-and-non-empty passes every one of these. Security: the
 key arrived in a root file named "api key" that *.key does not match - moved to .env, never committed.
+
+## [2026-08-13 22:30] session | Reply check 12: Gmail clean, LinkedIn unchecked
+Touched: none
+Ran 11-reply-classifier-runbook against the 5 Applied rows. Zero new Gmail replies across
+infosys.com / coderound.ai / innovaesi.com / goodspace.ai / recro.io; bounces and campus sweep clean;
+query proven live (201 control threads) before the zero was believed. No Notion writes, no
+--event reply. The LinkedIn inbox could NOT be read - MCP not connected and apps.autopilot.replies
+refused by the permission prompt on both PowerShell and Bash, 4th consecutive session - so it is
+recorded as UNCHECKED, not quiet (D35).
+
+## [2026-08-14 00:39] session | OmniRoute swept; fallback left the gateway
+Touched: none
+Connected opencode/mimocode/auggie (catalog 665 -> 1019), then echo-tested 23 models across every
+free family: THREE answer (2x gemini, felo/felo-chat), all three backed by a real key on a real
+account. `testStatus: "active"` proved worthless - groq and opencode both report active while
+403-ing every completion. Groq's 403 is the GATEWAY, not the key: the openai client straight at
+api.groq.com is exact in both transports. llm.py gained LLM_FALLBACK_* (Groq direct, deliberately
+not another model behind the same local process); 112 tests, verified live. Then the canary FAILED
+that working fallback because urllib's default User-Agent is the one string Groq's Cloudflare bans -
+the instrument, not the provider. USER_AGENT now unconditional; --base-url/--key-env added.
+Deleted a root-level groq-login.png exposing both his emails in a public repo; /*.png now ignored.
+Also verified: the LinkedIn MCP IS connected (real get_my_profile), so the "4th consecutive session
+unable to read the inbox" blocker in the entry above is LIFTED.
+
+## [2026-08-14 01:02] session | Accept watch: ninth consecutive quiet run
+Touched: none
+All 5 invites still 3rd/Pending (08-06 trio day 8, 08-10 pair day 4). Nothing accepted, due or expired
+-> quiet exit per runbook step 5: no Slack, no Notion, nothing sent. Ran at 01:02, so the empty `due`
+was disambiguated against `list --status accepted` (also empty) - outside business hours those two
+results are otherwise identical. `last_checked` still null on all five: NINTH recording, ~5-line fix.
+Second half: LinkedIn MCP verified live by a real get_my_profile, so the 4-session inbox blocker is
+gone. Inbox read = 6 conversations, ZERO unread replies, and ?filter=other returns the same 6 rows -
+the Focused/Other split is not active on this account, so this is a true all-clear rather than a
+one-tab guess (D35). coverage.py: 14 applications, 10 companies, 1 reached nobody = Recro (Generative
+AI Engineer, applied 07-29). Found and VERIFIED its recruiter: Arya Priyadarshini, TA Specialist at
+Recro since Sep 2025, Data & AI, posts GenAI/LLM reqs. Recro is a real company (501-1K, 24 findable
+members), unlike Crossing Hurdles (D36). Wrote output/outreach/recro/{contact.md,touch-2-linkedin.md},
+added a REVIEW-QUEUE row, posted a Slack draft_ready card. NOTHING SENT - bare connect awaits his tick
+(D12). Also fixed slack_notify.py --dry-run, which crashed on cp1252 for any non-ascii payload: a
+preview that fails on exactly the messages worth previewing trains people to skip it and post live.
+Third: followed the inbox finding to its cause. followups.py (Day-3/Day-7 cadence) is CORRECT and has
+never once been fed - its docstring expects a Notion-MCP runner that no longer exists, NOTION_TOKEN was
+never set, and the store moved to database/board.sqlite3. A component with no caller does not fail, it
+is absent: nothing errored because nothing ran it (D44). Wrote tools/followups_from_board.py; first run
+says 13 of 13 applications are past their Day-3 nudge, oldest by 19 days. Two bugs the first real run
+exposed: BOTH nudge templates carried an em-dash in recruiter-facing text (never caught because no nudge
+had ever been rendered from real data), and the feeder's caveat printed AFTER 40 lines of output. Also
+noted: `jobs` has no `reply` and no `followups_sent` column, so the feeder assumes false/0 and says so
+loudly - over-reporting costs a Slack card, under-reporting costs a lead. 4 commits, 112 tests green.
+
+## [2026-08-14 09:06] session | Accept watch: tenth consecutive quiet run
+Touched: none
+All 5 invites still 3rd/Pending (08-06 trio day 8, wall 08-20; 08-10 pair day 4, wall 08-24). Nothing
+accepted, due or expired -> quiet exit per runbook step 5: no Slack, no Notion, nothing sent. 09:06 is
+inside business hours, so the empty `due` is genuine rather than gate-suppressed; `list --status
+accepted` also empty, confirming no ripe row held. Five real get_person_profile calls = the trustworthy
+auth check, so the MCP session is healthy (it was disconnected at the 08-13 third reply check). Hooks
+re-confirmed for touch-2 at send time: Recruiter-G's Celigo Ora/Agent Builder (now a 4-month-old
+repost), Recruiter-H's "zero agency dependency ... LinkedIn, GitHub, niche tech communities" - but her
+last 6 months of reqs are ALL mid-to-senior, same shape as Recruiter-B. Recruiter-F still lists only the
+Founder's Office Intern req; do not re-aim the packet. `last_checked` null on all five: TENTH recording,
+20 polls with no on-disk trace, so this run cannot prove the previous nine happened (D35 shape).
+
+## [2026-08-15 10:55] session | Reply check, both channels quiet
+Touched: none
+Thirteenth reply check, 5 Applied rows. Gmail empty on all 5 recruiter domains at 14d/inbox AND 30d/anywhere
+(syntax proven live first: 201 threads bare, 5 on the linkedin+infosys control). Bounces clean, campus sweep
+only the 3 known items. LinkedIn MCP was connected, so the inbox was READ not skipped: 6 threads, nothing new
+inbound, Recruiter-A's thread OPENED to confirm no newer message rather than trusting the list preview. Zero
+Notion writes, zero reply alerts, `--event info` to Slack. Recruiter-A now 20 days unanswered; still the lever
+and still owner-only. Recro's domain hand-supplied again since its contact.md carries no email by design.
+
+## [2026-08-15 13:01] session | Accept watch, eleventh quiet run
+Touched: none
+All 5 invites polled, all still `3rd` + `Pending` (08-06 trio day 9, 08-10 pair day 5). expire: nothing over
+14 days. due: [] and `list --status accepted` also [] — 13:01 is inside business hours so this is a genuinely
+empty queue, not the gate. Quiet exit per step 5: no Slack, no Notion, nothing sent. One profile timed out on
+first call (`Page.goto` 30s, empty sections + section_errors) and returned clean on retry — recorded because
+a timeout response is HTTP-successful JSON and reads as "no accept signal" if skimmed; retry, and on a second
+failure record the row as unknown, never as pending. `last_checked` still null on all five, eleventh
+recording, 25 polls now existing only in prose.
+
+## [2026-08-15 15:26] session | 0 to 20 applications; survey-first
+Touched: none (AST-only graph; knowledge lives in Brain 2)
+New code: apps/autopilot/survey.py (read every form, submit nothing), apps/autopilot/freetext.py
+(LLM answers ONLY the per-company motivation question, whitelisted, refuses anything checkable).
+Board purged (43 rows, all 14-21d old; apply-all over them submitted 0 of 32) and re-discovered:
+115 fresh Easy Apply roles via **f_AL=true** - f_EA is NOT the Easy Apply filter and LinkedIn
+ignores it silently (1/18 vs 17/17). Survey over 44 forms found 104 distinct questions, 65
+answerable; one editing pass took it to 102/104 (technology_years table of 97 techs, education_*,
+capabilities, logistics, narrative). Three failures were one bug - the value never landed:
+resume-mismatch 15/33 (radio list; read the CHECKED one, select before uploading, click the LABEL
+because check(force=True) hits "outside of the viewport"), and stalled-validation (location
+typeahead needs a suggestion picked, not fill()). Result: **20 confirmed submissions, 0
+unconfirmed.** 142 tests (was 112). Decisions D45, D46. Runbook: docs/knowledge/31-apply-batch-runbook.md

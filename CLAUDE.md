@@ -486,6 +486,47 @@ py -3 tools/post_creator/dispatch_engine.py --dry-run --post-id N  # preview dis
   Gemini already does in ~5s. ⚠️ Also: **never call `navigator.clipboard.readText()` through the
   Playwright MCP** — it hung the server for 74 minutes with no output and no error.
 
+- **2026-08-15 — 20 applications went out. Read [[31-apply-batch-runbook]] BEFORE any "find jobs
+  and apply" task** — it is the whole loop in six commands and it exists so this never costs a
+  session again. Decisions **D45 / D46**.
+  Morning state: an `apply-all` over the 43-row board submitted **0 of 32** (9 closed, 13 not Easy
+  Apply). Azam called it: *"are you just repeating the previous posts you already scraped?"* He was
+  right. Purged, re-discovered, and by evening **20 confirmed submissions, 0 unconfirmed**.
+  🔴 **`f_EA=true` is NOT the Easy Apply filter.** LinkedIn ignores it silently and returns the
+  unfiltered set; the real one is **`f_AL=true`**. Same query, same minute: **1/18 → 17/17**. The
+  LinkedIn MCP's `search_jobs(easy_apply=True)` emits `f_EA`, so **that flag does nothing either**.
+  One wrong parameter explains every `external-or-none` this project has ever logged.
+  🔴 **Survey before you answer.** He stopped the blind runs: *"read all these 30 forms, see what
+  questions pop up, I give you the answer."* `apply-all` only reports questions it failed on, on
+  steps it reached, so a stall on page 3 hides everything behind page 3 and **each failure costs a
+  real application slot to learn one thing**. New **`apps/autopilot/survey.py`** walks the same
+  wizard and submits nothing: **44 forms, 104 distinct questions, 65 answerable** → one editing
+  pass → **102 of 104**. Most "missing" answers were phrasings `FIELD_MAP` did not recognise for
+  data the bank already held.
+  ⚠️ Its own first run printed `0 questions` on three real forms because it detected the Easy Apply
+  button and never clicked it. It now shouts **ZERO QUESTIONS SEEN** rather than a tidy zero.
+  🔴 **Three failures, one bug: the value never landed.** (1) `resume-mismatch`, **15 of 33** — the
+  résumé step is a **radio list of five CVs** and the code compared against the *first filename in
+  the text* while the correct CV sat three rows down, already uploaded. (2) The fix then failed
+  silently: `check(force=True)` → *"Element is outside of the viewport"*; the list scrolls, and
+  `force` skips actionability but not the viewport. **Click the label.** (3) `stalled-validation`
+  was a **typeahead** — "Location (city)" showed *"This field is required"* in red **while visibly
+  containing "Srinagar"**, because `fill()` sets the string and never fires the selection.
+  *A field that displays your value has not necessarily accepted it.*
+  **New in the bank:** `experience.technology_years` (**97** technologies from his own CV, truthful
+  **0** default) because LinkedIn asks "how many years with `<any tech>`" and one unmapped
+  technology stalls the whole wizard; `capabilities`, `logistics`, `narrative`,
+  `education.completed_*`, postal code. **`freetext.py`** answers only the per-company motivation
+  question via the free model, whitelisted to prose and refusing anything checkable.
+  ⚠️ **`FREETEXT_MAX_TOKENS=4096`, not 1024** (thinking eats the budget; 1024 returned a fluent
+  half-sentence), and **never put a word count in a prompt** — the model numbered words inline.
+  ⚠️ **Never call `navigator.clipboard.readText()` through the Playwright MCP** (hung 74 minutes),
+  never pass regexes through a bash heredoc (`` became a literal 0x08 byte in `answers.py`), and
+  the Easy Apply modal is a **native `<dialog>`** — `get_by_role("dialog")` finds it, CSS
+  `[role=dialog]` does not.
+  ⚠️ **Unreconciled:** `offer_in_hand` is recorded as "Yes / 80000" because he said so, but
+  80k/month is **9.6 LPA against the 8.4 LPA he asks for**. **142 tests** (was 112).
+
 - **NEXT — in this order. The reordering fact is now: 14 applications, 1 reply, and the reply came from
   the only warm-insider approach the project has made.**
   1. 🔴 **Answer Recruiter-A** — 16 days late, on a personal phone number. **Only the owner can do this**;

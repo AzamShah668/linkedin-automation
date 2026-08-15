@@ -2033,3 +2033,344 @@ is not capability — only an exact echo test is.
 ⚠️ **`api key` at the repo root.** The Google key first landed in an extensionless file that `*.key`
 does **not** match — untracked but not ignored, in a public repo. Moved to `.env`, never committed,
 `.gitignore` hardened. Related: [[29-omniroute-gateway]], [[05-decisions]] D42.
+
+## Reply check — 2026-08-13 third run (twelfth overall; Gmail clean, LinkedIn UNCHECKED again)
+
+Same 5 `Applied` rows (Infosys 90, CodeRound AI 89, Innova ESI 87, GoodSpace AI 85, Recro 82) against
+`infosys.com`, `coderound.ai`, `innovaesi.com`, `goodspace.ai`, `recro.io`. **Zero new replies in Gmail.
+No Notion writes, no `--event reply` alert** — correct per de-dupe rule 6. Slack got `--event info`.
+
+- **Query proven before the zero was believed** (standing rule, twelfth run). Bare `newer_than:14d
+  in:inbox` → **201** threads; `(from:linkedin.com OR from:infosys.com)` → live results. Only then was
+  the empty 5-domain result trusted.
+- **Widened** to `newer_than:30d in:anywhere` on the same 5 domains → also empty. Not misfiled in spam.
+- **Bounces clean** at `newer_than:14d in:anywhere` (mailer-daemon / postmaster / Undeliverable / DSN).
+- **Campus sweep** (naukricampus, doselect, hackerrank, hackerearth, mettl, imocha, codility, hirevue,
+  epam, micro1, ceipalmail) → only the **three known items**: the 08-05 EPAM cancellation and the two
+  Crossing Hurdles/micro1 `ceipalmail.com` funnel mails (08-09, 08-10). Twelfth run done by hand;
+  "next work" #6 still unbuilt.
+- **A keyword sweep was added this run** as a second angle on the same question: `newer_than:30d
+  in:anywhere` on the five company *names* rather than their domains (21 threads). Every hit is either
+  a LinkedIn notification/job alert or **our own `SENT` mail** — including the three 08-09 follow-ups to
+  `saksham@goodspace.ai`, `swaleha.pathan@innovaesi.com` and `chaitanya@coderound.ai`, all of which
+  remain unanswered four days on. A domain-only search would miss a recruiter replying from a personal
+  address; the name sweep is cheap and closes part of that known blind spot.
+- **Infosys skipped correctly**: `Reply` was already ✓ from the 08-11 run and Gmail holds no newer
+  message. Status stays `Applied` (only Interview/Rejection move it).
+
+### 🔴 The LinkedIn inbox was NOT read — SECOND time in three runs, and BOTH paths failed
+
+`py -3 -m apps.autopilot.replies` was **refused by the permission prompt for the fourth consecutive
+session**, on the PowerShell tool *and* on the Bash tool, and the **LinkedIn MCP is not connected**
+this session (`ToolSearch` for it returns nothing, twice). So the 08-13-later fallback was gone too.
+
+**Say this as "unchecked", never as "no replies"** — that distinction is the whole of D35, and the
+LinkedIn inbox is the only channel that has ever produced a real reply in this project. The Gmail
+proxy for it stays worthless and was not used: every `messages-noreply@linkedin.com` item in the
+window is job-alert marketing (*"HuntingCube and Accenture in India are hiring"*), and that sender
+demonstrably missed the one true positive it has ever been given ([[calibrate-a-proxy-on-a-known-positive]]).
+
+**This is now the pattern, not the incident.** Of the last three reply checks, **two could not open the
+LinkedIn channel at all**. The unit-tested code path is the one that keeps not running interactively and
+its `--notify` branch has still never fired in anger. It works fine under Task Scheduler (the 08-11 12:49
+run is the proof), so the gap is session-only — but a channel readable only by a scheduled task is a
+channel this session cannot verify, and the honest word for that is *unchecked*.
+
+### Nothing here moved, and the lever is unchanged
+
+Twelve reply checks have now found exactly **one** reply, and it was found by opening LinkedIn, not
+Gmail. **Recruiter-A has been waiting 18 days** for the CV on a personal WhatsApp number. That is still
+the warmest lead in the project and **only the owner can send it**.
+
+## Accept watch — 2026-08-14 01:02 (ninth consecutive quiet run; all five still pending)
+
+Ran per [[13-accept-watch-runbook]]. **All three steps completed. Nothing accepted, nothing due, nothing
+expired** → step 5's quiet exit: **no Slack post, no Notion writes, nothing sent.**
+
+- **Step 1 `expire`:** `Nothing older than 14 days still pending.` The 08-06 trio is at **day 8** (wall
+  **08-20**); the 08-10 pair at **day 4** (wall **08-24**).
+- **Step 2 (the poll):** all five `get_person_profile` calls returned, every one reading `· 3rd` with a
+  `Pending` button. That doubles as the only trustworthy auth check ([[05-decisions]] D13), so **the
+  LinkedIn MCP session is healthy** — worth stating, because the 08-13 *third* reply check had to record
+  the inbox as unchecked with the MCP disconnected. It is connected now.
+
+| Who | Company · role | Sent | Day | Degree | Badge |
+|---|---|---|---|---|---|
+| **Recruiter-E** (CTO) | SkillsCapital · SWE Intern (AI/ML & Agentic AI) **93** | 08-06 | 8 | `3rd` | `Pending` |
+| **Recruiter-F** (Co-Founder) | Mirai Alpha · AI Engineering Intern | 08-06 | 8 | `3rd` | `Pending` |
+| **Recruiter-D** (Recruitment Consultant) | Hired · AI/ML Engineer (keep-on-file) | 08-06 | 8 | `3rd` | `Pending` |
+| **Recruiter-G** (Lead Recruiter, Hyderabad) | Celigo · AI Integration Engineer 80 | 08-10 | 4 | `3rd` | `Pending` |
+| **Recruiter-H** (Talent Partner, Singapore) | Neurones IT Asia · DevOps Engineer 82 | 08-10 | 4 | `3rd` | `Pending` |
+
+- **Step 3 `due`:** `[]` — **and this run needed the disambiguation more than any before it.** It ran at
+  **01:02**, four hours past the 09:00–21:00 gate, which is precisely when `cmd_due` returns `[]`
+  unconditionally. `list --status accepted` is **also `[]`**, so nothing ripe is being held for morning.
+  Without that second check, a gate-suppressed row and an empty queue are byte-identical (the 08-10 21:02
+  note exists for exactly this, and at 01:02 the ambiguity is total rather than marginal).
+
+### Nothing here is late, and nothing here is the lever
+
+Day 8 on a cold connect with no note is still ordinary latency; day 4 is nothing. **The correct action on
+all five is to wait** — no version of this runbook makes a stranger accept faster. The open levers are
+unchanged from the 08-13 runs: answer **Recruiter-A** (now **19 days**), Track A **A0** (Infosys Junior AI
+Engineer 90, where Recruiter-A is already 1st-degree so **no accept is needed at all**), and the 15th
+application (TCS) that the 08-13 reply check found recorded nowhere.
+
+### Observations carried forward unchanged
+
+- ⭐ **Recruiter-G's Celigo *Ora* / *Agent Builder* hook still stands** as her touch-2 proof-of-effort
+  detail — but harvest it from the live profile **at send time**, not now ([[05-decisions]] D22). Her
+  profile this run surfaced no new activity to re-date it against.
+- 👀 **Recruiter-F still advertises only the *Founder's Office Intern* req.** The AI Engineering Intern
+  posting she was pitched for remains closed, unchanged since 08-09. **Do not silently re-aim the packet
+  at a different job.**
+- 🪤 **PYMK trap, tenth confirmation.** The Indian-name sidebar `references` on all five profiles are
+  LinkedIn "people you may know" suggestions, **never a warm path**.
+
+### ⚠️ `last_checked` is still `null` on all five — NINTH recording
+
+Fifteen profile polls across three accept watches (08-13 ×2, 08-14) and
+`output/outreach/pending-invites.json` remains **byte-identical to its 08-06 state**. `invite_tracker.py`
+stamps `last_checked` only inside `mark-accepted`, so "polled fifteen times, none accepted" and "never
+polled once" write the same file. The polling history exists **only in these prose sections**, where no
+script can read it — the exact shape [[05-decisions]] D30 warns about.
+
+The 08-13 entry escalated this to the owner rather than log it a ninth time. It is logged a ninth time
+anyway, because the run happened and the record has to stay continuous. **The tally is the finding.** It
+is a ~5-line fix (`cmd_list` stamping, or a `mark-checked` subcommand) waiting on one word from the
+owner, not on any technical unknown.
+
+## Accept watch — 2026-08-14 09:06 (tenth consecutive quiet run; all five still pending)
+
+Ran per [[13-accept-watch-runbook]]. **All three steps completed. Nothing accepted, nothing due, nothing
+expired** → step 5's quiet exit: **no Slack post, no Notion writes, nothing sent.**
+
+- **Step 1 `expire`:** `Nothing older than 14 days still pending.` The 08-06 trio is at **day 8** (wall
+  **08-20**); the 08-10 pair at **day 4** (wall **08-24**).
+- **Step 2 (the poll):** all five `get_person_profile` calls returned, every one reading `· 3rd` with a
+  `Pending` button. That doubles as the only trustworthy auth check ([[05-decisions]] D13), so **the
+  LinkedIn MCP session is healthy at 09:06** — it was disconnected as recently as the 08-13 third reply
+  check, so this is worth stating rather than assuming.
+
+| Who | Company · role | Sent | Day | Degree | Badge |
+|---|---|---|---|---|---|
+| **Recruiter-E** (CTO) | SkillsCapital · SWE Intern (AI/ML & Agentic AI) **93** | 08-06 | 8 | `3rd` | `Pending` |
+| **Recruiter-F** (Co-Founder) | Mirai Alpha · AI Engineering Intern | 08-06 | 8 | `3rd` | `Pending` |
+| **Recruiter-D** (Recruitment Consultant) | Hired · AI/ML Engineer (keep-on-file) | 08-06 | 8 | `3rd` | `Pending` |
+| **Recruiter-G** (Lead Recruiter, Hyderabad) | Celigo · AI Integration Engineer 80 | 08-10 | 4 | `3rd` | `Pending` |
+| **Recruiter-H** (Talent Partner, Singapore) | Neurones IT Asia · DevOps Engineer 82 | 08-10 | 4 | `3rd` | `Pending` |
+
+- **Step 3 `due`:** `[]`, **and genuinely empty rather than gate-suppressed.** 09:06 is six minutes inside
+  the 09:00–21:00 window, so `cmd_due` was not returning `[]` unconditionally the way it was at 01:02 last
+  night; `list --status accepted` is **also `[]`**, so no ripe row is being held for later either. Both
+  checks are needed — the two states print identically (08-10 21:02 note).
+
+### Nothing here is late, and nothing here is the lever
+
+Day 8 on a cold connect with no note is ordinary latency; day 4 is nothing. **The correct action on all
+five is to wait** — no version of this runbook makes a stranger accept faster. The open levers are
+unchanged: answer **Recruiter-A** (now **19 days**), Track A **A0** (Infosys Junior AI Engineer 90, where
+Recruiter-A is already 1st-degree so **no accept is needed at all**), and the 15th application (TCS) the
+08-13 reply check found recorded nowhere.
+
+### Observations carried forward
+
+- ⭐ **Recruiter-G's Celigo *Ora* / *Agent Builder* hook still stands** as her touch-2 proof-of-effort
+  detail. Her profile this run showed no new activity to re-date it against — the CEO repost she shares it
+  from is now **4 months** old, so harvest the phrasing at send time, not from this entry ([[05-decisions]] D22).
+- ⭐ **Recruiter-H's profile re-confirms her touch-2 hook**: *"zero agency dependency — building strong
+  pipelines through LinkedIn, GitHub, and niche tech communities"*, headline naming DevOps/Cloud/AI. But
+  note what her last 6 months of posts actually are: Senior Software Architect (10+ yrs), Senior Data
+  Leader, Senior Functional PM, AAA/Temenos, infra PM — **all mid-to-senior, none fresher-level**, same
+  shape as Recruiter-B (08-01). The relationship is worth more than the specific req.
+- 👀 **Recruiter-F still advertises only the *Founder's Office Intern* req.** The AI Engineering Intern
+  posting she was pitched for remains closed, unchanged since 08-09. **Do not silently re-aim the packet
+  at a different job.**
+- 🪤 **PYMK trap, eleventh confirmation.** The Indian-name sidebar `references` on all five profiles are
+  LinkedIn "people you may know" suggestions, **never a warm path**.
+
+### ⚠️ `last_checked` is still `null` on all five — TENTH recording
+
+Twenty profile polls across four accept watches (08-13 ×2, 08-14 ×2) and
+`output/outreach/pending-invites.json` is **still byte-identical to its 08-06 state**. Re-stating the
+finding rather than the tally: this run cannot prove, from any file on disk, that the previous nine ever
+happened. **A poll that leaves no trace is indistinguishable from a poll that never ran** — the same
+shape as D35, where eight honest "zero replies" reports were all reading a channel that could not contain
+the reply. Still a ~5-line fix (`cmd_list` stamping, or a `mark-checked` subcommand) waiting on one word
+from the owner.
+
+## Reply check — 2026-08-15 (thirteenth run; BOTH channels read, both quiet)
+
+Same 5 `Applied` rows (Infosys 90, CodeRound AI 89, Innova ESI 87, GoodSpace AI 85, Recro 82) against
+`infosys.com`, `coderound.ai`, `innovaesi.com`, `goodspace.ai`, `recro.io`. **Zero new replies on either
+channel. No Notion writes, no `--event reply` alert** — correct per de-dupe rule 6. Slack got `--event info`.
+
+**The LinkedIn MCP was connected this session, so the inbox was READ, not skipped.** That makes this the
+second run in thirteen where the answer on that channel is *quiet* rather than *unknown* (the first was
+08-13-later). Of the last four reply checks, two could open the channel and two could not — the session-only
+permission gap on `py -3 -m apps.autopilot.replies` is still the reason, and it is still unfixed.
+
+### The LinkedIn inbox, read in full — unchanged since 08-13
+
+6 conversations, identical in shape to the 08-13-later reading. Nothing inbound is unaccounted for:
+
+| Thread | Last message | Reading |
+|---|---|---|
+| **Recruiter-A** (Infosys) | **07-26 18:58, his** | known reply, ticked 08-11 — **no newer message** |
+| Recruiter-B (Innova ESI) | 08-01, `You:` | we spoke last, still no answer (14 days) |
+| Recruiter-C (GoodSpace) | 08-01, `You:` | we spoke last, still no answer (14 days) |
+| Learnbay (sponsored InMail) | 08-11 | **ad**, not a lead — the `You:` trap from 08-13 |
+| Two personal threads | Jun 25 · May 12 | not job traffic |
+
+- **Infosys skipped correctly per de-dupe rule 6**, and — per the 08-13 lesson — that was **verified by
+  opening the thread**, not inferred from the inbox list preview. His last message is still
+  *"9419280094 / Send ur cv on this number / Wa Alaikum As Salam"*. **Twenty days unanswered.**
+- CodeRound AI and Recro still have **no LinkedIn thread at all** (email-only, Easy-Apply-only).
+- The five pending 08-06/08-10 invites have produced **no message threads**, consistent with all five still
+  reading `Pending` at the 08-14 09:06 accept watch.
+
+### Verification done before any zero was believed (standing rule, thirteenth run)
+
+- Bare `newer_than:14d in:inbox` → **201** threads; `(from:linkedin.com OR from:infosys.com)` → 5 live
+  results. Connector and `from:` OR-group syntax both proven before the empty 5-domain result was trusted.
+- **Widened** to `newer_than:30d in:anywhere` on the same 5 domains → also empty. Not misfiled in spam.
+- **Bounces clean** at `newer_than:14d in:anywhere` (mailer-daemon / postmaster / Undeliverable / DSN).
+- **Campus sweep** (naukricampus, doselect, hackerrank, hackerearth, mettl, imocha, codility, hirevue, epam,
+  micro1, ceipalmail) → the **same three known items** and nothing new: the 08-05 EPAM cancellation and the
+  two Crossing Hurdles/micro1 `ceipalmail.com` funnel mails (08-09, 08-10), all still unread. Thirteenth run
+  done by hand; "next work" #6 still unbuilt.
+- **Recro's domain was supplied by hand again.** Its `output/outreach/recro/contact.md` exists now (written
+  08-14) but deliberately carries **no email address** — there is no verified one and D36 says do not guess.
+  So the harvest step still cannot produce `recro.io`, and any future Easy-Apply-only row has the same hole.
+
+### Nothing moved, and the lever is unchanged
+
+Thirteen reply checks have now found exactly **one** reply, and it was found by opening LinkedIn, not Gmail.
+**Recruiter-A has been waiting 20 days** for the CV on a personal WhatsApp number. That is still the warmest
+lead in the project, it sits inside the company holding the board's best unworked row (Junior AI Engineer 90),
+and **only the owner can send it**.
+
+Also still true and still unrecorded anywhere a script can read: the **15th application (TCS)**, found by the
+08-13 reply check in an employer-side receipt and never written to the ledger or the board.
+
+## Accept watch — 2026-08-15 13:01 (eleventh consecutive quiet run; all five still pending)
+
+Ran per [[13-accept-watch-runbook]]. **All three steps completed. Nothing accepted, nothing due, nothing
+expired** → step 5's quiet exit: **no Slack post, no Notion writes, nothing sent.**
+
+- **Step 1 `expire`:** `Nothing older than 14 days still pending.` The 08-06 trio is at **day 9** (wall
+  **08-20**); the 08-10 pair at **day 5** (wall **08-24**).
+- **Step 2 (the poll):** all five `get_person_profile` calls returned, every one reading `· 3rd` with a
+  `Pending` button. That doubles as the only trustworthy auth check ([[05-decisions]] D13), so **the
+  LinkedIn MCP session is healthy at 13:01**.
+
+| Who | Company · role | Sent | Day | Degree | Badge |
+|---|---|---|---|---|---|
+| **Recruiter-E** (CTO) | SkillsCapital · SWE Intern (AI/ML & Agentic AI) **93** | 08-06 | 9 | `3rd` | `Pending` |
+| **Recruiter-F** (Co-Founder) | Mirai Alpha · AI Engineering Intern | 08-06 | 9 | `3rd` | `Pending` |
+| **Recruiter-D** (Recruitment Consultant) | Hired · AI/ML Engineer (keep-on-file) | 08-06 | 9 | `3rd` | `Pending` |
+| **Recruiter-G** (Lead Recruiter, Hyderabad) | Celigo · AI Integration Engineer 80 | 08-10 | 5 | `3rd` | `Pending` |
+| **Recruiter-H** (Talent Partner, Singapore) | Neurones IT Asia · DevOps Engineer 82 | 08-10 | 5 | `3rd` | `Pending` |
+
+- **Step 3 `due`:** `[]`, **and genuinely empty rather than gate-suppressed.** 13:01 sits squarely inside
+  the 09:00–21:00 window, so `cmd_due` was not returning `[]` unconditionally; `list --status accepted` is
+  **also `[]`**, so no ripe row is being held for later. Both checks are needed — the two states print
+  identically (08-10 21:02 note).
+
+### ⚠️ One profile timed out, and a timeout is not a "still pending"
+
+**Recruiter-H's first `get_person_profile` call failed** — `Page.goto: Timeout 30000ms exceeded`, empty
+`sections`, a populated `section_errors` block with a trace path. **A retry seconds later returned the full
+profile**, `· 3rd` / `Pending`, so the finding stands on a real read.
+
+Worth recording because of what the failure *shaped like*: the response was still HTTP-successful JSON with
+the right `url` and `profile_urn`, and only the absence of `sections` distinguishes it from a good read. A
+run that skimmed for "no accept signal" would have found none and recorded the row as unchanged —
+truthfully-worded and evidence-free, the exact D30/D35 shape. **The other four calls succeeded either side
+of it, so this was a page-load flake, not auth.** Rule: on a `section_errors` response, retry; if the retry
+also fails, record the row as **unknown**, never as pending.
+
+### Nothing here is late, and nothing here is the lever
+
+Day 9 on a cold connect with no note is still ordinary latency; day 5 is nothing. **The correct action on
+all five is to wait.** The open levers are unchanged: answer **Recruiter-A** (now **20 days**, confirmed
+again by the 08-15 reply check earlier today), Track A **A0** (Infosys Junior AI Engineer 90, where
+Recruiter-A is already 1st-degree so **no accept is needed at all**), and the 15th application (TCS) still
+recorded nowhere a script can read.
+
+### Observations carried forward
+
+- ⭐ **Recruiter-G's Celigo *Ora* / *Agent Builder* hook still stands** as her touch-2 proof-of-effort
+  detail. Her profile shows **no new activity** — the CEO repost she shares it from is now ~4 months old and
+  her own last post is a year old, so harvest the phrasing at send time ([[05-decisions]] D22).
+- ⭐ **Recruiter-H's touch-2 hook re-confirmed verbatim**: *"zero agency dependency — building strong
+  pipelines through LinkedIn, GitHub, and niche tech communities"*, headline naming DevOps/Cloud/AI. Her
+  last 6 months of posts remain **all mid-to-senior** (Senior Software Architect 10+, Senior Data Leader,
+  Senior Functional PM, AAA/Temenos, infra PM) — the relationship is worth more than any specific req.
+- 👀 **Recruiter-F still advertises only the *Founder's Office Intern* req.** The AI Engineering Intern
+  posting she was pitched for remains closed, unchanged since 08-09. **Do not silently re-aim the packet
+  at a different job.**
+- 👀 **Recruiter-E has no recent posts at all** — nothing to re-date a proof-of-effort detail against; his
+  SkillsCapital "Agentic AI Talent Intelligence Engine" position text is still the only harvestable hook.
+- 🪤 **PYMK trap, twelfth confirmation.** The Indian-name sidebar `references` on all five profiles are
+  LinkedIn "people you may know" suggestions, **never a warm path**.
+
+### ⚠️ `last_checked` is still `null` on all five — ELEVENTH recording
+
+Twenty-five profile polls across five accept watches (08-13 ×2, 08-14 ×2, 08-15) and
+`output/outreach/pending-invites.json` is **still byte-identical to its 08-06 state**. The escalation to the
+owner is now ten runs old and unanswered, so the honest framing is no longer "waiting on a word" but **the
+project has chosen, by default, to keep a poll history that only exists in prose**. Still a ~5-line fix
+(`cmd_list` stamping, or a `mark-checked` subcommand); still purely additive, touching no board status and
+nothing `ledger.py` can reach.
+
+---
+
+## 2026-08-15 — the day applications actually went out (20 confirmed)
+
+**Headline: 0 submissions in the morning, 20 confirmed by evening.** Full procedure in
+[[31-apply-batch-runbook]]; reasoning in [[05-decisions]] D45 and D46.
+
+### Board
+
+| | |
+|---|---|
+| Purged | 43 `New` rows, all 14-21 days old (backup taken) |
+| Discovered | 115 unique Easy Apply roles, past week, via `f_AL=true` |
+| Loaded | 45 rows scored ≥70, `found=2026-08-15` |
+| Applied | **20 confirmed, 0 unconfirmed** |
+| Board now | `Applied` 33 · `Skipped` 37 · **`New` 25** · `Invite sent` 1 (counted, not estimated) |
+
+The 20: Lotus Interworks · ThreatXIntel · MyRemoteTeam · Talentgigs · Hyper Lychee Labs ·
+slice · Reflections Info Systems · IndiGo · CloudLeap · TCS · BayOne · ShimentoX · Berribot ·
+Discovr AI · ANSR · Armakuni · Valiance Solutions · Infosys Finacle · Opttab · Synthires.
+
+### Why it was 0 before
+
+1. **The board was an archive.** `apply-all` over 32 stale rows submitted **0**: 9 closed,
+   13 not Easy Apply, the rest stalled. Discovery rots in ~5 days.
+2. **`f_EA=true` is not the Easy Apply filter** and LinkedIn ignores it silently. `f_AL=true`
+   is. Same query: 1/18 → 17/17. This is also what the LinkedIn MCP's
+   `search_jobs(easy_apply=True)` emits, so that flag does nothing.
+3. **The bank could not answer the forms.** 44 forms carry 104 distinct questions; it answered
+   65. The fix was `survey.py` (read every form, submit nothing), then one editing pass to
+   **102 of 104**.
+
+### What is in the bank now that was not
+
+`capabilities` (9 owner-confirmed Yes/No), `logistics` (7, incl. walk-in drives = **No** —
+Srinagar to Chennai is ~3000km), `narrative` (reason for change, certifications, primary
+technologies, small/large scale), `identity.postal_code` 190020, `education.completed_*`, and
+**`experience.technology_years` — 97 technologies** grounded in his CV with a truthful 0 default.
+
+### Still open
+
+- **6 `stalled-validation`, 5 `reached-review`** on the last run. Several are genuine
+  mismatches (roles wanting 10+ years); the rest need the §5 hand-diagnosis loop.
+- ⚠️ **`NEEDS_AZAM.offer_in_hand` = "Yes / 80000" is UNRECONCILED.** He stated it, so it is
+  recorded, but 80,000/month is 9.6 LPA — **above** the 8.4 LPA he asks for. A recruiter
+  seeing both will ask. Either raise the expectation or drop the claim.
+- Certifications answer truthfully "no formal certifications, but…" so the field never blocks.
+  If he ever earns one, it goes in `narrative.certifications`.
+- The 13 overdue follow-up nudges from D44 are still unsent (his tick).
+- **Recro / Arya Priyadarshini** bare-connect still awaits approval ([[30-warm-insider-runbook]]).
