@@ -54,6 +54,19 @@ MOTIVATION = re.compile(
 
 MAX_WORDS = 70
 
+
+def _budget_line(max_chars: int | None) -> str:
+    """Tell the model the character cap the FORM enforces, in characters, not words.
+
+    ⚠️ Never phrase this as a word count. Asking gemini-3.5-flash-lite for "70 words or fewer"
+    made it number the words as it wrote - "who (20) runs (21) production (22)" - and burn the
+    budget doing it. A character cap it simply respects.
+    """
+    if not max_chars:
+        return ""
+    return (f"HARD LIMIT: your entire answer must be under {max_chars} characters. "
+            f"Finish the final sentence within that.")
+
 # ⚠️ 4096, not llm.DEFAULT_MAX_TOKENS (1024). Measured 2026-08-15 on the SAME prompt:
 #     1024 -> 26 words, ended mid-clause on a comma
 #     4096 -> 48 words, complete sentence with a full stop
@@ -75,7 +88,7 @@ def is_llm_answerable(label: str) -> bool:
     return bool(MOTIVATION.search(text))
 
 
-def build_prompt(label: str, company: str, role: str) -> str:
+def build_prompt(label: str, company: str, role: str, max_chars: int | None = None) -> str:
     """Only facts already recorded in this repo. No new claims are introduced here.
 
     ⚠️ Do NOT put a word COUNT in this prompt. Asking gemini-3.5-flash-lite for "70 words or
@@ -88,6 +101,7 @@ def build_prompt(label: str, company: str, role: str) -> str:
 QUESTION: "{label}"
 COMPANY: {company or "unknown"}
 ROLE: {role or "unknown"}
+{_budget_line(max_chars)}
 
 Facts you may use (use nothing else):
 - Final-year B.Tech Computer Science student; DevOps Engineer at Verventech, Srinagar, India.
@@ -107,12 +121,18 @@ Rules:
 Answer:"""
 
 
-def answer(label: str, company: str = "", role: str = "") -> tuple[str | None, str]:
-    """Return (answer, why). `answer` is None whenever the field must be left blank."""
+def answer(
+    label: str, company: str = "", role: str = "", max_chars: int | None = None
+) -> tuple[str | None, str]:
+    """Return (answer, why). `answer` is None whenever the field must be left blank.
+
+    `max_chars` is the field's own maxlength. Writing INSIDE the budget beats trimming
+    afterwards: a trimmed answer loses its last clause, which is usually the point.
+    """
     if not is_llm_answerable(label):
         return None, "not a motivation question - bank or blank"
 
-    prompt = build_prompt(label, company, role)
+    prompt = build_prompt(label, company, role, max_chars)
     try:
         text = llm.ask(prompt, max_tokens=FREETEXT_MAX_TOKENS)  # see the constant for why 4096
     except Exception as exc:  # noqa: BLE001 - any failure means blank, never a guess
@@ -140,6 +160,16 @@ def answer(label: str, company: str = "", role: str = "") -> tuple[str | None, s
 
     if "—" in text:
         text = text.replace("—", ", ")
+
+    # The model is asked to stay inside the budget; this is the backstop when it does not.
+    # Refuse rather than hand back a fragment - _fit_to_limit in fill.py would trim it anyway,
+    # and a motivation answer that loses its final clause has lost its point.
+    if max_chars and len(text) > max_chars:
+        window = text[:max_chars]
+        cut = max(window.rfind(". "), window.rfind("! "), window.rfind("? "))
+        if cut < max(40, max_chars // 3):
+            return None, f"llm wrote {len(text)} chars against a {max_chars} cap; left blank"
+        text = window[: cut + 1].strip()
     return text, "llm-generated, grounded prompt"
 
 

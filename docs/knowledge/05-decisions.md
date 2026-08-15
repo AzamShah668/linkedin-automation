@@ -1535,3 +1535,37 @@ more on the runs after the résumé and typeahead fixes. **142 tests** (was 112)
 
 Related: D45 (the board was stale and `f_EA` is the wrong filter) · D31 (a pattern that can
 match another question is as dangerous as inventing a value) · D30 · D42 (the token budget)
+
+### Addendum to D46 — free-text fields have a character cap, and the browser enforces it silently
+
+Caught by Azam 2026-08-15, after the 21 submissions: *"there is a limit on the number of words
+you can write and you cannot exceed that."* He was right, and the failure mode is the worst
+kind.
+
+LinkedIn caps free-text answers — the live counter reads **`0/20`** on the years fields and
+`0/300` on prose. **Playwright's `fill()` does not error on an over-long string; the BROWSER
+truncates it.** So a 235-character banked paragraph arrived on a real employer's form ending
+mid-word, with nothing raised anywhere. `Control` did not even capture `maxlength`, so nothing
+had ever looked.
+
+Fixed in three places:
+
+1. **`Control.maxlength`** is captured in `_scan`.
+2. **`_fit_to_limit()`** trims at a sentence end, else a clause break, else **refuses**. It
+   carries two independent floors, because they catch different mistakes: the result must fill
+   a fair share of the **field** (or it reads as a stub), *and* keep a fair share of the
+   **answer** — retaining 8% of a 235-char reply is not a trim, it is a 300-char paragraph
+   aimed at a 20-char box, and the honest move there is blank-and-report.
+3. **The LLM is told the cap in characters** and writes inside it. Verified live: 259 chars at
+   a 300 cap, 188 at 200, both ending on a full stop. ⚠️ The budget line says **characters,
+   never words** — a word count is what made the model number its own words earlier.
+
+The four banked prose answers were rewritten to **under 300 characters each, ending on a full
+stop**, so a common 300-cap field receives finished prose rather than something the trimmer had
+to rescue. `tests/test_field_limits.py` asserts that and fails if anyone lengthens them.
+
+> **A silent truncation is a wrong answer with no error attached.** Anywhere a system accepts
+> your value without complaint, check what it stored, not what you sent — the same lesson as
+> the résumé radio and the location typeahead, one layer lower.
+
+**150 tests** (was 142).

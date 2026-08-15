@@ -233,6 +233,22 @@ def _is_required(control: Locator) -> bool:
     )
 
 
+def _maxlength(control: Locator) -> int | None:
+    """LinkedIn caps free-text answers and shows a live "0/20" counter. Playwright's fill()
+    happily writes past nothing - the BROWSER truncates - so an over-long answer lands as a
+    half-sentence on a real employer's form with no error anywhere."""
+    for attr in ("maxlength", "aria-valuemax", "data-max-length"):
+        try:
+            raw = control.get_attribute(attr)
+        except Exception:  # noqa: BLE001
+            continue
+        if raw and raw.strip().lstrip("-").isdigit():
+            value = int(raw)
+            if 0 < value < 100_000:
+                return value
+    return None
+
+
 def _is_numeric(control: Locator) -> bool:
     if control.get_attribute("type") == "number":
         return True
@@ -246,6 +262,7 @@ class Control:
     tag: str          # input | select | textarea | group
     numeric: bool
     required: bool
+    maxlength: int | None = None   # LinkedIn caps most free-text answers; see _fit_to_limit
 
 
 def _scan(modal: Locator) -> list[Control]:
@@ -273,7 +290,8 @@ def _scan(modal: Locator) -> list[Control]:
         # Identify a <select> by structure, without JS: only selects have <option> children.
         tag_name = "select" if ctl.locator("option").count() else "input"
         controls.append(
-            Control(ctl, _label_for(modal, ctl), tag_name, _is_numeric(ctl), _is_required(ctl))
+            Control(ctl, _label_for(modal, ctl), tag_name, _is_numeric(ctl),
+                    _is_required(ctl), _maxlength(ctl))
         )
 
     # Standalone checkboxes — NOT inside a fieldset. Found 2026-08-06: these were excluded
@@ -407,6 +425,59 @@ def _fill_group(control: Control, value: str) -> bool:
     return False
 
 
+def _fit_to_limit(value: str, limit: int | None) -> tuple[str | None, str]:
+    """Make `value` fit `limit` characters, or refuse. Returns (value_or_None, why).
+
+    ⚠️ Caught by Azam 2026-08-15: LinkedIn caps free-text answers (the live counter reads
+    "0/20", "0/300"). Playwright's `fill()` does not complain about an over-long string - the
+    BROWSER silently truncates it - so a banked paragraph lands on a real employer's form as a
+    half-sentence, ending mid-word, with no error raised anywhere.
+
+    Trimming policy, strictest first:
+      1. fits                      -> send it
+      2. a sentence boundary fits  -> send whole sentences (still reads as finished prose)
+      3. a clause/word boundary    -> send that, no ellipsis
+      4. nothing sensible fits     -> None, leave blank and report
+
+    Rule 4 matters: below roughly a third of the limit there is no answer left, only a stub,
+    and a stub is worse than a blank because nobody notices it.
+    """
+    text = (value or "").strip()
+    if not limit or len(text) <= limit:
+        return text, ""
+
+    # Two independent floors, because they catch different mistakes:
+    #   `usable`  - the result must fill a fair share of the FIELD, or it reads as a stub.
+    #   `survives`- it must keep a fair share of the ANSWER. Keeping 8% of a 235-char reply
+    #               is not a trim, it is a mismatched field (a 300-char paragraph aimed at a
+    #               20-char box), and the honest move there is blank-and-report.
+    usable = max(15, limit // 2)
+    survives = max(1, len(text) // 5)
+
+    def accept(cut: int, inclusive: bool, why: str) -> tuple[str | None, str]:
+        piece = window[: cut + 1] if inclusive else window[:cut]
+        piece = piece.strip()
+        if len(piece) >= usable and len(piece) >= survives:
+            return piece, f"trimmed to {len(piece)}/{limit} chars at {why}"
+        return None, ""
+
+    window = text[:limit]
+    cut = max(window.rfind(". "), window.rfind("! "), window.rfind("? "))
+    if cut > 0:
+        piece, why = accept(cut, True, "a sentence end")
+        if piece:
+            return piece, why
+
+    for sep in ("; ", ", ", " "):
+        cut = window.rfind(sep)
+        if cut > 0:
+            piece, why = accept(cut, False, "a clause break")
+            if piece:
+                return piece, why
+
+    return None, f"answer is {len(text)} chars against a {limit} limit and will not trim cleanly"
+
+
 def _is_typeahead(control: Control) -> bool:
     """A text box that expects you to PICK from its suggestions, not just type."""
     try:
@@ -502,7 +573,9 @@ def _fill_step(bank: dict, modal: Locator, result: FillResult, seen: set[str],
             # checkable fact, and returns None on any failure, which lands us back here with the
             # field blank. Owner-authorised 2026-08-15: stop stalling on the per-company question.
             if control.tag == "input" and not control.numeric and freetext.is_llm_answerable(label):
-                generated, why = freetext.answer(label, company, role)
+                # Pass the field's own cap so the model writes INSIDE it. Trimming afterwards
+                # costs the final clause, which in a motivation answer is the whole point.
+                generated, why = freetext.answer(label, company, role, control.maxlength)
                 if generated:
                     plan.append((control, "llm:freetext", generated))
                     # Recorded as unanswered-by-bank ON PURPOSE even though it gets filled: an
@@ -539,6 +612,20 @@ def _fill_step(bank: dict, modal: Locator, result: FillResult, seen: set[str],
                 seen.add(label)
                 result.unanswered.append(label)
             continue
+
+        # Respect the field's own character cap. Without this the browser truncates silently
+        # and a paragraph arrives mid-word on a real employer's form.
+        fitted, why = _fit_to_limit(value, control.maxlength)
+        if fitted is None:
+            if label not in seen:
+                seen.add(label)
+                result.unanswered.append(f"{label}  (LEFT BLANK: {why})")
+            continue
+        if why and label not in seen:
+            seen.add(label)
+            result.unanswered.append(f"{label}  (filled, but {why})")
+        value = fitted
+
         plan.append((control, key, value))
 
     filled_now = 0
