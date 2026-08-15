@@ -84,7 +84,9 @@ database/*.db
 # Run artifacts and LinkedIn scrape dumps at the repo root. They hold company/role data
 # and are regenerated every run. Untracked-but-not-ignored at the root is the exact shape
 # that put an `api key` file and a groq-login.png one `git add .` from a public repo.
-apply-run-*.log
+apply-run*.log
+survey-run*.log
+*-run-2026-*.log
 jobs-*.json
 scrape-*.json
 devops-india.json
