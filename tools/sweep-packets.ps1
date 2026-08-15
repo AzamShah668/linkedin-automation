@@ -140,7 +140,12 @@ foreach ($line in $rows) {
   # sitting in plain text in the log. If everything starts failing at once, read this first.
   if ($text -match "hit your (session|usage) limit|monthly spend limit|rate.?limit") {
     $limit = ([regex]::Match($text, ".*hit your.*limit[^\r\n]*")).Value.Trim()
-    Say "STOPPING - CLAUDE USAGE LIMIT, not a problem with $company: $limit"
+    # ${company}, not $company: — a colon straight after a variable name makes PowerShell read it
+    # as a drive-qualified reference ($env:PATH), which is a PARSE error, so the whole script dies
+    # before its first line runs. That is why "Job Hunt - Sweep Packets" had exit code 1 on every
+    # run: not a failing build, a file that never executed. The line explaining a silent failure
+    # was itself the silent failure.
+    Say "STOPPING - CLAUDE USAGE LIMIT, not a problem with ${company}: $limit"
     Say "Nothing was built and nothing is wrong with the queue. It keeps for the next run, after the reset."
     break
   }

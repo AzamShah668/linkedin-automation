@@ -214,3 +214,55 @@ Automating any of those three converts this project into the thing it was built 
 Related: [[05-decisions]] **D47** · D32 (volume without contact) · D36 (only evidence may block) ·
 D41 (count what reached nobody) · D44 (the engine fed by nothing) · D12 (human approval) · D8
 (warm insider first) · [[30-warm-insider-runbook]] · [[31-apply-batch-runbook]] · [[26-apply-at-volume]]
+
+---
+
+## 8. First full unattended run — 2026-08-15 19:22→19:41 (19 minutes)
+
+Triggered through the scheduler, not by hand. All eight steps executed in order.
+
+| Step | Time | Result |
+|---|---|---|
+| accepts | 251s | exit 0, nothing ripe |
+| flush | 1s | exit 0, nothing ticked yet — the cheap guard working |
+| replies | 344s | exit 0 |
+| nudge | 0s | 7 already announced, 0 re-posted (dedupe working) |
+| discovery | 1s | skipped, ran today |
+| apply | 302s | 13 rows walked, **0 submitted** |
+| outreach | 215s | **4 named recruiters queued**, 1 escalated |
+| packets | 0s | **exit 1 — parse error, see below** |
+
+**Outreach worked as designed.** Four current recruiters found at Talentgigs, Hyper Lychee Labs,
+slice and IndiGo, each written to `contact.md` and posted for a tick. MyRemoteTeam Inc returned
+4 profiles, none confirmed as working there, and was **escalated rather than blocked** — exactly the
+middle branch from §3. Coverage fell 19 → 17 in the same run.
+
+### ⚠️ apply submitted 0 of 13, and that is not the pipeline failing
+
+Six `stalled-validation`, five `reached-review`, two `closed`. These 13 are the **leftovers** from a
+board whose good rows were already used: earlier the same day, a fresh batch submitted **21 of 21**.
+
+Per §5 of [[31-apply-batch-runbook]], both statuses mean a required field is still empty — usually a
+typeahead that displays a value it never accepted. Diagnosing them is the by-hand Playwright loop,
+one job at a time. **Do not read this as "apply is broken"; read it as "these rows need the survey
+treatment".** Re-discover first — the board rots in about five days.
+
+### 🔴 Sweep Packets had never run. Not once.
+
+```powershell
+Say "STOPPING - CLAUDE USAGE LIMIT, not a problem with $company: $limit"
+```
+
+A colon straight after a variable name makes PowerShell read `$company:` as a drive-qualified
+reference, and that is a **parse** error — the whole file dies before its first line executes. The
+scheduled task showed exit code 1 on every run and looked exactly like a build that kept failing.
+Nothing was failing. **The script never ran at all.**
+
+The line was written to explain a *different* silent failure (the D25 usage-limit wall) and was
+itself a silent failure the whole time.
+
+Fixed with `${company}`, and `tests/test_powershell_parses.py` now parses **every** `tools/*.ps1`
+through PowerShell's own parser. It was calibrated on a known positive — a deliberately broken probe
+script — because a clean sweep from an unverified check is not evidence. This catches the whole
+class: unterminated strings, unbalanced braces, an indented here-string terminator, `$var:` typos.
+None of them produce a useful runtime error, because there is no runtime.
