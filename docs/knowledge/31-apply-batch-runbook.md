@@ -175,6 +175,19 @@ by `tech_years_answer()`, defaulting to **0**.
 
 A truthful 0 loses only roles he would fail in the technical round. Never round up.
 
+### ⚠️ Free-text fields have a character cap and the browser enforces it silently
+
+LinkedIn's counter reads **`0/20`** on the years fields and `0/300` on prose. **`fill()` does
+not error on an over-long string — the browser truncates it**, so a banked paragraph lands
+mid-word on a real employer's form with nothing raised anywhere.
+
+- `Control.maxlength` is captured in `_scan`; `_fit_to_limit()` trims at a sentence end, else a
+  clause break, else **leaves it blank and reports**.
+- **Keep every `narrative.*` answer under 300 characters and ending on a full stop.**
+  `tests/test_field_limits.py` fails if anyone lengthens them.
+- The LLM is handed the cap **in characters** and writes inside it. Never state it as a word
+  count.
+
 ### The one place an LLM writes to a form
 
 `freetext.py`, for motivation prose only. It refuses anything checkable (years, salary,
