@@ -22,7 +22,7 @@ from pathlib import Path
 
 from playwright.sync_api import Locator, Page, TimeoutError as PWTimeout, sync_playwright
 
-from apps.autopilot import ledger
+from apps.autopilot import freetext, ledger
 from apps.autopilot.answers import (
     NUMERIC,
     REPO,
@@ -32,6 +32,7 @@ from apps.autopilot.answers import (
     lookup,
     match_field,
     resolve,
+    tech_years_answer,
 )
 
 # The LinkedIn-logged-in profile is the SUBDIRECTORY, not .pw_browser itself.
@@ -406,6 +407,51 @@ def _fill_group(control: Control, value: str) -> bool:
     return False
 
 
+def _is_typeahead(control: Control) -> bool:
+    """A text box that expects you to PICK from its suggestions, not just type."""
+    try:
+        el = control.loc
+        if (el.get_attribute("aria-autocomplete") or "").lower() in ("list", "both"):
+            return True
+        if (el.get_attribute("role") or "").lower() == "combobox":
+            return True
+        return el.get_attribute("aria-expanded") is not None
+    except Exception:  # noqa: BLE001
+        return False
+
+
+def _fill_typeahead(control: Control, value: str) -> bool:
+    """Type, then SELECT a suggestion. `fill()` alone leaves the field logically empty.
+
+    ⚠️ Found 2026-08-15 on NielsenIQ: "Location (city)*" kept showing "This field is
+    required" in red while visibly containing text. LinkedIn's location box is an
+    autocomplete bound to a location ENTITY - `fill()` sets the visible string but never
+    fires the selection, so the form still considers it blank and the wizard stalls
+    forever. `stalled-validation` with no explanation was this, five times in one run.
+    """
+    el = control.loc
+    page = el.page
+    el.click()
+    el.fill("")
+    el.type(value, delay=90)          # per-keystroke, or the suggestion list never opens
+    page.wait_for_timeout(1200)
+
+    option = page.locator(
+        "[role=listbox] [role=option], .basic-typeahead__triggered-content [role=option], "
+        "ul[role=listbox] li"
+    ).first
+    try:
+        option.wait_for(state="visible", timeout=4_000)
+        option.click()
+        page.wait_for_timeout(SETTLE_MS)
+    except PWTimeout:
+        # No dropdown appeared. Commit what was typed - some of these boxes accept free text -
+        # and let the required-error check downstream report it if the form disagrees.
+        el.press("Enter")
+        page.wait_for_timeout(SETTLE_MS)
+    return bool(_current_value(control))
+
+
 def _apply(control: Control, value: str) -> bool:
     if control.tag == "group":
         return _fill_group(control, value)
@@ -419,12 +465,19 @@ def _apply(control: Control, value: str) -> bool:
         return _fill_select(control, value)
     if _current_value(control) == value:
         return True  # already correct — don't retype, it costs time
+    if _is_typeahead(control):
+        return _fill_typeahead(control, value)
     control.loc.fill(value)
     return True
 
 
-def _fill_step(bank: dict, modal: Locator, result: FillResult, seen: set[str]) -> int:
-    """Map the WHOLE step first, then fill. Returns how many fields were newly filled."""
+def _fill_step(bank: dict, modal: Locator, result: FillResult, seen: set[str],
+               company: str = "", role: str = "") -> int:
+    """Map the WHOLE step first, then fill. Returns how many fields were newly filled.
+
+    `company`/`role` are used only by the freetext fallback, which needs to know who is
+    being written to. They default to empty so the survey pass can call this unchanged.
+    """
     controls = _scan(modal)
     plan: list[tuple[Control, str, str]] = []
 
@@ -443,13 +496,36 @@ def _fill_step(bank: dict, modal: Locator, result: FillResult, seen: set[str]) -
             continue
         matched = match_field(label)
         if matched is None:
+            # LAST RESORT, and a narrow one. `freetext` answers ONLY motivation prose ("why do
+            # you want to join our company") - the one question that is genuinely different for
+            # every employer and therefore cannot be banked. It refuses anything asking for a
+            # checkable fact, and returns None on any failure, which lands us back here with the
+            # field blank. Owner-authorised 2026-08-15: stop stalling on the per-company question.
+            if control.tag == "input" and not control.numeric and freetext.is_llm_answerable(label):
+                generated, why = freetext.answer(label, company, role)
+                if generated:
+                    plan.append((control, "llm:freetext", generated))
+                    # Recorded as unanswered-by-bank ON PURPOSE even though it gets filled: an
+                    # LLM answer on a real employer's form must never be invisible in the log.
+                    if label not in seen:
+                        seen.add(label)
+                        result.unanswered.append(f"{label}  (LLM ANSWERED: {generated!r})")
+                    continue
+                if label not in seen:
+                    seen.add(label)
+                    result.unanswered.append(f"{label}  ({why})")
+                continue
             if label not in seen:
                 seen.add(label)
                 result.unanswered.append(label)
             continue
 
         key, spec = matched
-        if key == "located_in_city":
+        if key == "years_technology":
+            # Dynamic like located_in_city: the answer depends on WHICH technology the
+            # question names, so it cannot be a static bank path.
+            value = tech_years_answer(bank, label)
+        elif key == "located_in_city":
             value = located_in_answer(bank, label)
         else:
             value = resolve(bank, spec, numeric_control=control.numeric or spec.kind == NUMERIC)
@@ -545,7 +621,42 @@ def _fingerprint(modal: Locator) -> str:
     return f"{value}|{'§'.join(labels)}"
 
 
+def _resume_options(modal: Locator) -> list[dict]:
+    """Every résumé already on the account, with which one is SELECTED.
+
+    ⚠️ This is the one place JS is justified in this file. The résumé step is a radio LIST -
+    measured 2026-08-15 it held five CVs - and the filename lives in an ancestor card, not on
+    the input. Pairing radio to filename with Playwright locators alone means brittle XPath up
+    an obfuscated tree; one evaluate is clearer and does not mutate anything.
+    """
+    try:
+        return modal.evaluate(
+            """el => Array.from(el.querySelectorAll('input[type=radio]')).map((r, i) => {
+                let box = r.closest('div');
+                for (let n = 0; n < 4 && box && !/\\.(pdf|docx?)/i.test(box.innerText || ''); n++) {
+                    box = box.parentElement;
+                }
+                const m = (box ? box.innerText : '').match(/[\\w\\-.()]+\\.(?:pdf|docx?)/i);
+                return { name: m ? m[0] : null, checked: r.checked, index: i };
+            }).filter(x => x.name)"""
+        ) or []
+    except Exception:  # noqa: BLE001 - a missing list is not an error, it is "no résumé step"
+        return []
+
+
 def _capture_resume(modal: Locator, result: FillResult) -> None:
+    """Record the résumé that is actually SELECTED.
+
+    ⚠️ This used to take the FIRST filename in the modal text, which is a different thing
+    entirely once more than one CV is on the account. Measured 2026-08-15: the step listed
+    five, `FAMILY-Software-Engineer.pdf` sat at the top, and every DevOps and AI/ML job was
+    compared against it and aborted as `resume-mismatch` - 15 of 33 in a single run, all of
+    them jobs whose correct CV was already uploaded three rows further down.
+    """
+    selected = next((o["name"] for o in _resume_options(modal) if o["checked"]), None)
+    if selected:
+        result.resume_filename = selected.strip()
+        return
     match = FILE_RE.search(_text_of(modal) or _deep_text(modal))
     if match:
         result.resume_filename = match.group(0).strip()
@@ -572,6 +683,36 @@ def _attach_resume(page: Page, modal: Locator, pdf: Path, result: FillResult) ->
     result.resume_expected = pdf.name
     if result.resume_filename == pdf.name:
         return True  # already the right one; re-uploading just costs time
+
+    # SELECT before UPLOAD. The right CV is usually already on the account from an earlier run,
+    # sitting in the radio list under a different one. Re-uploading a duplicate every time
+    # grows the list without bound and, worse, the old code never looked - it compared against
+    # whatever was listed first and gave up. Measured 2026-08-15: this alone accounts for 15 of
+    # 33 failures in one run.
+    for option in _resume_options(modal):
+        if option["name"] != pdf.name:
+            continue
+        if option["checked"]:
+            result.resume_filename = pdf.name
+            return True
+        # ⚠️ CLICK THE LABEL, NOT THE INPUT. Measured 2026-08-15 against a live form:
+        #     radios.nth(i).check(force=True) -> "Element is outside of the viewport"
+        #     clicking the label that carries the filename -> selected, first try
+        # The résumé list scrolls, so the radio for the third CV is off-screen, and `force`
+        # skips actionability checks but NOT the viewport requirement for a real click.
+        try:
+            card = modal.locator(f"label:has-text({pdf.name!r})").first
+            if not card.count():
+                card = modal.get_by_text(pdf.name, exact=False).first
+            card.scroll_into_view_if_needed(timeout=5_000)
+            card.click(timeout=5_000)
+            page.wait_for_timeout(SETTLE_MS)
+        except Exception:  # noqa: BLE001 - fall through to a real upload
+            break
+        _capture_resume(modal, result)
+        if result.resume_filename == pdf.name:
+            return True
+        break
 
     if file_input.count():
         file_input.first.set_input_files(str(pdf))
@@ -810,7 +951,7 @@ def fill_job(
             result.steps = step
             _wait_for_step_content(modal)  # each new step streams in the same way
             before = _fingerprint(modal)
-            _fill_step(bank, modal, result, seen)
+            _fill_step(bank, modal, result, seen, company, role)
 
             # Catch a click that did not take, AT THE MOMENT it happens. Without this a radio
             # that refused the click is indistinguishable from one nobody tried, and the only

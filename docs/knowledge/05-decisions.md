@@ -1396,3 +1396,142 @@ warning printed below the thing it warns about is not a warning.** One `sys.stdo
 
 Related: D30 (nothing observed is not nothing wrong) · D23 (the mirror is not the board) ·
 D35 (a channel nobody reads) · D41 (count who reached nobody) · [[30-warm-insider-runbook]]
+
+---
+
+## D45 — One wrong URL parameter explains years of "external-or-none" (2026-08-15)
+
+**Trigger.** Azam asked for 20 fresh applications. The board held 43 `New` rows, so the
+obvious move was to apply to those. He pushed back — *"are you just repeating the previous
+25 or 30 posts you already scraped? Screw them and delete all those posts"* — and he was
+right, in a way the numbers stated bluntly.
+
+### The board was 100% spent
+
+An `apply-all` run walked all 32 eligible rows (`--limit` caps *submissions*, not rows
+examined — the documented behaviour):
+
+```
+SUBMITTED (confirmed) : 0
+not submitted         : 32
+   13x external-or-none      9x closed      3x resume-mismatch
+    3x stalled-validation    2x reached-review   2x error
+```
+
+**Zero.** Every row was 14-21 days old, against a measured rot horizon of ~5 days. Nine
+postings were closed outright. The board was not a backlog, it was an archive.
+
+### 🔴 The root cause of `external-or-none`: `f_EA` is not the Easy Apply filter
+
+Thirteen of thirty-two rows were **not Easy Apply at all**, and the apply robot only does
+Easy Apply (D18). That was blamed on discovery being indiscriminate. It was not. It was one
+wrong query parameter:
+
+| Parameter | Same query, same day | Easy Apply hits |
+|---|---|---|
+| `f_EA=true` | DevOps Engineer / India / past week | **1 of 18** |
+| `f_AL=true` | identical | **17 of 17** |
+
+LinkedIn **silently ignores `f_EA`** and returns the unfiltered set. It is also what the
+LinkedIn MCP's `search_jobs(easy_apply=True)` puts in the URL, so that flag does nothing
+either. Nothing errors; the results just quietly are not filtered — a wrong answer with a
+200 next to it, which is this project's recurring shape (D30, D42, D43).
+
+> **A filter that is ignored looks exactly like a filter that found everything.** Verify a
+> filter by checking the property it claims to filter on, not by whether results came back.
+
+With the right parameter, 4 pages × 2 keyword searches produced **115 unique Easy Apply
+roles posted within the past week**, of which 45 scored ≥70 and were loaded.
+
+### Two scraping details worth keeping
+
+- **Never select LinkedIn's results pane by class name.** It ships obfuscated, rotating
+  classes (`LwOMWkdcwjxyNbocfBZZNRTrZvgogtY`). The list virtualises, so without scrolling
+  the right container you get **7 cards out of 121** and think that is the result set.
+  Select it structurally: *the scrollable element that contains job cards*.
+- **Paginate by clicking the numbered buttons inside one page context.** It is an SPA, so
+  `button[aria-label="Page N"]` advances without a reload: 17 → 32 → 48 → 64 in one call.
+
+### What was done
+
+Deleted all 43 `New` rows (backup taken first). **`Applied`, `Invite sent` and `Skipped`
+were kept** — the first two are the record, and `Skipped` is the dedupe memory that stops
+junk being re-added tomorrow. Loaded 45 fresh rows scored from title only, which is a
+triage ordering signal and explicitly **not** a judgement (no JD is fetched).
+
+Also: **Crossing Hurdles' evidence entry was refreshed** with the D36 detail. It was already
+recorded, and the screen correctly blocked both of its new postings this run — the first
+time that guard has been observed doing its job on live data.
+
+Related: D18 (Easy Apply is the target) · D36 (screen before spending a slot) · D30 (nothing
+observed is not nothing wrong) · D23 (the mirror is not the board) · [[26-apply-at-volume]]
+
+---
+
+## D46 — Read every form before answering any of them (2026-08-15)
+
+**The instruction that produced this.** Three consecutive `apply-all` runs ended
+`stalled-validation`, `error`, `reached-review` with zero submissions. Azam stopped it:
+
+> *"Read all these 30 forms continuously and see what questions are popping up. I give you
+> the answer. From next time if you see that type of question, you will be able to answer
+> that."*
+
+That is the right order and the tool did not support it. `apply-all` reports only the
+questions the bank FAILED on, and only for steps it managed to reach, so a run that stalls
+on page 3 hides everything behind page 3. **Each failed application taught exactly one thing
+and cost a real application slot to learn it.**
+
+### `apps/autopilot/survey.py` — read the forms, submit nothing
+
+Walks the same wizard with the same scanner and records EVERY control on EVERY step, with
+options, then discards the draft. There is no code path in the file that can submit.
+
+Result over 44 live forms: **104 distinct questions, 65 already answerable, 39 not.** One
+pass, no slots spent. Of the 39, most were not missing information at all — they were
+phrasings `FIELD_MAP` did not recognise for data the bank already held ("expected **total
+annual** compensation" vs `expected (ctc|salary|compensation)`).
+
+⚠️ **The first survey run reported `no-next-button, 0 questions` on three jobs that all have
+real forms.** It detected the Easy Apply button and never clicked it — `has_easy_apply()`
+only *detects*; `fill_job` clicks and waits. A clean zero produced by opening nothing looks
+exactly like a clean zero produced by an easy form, so the survey now prints
+**`ZERO QUESTIONS SEEN: treat as blind, not as easy`** rather than a tidy `0`.
+
+### What actually blocked submission
+
+| Blocker | Fix |
+|---|---|
+| "how many years with **&lt;any tech&gt;**" — bank knew 8 technologies | `experience.technology_years`, 97 entries from his own CV, with a **0** default. One unmapped technology stalls the whole wizard, because these fields are required. |
+| "Have you completed **Bachelor's Degree**?" | `education_*` specs. ⚠️ Must precede `degree`, whose bare `\bdegree\b` matched it and would have answered **"B.Tech"** to a Yes/No — and given the Bachelor's answer to a **Master's** question. |
+| "Are you **currently** serving notice period?" | one adverb between "you" and "serving" broke the pattern. Another form spelled it **"servibg"**. Employers typo their own questions. |
+| "Why do you want to join **our company**?" | genuinely per-company, so `freetext.py` asks the free model — the only LLM write onto an employer's form, whitelisted to motivation prose. |
+
+### 🔴 Three failures that were the SAME bug wearing different clothes
+
+Each looked like a different subsystem. All three were *"the value never actually landed"*:
+
+1. **`resume-mismatch`, 15 of 33.** `_capture_resume` took the FIRST filename in the modal
+   text. The résumé step is a **radio list** — five CVs — and the first was
+   `FAMILY-Software-Engineer.pdf`. Every DevOps and AI/ML job was compared against it and
+   aborted, **while the correct CV sat three rows below, already uploaded.** Now reads the
+   *checked* radio and SELECTS a match before considering an upload.
+2. **The select then failed silently.** `radio.check(force=True)` →
+   *"Element is outside of the viewport"*. The list scrolls; `force` skips actionability
+   checks but **not** the viewport requirement. Clicking the **label** carrying the filename
+   works first try.
+3. **`stalled-validation`.** NielsenIQ's "Location (city)*" showed *"This field is required"*
+   in red **while visibly containing "Srinagar"**. It is a typeahead bound to a location
+   entity: `fill()` sets the visible string and never fires the selection, so the form still
+   considers it blank. Now types per-keystroke and picks a suggestion.
+
+> **A field that displays your value has not necessarily accepted it.** Read the state the
+> form itself keeps — the checked radio, the validation message — not the pixels.
+
+### Measured
+
+0 of 32 submitted before. **8 confirmed submissions** on the first run with the filled bank,
+more on the runs after the résumé and typeahead fixes. **142 tests** (was 112).
+
+Related: D45 (the board was stale and `f_EA` is the wrong filter) · D31 (a pattern that can
+match another question is as dangerous as inventing a value) · D30 · D42 (the token budget)
