@@ -620,3 +620,32 @@ resume-mismatch 15/33 (radio list; read the CHECKED one, select before uploading
 because check(force=True) hits "outside of the viewport"), and stalled-validation (location
 typeahead needs a suggestion picked, not fill()). Result: **20 confirmed submissions, 0
 unconfirmed.** 142 tests (was 112). Decisions D45, D46. Runbook: docs/knowledge/31-apply-batch-runbook.md
+
+## [2026-08-15 19:25] session | Accept watch, twelfth quiet run
+Touched: none
+All 5 pending invites still 3rd/Pending (08-06 trio day 9, 08-10 pair day 5). Nothing expired,
+nothing accepted, nothing due -> runbook step 5 quiet exit: no Slack, no Notion, no sends. Retired
+the 13:01 open question: Recruiter-H's profile timeout was a page-load flake (loaded first-try this
+run), not auth. Recorded a scope correction: the default scrape returns no post list for 2 of 5, so
+"no new activity" had been asserted more strongly than the evidence supported. last_checked still
+null on all five - twelfth recording, still ~5 lines, still needs one word from the owner.
+
+## [2026-08-15 20:05] session | Reply check 14: the first assessment request
+Touched: none
+Ran 11-reply-classifier-runbook. Step 1 is now structurally blind: Notion Status=Applied returns 5 rows
+while output/apply-log/submitted.jsonl holds 35, because today's 21 Easy Apply submissions went to the
+local SQLite board and the ledger and never to Notion (no NOTION_TOKEN). Followed the ledger instead,
+and the day's only real reply was in the 30 rows the runbook cannot see - the D35 shape in a new place.
+ANSR/Talent500 replied TEN MINUTES after the submission asking for a screening questionnaire that gates
+the application ("we believe you could be an excellent fit... 2 mins"). Classified ASSESSMENT, not
+auto-ack: it shares an auto-ack's instant templated shape but requires action or the application stops.
+ANSR had no Notion row, so one was CREATED (beyond the runbook's "update", and said so in the note) -
+the alternative was a gated employer request recorded nowhere, which is how the TCS application was lost.
+Reply ticked, Status left Applied per step 4, Slack --event reply posted. The 21 companies have no
+contact.md, so the from:-list step is unbuildable for them; substituted a broad 3d/anywhere sweep read by
+sender. Bounces clean, campus+ATS sweep (widened with talent500/greenhouse/lever/ashby/workable) only the
+3 known items. LinkedIn inbox unchanged, Recruiter-A still 20 days unanswered. Gmail read-only throughout.
+Fix direction: step 1 should read the ledger, not the board.
+
+## [2026-08-15 19:45] session | closed the loop: outreach + nudge + one runner
+Touched: none

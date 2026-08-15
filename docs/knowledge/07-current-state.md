@@ -9,6 +9,37 @@ lives in a connected service (Notion / MCP) rather than in this repo. Update it 
 > work done through a connected service (Notion, LinkedIn/Gmail MCP) is invisible to future sessions unless
 > it is written here. If it's not in a brain, it doesn't exist. See [[05-decisions]] D7.
 
+## ✅ 2026-08-15 (evening) — THE LOOP IS CLOSED. One entry point, eight steps.
+
+Read **[[32-the-complete-loop]]** and **D47** before answering "is the pipeline done?" or
+"why did nothing happen?".
+
+```
+pipeline.cmd     ->  accepts → flush → replies → nudge → discovery → apply → outreach → packets
+```
+
+Scheduled: **"Job Hunt - Full Pipeline"**, daily 10:30 (battery-safe, catch-up on), plus
+"Job Hunt - Catch Up" on resume. Per-step tasks still run for faster turnaround; the lock makes
+collisions safe.
+
+**What was missing until today:** the half that turns an application into a conversation.
+`coverage.py` had counted the gap since D41 and could never close one — the next move existed only
+as a runbook a human read. **`apps/autopilot/outreach.py`** now does it: read-only people search →
+ranked candidates → `contact.md` → a Slack card with `ref:<slug>`. **It sends nothing**; the ✅ gate
+(D12) is unchanged. **`apps/autopilot/nudge.py`** feeds the Day-3/Day-7 engine true counts (D44).
+
+- **Verified live:** 2 companies researched, 2 named humans found and queued; coverage fell
+  **19 → 17** reached-nobody in the same run. 7 overdue follow-ups posted to Slack.
+- 🔴 **Three bugs shipped in its first three live runs, all silent**: a stranger, then an
+  **ex-employee** (`Past:` on the card), then dropping the only genuine lead (headline named a
+  different employer). `employment()` is now **CURRENT/PAST/UNKNOWN**, never a boolean, and the
+  browser parses **nothing** — 24 tests pin `parse_card()` against real harvested cards.
+- ⚠️ **One browser profile, three steps want it.** A clean run left **16** chrome processes; the
+  next Playwright step dies **exit 21**. Guarded, and it will not kill an interactive MCP session.
+- 🔢 **187 tests** (was 150).
+
+**Still a human's job on purpose:** tick every ✅, send every nudge, answer every reply.
+
 ## ⚠️ 2026-08-06 — THE ARCHITECTURE IS BEING REPLACED. Read this before changing anything.
 
 Everything described below is **the current, working system**. It is accurate and it still runs — but a
@@ -2374,3 +2405,144 @@ technologies, small/large scale), `identity.postal_code` 190020, `education.comp
   If he ever earns one, it goes in `narrative.certifications`.
 - The 13 overdue follow-up nudges from D44 are still unsent (his tick).
 - **Recro / Arya Priyadarshini** bare-connect still awaits approval ([[30-warm-insider-runbook]]).
+
+## Accept watch — 2026-08-15 19:25 (twelfth consecutive quiet run; second run of the day)
+
+Ran per [[13-accept-watch-runbook]]. **All three steps completed. Nothing accepted, nothing due, nothing
+expired** → step 5's quiet exit: **no Slack post, no Notion writes, nothing sent.**
+
+- **Step 1 `expire`:** `Nothing older than 14 days still pending.` The 08-06 trio is at **day 9** (wall
+  **08-20**); the 08-10 pair at **day 5** (wall **08-24**). Unchanged from the 13:01 run — same calendar day.
+- **Step 2 (the poll):** all five `get_person_profile` calls returned populated `sections`, every one
+  reading `· 3rd` with a `Pending` button. That doubles as the only trustworthy auth check
+  ([[05-decisions]] D13), so **the LinkedIn MCP session is healthy at 19:25**.
+
+| Who | Company · role | Sent | Day | Degree | Badge |
+|---|---|---|---|---|---|
+| **Recruiter-E** (CTO) | SkillsCapital · SWE Intern (AI/ML & Agentic AI) **93** | 08-06 | 9 | `3rd` | `Pending` |
+| **Recruiter-F** (Co-Founder) | Mirai Alpha · AI Engineering Intern | 08-06 | 9 | `3rd` | `Pending` |
+| **Recruiter-D** (Recruitment Consultant) | Hired · AI/ML Engineer (keep-on-file) | 08-06 | 9 | `3rd` | `Pending` |
+| **Recruiter-G** (Lead Recruiter, Hyderabad) | Celigo · AI Integration Engineer 80 | 08-10 | 5 | `3rd` | `Pending` |
+| **Recruiter-H** (Talent Partner, Singapore) | Neurones IT Asia · DevOps Engineer 82 | 08-10 | 5 | `3rd` | `Pending` |
+
+- **Step 3 `due`:** `[]`, **and genuinely empty rather than gate-suppressed.** 19:25 is inside the
+  09:00–21:00 window, so `cmd_due` was not returning `[]` unconditionally; `list --status accepted` is
+  **also `[]`**, so no ripe row is being held for later. Both checks are needed — the two states print
+  identically (08-10 21:02 note).
+
+### ✅ Recruiter-H's profile loaded first-try — the 13:01 timeout was a flake, not a pattern
+
+The 13:01 run needed a retry on this one profile (`Page.goto: Timeout 30000ms exceeded`, empty `sections`).
+This run it returned complete on the first call, which **retires the open question** that entry left: it was
+page-load latency, not a profile-specific or auth-specific problem. The 13:01 rule still stands and is worth
+keeping — **on a `section_errors` response, retry; if the retry also fails, record the row `unknown`, never
+`pending`** — but no follow-up work is owed on it.
+
+### ⚠️ Scope note: "no new activity" is only as good as what the main page rendered
+
+Recorded because prior entries have asserted it more strongly than the evidence supports. This run used the
+**default scrape (main profile page only)** on all five — no `sections=posts` request. For Recruiter-F and
+Recruiter-G the main page happened to carry an activity feed, so their observations below are real reads.
+For Recruiter-E the page said outright *"has no recent posts"*. **For Recruiter-D and Recruiter-H no post
+list was returned at all**, so this run has *nothing to say* about their recent activity — which is not the
+same as "unchanged", and earlier entries claiming a 6-month post history for Recruiter-H were reading a
+richer scrape than this one. Same family as D35: an unread channel is not a quiet channel.
+
+### Observations carried forward
+
+- ⭐ **Recruiter-G's Celigo *Ora* / *Agent Builder* hook still stands** as her touch-2 proof-of-effort
+  detail; the CEO repost she shares it from is now ~4 months old and her own last post ~1 year. Harvest the
+  phrasing at send time, never from this entry ([[05-decisions]] D22).
+- ⭐ **Recruiter-H's touch-2 hook re-confirmed verbatim** from her About section: *"zero agency dependency —
+  building strong pipelines through LinkedIn, GitHub, and niche tech communities"*, headline naming
+  DevOps/Cloud/AI. Her post history was not visible this run (see scope note).
+- 👀 **Recruiter-F still advertises only the *Founder's Office Intern* req**, unchanged since 08-09. The AI
+  Engineering Intern posting she was pitched for remains closed. **Do not silently re-aim the packet.**
+- 🪤 **PYMK trap, thirteenth confirmation.** The Indian-name sidebar `references` on all five profiles are
+  LinkedIn "people you may know" suggestions, **never a warm path**.
+
+### Nothing here is late, and nothing here is the lever
+
+Day 9 on a cold connect with no note is ordinary latency; day 5 is nothing. **The correct action on all five
+is to wait.** The open levers are unchanged: answer **Recruiter-A** (now **20 days**), Track A **A0**
+(Infosys Junior AI Engineer 90, where Recruiter-A is already 1st-degree so **no accept is needed at all**),
+and the 15th application (TCS) still recorded nowhere a script can read.
+
+### ⚠️ `last_checked` is still `null` on all five — TWELFTH recording
+
+Thirty profile polls across six accept watches and `output/outreach/pending-invites.json` is **still
+byte-identical to its 08-06 state**. Framing unchanged from the 13:01 entry and deliberately not re-argued:
+the escalation is now eleven runs old, so the project has chosen by default to keep a poll history that
+exists only in prose. Still a ~5-line fix (`cmd_list` stamping, or a `mark-checked` subcommand); still purely
+additive, touching no board status and nothing `ledger.py` can reach. **Not implemented this run** because
+the instruction was to follow the runbook exactly, and the runbook does not cover it — it needs one word.
+
+## Reply check — 2026-08-15 later (fourteenth run; the FIRST assessment request, found 10 minutes after applying)
+
+Ran per [[11-reply-classifier-runbook]]. **One new reply, classified ASSESSMENT.** Notion row created and
+ticked, Slack `--event reply` posted. Gmail read-only throughout; nothing replied to, nothing sent.
+
+### 🔴 Step 1 does not see 30 of the 35 applications
+
+The runbook's input is "Notion rows with `Status = Applied`". Notion returns **5**. The real record —
+`output/apply-log/submitted.jsonl` — holds **35**, of which **21 were submitted today**. The 08-15 batch was
+written to the local SQLite board and the ledger and **never to Notion**, because `NOTION_TOKEN` is not set
+and nothing pushes back (CLAUDE.md records this; the consequence for *this* runbook had not been drawn).
+
+So the runbook, followed exactly, would have checked 5 applications and reported a clean zero — while
+**86% of the applications awaiting a reply were outside the query**. That is the D35 shape again in a new
+place: not a missed reply, an **unobservable** one. This run went to the ledger instead, and the one real
+reply of the day was in the 30 the runbook could not see.
+
+⚠️ **Fix direction:** step 1 should read `submitted.jsonl` (the append-only send record), not the board.
+The ledger is the only store that has never been stale or wrong; the board has been both.
+
+### The reply: ANSR / Talent500 / Under Armour India — ASSESSMENT
+
+| | |
+|---|---|
+| Applied | 2026-08-15 09:30, LinkedIn Easy Apply, `4454549031` |
+| Replied | 2026-08-15 09:40 — **ten minutes later** |
+| From | `aditi@talent500.co` (Talent500 = ANSR's brand; client is Under Armour India, Bengaluru) |
+| Asks | a ~2 min screening questionnaire behind a "Complete Your Application" link |
+
+**Classified `Assessment`, not `Auto-ack`, and the distinction is the whole point.** It shares an auto-ack's
+shape — instant, templated, no named human relationship — but it says *"After reviewing your profile, we
+believe you could be an excellent fit"* and **the application does not proceed until the questionnaire is
+answered**. An auto-ack requires nothing; this one is a gate. Per step 4, Assessment **keeps `Applied`**,
+ticks `Reply`, and gets a note. **Still unread in the inbox.**
+
+⚠️ **ANSR had no Notion row, so there was nothing to update.** A row was **created** — beyond the runbook's
+"update the matching job", and deliberate: the alternative was a real, action-gated employer request recorded
+nowhere, which is exactly how the 15th application (TCS) was lost. The note says on its face that the reply
+check created it. Ticking `Reply` also arms de-dupe rule 6, so the next run will skip it.
+
+### Verification done before any zero was believed (standing rule, fourteenth run)
+
+- Bare `newer_than:14d in:inbox` → **201** threads; `(from:linkedin.com OR from:infosys.com)` → live results.
+  Connector and `from:` OR-group syntax both proven before any empty result was trusted.
+- The 5 Notion domains (`infosys.com`, `coderound.ai`, `innovaesi.com`, `goodspace.ai`, `recro.io`) → **empty**.
+- **The 21 new companies have no `contact.md`, so no domain to harvest.** Covered instead by a broad
+  `newer_than:3d in:anywhere -from:linkedin.com` sweep — 24 threads, read by sender, and **only the
+  Talent500 message was job traffic**. This is the honest substitute for a `from:` list that cannot be built.
+- **Bounces clean** at `newer_than:14d in:anywhere` (mailer-daemon / postmaster / Undeliverable / DSN) → empty.
+- **Campus + ATS sweep** widened to include `talent500.co`, `greenhouse.io`, `lever.co`, `ashbyhq.com`,
+  `workable.com`, `smartrecruiters.com` → the Talent500 message plus the **same three known items** (08-05
+  EPAM cancellation, two Crossing Hurdles/micro1 `ceipalmail.com` mails), all still unread. Fourteenth run
+  done by hand; "next work" #6 still unbuilt.
+- 21 LinkedIn `jobs-noreply@linkedin.com` "your application was sent to X" receipts confirm today's batch
+  delivered. **These are receipts, not replies** ([[linkedin-autoack-is-not-a-reply]]) — none ticked.
+
+### The LinkedIn inbox, read in full — unchanged since 08-13
+
+6 conversations, byte-identical in shape to the 08-15 morning reading. **Recruiter-A's thread still ends at
+his 07-26 18:58 message** — verified by opening it, not inferred from the list preview. **Twenty days
+unanswered.** Recruiter-B and Recruiter-C still show `You:` last (14 days). The Learnbay thread is a
+**sponsored ad**, and now shows Azam's own "Check My Eligibility" / "Learn More" clicks as replies — an ad
+funnel, not a lead. The five pending invites still have no message threads.
+
+### Nothing else moved, and the lever is unchanged
+
+Fourteen reply checks, **two** replies total: Recruiter-A (LinkedIn, 20 days unanswered) and ANSR (today,
+unread). Both need Azam, neither needs code. The 15th application (TCS) is **now in the ledger** (line 24,
+submitted 08-15) but still has no board row — as do the other 20 from today.

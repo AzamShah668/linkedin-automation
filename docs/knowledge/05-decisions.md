@@ -1569,3 +1569,100 @@ to rescue. `tests/test_field_limits.py` asserts that and fails if anyone lengthe
 > the résumé radio and the location typeahead, one layer lower.
 
 **150 tests** (was 142).
+
+---
+
+## D47 — Finding the human is code; contacting them is not (2026-08-15)
+
+**Context.** The day before, 21 applications went out and **19 reached no human**. `coverage.py`
+had counted that correctly since D41 and could never fix a single one: the next move — find a
+recruiter at that company — existed only as [[30-warm-insider-runbook]], a procedure a person read
+by hand. So the pipeline could apply twenty-one times in an evening and produce twenty-one queue
+entries. That is D32 at scale, and it is the mass-automation failure this project exists to reject,
+reached from the other side: not by spamming people, but by reaching **nobody at all**.
+
+Azam's instruction was blunt: *"I just want the pipeline to be complete and it should run every
+time. Messaging everyone, sending the connections, and everything should be in the pipeline."*
+
+**Decision.** Build `apps/autopilot/outreach.py` as the missing link, and wire the whole loop into
+one scheduled entry point — **without** moving the send gate.
+
+```
+apply-all -> coverage -> OUTREACH -> Slack ✅ -> flush-approved -> watch-accepts -> nudge
+                         ^^^^^^^^     ^^^^^^
+                         new code     unchanged human gate (D12)
+```
+
+`outreach.py` searches LinkedIn **read-only** through the signed-in Playwright profile `replies.py`
+already uses, writes `contact.md`, and posts a Slack card carrying `ref:<slug>`. It never sends a
+connection request. Scripted people-search plus auto-connect is the behaviour most reliably
+punished with an account restriction, and it is this project's own red line. **Code** finds and
+ranks; **the human** ticks; **`flush-approved`** sends one bare invite.
+
+Everything else that was already written but disconnected got wired in the same pass: the follow-up
+cadence (D44) now runs on true numbers, and `run-pipeline.ps1` grew from five steps to eight.
+
+**Why the search may be automated when the connect may not.** Reading a public search page is what
+a person does before writing to someone; sending unsolicited invites at machine speed is the thing
+that gets accounts restricted. Automating the *research* removes the drudgery without touching the
+behaviour that carries the risk. Making a step cheap must not remove the cost that forces the
+question "is this worth sending?" — so the tick stays.
+
+### ⚠️ Three bugs shipped in the first three live runs, all silent
+
+Found by running it against a real company and **reading the output**, not by reasoning about it.
+
+1. **It recommended a stranger.** LinkedIn's people search matches anywhere in a profile, so
+   `"Lotus Interworks" recruiter` returns people who merely share a skill word. Run 1 wrote a
+   confident `contact.md` for a Senior AI Engineer with no visible link to the company and posted a
+   card asking Azam to connect.
+2. **It then recommended an ex-employee.** After adding a company-name check, run 2 picked the
+   *same person*: her card genuinely said "Lotus Interworks", on a line beginning **`Past:`**. A
+   substring test cannot tell an employee from an alumnus.
+3. **It dropped the only genuine lead.** A current Team Lead at the company was discarded twice
+   over — his **headline named a different employer** and only the `Current:` line named this one,
+   and nothing in `ROLE_KINDS` matched "Team Lead" anyway.
+
+> `employment()` returns **CURRENT / PAST / UNKNOWN**, never a boolean, because the three deserve
+> different treatment: contact the employee, never recommend the alumnus, escalate the unknown.
+
+The browser now returns **raw lines and parses nothing**; `parse_card()` does all of it in Python,
+pinned by 24 tests built from real harvested cards. The first version parsed inside the browser,
+which is precisely why the rule was unreachable from a test.
+
+### The failure directions are split inside one module
+
+Two guards written the same week needed opposite defaults (D36 vs D35), and this module needs both:
+
+- **search ran, zero profiles** → evidence → `record_unreachable()`
+- **profiles found, none confirmed at this company** → *not evidence about the company* → escalate
+- **search errored / auth wall / timeout** → learned **nothing** → escalate, loudly
+
+`_Outcome.searched_ok` is stored separately from `len(people)` for exactly this reason. Letting one
+stand in for the other is D30, and a page full of unconfirmable people says something about what the
+card renders, not about the company — blocking on it would burn a real employer permanently.
+
+### Also settled in this pass
+
+- **`nudge.py` feeds the follow-up engine true numbers.** `followups_sent` comes from the send log,
+  not a zero standing in for one (D44); `applied_date` from the ledger. Innova ESI correctly showed
+  **Day 7**, not Day 3. ⚠️ A nudge card must **never** carry `ref:<slug>` — that string is the
+  connection-request approval gate, and a ref would turn "send this follow-up" into "send a
+  connection request" through a different runner. There is a test.
+- **A default argument freezes a module constant at import.** `coverage.py` carries this warning
+  already, and `nudge.py` reintroduced the bug anyway: three tests silently read the *real* send
+  log. Every path is now resolved at call time.
+- **One browser profile, three steps that want it.** A clean outreach run still left **sixteen**
+  `chrome.exe` processes holding the profile; the next Playwright step dies with exit **21**.
+  `Release-BrowserProfile` clears leaks but **refuses** to kill a profile held by an interactive
+  MCP session — skipping a step is recoverable, killing someone's open browser is not.
+- **Force-killing Chromium then reported "logged out". It was not.** `li_at` was on disk, valid to
+  2027, and a retry worked. Never diagnose LinkedIn auth from an error string.
+- **New scheduled tasks are born broken.** `DisallowStartIfOnBatteries=True` and
+  `StartWhenAvailable=False` are the defaults that cost this project a full day in July.
+  `schtasks /Create` cannot set them; `Set-ScheduledTask -Settings` can, without admin. And
+  `schtasks /TR` mangles a path containing a space — hence `pipeline.cmd`.
+
+**Consequences.** One entry point (`pipeline.cmd`), eight ordered steps, daily at 10:30 plus catch-up
+on resume. The human still ticks every invite, sends every nudge, and answers every reply — see
+[[32-the-complete-loop]] §7. **187 tests** (was 150).

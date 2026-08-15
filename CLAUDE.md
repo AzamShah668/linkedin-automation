@@ -527,6 +527,41 @@ py -3 tools/post_creator/dispatch_engine.py --dry-run --post-id N  # preview dis
   ⚠️ **Unreconciled:** `offer_in_hand` is recorded as "Yes / 80000" because he said so, but
   80k/month is **9.6 LPA against the 8.4 LPA he asks for**. **142 tests** (was 112).
 
+- **2026-08-15 (evening) — the pipeline is closed. Read [[32-the-complete-loop]] + D47.** The half
+  that turns an application into a conversation existed only as runbooks a human read; it is now
+  code, wired into **one entry point** — `pipeline.cmd` → eight ordered steps → scheduled daily
+  10:30 with catch-up on resume. `accepts → flush → replies → nudge → discovery → apply → outreach
+  → packets`; sends first, because only those steps have a deadline.
+  **`apps/autopilot/outreach.py`** is the missing link (D47): read-only LinkedIn people search on
+  the existing Playwright profile → ranked candidates → `contact.md` → a Slack card carrying
+  `ref:<slug>`. **It sends nothing.** Scripted search *plus auto-connect* is what gets accounts
+  restricted, so code finds and ranks, the human ticks, `flush-approved` sends one bare invite.
+  Warm-first is arithmetic now, not a comment: +60 guarantees a warm engineer outranks a cold
+  recruiter (D8), because the project's only ever reply came from a shared-roots contact.
+  🔴 **Three bugs shipped in its first three live runs, all silent.** It recommended a **stranger**
+  (LinkedIn keyword-matches anywhere in a profile); then, after a company-name check, the **same
+  person again** — her card said the company on a line beginning **`Past:`**, and a substring test
+  cannot tell an employee from an alumnus; and it **dropped the only genuine lead**, a current Team
+  Lead whose *headline named a different employer* while only the `Current:` line named this one.
+  So `employment()` returns **CURRENT / PAST / UNKNOWN**, never a boolean, and the browser now
+  returns raw lines and parses **nothing** — `parse_card()` does it in Python where 24 tests pin it.
+  ⚠️ The failure directions are **split inside one module**: zero profiles = evidence → record
+  unreachable; profiles found but none confirmed = *not evidence about the company* → escalate;
+  search errored = learned **nothing** → escalate loudly. `searched_ok` is stored separately from
+  `len(people)` for exactly this reason.
+  **`apps/autopilot/nudge.py`** finally feeds the Day-3/Day-7 engine **true numbers** (D44): counts
+  from the send log, dates from the ledger. ⚠️ A nudge card must **never** carry `ref:<slug>` — that
+  is the *connection-request* gate, and a ref would turn "send this follow-up" into "send a
+  connection request" through a different runner. Tested.
+  ⚠️ **One browser profile, three steps want it.** A clean outreach run left **sixteen** chrome
+  processes holding it; the next Playwright step dies **exit 21**. `Release-BrowserProfile` clears
+  leaks but **refuses** to kill a profile held by an interactive MCP session. And force-killing
+  Chromium then reported *"logged out"* — it was not: `li_at` was on disk, valid to 2027.
+  ⚠️ **New scheduled tasks are born broken**: `DisallowStartIfOnBatteries=True`,
+  `StartWhenAvailable=False`. `schtasks` cannot set them, `Set-ScheduledTask -Settings` can without
+  admin — and `schtasks /TR` mangles a path with a space, which is why `pipeline.cmd` exists.
+  🔢 **187 tests** (was 150).
+
 - **NEXT — in this order. The reordering fact is now: 14 applications, 1 reply, and the reply came from
   the only warm-insider approach the project has made.**
   1. 🔴 **Answer Recruiter-A** — 16 days late, on a personal phone number. **Only the owner can do this**;
