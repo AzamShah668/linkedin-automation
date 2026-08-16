@@ -15,21 +15,24 @@ This module is the missing link between `coverage.py` (which knows the gap) and 
 
     apply-all  ->  coverage  ->  OUTREACH  ->  Slack tick  ->  flush-approved  ->  watch-accepts
                                  ^^^^^^^^
-WHAT IT DOES AND DOES NOT DO -- read this before changing anything
-------------------------------------------------------------------
-It **searches** LinkedIn, read-only, through the same signed-in Playwright profile `replies.py`
-already uses. It writes `contact.md` and posts a Slack card carrying `ref:<slug>`.
+WHAT IT DOES -- ⚠️ THIS CHANGED ON 2026-08-16
+----------------------------------------------
+It searches LinkedIn through the signed-in Playwright profile `replies.py` uses, writes
+`contact.md`, **sends a bare connection request**, hands the invite to `watch-accepts`, and posts a
+Slack **report** of what it did.
 
-It **never sends a connection request and never messages anyone.** That is not an oversight and it
-is not timidity: scripted people-search plus auto-connect is the single behaviour most reliably
-punished with an account restriction, and this project's own north star names it as the red line.
-The approved path already exists (D12) and this feeds it.
+Until 2026-08-16 it stopped before the send and waited for a tick (D12). Azam removed that gate
+himself, explicitly and twice: *"don't leave it up to Slack ... Whenever you find a connection just
+go for it ... just provide me with the details that you have done."* The concern had already been
+raised; he reaffirmed it. It is his account.
 
-The split, unchanged from `coverage.py`'s docstring:
+`--no-send` restores the old approval-card behaviour for a run he wants to eyeball first.
 
-  * **code** finds candidates and ranks them -- deterministic, testable, zero send risk
-  * **the human** taps the tick in Slack
-  * **`flush-approved`** sends one bare invite
+⚠️ **The gate was the thing keeping this project on the safe side of its own north star.** With it
+gone, the guards in `connect.py` are all that stand between this and the pattern LinkedIn restricts
+accounts for: a daily cap, a randomised throttle, business hours only, one request per person ever,
+and -- most important here -- **current employees only**. The ranking below is no longer a
+convenience that saves a human some reading; it is the last check on who gets contacted.
 
 WARM FIRST (D8)
 ---------------
@@ -60,7 +63,7 @@ import time
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from apps.autopilot import coverage, ledger, sourcing
+from apps.autopilot import connect, coverage, ledger, sourcing
 from apps.autopilot.answers import REPO
 from apps.autopilot.fill import (
     DEFAULT_USER_DATA_DIR,
@@ -407,7 +410,15 @@ def parse_card(username: str, lines: list[str]) -> Card:
 
 def _harvest(page, company: str) -> _Outcome:
     out = _Outcome(company=company, role="")
-    page.goto(search_url(company), wait_until="domcontentloaded", timeout=60_000)
+    # ⚠️ The navigation itself must be guarded. It was not, and on 2026-08-16 a transient
+    # ERR_CONNECTION_CLOSED on one company's search aborted the entire batch -- every company after
+    # it was silently never processed, and the run died before posting its Slack report, so two
+    # invites that HAD gone out were never reported anywhere a human would look.
+    try:
+        page.goto(search_url(company), wait_until="domcontentloaded", timeout=60_000)
+    except Exception as exc:
+        out.error = f"search page would not load ({type(exc).__name__})"
+        return out
 
     # Wait for EITHER real results or LinkedIn's explicit empty state. Reaching a timeout means we
     # learned nothing, which is a different outcome from an empty result set -- see the class
@@ -527,7 +538,12 @@ def _slack(event: str, title: str, text: str) -> bool:
 
 
 def approval_card(company: str, role: str, best: Candidate) -> tuple[str, str]:
-    """(title, text). The text MUST carry `ref:<slug>` -- that is how check_approvals.py finds it."""
+    """(title, text) for the LEGACY approval path, kept behind `--no-send`.
+
+    The text MUST carry `ref:<slug>` -- that is how check_approvals.py finds it. Azam removed this
+    gate on 2026-08-16 ("don't leave it up to Slack ... just go for it"), so the default path now
+    sends directly and reports afterwards; this remains for a run where he wants to eyeball first.
+    """
     warm = f"  ⭐ WARM: shared {best.warm}" if best.warm else ""
     title = f"Connect with {best.name}? — {company}"
     text = (
@@ -540,9 +556,32 @@ def approval_card(company: str, role: str, best: Candidate) -> tuple[str, str]:
     return title, text
 
 
+def track_invite(company: str, role: str, person: Candidate) -> bool:
+    """Hand the sent invite to `watch-accepts`, which delivers the CV once they accept.
+
+    Without this the request goes out and nothing ever follows it up -- the invite would sit
+    accepted and unanswered, which is precisely the 15-day failure D35 was written about.
+    """
+    try:
+        proc = subprocess.run(
+            [sys.executable, str(REPO / "tools" / "invite_tracker.py"), "add",
+             "--slug", _slug(company), "--person", person.name,
+             "--username", person.username, "--role", role[:80]],
+            cwd=REPO, capture_output=True, text=True, timeout=60)
+    except (OSError, subprocess.SubprocessError) as exc:
+        print(f"     !! could not track the invite ({exc}) - stage 2 will NOT chase this one")
+        return False
+    if proc.returncode != 0:
+        print(f"     !! invite_tracker refused (exit {proc.returncode}): "
+              f"{(proc.stderr or proc.stdout or '').strip()[:160]}")
+        print("        the request WAS sent; stage 2 will not chase it until this is fixed")
+        return False
+    return True
+
+
 # ---------------------------------------------------------------------------------------------
 def run(limit: int = 5, dry_run: bool = False, headless: bool = False,
-        user_data_dir: Path = DEFAULT_USER_DATA_DIR) -> int:
+        send: bool = True, user_data_dir: Path = DEFAULT_USER_DATA_DIR) -> int:
     gaps = coverage.gaps()
     if not gaps:
         print("every application already has a human attached; nothing to do")
@@ -555,10 +594,11 @@ def run(limit: int = 5, dry_run: bool = False, headless: bool = False,
     print()
 
     if dry_run:
-        print("DRY RUN — no browser opened, nothing written, nothing posted.")
+        print("DRY RUN — no browser opened, nothing written, nothing sent.")
         return 0
 
     queued, blocked, escalate = 0, 0, []
+    sends: list[connect.Result] = []
     with sync_playwright() as pw:
         context = open_browser(pw, user_data_dir, headless=headless)
         try:
@@ -573,7 +613,16 @@ def run(limit: int = 5, dry_run: bool = False, headless: bool = False,
                     time.sleep(pause)
 
                 print(f"[{i + 1}/{len(todo)}] {gap.company}")
-                outcome = _harvest(page, gap.company)
+                # One company must never be able to end the batch. Anything unexpected here is
+                # escalated and the run moves on -- a crash costs every company after it AND the
+                # Slack report, which is how two real invites went out unreported on 2026-08-16.
+                try:
+                    outcome = _harvest(page, gap.company)
+                except Exception as exc:                     # noqa: BLE001 - deliberately broad
+                    print(f"  ?? unexpected failure ({type(exc).__name__}: {exc!s:.90})")
+                    print("     This is NOT 'nobody works there'. Nothing was observed.")
+                    escalate.append(f"{gap.company}: {type(exc).__name__}")
+                    continue
                 outcome.role = gap.role
 
                 if outcome.error:
@@ -611,13 +660,28 @@ def run(limit: int = 5, dry_run: bool = False, headless: bool = False,
                 print(f"  -> {best.name} ({best.kind}){flag}")
                 print(f"     {path.relative_to(REPO)}")
 
-                title, text = approval_card(gap.company, gap.role, best)
-                # "draft_ready" is the only EVENTS key that means "a human must look at this".
-                # slack_notify.py validates with argparse choices, so a wrong name exits non-zero
-                # and the card silently never appears -- which is the whole gap this module closes.
-                print("     slack: card posted, waiting on ✅" if _slack("draft_ready", title, text)
-                      else "     !! card NOT posted; contact.md is still on disk")
-                queued += 1
+                if not send:
+                    title, text = approval_card(gap.company, gap.role, best)
+                    # "draft_ready" is the only EVENTS key that means "a human must look at this".
+                    # slack_notify.py validates with argparse choices, so a wrong name exits
+                    # non-zero and the card silently never appears.
+                    print("     slack: card posted, waiting on ✅" if _slack("draft_ready", title, text)
+                          else "     !! card NOT posted; contact.md is still on disk")
+                    queued += 1
+                    continue
+
+                # Send it now. Azam removed the tick on 2026-08-16; connect.py's docstring records
+                # what that costs and which guards carry the risk in its place.
+                sent = connect.connect_one(page, best.username, best.name, gap.company)
+                sends.append(sent)
+                print(f"     {sent.outcome}: {sent.detail}")
+                if sent.ok and track_invite(gap.company, gap.role, best):
+                    print("     tracked: the CV goes out automatically once they accept")
+                if sent.ok:
+                    queued += 1
+                    pause = connect.throttle()
+                    print(f"     ...{pause}s before the next send")
+                    time.sleep(pause)
         except LinkedInLoggedOut as exc:
             print(f"!! COULD NOT SEARCH: {exc}")
             print("   This is NOT 'no recruiters found'. Nothing was observed.")
@@ -625,24 +689,36 @@ def run(limit: int = 5, dry_run: bool = False, headless: bool = False,
         finally:
             context.close()
 
-    print(f"\n{queued} card(s) awaiting your ✅ · {blocked} company(ies) recorded unreachable")
+    verb = "request(s) SENT" if send else "card(s) awaiting your ✅"
+    print(f"\n{queued} {verb} · {blocked} company(ies) recorded unreachable")
     if escalate:
         print(f"{len(escalate)} search(es) told us NOTHING (retry these):")
         for line in escalate:
             print(f"  ?? {line}")
-    if queued:
+
+    if send:
+        # Report what was DONE. Every non-sent outcome is reported too: a run that quietly
+        # attempted five and landed one must not read like a run that landed five.
+        if sends:
+            connect.report(sends)
+        if queued:
+            print("The CV and pitch go out automatically once each person accepts.")
+    elif queued:
         print("Nothing has been sent. `flush-approved` picks these up once you tick them.")
     return 0
 
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(
-        description="Find a named human for applications that reached nobody. Sends nothing.")
+        description="Find a named human for each application that reached nobody, and connect.")
     ap.add_argument("--limit", type=int, default=5, help="how many companies to research this run")
     ap.add_argument("--dry-run", action="store_true", help="show the queue, open no browser")
     ap.add_argument("--headless", action="store_true")
+    ap.add_argument("--no-send", action="store_true",
+                    help="legacy: post a Slack card for approval instead of connecting")
     args = ap.parse_args(argv)
-    return run(limit=args.limit, dry_run=args.dry_run, headless=args.headless)
+    return run(limit=args.limit, dry_run=args.dry_run, headless=args.headless,
+               send=not args.no_send)
 
 
 if __name__ == "__main__":  # pragma: no cover

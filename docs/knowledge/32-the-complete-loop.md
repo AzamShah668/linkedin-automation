@@ -46,7 +46,7 @@ never cost an overdue pitch.
 | nudge | `apps/autopilot/nudge.py` | no | Day-3 / Day-7 drafts to Slack |
 | discovery | `tools/daily-discovery.ps1` | no | Currently **disabled** as a task; runs here |
 | apply | `apps/autopilot/run.py apply-all` | submits | Capped `-ApplyMax 8`, once a day |
-| outreach | `apps/autopilot/outreach.py` | **no** | Finds a named human, asks for a tick |
+| outreach | `apps/autopilot/outreach.py` | **YES** (D48) | Finds a named human and **connects**; reports after |
 | packets | `tools/sweep-packets.ps1` | no | Tailored CVs |
 
 ---
@@ -201,13 +201,20 @@ space-free-ish single target, and is the reason the task is one word long.
 
 ---
 
-## 7. What is still a human's job, on purpose
+## 7. What is still a human's job
 
-1. **Tick the ✅.** Every connection request. This is D12 and it is not a placeholder.
+⚠️ **Changed 2026-08-16 (D48).** Azam removed the connection-request tick himself: *"Whenever you
+find a connection just go for it ... just provide me with the details that you have done."* Slack is
+now a **receipt** for that step, not a gate.
+
+1. ~~Tick the ✅ on every connection request~~ — **now automatic.** See D48 for what that costs and
+   which guards carry the risk in its place (cap, throttle, business hours, never-twice, and
+   current-employees-only, which is now the last check on who gets contacted).
 2. **Send the nudges.** The drafts arrive in Slack; the sending is his.
 3. **Reply to humans.** `replies.py` finds them and shouts; it never answers.
 
-Automating any of those three converts this project into the thing it was built not to be.
+The CV and the pitch still go out only after someone accepts, and every nudge is still his click.
+D12 governs everything except the bare invite.
 
 ---
 

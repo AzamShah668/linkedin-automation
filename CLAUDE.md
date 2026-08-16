@@ -562,6 +562,36 @@ py -3 tools/post_creator/dispatch_engine.py --dry-run --post-id N  # preview dis
   admin — and `schtasks /TR` mangles a path with a space, which is why `pipeline.cmd` exists.
   🔢 **187 tests** (was 150).
 
+- **2026-08-16 — ⚠️ THE APPROVAL GATE IS GONE. Read D48 before touching outreach or connect.**
+  D12 ("nothing sends without a tick") governed this project from 2026-07-26. **Azam removed it
+  himself**, explicitly: *"don't leave it up to Slack ... Whenever you find a connection just go for
+  it ... just provide me with the details that you have done."* The risk was already on record from
+  D47 and he reaffirmed it. It is his account. **Slack is now a receipt, not a request.**
+  **`apps/autopilot/connect.py`** sends the bare request through the Playwright profile;
+  `outreach.py` calls it, hands the invite to `watch-accepts`, and reports once per run.
+  `--no-send` restores the old card-and-tick behaviour.
+  ⚠️ **What still stands between this and an account restriction** — none of it a substitute for a
+  human reading each name, and all of it now load-bearing: a **daily cap** from an append-only log
+  (`LINKEDIN_CONNECTS_DAILY_CAP`, currently **5** — raise to ~10), a 45s+jitter throttle,
+  **business hours only** (03:00 invites are a bot signal no cap disguises), **one request per
+  person ever**, and **current-employees-only**, which is now the last check on who gets contacted.
+  Guards fire *before* the browser opens, and a refusal is deliberately **not** logged — logging it
+  would poison `already_requested()` and permanently skip someone never asked.
+  🔴 **Three bugs, one good failure direction.** Connect is **not on the top card** (both live
+  profiles offered only *Follow*; it lives in **More**). LinkedIn's **sticky nav eats the click** —
+  Playwright scrolls the button under the fixed header and reports it *visible, enabled and stable*
+  while `<nav> ... intercepts pointer events`; **`force=True` does not help**, force skips
+  actionability, not an element on top. And the confirmation was **blind**:
+  `get_by_role("button", name=/pending/)` never matches because LinkedIn renders the badge with an
+  **empty aria-label** and "Pending" as text — a real send was reported as unconfirmed. That one
+  failed *safe*; the same blindness in `_top_card_state` would have invited someone **twice**.
+  🔴 **A transient `ERR_CONNECTION_CLOSED` aborted a whole batch** — `page.goto` sat outside the
+  try, so every later company went unprocessed and the run died before its Slack report, leaving
+  two real invites reported nowhere. Guarded per company; `connect_one` can no longer raise.
+  ✅ **Five sent the first evening**, all confirmed by the Pending badge, all tracked for stage 2:
+  TCS, BayOne Solutions, Berribot, Discovr AI, ANSR. **220 tests** (was 198).
+  Still human: the nudges, and replying to people. **Do not reply to Showkat** (owner's instruction).
+
 - **NEXT — in this order. The reordering fact is now: 14 applications, 1 reply, and the reply came from
   the only warm-insider approach the project has made.**
   1. 🔴 **Answer Recruiter-A** — 16 days late, on a personal phone number. **Only the owner can do this**;

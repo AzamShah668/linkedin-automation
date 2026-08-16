@@ -411,13 +411,17 @@ section. Brain 2: NEW 27-linkedin-content-engine, 00-INDEX updated.
 ## [2026-08-13 20:35] session | Live LinkedIn Post Dispatched (AI Agents Trust)
 Touched: none (AST-only graph)
 Successfully posted today's Wednesday Trending Tech Take ("AI agents lie, cheat and steal") live to LinkedIn via Playwright.
-Hero image attached (`hero_ai_agents_trust.png` via Pollinations FLUX.1 in 1.5s). Refined `dispatch_engine.py` Playwright selectors for LinkedIn's post modal (`div[role='textbox']`, `button[aria-label*='Add media']`, `button.share-box-footer__primary-btn`). Skill updated: em-dashes permanently banned in `linkedin-post-copywriter/SKILL.md`. Marked Post #33 as `posted` in Content Hub DB.
+Hero image attached (`hero_ai_agents_trust.png` via Pollinations FLUX.1 in 1.5s). Refined `dispatch_engine.py` Playwright selectors for LinkedIn's post modal (`div[role='textbox']`, `button[aria-label*='Add media']`, `button.share-box-footer__primary-btn`). Skill updated: em-dashes permanently banned in `linkedin-post-copywriter/SKILL.md`. Marked Post #33 as `posted` in Content Hub DB
 
 ## [2026-08-13 20:50] session | Enforced High 3D Visual Complexity (Zero Hollow Space)
 Touched: none
 Upgraded `viral-architecture-visualizer/SKILL.md` (added Rule 6) and `tools/post_creator/prompt_templates.json` to permanently enforce high-complexity, attention-grabbing 3D Octane renders (multi-layered glass holographic UI, glowing cyan + amber dual volumetric lighting, dense server/hardware background depth, zero empty space) for all future automated post image generations.
 
-
+## [2026-08-15 19:55] session | Live LinkedIn Post Dispatched (Production Rollback Lessons)
+Touched: none (AST-only graph)
+Successfully created and posted the Friday Engineering Lesson ("Why Production Rollbacks Fail") live to LinkedIn via Playwright.
+High-complexity 3D command center hero image generated via Imagen 3 (`hero_rollback_lesson_1786801062750.png`).
+Updated `dispatch_engine.py` with exact `button:text-is('Post')` targeting and refined photo upload flow.
 
 ## [2026-08-11] session | Reply check finds the 16-day-old reply
 Touched: none
@@ -648,4 +652,16 @@ sender. Bounces clean, campus+ATS sweep (widened with talent500/greenhouse/lever
 Fix direction: step 1 should read the ledger, not the board.
 
 ## [2026-08-15 19:45] session | closed the loop: outreach + nudge + one runner
+Touched: none
+
+## [2026-08-16 00:42] session | reply check 15 - both channels quiet
+Touched: none
+
+## [2026-08-16 01:02] session | accept watch 13 - queue is nine, four lack pitches
+Touched: none
+
+## [2026-08-16 18:27] session | reply check 16 - ANSR deadline, Energy Exemplar status fixed
+Touched: none
+
+## [2026-08-16 19:20] session | gate removed: outreach connects by itself
 Touched: none

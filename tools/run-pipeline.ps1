@@ -121,7 +121,7 @@ $steps = @(
   @{ key='discovery'; name='Daily Discovery';                script='daily-discovery.ps1';args=@() },
   @{ key='apply';     name='Apply (Easy Apply batch)';       cmd='apps.autopilot.run';
      args=@('apply-all','--limit',"$ApplyMax",'--max-per-company','1'); browser=$true; onceADay=$true },
-  @{ key='outreach';  name='Find a human per application';   cmd='apps.autopilot.outreach';
+  @{ key='outreach';  name='Find a human + CONNECT';         cmd='apps.autopilot.outreach';
      args=@('--limit',"$OutreachMax"); browser=$true },
   @{ key='packets';   name='Sweep Packets';                  script='sweep-packets.ps1';  args=@('-Max', "$PacketMax") }
 )

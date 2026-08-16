@@ -1666,3 +1666,73 @@ card renders, not about the company — blocking on it would burn a real employe
 **Consequences.** One entry point (`pipeline.cmd`), eight ordered steps, daily at 10:30 plus catch-up
 on resume. The human still ticks every invite, sends every nudge, and answers every reply — see
 [[32-the-complete-loop]] §7. **187 tests** (was 150).
+
+---
+
+## D48 — The approval gate is removed, on the owner's explicit instruction (2026-08-16)
+
+**Context.** D12 has governed this project since 2026-07-26: nothing goes to a human without Azam
+ticking ✅ in Slack. `outreach.py` (D47) was built to that rule — find the recruiter, post a card,
+let `flush-approved` send only what was approved. It worked: on 2026-08-15 it queued six cards and
+four went out overnight.
+
+He removed the gate himself, unprompted and explicitly:
+
+> *"don't leave it up to Slack. I just want you to do it yourself. Whenever you find a connection
+> just go for it ... Don't ask me for permission from Slack. Remove that ... just provide me with
+> the details that you have done."*
+
+The risk had already been stated when D47 was written, and he reaffirmed the instruction knowing
+it. It is his account. **Slack becomes a receipt, not a request.**
+
+**Decision.** `apps/autopilot/connect.py` sends the bare request directly through the same
+Playwright profile; `outreach.py` calls it, hands the invite to `watch-accepts`, and posts one
+report per run. `--no-send` restores the old behaviour for a run he wants to eyeball.
+
+### ⚠️ What this costs, recorded so nobody re-litigates it from memory
+
+Automated connection requests are the behaviour LinkedIn most reliably restricts accounts for, and
+the gate was the thing keeping this project on the safe side of its own north star. What remains is
+**not a substitute** for a human reading each name, and every piece of it got more important the
+moment the tick disappeared:
+
+| Guard | Value |
+|---|---|
+| daily cap, counted from an append-only log | `LINKEDIN_CONNECTS_DAILY_CAP` (5, raise to ~10) |
+| randomised throttle | 45s + up to 120s jitter |
+| business hours only | 09:00–21:00 — invites at 03:00 are a bot signal no cap disguises |
+| one request per person, **ever** | checked against the log before every send |
+| **current employees only** | D47's `employment()`, now the last check on who gets contacted |
+
+The guards fire **before the browser is touched**, and a refusal is deliberately *not* written to
+the log — logging it would poison `already_requested()` and permanently skip someone never asked.
+
+### Three bugs, and the good failure direction
+
+1. **Connect is not on the top card.** Both live profiles offered only *Follow*; Connect sits in
+   the **More** menu. The first version reported `no-connect-button` and moved on.
+2. **The sticky nav eats the click.** Playwright scrolls the button into view, which parks it
+   *under* LinkedIn's fixed header: *"`<nav>` … intercepts pointer events"*, while the element is
+   reported visible, enabled and stable throughout. `force=True` does **not** help — force skips
+   actionability, not an element sitting on top (the résumé-radio trap, one layer along).
+   `_click_through_sticky_nav()` tries a plain click, then scroll-plus-offset, then a real
+   `el.click()` dispatch.
+3. **The confirmation was blind.** `get_by_role("button", name=/pending/)` never matches: LinkedIn
+   renders the badge with an **empty aria-label** and "Pending" as text, so it has no accessible
+   name. An invite that genuinely went out — six Pending markers on the reloaded profile — was
+   reported *"sent, but the Pending badge was not seen"*.
+
+That third one failed in the **safe** direction (under-claiming a success), which is the only
+reason it was a nuisance rather than a lie. The same blindness in `_top_card_state` would have
+invited someone **twice**.
+
+### And one that lost work
+
+A transient `ERR_CONNECTION_CLOSED` on one company's search **aborted the whole batch**: `page.goto`
+was outside the try. Every later company went unprocessed and the run died before its Slack report,
+so two invites that HAD gone out were reported nowhere. Now guarded per company, and `connect_one`
+cannot raise at all — *the caller has already sent invites it owes the owner a report on*.
+
+**Consequences.** Five real connection requests on the first evening, all confirmed by the Pending
+badge, all handed to stage 2. **220 tests** (was 198). D12 still governs everything else: the CV,
+the pitch, and every nudge remain human-sent.
