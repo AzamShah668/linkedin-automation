@@ -233,3 +233,68 @@ def test_the_free_cv_never_overwrites_the_claude_packet():
     import inspect
     source = inspect.getsource(freecv.build)
     assert "cv-free.md" in source
+
+
+# --- the CV sweep: the free stack's sweep-packets.ps1 ---------------------------------------------
+def test_the_sweep_only_considers_applied_rows(tmp_path):
+    """A tailored CV for a job nobody applied to is work in the wrong order."""
+    import sqlite3
+    db = tmp_path / "board.sqlite3"
+    conn = sqlite3.connect(db)
+    conn.execute("CREATE TABLE jobs (id TEXT, job TEXT, company TEXT, fit INT, status TEXT)")
+    conn.executemany("INSERT INTO jobs VALUES (?,?,?,?,?)", [
+        ("1", "SRE", "Applied Co", 90, "Applied"),
+        ("2", "SRE", "New Co", 95, "New"),
+        ("3", "SRE", "Skipped Co", 99, "Skipped"),
+    ])
+    conn.commit(); conn.close()
+    rows = freecv.rows_needing_a_cv(limit=5, db=db)
+    assert [r[0] for r in rows] == ["Applied Co"]
+
+
+def test_the_sweep_orders_by_fit(tmp_path):
+    import sqlite3
+    db = tmp_path / "board.sqlite3"
+    conn = sqlite3.connect(db)
+    conn.execute("CREATE TABLE jobs (id TEXT, job TEXT, company TEXT, fit INT, status TEXT)")
+    conn.executemany("INSERT INTO jobs VALUES (?,?,?,?,?)", [
+        ("1", "SRE", "Low", 70, "Applied"),
+        ("2", "SRE", "High", 95, "Applied"),
+    ])
+    conn.commit(); conn.close()
+    assert [r[0] for r in freecv.rows_needing_a_cv(limit=5, db=db)] == ["High", "Low"]
+
+
+def test_the_sweep_respects_its_limit(tmp_path):
+    import sqlite3
+    db = tmp_path / "board.sqlite3"
+    conn = sqlite3.connect(db)
+    conn.execute("CREATE TABLE jobs (id TEXT, job TEXT, company TEXT, fit INT, status TEXT)")
+    conn.executemany("INSERT INTO jobs VALUES (?,?,?,?,?)",
+                     [(str(i), "SRE", f"Co{i}", 90, "Applied") for i in range(6)])
+    conn.commit(); conn.close()
+    assert len(freecv.rows_needing_a_cv(limit=2, db=db)) == 2
+
+
+def test_a_missing_board_is_not_a_crash(tmp_path):
+    assert freecv.rows_needing_a_cv(limit=2, db=tmp_path / "nope.sqlite3") == []
+
+
+def test_a_row_that_already_has_a_free_cv_is_skipped(tmp_path, monkeypatch):
+    """Otherwise every sweep rebuilds the same top row forever and never reaches the rest."""
+    import sqlite3
+    db = tmp_path / "board.sqlite3"
+    conn = sqlite3.connect(db)
+    conn.execute("CREATE TABLE jobs (id TEXT, job TEXT, company TEXT, fit INT, status TEXT)")
+    conn.executemany("INSERT INTO jobs VALUES (?,?,?,?,?)", [
+        ("1", "SRE", "Done Co", 95, "Applied"),
+        ("2", "SRE", "Todo Co", 90, "Applied"),
+    ])
+    conn.commit(); conn.close()
+
+    outreach = tmp_path / "outreach"
+    (outreach / "done-co--sre").mkdir(parents=True)
+    (outreach / "done-co--sre" / "cv-free.md").write_text("already built", encoding="utf-8")
+    monkeypatch.setattr(freecv, "OUTREACH_DIR", outreach)
+
+    assert [r[0] for r in freecv.rows_needing_a_cv(limit=5, db=db)] == ["Todo Co"]

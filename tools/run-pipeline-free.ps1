@@ -22,6 +22,7 @@ param(
   [int]$ApplyMax = 8,
   [int]$OutreachMax = 5,
   [int]$DiscoverPages = 2,
+  [int]$CvMax = 2,
   [switch]$WhatIf
 )
 
@@ -80,7 +81,12 @@ $steps = @(
   @{ key='discovery'; name='Discover (f_AL=true)';      module='apps.autopilot.free.discover';  args=@('--pages',"$DiscoverPages");         browser=$true; soft=$true },
   @{ key='intake';    name='Score and load the board';  module='apps.autopilot.intake';         args=@('--write') },
   @{ key='apply';     name='Apply (Easy Apply batch)';  module='apps.autopilot.run';            args=@('apply-all','--limit',"$ApplyMax",'--max-per-company','1'); browser=$true },
-  @{ key='outreach';  name='Find a human + CONNECT';    module='apps.autopilot.outreach';       args=@('--limit',"$OutreachMax");           browser=$true }
+  @{ key='outreach';  name='Find a human + CONNECT';    module='apps.autopilot.outreach';       args=@('--limit',"$OutreachMax");           browser=$true },
+  # Last, deliberately: a tailored CV is valuable but never urgent, and it is the slowest step.
+  # The free-stack answer to sweep-packets.ps1. -Only cv was in the ValidateSet with no step
+  # behind it, so it silently did nothing - an accepted argument that does nothing is the same
+  # silent-success failure this project keeps finding.
+  @{ key='cv';        name='Build missing CVs';         module='apps.autopilot.free.cv';        args=@('--sweep',"$CvMax") }
 )
 
 Say "=== run-pipeline-free start (only=$Only) $(Get-Date -Format o) ==="

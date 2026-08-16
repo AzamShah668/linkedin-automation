@@ -31,6 +31,7 @@ from __future__ import annotations
 
 import argparse
 import re
+import sqlite3
 import sys
 import time
 from dataclasses import dataclass
@@ -208,14 +209,91 @@ def build(company: str, role: str, jd: str = "",
     return BuildResult(company, role, path, used, report, text=text)
 
 
+# ---------------------------------------------------------------------------------------------
+# The sweep: the free stack's answer to sweep-packets.ps1
+# ---------------------------------------------------------------------------------------------
+BOARD_DB = REPO / "database" / "board.sqlite3"
+
+
+def rows_needing_a_cv(limit: int = 2, db: Path | None = None) -> list[tuple[str, str, int]]:
+    """(company, role, fit) for applied rows with no free CV yet, best fit first.
+
+    Applied rows only. A tailored CV for a job nobody has applied to is work done in the wrong
+    order - the point of the CV is to have something to send when a recruiter answers, and the
+    project's whole failure mode has been applications that reached nobody (D32).
+    """
+    db = db if db is not None else BOARD_DB
+    if not db.exists():
+        return []
+    try:
+        conn = sqlite3.connect(f"file:{db}?mode=ro", uri=True)
+    except sqlite3.Error:
+        return []
+    try:
+        found = conn.execute(
+            "SELECT company, job, fit FROM jobs WHERE status = 'Applied' "
+            "ORDER BY fit DESC").fetchall()
+    except sqlite3.Error:
+        return []
+    finally:
+        conn.close()
+
+    out: list[tuple[str, str, int]] = []
+    for company, role, fit in found:
+        if not company or not role:
+            continue
+        folder = OUTREACH_DIR / f"{_slug(company)}--{_slug(role)[:40]}"
+        if (folder / "cv-free.md").exists():
+            continue
+        out.append((company, role, fit or 0))
+        if len(out) >= limit:
+            break
+    return out
+
+
+def sweep(limit: int = 2, write: bool = True) -> int:
+    """Build the next few missing CVs. Exit 0 even when there is nothing to do."""
+    todo = rows_needing_a_cv(limit)
+    if not todo:
+        print("every applied row already has a free CV")
+        return 0
+
+    print(f"building {len(todo)} CV(s), best fit first")
+    print()
+    built = 0
+    for company, role, fit in todo:
+        print(f"[{fit}] {company} / {role[:50]}")
+        result = build(company, role, write=write)
+        if result.ok:
+            built += 1
+            where = result.path.relative_to(REPO) if result.path else "(dry run)"
+            print(f"  PASS after {result.attempts} attempt(s) -> {where}")
+        else:
+            # Loud, and it does not stop the sweep: one company that cannot clear the blocklist
+            # must not block the rest of the queue.
+            print(f"  FAILED after {result.attempts} attempt(s); nothing written")
+            for violation in result.report.violations[:4]:
+                print(f"    {violation}")
+            print()
+    print(f"{built} of {len(todo)} built")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description="Build a tailored CV with a free model. Sends nothing.")
-    ap.add_argument("--company", required=True)
-    ap.add_argument("--role", required=True)
+    ap.add_argument("--company")
+    ap.add_argument("--role")
+    ap.add_argument("--sweep", type=int, metavar="N",
+                    help="build up to N missing CVs for applied rows, best fit first")
     ap.add_argument("--jd", default="", help="path to a job description file")
     ap.add_argument("--attempts", type=int, default=MAX_ATTEMPTS)
     ap.add_argument("--dry-run", action="store_true", help="generate and validate, write nothing")
     args = ap.parse_args(argv)
+
+    if args.sweep:
+        return sweep(limit=args.sweep, write=not args.dry_run)
+    if not (args.company and args.role):
+        ap.error("give --company and --role, or use --sweep N")
 
     jd = ""
     if args.jd:
