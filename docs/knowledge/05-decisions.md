@@ -1791,3 +1791,70 @@ em-dashes**, no relative time words (D22), OSS framed at project level, no flatt
 
 **Consequences.** 8 pitches backfilled; every outstanding invite now has something to send. Shale's
 is hand-written and was **not** overwritten by the backfill. **236 tests** (was 220).
+
+---
+
+## D50 — One source is not enough for an action you cannot undo (2026-08-16)
+
+**What happened.** An automatic connection request went to **Aditya Sharma for Berribot**. He does
+not work there: his profile mentions Berribot **zero times**, fully scrolled, and he is
+banner-flagged *Open to work* — a peer job-seeker, not a route into a company.
+
+**My first diagnosis was wrong, and the wrongness is the lesson.** I said "card bleed": that
+`a.closest('li')` had swept a neighbouring result's text into his card. Dumping the raw harvest
+disproved it — every card was clean, each person's lines their own. LinkedIn's search card genuinely
+says, in its own words:
+
+```
+Current: Software Engineer at Berribot
+```
+
+So `employment()` (D47) worked exactly as designed. **The search index and the profile disagree.**
+
+> **The defect was not the check. It was trusting one source for an irreversible action.**
+
+### The fix: corroborate on the authority, at the last possible moment
+
+`connect.py::profile_corroborates_company()` runs on the person's own profile immediately before
+the Connect click, and refuses with `company-unverified` if the profile never names the employer.
+The profile is the authority; the search card is a hint.
+
+It keeps the three-state discipline the rest of this codebase runs on, because the failure
+directions differ:
+
+| Observation | Response |
+|---|---|
+| profile loaded, does **not** name the company | **refuse** — an invite cannot be recalled |
+| profile could not be read / rendered nothing | **not evidence** — fall back to the card |
+
+Collapsing those two would block every private or slow-loading profile.
+
+⚠️ **My own verification produced a false negative first.** The initial hand check read the page
+body **without scrolling** and reported "Berribot appears 0×" — which happened to be right, but for
+the wrong reason: LinkedIn lazy-loads Experience far below the fold. The instrument nearly lied in
+both directions on the same day. `profile_corroborates_company` scrolls five times before reading.
+
+### The second defect: the verdict was never written down
+
+`contact.md` recorded only `Why them: engineer` — **no employment field at all**. So the mistake was
+invisible in the exact file a human would review.
+
+> **A three-state check is worthless if its verdict is never persisted.** Persist the *evidence*,
+> not just the decision.
+
+`contact.md` now carries **Works there: CURRENT/PAST/UNKNOWN** plus the literal card line it came
+from, and `Candidate.reviewable` makes a candidate whose evidence cannot be quoted **ineligible to
+be contacted at all**.
+
+### Containment and the audit
+
+The invite is spent and unrecallable. **The pitch was withheld** — marked FAILED, and the file
+renamed so `watch-accepts` cannot find `touch-2-linkedin.md`. Kept rather than deleted, with the
+corrected diagnosis on it, so the mistake stays reviewable.
+
+Audit of the other four sent that day: **TCS, Discovr AI and ANSR** all name the employer in the
+headline; **BayOne verified by hand** ("BayOne" appears 5× on his profile). **1 wrong in 5.**
+
+**Consequences.** **251 tests** (was 236). Both stacks share `outreach.py`, so this was fixed before
+any OmniRoute work began — building on top of it would have duplicated the defect rather than
+contained it.

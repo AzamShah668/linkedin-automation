@@ -668,3 +668,6 @@ Touched: none
 
 ## [2026-08-16 20:05] session | first accept; pitch generator closes the dead end
 Touched: none
+
+## [2026-08-16 21:10] session | wrong-person fix, branch split, OmniRoute stack begun
+Touched: none
