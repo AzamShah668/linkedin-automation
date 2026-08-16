@@ -166,3 +166,85 @@ def test_result_ok_is_true_only_for_a_send():
     for outcome in (connect.ALREADY_PENDING, connect.CAPPED, connect.ERROR,
                     connect.LIMIT_REACHED, connect.OUT_OF_HOURS, connect.NO_CONNECT_BUTTON):
         assert connect.Result("u", "n", "c", outcome).ok is False
+
+
+# =================================================================================================
+# 2026-08-16 — the invite that could not be recalled.
+#
+# A real connection request went to Aditya Sharma for Berribot. LinkedIn's SEARCH CARD said, in its
+# own words, "Current: Software Engineer at Berribot", so employment() was working exactly as
+# designed. His PROFILE mentions Berribot zero times, fully scrolled.
+#
+# The first diagnosis was "card bleed" and it was wrong — the harvested cards were clean. The real
+# bug was trusting a single source for an irreversible action.
+# =================================================================================================
+
+class _ProfilePage:
+    """Minimal stand-in: a body of text, and a wheel that does nothing."""
+
+    def __init__(self, text):
+        self._text = text
+
+    class _Loc:
+        def __init__(self, text):
+            self._text = text
+
+        def inner_text(self, timeout=None):
+            return self._text
+
+    class _Mouse:
+        def wheel(self, *a, **k):
+            pass
+
+    @property
+    def mouse(self):
+        return self._Mouse()
+
+    def locator(self, _sel):
+        return self._Loc(self._text)
+
+    def wait_for_timeout(self, _ms):
+        pass
+
+
+PADDING = " lorem ipsum dolor sit amet " * 30       # push past the "rendered almost nothing" floor
+
+
+def test_a_profile_that_names_the_company_is_corroborated():
+    page = _ProfilePage("Abhishek Negi. Tech Recruiter. Experience: BayOne Solutions." + PADDING)
+    ok, _why = connect.profile_corroborates_company(page, "BayOne Solutions")
+    assert ok is True
+
+
+def test_the_berribot_profile_is_refused():
+    """The exact failure: search said Berribot, the profile never does."""
+    page = _ProfilePage("Aditya Sharma. AI / Full-Stack Engineer. IIT Delhi. GATE CS." + PADDING)
+    ok, why = connect.profile_corroborates_company(page, "Berribot")
+    assert ok is False
+    assert "never mentions" in why
+
+
+def test_an_unreadable_profile_is_not_treated_as_a_denial():
+    """Could-not-read is not evidence. Collapsing it with 'says no' blocks every private profile."""
+    class Boom(_ProfilePage):
+        def locator(self, _sel):
+            raise RuntimeError("detached")
+
+    ok, why = connect.profile_corroborates_company(Boom(""), "Berribot")
+    assert ok is True
+    assert "unreadable" in why
+
+
+def test_a_nearly_empty_profile_falls_back_rather_than_refusing():
+    ok, why = connect.profile_corroborates_company(_ProfilePage("Sign in"), "Berribot")
+    assert ok is True
+    assert "almost nothing" in why
+
+
+def test_no_company_to_check_is_not_a_refusal():
+    ok, _why = connect.profile_corroborates_company(_ProfilePage("anything" + PADDING), "")
+    assert ok is True
+
+
+def test_company_unverified_is_not_a_send():
+    assert connect.Result("u", "n", "c", connect.COMPANY_UNVERIFIED).ok is False

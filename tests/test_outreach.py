@@ -26,6 +26,7 @@ from apps.autopilot.outreach import (
     company_tokens,
     contact_md,
     employment,
+    evidence_line,
     mentions_company,
     parse_card,
     rank,
@@ -191,3 +192,105 @@ def test_contact_md_records_that_nothing_was_sent():
 def test_backups_are_listed_so_a_dead_end_does_not_stall_the_company():
     body = contact_md("Acme", "SRE", [_person(), _person(name="Bo", username="bo")])
     assert "Backups" in body and "Bo" in body
+
+
+# =================================================================================================
+# 2026-08-16 — the fourth wrong-person send, and the one that actually reached someone.
+#
+# A real connection request went to Aditya Sharma for "Berribot · M365 Infrastructure SME". He is
+# an IIT Delhi AI/full-stack engineer, banner-flagged Open to work, and the word "Berribot" appears
+# ZERO times on his profile (verified by hand afterwards). The invite could not be recalled.
+#
+# Two independent defects had to line up:
+#   1. CARD BLEED - `a.closest('li')` swept a neighbouring result's text into his card, so a
+#      "Berribot" line belonging to somebody else satisfied employment().
+#   2. NO PERSISTED EVIDENCE - contact.md recorded only "Why them: engineer", so the mistake was
+#      invisible in the exact file a human would review.
+#
+# A three-state check is worthless if its verdict is never written down.
+# =================================================================================================
+
+ADITYA_CARD = [
+    "Aditya Sharma",
+    "· 3rd",
+    "AI / Full-Stack Engineer | IIT Delhi'25 | Open Source Contributor (NetBox, Aden) | "
+    "Building & Scaling SaaS Products | GATE CS AIR 156",
+    "New Delhi, Delhi, India",
+    "Connect",
+]
+BAYONE_CARD = [
+    "Abhishek Negi",
+    "Tech Recruiter | Hiring for UX, Product & Engineering Roles",
+    "Bengaluru, Karnataka, India",
+    "Current: Tech Recruiter at BayOne Solutions",
+]
+ANSR_CARD = [
+    "Abarna Devi",
+    "Associate Director - Talent Acquisition @ ANSR",
+    "Bengaluru, Karnataka, India",
+]
+
+
+def test_the_berribot_card_is_not_a_berribot_employee():
+    """The exact failure. Nothing on this card ties him to the company."""
+    card = parse_card("adityasharmalin", ADITYA_CARD)
+    assert employment(card, "Berribot") == UNKNOWN
+
+
+def test_the_berribot_candidate_is_not_reviewable_so_cannot_be_contacted():
+    card = parse_card("adityasharmalin", ADITYA_CARD)
+    person = Candidate(name=card.name, headline=card.headline, username=card.username,
+                       kind="engineer", employment=employment(card, "Berribot"),
+                       evidence=evidence_line(card, "Berribot"))
+    assert person.evidence == ""
+    assert person.reviewable is False
+
+
+def test_a_current_employee_named_only_on_the_current_line_is_reviewable():
+    """BayOne: the headline never names the company, the Current: line does."""
+    card = parse_card("abhisheknegiiii", BAYONE_CARD)
+    assert employment(card, "BayOne Solutions") == CURRENT
+    assert "BayOne Solutions" in evidence_line(card, "BayOne Solutions")
+
+
+def test_a_current_employee_named_in_the_headline_is_reviewable():
+    card = parse_card("abarna", ANSR_CARD)
+    assert employment(card, "ANSR") == CURRENT
+    assert evidence_line(card, "ANSR").startswith("headline:")
+
+
+def test_evidence_is_empty_when_there_is_none():
+    card = parse_card("x", ["Jane Doe", "Engineer at Somewhere Else", "Pune"])
+    assert evidence_line(card, "Berribot") == ""
+
+
+def test_a_former_employee_evidence_says_so_out_loud():
+    card = parse_card("u", EX_EMPLOYEE_CARD)
+    assert "FORMER" in evidence_line(card, "Lotus Interworks")
+
+
+def test_reviewable_requires_both_current_and_evidence():
+    """Either half missing must block the send. The verdict alone is not enough."""
+    base = dict(name="A", headline="h", username="u", kind="recruiter")
+    assert Candidate(**base, employment="current", evidence="card line: ...").reviewable is True
+    assert Candidate(**base, employment="current", evidence="").reviewable is False
+    assert Candidate(**base, employment="past", evidence="card line: ...").reviewable is False
+    assert Candidate(**base).reviewable is False
+
+
+def test_contact_md_shows_the_evidence_a_human_would_check():
+    """The file recorded only "Why them: engineer" when the bad invite went out."""
+    person = Candidate(name="Abarna Devi", headline="Talent Acquisition @ ANSR",
+                       username="abarna", kind="recruiter",
+                       employment="current", evidence='headline: "Talent Acquisition @ ANSR"')
+    body = contact_md("ANSR", "Data & AI Platform", [person])
+    assert "Works there:** CURRENT" in body
+    assert "Evidence:**" in body and "Talent Acquisition @ ANSR" in body
+
+
+def test_contact_md_shouts_when_there_is_no_evidence():
+    person = Candidate(name="Aditya Sharma", headline="AI / Full-Stack Engineer",
+                       username="adityasharmalin", kind="engineer")
+    body = contact_md("Berribot", "M365 Infrastructure SME", [person])
+    assert "UNVERIFIED" in body
+    assert "do not contact" in body

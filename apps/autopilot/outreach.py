@@ -198,6 +198,24 @@ def employment(card: Card, company: str) -> str:
     return UNKNOWN
 
 
+def evidence_line(card: Card, company: str) -> str:
+    """The literal card text the employment verdict rests on. Empty means 'no evidence'.
+
+    Written into contact.md so the decision is reviewable by a human from the file alone. An empty
+    string here is a hard stop, not a cosmetic gap -- see `Candidate.reviewable`.
+    """
+    if card.current_company and mentions_company(card.current_company, company):
+        role = f"{card.current_role} at " if card.current_role else ""
+        return f'card line: "Current: {role}{card.current_company}"'
+    if card.headline:
+        for match in _HEADLINE_AT.finditer(card.headline):
+            if mentions_company(match.group("company"), company):
+                return f'headline: "{card.headline.strip()}"'
+    if card.past_company and mentions_company(card.past_company, company):
+        return f'card line: "Past: ... at {card.past_company}" (FORMER employee)'
+    return ""
+
+
 def _slug(company: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", (company or "").lower()).strip("-")
 
@@ -210,10 +228,22 @@ class Candidate:
     kind: str = ""
     warm: str = ""
     score: int = 0
+    # ⚠️ WHY the employment verdict is carried on the candidate and written into contact.md.
+    # On 2026-08-16 a wrong-person invite went out and `contact.md` recorded only
+    # "Why them: engineer" -- no employment field at all. So the mistake was invisible in the
+    # exact place a human would review it. A three-state check is worthless if its verdict is
+    # never written down: persist the EVIDENCE, not just the decision.
+    employment: str = ""   # current / past / unknown
+    evidence: str = ""     # the literal card line the verdict came from
 
     @property
     def profile_url(self) -> str:
         return f"https://www.linkedin.com/in/{self.username}/"
+
+    @property
+    def reviewable(self) -> bool:
+        """Can a human check this decision from the file alone? If not, it must not be sent."""
+        return bool(self.evidence.strip()) and self.employment == "current"
 
 
 @dataclass
@@ -323,10 +353,23 @@ _HARVEST_JS = """
     if (!m) continue;
     const username = m[1];
     if (seen.has(username)) continue;
-    // Climb to the result card: the nearest list item, else a few levels of parent.
-    let card = a.closest('li') || a.parentElement;
-    for (let i = 0; i < 3 && card && card.innerText && card.innerText.length < 20; i++) {
-      card = card.parentElement;
+
+    // ⚠️ CARD BLEED. The previous version used `a.closest('li')`, which on 2026-08-16 swept a
+    // NEIGHBOURING result's text into this person's card. "Berribot" from someone else's row
+    // matched, employment() returned CURRENT, and a real connection request went to an IIT Delhi
+    // job-seeker with no connection to the company. The invite could not be recalled.
+    //
+    // So: climb only while the ancestor still contains exactly ONE person. The moment an ancestor
+    // would pull in a second profile link, stop and keep the last single-person container.
+    let card = a, probe = a.parentElement;
+    while (probe && probe !== document.body) {
+      const people = new Set(
+        [...probe.querySelectorAll('a[href*="/in/"]')]
+          .map(x => ((x.getAttribute('href') || '').match(/\\/in\\/([^/?#]+)/) || [])[1])
+          .filter(Boolean));
+      if (people.size > 1) break;
+      card = probe;
+      probe = probe.parentElement;
     }
     const lines = ((card && card.innerText) || '')
       .split('\\n').map(s => s.trim()).filter(Boolean);
@@ -466,8 +509,11 @@ def _harvest(page, company: str) -> _Outcome:
             continue
         person = Candidate(
             name=scored.name, headline=card.headline or card.current_role,
-            username=card.username, kind=scored.kind, warm=scored.warm, score=scored.score)
-        (confirmed if status == CURRENT else unconfirmed).append(person)
+            username=card.username, kind=scored.kind, warm=scored.warm, score=scored.score,
+            employment=status, evidence=evidence_line(card, company))
+        # A CURRENT verdict with no quotable evidence is a bug, not a lead. Treat it as
+        # unconfirmed rather than trusting a verdict that cannot be shown to anyone.
+        (confirmed if person.reviewable else unconfirmed).append(person)
 
     out.people = rank(confirmed)[:MAX_CANDIDATES]
     out.unconfirmed = rank(unconfirmed)[:MAX_CANDIDATES]
@@ -492,12 +538,19 @@ def contact_md(company: str, role: str, people: list[Candidate]) -> str:
         f"- **Profile:** {best.profile_url}",
         f"- **Why them:** {best.kind}"
         + (f" — **WARM: shared {best.warm}** (D8: lead with this)" if best.warm else ""),
+        # The evidence, not just the verdict. On 2026-08-16 a wrong-person invite went out and this
+        # file recorded only "Why them: engineer", so the mistake was invisible in the one place a
+        # human would have caught it. If these two lines cannot be filled, the row is unreviewable
+        # and must not be contacted.
+        f"- **Works there:** {best.employment.upper() or 'UNVERIFIED'}",
+        f"- **Evidence:** {best.evidence or '⚠️ NONE — do not contact until verified by hand'}",
         "",
     ]
     if len(people) > 1:
         lines += ["## Backups", ""]
         lines += [
-            f"- {p.name} — {p.kind}{' — WARM: ' + p.warm if p.warm else ''} — {p.profile_url}"
+            f"- {p.name} — {p.kind}{' — WARM: ' + p.warm if p.warm else ''} — "
+            f"{p.employment.upper() or 'UNVERIFIED'} — {p.profile_url}"
             for p in people[1:6]
         ]
         lines.append("")
@@ -668,6 +721,18 @@ def run(limit: int = 5, dry_run: bool = False, headless: bool = False,
                     print("     slack: card posted, waiting on ✅" if _slack("draft_ready", title, text)
                           else "     !! card NOT posted; contact.md is still on disk")
                     queued += 1
+                    continue
+
+                # Belt and braces before a real, unrecallable send. `_harvest` already filters on
+                # `reviewable`, but this is the last line before a message reaches a stranger and
+                # the cost of getting it wrong is asymmetric: an invite cannot be recalled.
+                if not best.reviewable:
+                    print(f"  ?? REFUSING to contact {best.name}: employment "
+                          f"{best.employment or 'unverified'}, evidence "
+                          f"{best.evidence or 'none'}")
+                    escalate.append(
+                        f"{gap.company}: best candidate {best.name} has no quotable evidence of "
+                        f"working there; verify by hand before contacting")
                     continue
 
                 # Send it now. Azam removed the tick on 2026-08-16; connect.py's docstring records

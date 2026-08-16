@@ -73,6 +73,7 @@ NO_CONNECT_BUTTON = "no-connect-button"
 LIMIT_REACHED = "linkedin-weekly-limit"
 OUT_OF_HOURS = "out-of-hours"
 CAPPED = "daily-cap-reached"
+COMPANY_UNVERIFIED = "company-unverified"
 ERROR = "error"
 
 DEFAULTS = {
@@ -268,6 +269,47 @@ def _has_pending_marker(page) -> bool:
     return page.locator("xpath=//*[normalize-space(text())='Pending']").count() > 0
 
 
+def profile_corroborates_company(page, company: str, scrolls: int = 5) -> tuple[bool, str]:
+    """(corroborated, detail) — does the PERSON'S OWN PROFILE name this employer?
+
+    ⚠️ WHY THIS EXISTS, AND WHY THE SEARCH CARD IS NOT ENOUGH.
+    On 2026-08-16 a real, unrecallable connection request went to Aditya Sharma for Berribot.
+    LinkedIn's search card said, in its own words, **"Current: Software Engineer at Berribot"** —
+    so `employment()` was working exactly as designed and returned CURRENT.
+
+    His profile mentions Berribot **zero times**, fully scrolled. The search index and the profile
+    disagree, and the profile is the authority.
+
+    My first diagnosis was "card bleed" and it was wrong: the harvested cards were clean, each
+    person's lines were their own. *The bug was trusting one source for an irreversible action.*
+
+    The three-state discipline applies here too, because the failure directions differ:
+      * profile loaded and does NOT name the company -> refuse (an invite cannot be recalled)
+      * profile could not be read at all             -> NOT evidence; fall back to the card
+    Collapsing those two would block every private or slow-loading profile.
+    """
+    if not company:
+        return True, "no company to check"
+    try:
+        # Experience lazy-loads well below the fold. A previous check read the body WITHOUT
+        # scrolling, found nothing, and produced a confident false negative.
+        for _ in range(scrolls):
+            page.mouse.wheel(0, 1400)
+            page.wait_for_timeout(700)
+        body = page.locator("body").inner_text(timeout=8_000)
+    except Exception as exc:
+        return True, f"profile unreadable ({type(exc).__name__}); falling back to the search card"
+
+    if len(body.strip()) < 400:
+        return True, "profile rendered almost nothing; falling back to the search card"
+
+    from apps.autopilot.outreach import mentions_company
+
+    if mentions_company(body, company):
+        return True, f"profile names {company}"
+    return False, f"profile never mentions {company} (search card claimed otherwise)"
+
+
 def _top_card_state(page) -> str:
     """What the profile currently offers: connect / pending / connected / nothing."""
     if _has_pending_marker(page):
@@ -292,6 +334,13 @@ def send_request(page, username: str, name: str, company: str) -> Result:
     state = _top_card_state(page)
     if state == ALREADY_PENDING:
         return Result(username, name, company, ALREADY_PENDING, "a request is already outstanding")
+
+    # Corroborate on the profile BEFORE clicking anything. This is the last check standing between
+    # a wrong name and an invite that cannot be taken back, and it is the one that would have
+    # stopped the Berribot send.
+    corroborated, why = profile_corroborates_company(page, company)
+    if not corroborated:
+        return Result(username, name, company, COMPANY_UNVERIFIED, why)
 
     if state == NO_CONNECT_BUTTON:
         # Connect is demoted into the "More" menu on most 2nd/3rd-degree profiles -- the top card
