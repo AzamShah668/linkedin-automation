@@ -28,6 +28,16 @@ import sqlite3
 import sys
 from pathlib import Path
 
+# Windows consoles default to cp1252 and job titles are full of en-dashes, arrows and emoji.
+# Without this, printing the plan raises UnicodeEncodeError *before* the insert runs, so discovery
+# finds rows and none of them land - and the traceback scrolls past inside a runner that had the
+# step marked "informational". Every other module in this package already does this.
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+
 REPO = Path(__file__).resolve().parents[2]
 BOARD_DB = REPO / "database" / "board.sqlite3"
 DEFAULT_MIN_FIT = 70

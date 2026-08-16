@@ -46,6 +46,16 @@ from apps.autopilot.fill import (
     sync_playwright,
 )
 
+# Windows consoles default to cp1252 and this module prints scraped text (job titles, company and
+# recruiter names) full of en-dashes, arrows and accents. Without this, printing raises
+# UnicodeEncodeError mid-run - which is how intake.py loaded zero of 36 discovered rows while
+# reporting only a quiet exit 1. Enforced by tests/test_console_encoding.py.
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+
 INBOX_URL = "https://www.linkedin.com/messaging/"
 
 # LinkedIn writes the preview as "You: <text>" when we sent the last message. Some locales and some

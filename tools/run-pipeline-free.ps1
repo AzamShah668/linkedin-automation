@@ -78,7 +78,7 @@ $steps = @(
   @{ key='gmail';     name='Gmail inbox';               module='apps.autopilot.free.gmail';     args=@('--notify');                         soft=$true },
   @{ key='nudge';     name='Follow-ups due';            module='apps.autopilot.nudge';          args=@('--notify') },
   @{ key='discovery'; name='Discover (f_AL=true)';      module='apps.autopilot.free.discover';  args=@('--pages',"$DiscoverPages");         browser=$true; soft=$true },
-  @{ key='intake';    name='Score and load the board';  module='apps.autopilot.intake';         args=@('--write');                          soft=$true },
+  @{ key='intake';    name='Score and load the board';  module='apps.autopilot.intake';         args=@('--write') },
   @{ key='apply';     name='Apply (Easy Apply batch)';  module='apps.autopilot.run';            args=@('apply-all','--limit',"$ApplyMax",'--max-per-company','1'); browser=$true },
   @{ key='outreach';  name='Find a human + CONNECT';    module='apps.autopilot.outreach';       args=@('--limit',"$OutreachMax");           browser=$true }
 )

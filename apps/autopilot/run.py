@@ -352,6 +352,16 @@ JD_SELECTORS = (
     ".jobs-description",
 )
 
+# Windows consoles default to cp1252 and this module prints scraped text (job titles, company and
+# recruiter names) full of en-dashes, arrows and accents. Without this, printing raises
+# UnicodeEncodeError mid-run - which is how intake.py loaded zero of 36 discovered rows while
+# reporting only a quiet exit 1. Enforced by tests/test_console_encoding.py.
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+
 # Page chrome that appears in every LinkedIn page. If the "JD" contains these, it is the nav
 # bar and footer, not a job description. A `main` fallback returned exactly this and sailed
 # past a naive length check, making 14 of 15 captures look successful.

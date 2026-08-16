@@ -41,6 +41,16 @@ from playwright.sync_api import sync_playwright
 from apps.autopilot import fill
 from apps.autopilot.answers import NUMERIC, load_bank, located_in_answer, match_field, resolve
 
+# Windows consoles default to cp1252 and this module prints scraped text (job titles, company and
+# recruiter names) full of en-dashes, arrows and accents. Without this, printing raises
+# UnicodeEncodeError mid-run - which is how intake.py loaded zero of 36 discovered rows while
+# reporting only a quiet exit 1. Enforced by tests/test_console_encoding.py.
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+
 REPO = Path(__file__).resolve().parents[2]
 BOARD_DB = REPO / "database" / "board.sqlite3"
 OUT_DIR = REPO / "output" / "apply-log"

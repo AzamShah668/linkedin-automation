@@ -51,6 +51,16 @@ from pathlib import Path
 
 from apps.autopilot.answers import REPO
 
+# Windows consoles default to cp1252 and this module prints scraped text (job titles, company and
+# recruiter names) full of en-dashes, arrows and accents. Without this, printing raises
+# UnicodeEncodeError mid-run - which is how intake.py loaded zero of 36 discovered rows while
+# reporting only a quiet exit 1. Enforced by tests/test_console_encoding.py.
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+
 CREDENTIALS_DIR = Path.home() / ".credentials"
 CLIENT_SECRET = CREDENTIALS_DIR / "gmail-client.json"
 TOKEN_PATH = CREDENTIALS_DIR / "gmail-token.json"
