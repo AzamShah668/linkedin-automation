@@ -671,3 +671,6 @@ Touched: none
 
 ## [2026-08-16 21:10] session | wrong-person fix, branch split, OmniRoute stack begun
 Touched: none
+
+## [2026-08-17 00:30] session | the OmniRoute stack, built and tested beside the Claude one
+Touched: none

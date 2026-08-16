@@ -129,3 +129,86 @@ the single Chromium profile** even if both are triggered at once.
 Related: [[05-decisions]] **D50** (one source is not enough for an irreversible action) · D48
 (the approval gate removed) · D47 · D43 (the fallback must be a different road) · D42 · D26-D28 ·
 [[29-omniroute-gateway]] · [[32-the-complete-loop]] · [[22-rewrite-architecture]]
+
+---
+
+## 8. BUILT — 2026-08-16/17. What exists and what was measured
+
+| Module | Replaces | Verified live |
+|---|---|---|
+| `env.py` | nothing (new) | a subprocess with every `LLM_*` var stripped answers |
+| `free/discover.py` | `daily-discovery.ps1` | **64 postings, 63 Easy Apply**, → `intake.py` → **36 rows on the board** |
+| `free/cv.py` + `cv_validate.py` | `build-packet.ps1` | **PASS in 2 attempts**; attempt 1 correctly rejected for a fabricated `140,000` |
+| `free/dm.py` | send half of `watch-accepts.ps1` | 2b extraction verified on the real pitch; the **withheld** one stays unreachable |
+| `free/gmail.py` | Gmail half of `check-replies.ps1` | reports `needs-setup` and the pipeline carries on |
+| `run-pipeline-free.ps1` | `run-pipeline.ps1` (as a *second* entry point) | accepts / gmail / nudge / discovery / intake / outreach all run |
+
+**349 tests.** The Claude stack is provably untouched: `git diff rewrite/phase-0` against
+`run-pipeline.ps1`, `cv.py` and all six agent runners is **empty**, and no `free/` module mentions
+`claude.exe`.
+
+### Config, certified
+
+```
+LLM_MODEL      gemini/gemini-3.5-flash-lite   fast tier
+LLM_CV_MODEL   gemini/gemini-3.6-flash        heavy tier (the CV)
+LLM_FALLBACK   groq llama-3.3-70b-versatile   direct, not through the gateway
+```
+
+All three pass an exact multi-token echo in both transports (`omniroute_canary.py --certify`).
+
+---
+
+## 9. ⚠️ Five findings that cost real time
+
+### The budget floor: silent truncation
+Asked to echo four exact strings through the gateway:
+
+| `max_tokens` | exact |
+|---|---|
+| 128 | **0/4** — `ALPHA 12345 OMEGA` → `ALPHA 12` |
+| 512 | 4/4 |
+
+HTTP 200, well-formed, plausible, cut off at the **end**. The hidden thinking pass spends the same
+budget. `llm.ask()` now **raises** any budget below `MIN_SAFE_MAX_TOKENS`; free tokens are cheaper
+than a truncated answer.
+
+### The fallback must fit in the fallback
+The CV prompt carried 24,000 chars of dossier. Groq's free tier refused it: **413, 14,463 tokens
+against a 12,000 limit**. *A prompt only the primary can accept makes the fallback useless exactly
+when the gateway is down.* Capped at 12,000 chars.
+
+### The virtualised pane, not the window
+The first live scrape returned **7 postings** — the exact number runbook 31 cites as the
+virtualisation symptom. The results list lives in **its own scrollable pane**; scrolling the window
+moves nothing. Scrolling the pane structurally, *until the link count stops growing*, took it to 40.
+A fixed number of scrolls is a guess; "until it stops producing rows" is the finishing condition.
+
+### The duplicated title is not always identical
+LinkedIn emits the title twice, and the copies differ: `Lead Java Developer` then
+`Lead Java Developer with verification`. Exact-match dedup left the second in place **and it became
+the company name**. Prefix matching now collapses them, keeping the shorter form.
+
+### 🔴 A missing UTF-8 guard loaded zero of 36 rows
+`intake.py` had no console guard. An en-dash in a job title raised `UnicodeEncodeError` **while
+printing the plan** — before the insert — so discovery found 36 rows and none landed. The only
+symptom was a quiet `exit 1`, inside a step the runner had been told was "informational".
+
+Writing the regression test found **six more** modules with the same hole, including `run.py`, the
+apply runner. They survive only because the PowerShell runners call `chcp 65001` first.
+`tests/test_console_encoding.py` now requires the guard in every module with a `__main__`.
+
+> Two mistakes compounded there: a missing guard, and a step whose failures I had told the runner to
+> ignore. **"Informational" must mean "this failing is genuinely fine", not "this fails a lot".**
+
+---
+
+## 10. Still needs a human, once
+
+**Gmail OAuth.** Google Cloud project → enable Gmail API → OAuth client (Desktop app) → save at
+`~/.credentials/gmail-client.json` → `py -3 -m apps.autopilot.free.gmail --authorize`. Scope is
+`gmail.readonly`: it cannot send or delete. Until then the step says `needs-setup` and the pipeline
+continues, because LinkedIn is the channel that has ever produced a reply.
+
+**Nothing is scheduled.** `pipeline-free.cmd` runs by hand until you decide otherwise. The Claude
+stack keeps its 10:30 task.

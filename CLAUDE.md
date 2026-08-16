@@ -592,6 +592,36 @@ py -3 tools/post_creator/dispatch_engine.py --dry-run --post-id N  # preview dis
   TCS, BayOne Solutions, Berribot, Discovr AI, ANSR. **220 tests** (was 198).
   Still human: the nudges, and replying to people. **Do not reply to Showkat** (owner's instruction).
 
+- **2026-08-17 — TWO STACKS NOW. Read [[33-omniroute-stack]] + D51 before touching `apps/autopilot/free/`.**
+  Azam asked for the pipeline to run on OmniRoute free keys, then set the constraint: *"I don't want
+  you to replace all this ... the previous one with the cloud agents should be there. It should not
+  get deleted."* So it is **additive**:
+  `pipeline.cmd` → Claude stack, **unchanged, still scheduled 10:30** ·
+  `pipeline-free.cmd` → OmniRoute stack, **opt-in, unscheduled**.
+  Proven untouched: `git diff rewrite/phase-0` for `run-pipeline.ps1`, `cv.py` and all six agent
+  runners is **empty**; no `free/` module mentions `claude.exe`. Thirteen Claude-free modules are
+  **shared**, not forked. Branches: Claude on `rewrite/phase-0`, free on `rewrite/omniroute-native`.
+  **Built + verified live:** `env.py` · `free/discover.py` (**64 postings, 63 Easy Apply → 36 board
+  rows**) · `free/cv.py` + `cv_validate.py` (**PASS in 2 attempts**; attempt 1 rejected for a
+  fabricated 140,000) · `free/dm.py` · `free/gmail.py` · `run-pipeline-free.ps1`. **349 tests.**
+  Certified tiers: `LLM_MODEL=gemini/gemini-3.5-flash-lite`, **`LLM_CV_MODEL=gemini/gemini-3.6-flash`**,
+  fallback Groq direct — all three pass an exact echo in both transports.
+  🔴 **`.env` was never loaded by anything.** `llm.py` read `os.getenv`; no loader existed and
+  `python-dotenv` is not installed. `freetext.py` — which writes into **real employer forms** — was
+  dead in every unattended run. `apps/autopilot/env.py` fixes it for **both** stacks.
+  🔴 **Silent truncation:** `max_tokens=128` gave **0/4** exact echoes (`ALPHA 12345 OMEGA` →
+  `ALPHA 12`), 512 gave 4/4 — the thinking pass shares the budget, HTTP 200 throughout. `ask()` now
+  **raises** anything below `MIN_SAFE_MAX_TOKENS`.
+  🔴 **A missing UTF-8 guard loaded zero of 36 rows.** `intake.py` crashed printing a job title,
+  *before* the insert; the only symptom was a quiet `exit 1` inside a step marked "informational".
+  The regression test then found **six more**, including `run.py`. **"Informational" must mean "this
+  failing is fine", not "this fails a lot".**
+  ⚠️ Also: a prompt only the primary can accept makes the fallback useless (Groq 413 at 14,463
+  tokens vs 12,000); scroll the results **pane**, not the window (7 postings vs 40), and stop when
+  the count stops growing rather than after N scrolls.
+  ⏳ **Gmail needs one browser consent** (`--authorize`, scope `gmail.readonly`); until then it says
+  `needs-setup` and the pipeline continues. **Nothing on the free stack is scheduled**, by design.
+
 - **NEXT — in this order. The reordering fact is now: 14 applications, 1 reply, and the reply came from
   the only warm-insider approach the project has made.**
   1. 🔴 **Answer Recruiter-A** — 16 days late, on a personal phone number. **Only the owner can do this**;

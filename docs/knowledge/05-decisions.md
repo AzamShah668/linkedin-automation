@@ -1858,3 +1858,66 @@ headline; **BayOne verified by hand** ("BayOne" appears 5× on his profile). **1
 **Consequences.** **251 tests** (was 236). Both stacks share `outreach.py`, so this was fixed before
 any OmniRoute work began — building on top of it would have duplicated the defect rather than
 contained it.
+
+---
+
+## D51 — The OmniRoute stack is built, beside the Claude one (2026-08-16/17)
+
+**Context.** Azam has free keys across several providers and asked for the pipeline to stop
+depending on Claude. He then set the constraint that shaped the whole build: *"I don't want you to
+replace all this ... the previous one with the cloud agents should be there. It should not get
+deleted."*
+
+**Decision.** Additive, not a migration. Two entry points, both runnable:
+
+```
+pipeline.cmd       -> Claude stack     UNCHANGED, still scheduled 10:30
+pipeline-free.cmd  -> OmniRoute stack  NEW, opt-in, unscheduled
+```
+
+Proven untouched: `git diff rewrite/phase-0` for `run-pipeline.ps1`, `cv.py` and all six agent
+runners is **empty**, and no `free/` module mentions `claude.exe`. Thirteen already-Claude-free
+modules are **shared** by both stacks rather than forked.
+
+**Built:** `env.py` · `free/discover.py` · `free/cv.py` + `free/cv_validate.py` · `free/dm.py` ·
+`free/gmail.py` · `run-pipeline-free.ps1`. **349 tests** (was 236 at the start of the day).
+Full detail and measurements in [[33-omniroute-stack]].
+
+### The five findings, each a general lesson
+
+1. **A config file nothing loads.** `llm.py` read env vars and **nothing ever loaded `.env`**, so
+   `freetext.py` — which writes into real employer forms — was dead in every scheduled run. It
+   worked only in shells where the vars happened to be exported by hand.
+2. **Silent truncation at the end.** `max_tokens=128` gave **0/4** exact echoes
+   (`ALPHA 12345 OMEGA` → `ALPHA 12`); 512 gave 4/4. The hidden thinking pass spends the same
+   budget, HTTP 200 throughout. `ask()` now raises any budget below the floor.
+3. **A fallback must fit in the fallback.** The CV prompt carried 24,000 chars and Groq's free tier
+   refused it (413, 14,463 tokens against 12,000). *A prompt only the primary can accept makes the
+   fallback useless exactly when it is needed.*
+4. **Scroll the pane, not the window.** The first scrape returned **7** postings — the number
+   runbook 31 cites as the virtualisation symptom. The list has its own scroll container; scrolling
+   it *until the count stops growing* gave 40. A fixed number of scrolls is a guess.
+5. 🔴 **A missing UTF-8 guard loaded zero of 36 rows.** `intake.py` raised `UnicodeEncodeError`
+   printing a job title, **before** the insert, and the only symptom was a quiet `exit 1` inside a
+   step I had marked "informational". The regression test then found **six more** modules with the
+   same hole, including `run.py`, the apply runner — they survive only because the PowerShell
+   runners call `chcp 65001` first.
+
+> **"Informational" must mean "this failing is genuinely fine", not "this fails a lot".** Two
+> mistakes compounded there: a missing guard, and a step whose failures the runner was told to
+> ignore. The step is no longer soft — "no jobs loaded" is not information.
+
+### Also worth keeping
+
+- **`--dry-run` reported FAILED while printing `attempt 1: PASS`**, because `BuildResult.ok`
+  required a written path. Conflating *succeeded* with *persisted* makes the mode you test with lie
+  about the thing you are testing.
+- **The bulk patch that added six UTF-8 guards broke `coverage.py`**: a "last import line"
+  heuristic matched a function signature's closing paren. Caught by running every CLI's `--help`,
+  not by the unit tests — which is the argument for a smoke test after any mechanical edit.
+- **I swept another session's `tools/post_creator/` changes into a commit**, then made it worse by
+  `git checkout HEAD~1 --` on them, which discarded their uncommitted work. Recovered from the
+  reflog. Runbook 31 already warns to stage by name; `git add -u tools` ignores that warning.
+
+**Consequences.** Both stacks work. Gmail needs one browser consent and reports `needs-setup`
+until then; nothing on the free stack is scheduled yet, by design.
