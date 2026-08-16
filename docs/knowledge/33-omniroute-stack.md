@@ -212,3 +212,41 @@ continues, because LinkedIn is the channel that has ever produced a reply.
 
 **Nothing is scheduled.** `pipeline-free.cmd` runs by hand until you decide otherwise. The Claude
 stack keeps its 10:30 task.
+
+---
+
+## 11. First full unattended run — 2026-08-17 00:08 → 00:35 (27 minutes)
+
+**9 of 9 steps, and `claude.exe` was never launched.** The only occurrence of the word "claude" in
+the entire log is the runner's own banner line.
+
+| Step | Time | Result |
+|---|---|---|
+| accepts | 133s | 12 invites checked against LinkedIn; 0 accepted |
+| dm | 0s | nothing due |
+| replies (LinkedIn) | 11s | 6 conversations scanned, 2 flagged as waiting |
+| gmail | 1s | `needs-setup`, pipeline continued |
+| nudge | 0s | nothing newly due |
+| discovery | 65s | fresh `f_AL=true` scrape |
+| intake | 0s | scored and loaded |
+| **apply** | **20 min** | **6 SUBMITTED (confirmed)**, 20 not submitted of 41 walked |
+| outreach | 150s | 4 companies researched, **0 sent** |
+
+Submitted: Zetheta Algorithms · Data Eminence · QuietSpark · HCLTech · ColigoMed · GC Technologies.
+All six are in the ledger, all `linkedin-easy-apply`, all with a family CV.
+
+### Outreach sent nothing, and that was correct
+All four companies came back **"none confirmed"** — no candidate could be shown to work there, so
+every one was escalated rather than contacted. The run was also at 00:30, outside the 09:00-21:00
+window, so the send guard would have held them anyway.
+
+⚠️ **Four out of four is a high escalation rate** and worth watching. Earlier runs found real
+recruiters at Talentgigs, Hyper Lychee Labs, slice, IndiGo and Synthires, so the search is not
+broken; these four are small firms with little LinkedIn presence. **Do not loosen the person
+filter to reduce this number** — loosening exactly that is what produced the Berribot invite
+(D50). If it needs improving, widen the *query*, never the *acceptance criteria*.
+
+### Verified after the run
+- `git diff rewrite/phase-0` for `run-pipeline.ps1`, `cv.py` and all six agent runners: **empty**
+- `pipeline.cmd -WhatIf`: still lists **8/8** Claude steps
+- **349 tests** green · 12 PowerShell scripts parse · **16/16** CLI modules start
