@@ -114,8 +114,19 @@ class Report:
 
 
 def _numbers(text: str) -> set[str]:
-    """Numeric claims: 18, 98, 7, 60, 95. Percentages and suffixes normalised to the digits."""
-    return {m.group(0) for m in re.finditer(r"\d+(?:\.\d+)?", text or "")}
+    """Numeric claims: 18, 98, 7, 60, 95. Percentages and suffixes normalised to the digits.
+
+    ⚠️ Thousands separators are consumed, not split on. The first version matched `\\d+` alone, so
+    "10,000" became {"10", "000"} and a real generated CV was rejected for the invented number
+    "000". A fabrication check that cries wolf on ordinary formatting gets switched off, which
+    costs far more than the check was ever worth.
+    """
+    found = set()
+    for match in re.finditer(r"\d[\d,]*(?:\.\d+)?", text or ""):
+        token = match.group(0).replace(",", "").rstrip(".")
+        if token:
+            found.add(token.lstrip("0") or "0")     # 007 and 7 are the same claim
+    return found
 
 
 def evidence_corpus(paths: tuple[Path, ...] | None = None) -> tuple[str, list[str]]:

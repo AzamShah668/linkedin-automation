@@ -174,3 +174,35 @@ def test_the_feedback_is_specific_enough_to_retry_on():
     feedback = report.feedback()
     assert "Fix every one" in feedback
     assert "results-driven" in feedback
+
+
+# --- number extraction: formatting is not fabrication --------------------------------------------
+def test_a_thousands_separator_is_not_two_numbers():
+    """"10,000" became {"10","000"} and a real generated CV was rejected for inventing "000"."""
+    report = V.Report()
+    V.check_fabrication("Served 10,000 requests.", report, corpus="peak was 10,000 requests")
+    assert not report.violations
+
+
+def test_a_thousands_separator_in_only_one_side_still_matches():
+    report = V.Report()
+    V.check_fabrication("Served 10,000 requests.", report, corpus="peak was 10000 requests")
+    assert not report.violations
+
+
+def test_leading_zeros_are_the_same_claim():
+    report = V.Report()
+    V.check_fabrication("Ran 007 jobs.", report, corpus="ran 7 jobs")
+    assert not report.violations
+
+
+def test_a_genuinely_invented_number_still_fails_after_normalisation():
+    report = V.Report()
+    V.check_fabrication("Served 25,000 requests.", report, corpus="peak was 10,000 requests")
+    assert any("25000" in v for v in report.violations)
+
+
+def test_a_trailing_full_stop_is_not_part_of_the_number():
+    report = V.Report()
+    V.check_fabrication("Shipped 18.", report, corpus="shipped 18 projects")
+    assert not report.violations
