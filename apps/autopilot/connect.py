@@ -48,6 +48,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 
+from apps.autopilot import env as envfile
 from apps.autopilot.answers import REPO
 from apps.autopilot.fill import (
     DEFAULT_USER_DATA_DIR,
@@ -86,15 +87,13 @@ DEFAULTS = {
 
 
 def _env() -> dict[str, str]:
-    """Read `.env` directly. Task Scheduler does not inherit a shell's environment."""
-    values: dict[str, str] = {}
-    path = REPO / ".env"
-    if path.exists():
-        for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
-            line = line.strip()
-            if line and not line.startswith("#") and "=" in line:
-                key, value = line.split("=", 1)
-                values[key.strip()] = value.strip().strip('"').strip("'")
+    """Settings for this module. One loader for the whole project (see apps/autopilot/env.py).
+
+    A real environment variable still wins over the file, which is why the `os.environ` update
+    comes last: exporting `LINKEDIN_CONNECTS_DAILY_CAP=1` for a single cautious run must not be
+    silently overruled by what is on disk.
+    """
+    values = dict(envfile.values())
     values.update({k: v for k, v in os.environ.items() if k in DEFAULTS})
     return values
 

@@ -295,3 +295,76 @@ def test_partial_fallback_config_is_ignored(by_base_url, monkeypatch):
     calls = by_base_url({PRIMARY_URL: "PONG"})
     assert llm.ask("echo") == "PONG"
     assert [c[0] for c in calls] == [PRIMARY_URL]
+
+
+# =================================================================================================
+# 2026-08-16 — the budget floor.
+#
+# Measured against gemini-3.5-flash-lite through OmniRoute, asking it to echo exact strings:
+#
+#     max_tokens=128   exact 0/4    'ALPHA 12345 OMEGA' -> 'ALPHA 12'
+#     max_tokens=512   exact 4/4
+#
+# Every short-budget answer was well-formed, plausible, HTTP 200, and cut off at the END. The
+# hidden thinking pass spends the same budget as the answer, so "this reply is five words, 128 is
+# plenty" produces a fragment with nothing raised anywhere. Same lesson as FREETEXT_MAX_TOKENS,
+# one layer down.
+# =================================================================================================
+
+def test_a_small_budget_is_raised_to_the_floor(monkeypatch):
+    seen = {}
+
+    def _spy(prompt, max_tokens, model=None):
+        seen["max_tokens"] = max_tokens
+        return "ok"
+
+    monkeypatch.setattr(llm, "_ask_openai_compatible", _spy)
+    monkeypatch.setenv("LLM_PROVIDER", "openrouter")
+    llm.ask("hello", max_tokens=64)
+    assert seen["max_tokens"] == llm.MIN_SAFE_MAX_TOKENS
+
+
+def test_a_generous_budget_is_left_alone(monkeypatch):
+    seen = {}
+
+    def _spy(prompt, max_tokens, model=None):
+        seen["max_tokens"] = max_tokens
+        return "ok"
+
+    monkeypatch.setattr(llm, "_ask_openai_compatible", _spy)
+    monkeypatch.setenv("LLM_PROVIDER", "openrouter")
+    llm.ask("hello", max_tokens=4096)
+    assert seen["max_tokens"] == 4096
+
+
+def test_the_floor_is_high_enough_to_have_fixed_the_measured_failure():
+    """128 truncated every one of four echoes; 512 passed all four."""
+    assert llm.MIN_SAFE_MAX_TOKENS >= 512
+
+
+def test_the_default_is_at_or_above_the_floor():
+    assert llm.DEFAULT_MAX_TOKENS >= llm.MIN_SAFE_MAX_TOKENS
+
+
+# --- model tiers ---------------------------------------------------------------------------------
+def test_the_heavy_tier_falls_back_to_the_fast_one_when_unset(monkeypatch):
+    """A missing setting must degrade to a working pipeline, not a crash."""
+    monkeypatch.delenv("LLM_CV_MODEL", raising=False)
+    assert llm.heavy_model() is None
+
+
+def test_the_heavy_tier_is_used_when_configured(monkeypatch):
+    monkeypatch.setenv("LLM_CV_MODEL", "some/bigger-model")
+    assert llm.heavy_model() == "some/bigger-model"
+
+
+def test_an_explicit_model_overrides_only_the_primary(monkeypatch):
+    monkeypatch.setenv("LLM_BASE_URL", "http://localhost:20128/v1")
+    monkeypatch.setenv("LLM_API_KEY", "x")
+    monkeypatch.setenv("LLM_MODEL", "fast/one")
+    monkeypatch.setenv("LLM_FALLBACK_BASE_URL", "https://api.groq.com/openai/v1")
+    monkeypatch.setenv("LLM_FALLBACK_MODEL", "fallback/one")
+    chain = llm._endpoints("heavy/one")
+    assert chain[0].model == "heavy/one"
+    # The fallback is a different provider; its model ids are not the gateway's.
+    assert chain[1].model == "fallback/one"

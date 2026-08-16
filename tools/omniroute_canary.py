@@ -35,6 +35,7 @@ import os
 import sys
 import urllib.error
 import urllib.request
+from datetime import datetime
 from pathlib import Path
 
 GATEWAY = "http://localhost:20128/v1"
@@ -212,6 +213,80 @@ def list_models(base_url: str = GATEWAY, key_env: str = "LLM_API_KEY") -> list[s
     return [m["id"] for m in payload.get("data", [])]
 
 
+def certify() -> int:
+    """Probe the tiers this project is actually configured to use, and record the verdict.
+
+    WHY THIS IS NOT `--all`. The catalog listed **1019 models and three answered** (D43), and
+    `testStatus: "active"` answers the wrong question entirely — `groq` and `opencode` both
+    reported active while 403-ing every completion. Sweeping the catalog tells you about the
+    gateway; this tells you whether the four settings the pipeline will actually load are sound.
+
+    The fallback is probed on **its own endpoint**, never through the gateway. It exists precisely
+    for when the gateway is dead, so certifying it through the gateway would certify nothing (D43).
+    """
+    repo = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    sys.path.insert(0, repo)
+    from apps.autopilot import env as envfile
+
+    envfile.load()
+
+    tiers = [
+        ("fast  (LLM_MODEL)", os.getenv("LLM_MODEL"), GATEWAY, "LLM_API_KEY"),
+        ("heavy (LLM_CV_MODEL)", os.getenv("LLM_CV_MODEL"), GATEWAY, "LLM_API_KEY"),
+        ("fallback (LLM_FALLBACK_MODEL)", os.getenv("LLM_FALLBACK_MODEL"),
+         os.getenv("LLM_FALLBACK_BASE_URL"), "LLM_FALLBACK_API_KEY"),
+    ]
+
+    report: dict[str, dict] = {}
+    problems: list[str] = []
+
+    for label, model, base_url, key_env in tiers:
+        if not model:
+            print(f"SKIP  {label}: not configured")
+            report[label] = {"model": None, "status": "unconfigured"}
+            continue
+        if not base_url:
+            print(f"FAIL  {label}: {model} has no base URL configured")
+            problems.append(f"{label}: no base URL")
+            report[label] = {"model": model, "status": "no-base-url"}
+            continue
+        # An `auto/*` id is a different provider every call, so certifying one certifies nothing.
+        if model.startswith("auto/"):
+            print(f"FAIL  {label}: {model} is an auto/* id - a different provider every call (D43)")
+            problems.append(f"{label}: auto/* must never be pinned")
+            report[label] = {"model": model, "status": "auto-id-refused"}
+            continue
+
+        results = test_model(model, base_url=base_url, key_env=key_env)
+        modes = [mode for mode, (ok, _notes) in results.items() if ok]
+        ok = bool(modes)
+        print(f"{'PASS' if ok else 'FAIL'}  {label}: {model}  ({base_url})")
+        for mode, (passed, notes) in results.items():
+            print(f"    {'ok  ' if passed else 'fail'}  {mode}")
+            for note in notes:
+                print(f"            {note}")
+        if not ok:
+            problems.append(f"{label}: {model} returned nothing usable")
+        report[label] = {"model": model, "base_url": base_url,
+                         "status": "pass" if ok else "fail", "modes": modes}
+
+    out_dir = os.path.join(repo, "output", "llm")
+    os.makedirs(out_dir, exist_ok=True)
+    out_path = os.path.join(out_dir, "verified-models.json")
+    with open(out_path, "w", encoding="utf-8") as handle:
+        json.dump({"checked_at": datetime.now().isoformat(timespec="seconds"),
+                   "tiers": report}, handle, indent=2, ensure_ascii=False)
+    print(f"\nwritten: {os.path.relpath(out_path, repo)}")
+
+    if problems:
+        print("\nNOT READY:")
+        for line in problems:
+            print(f"  - {line}")
+        return 1
+    print("\nEvery configured tier answered an exact multi-token echo.")
+    return 0
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--model", action="append", dest="models", help="model id (repeatable)")
@@ -227,7 +302,16 @@ def main() -> int:
         default="LLM_API_KEY",
         help="env/.env name holding the key for --base-url (e.g. LLM_FALLBACK_API_KEY)",
     )
+    parser.add_argument(
+        "--certify",
+        action="store_true",
+        help="probe the tiers actually configured in .env (LLM_MODEL, LLM_CV_MODEL, and the "
+        "fallback on its OWN endpoint) and write output/llm/verified-models.json",
+    )
     args = parser.parse_args()
+
+    if args.certify:
+        return certify()
 
     if args.all:
         try:

@@ -28,6 +28,12 @@ from __future__ import annotations
 import os
 from dataclasses import dataclass
 
+# Imported for effect: it loads `.env` into os.environ on first import, using setdefault so a real
+# environment variable always wins. Without it every getenv below returns None under Task
+# Scheduler, and this module raised "LLM_BASE_URL is not set" on every unattended run — which is
+# exactly what it did, silently, until 2026-08-16. See apps/autopilot/env.py.
+from apps.autopilot import env as _env  # noqa: F401
+
 DEFAULT_PROVIDER = "openrouter"
 
 # Reasoning models spend tokens on a hidden thinking pass BEFORE the answer, out of the
@@ -38,9 +44,43 @@ DEFAULT_PROVIDER = "openrouter"
 DEFAULT_MAX_TOKENS = 1024
 ANTHROPIC_DEFAULT_MODEL = "claude-haiku-4-5"
 
+# ⚠️ THE FLOOR EXISTS BECAUSE THE TRUNCATION IS SILENT.
+# Measured 2026-08-16 against gemini-3.5-flash-lite via OmniRoute, asking it to echo four exact
+# strings:
+#
+#     max_tokens=128   exact 0/4    'ALPHA 12345 OMEGA' -> 'ALPHA 12'
+#     max_tokens=512   exact 4/4
+#     max_tokens=1024  exact 4/4
+#
+# Every 128-token answer came back well-formed, plausible, HTTP 200, and cut off at the END. The
+# hidden thinking pass spends the same budget as the answer, so a caller who reasons "this reply is
+# only five words, 128 is plenty" gets a fragment with nothing raised anywhere.
+#
+# A request below the floor is therefore raised to it rather than honoured. Silently truncating an
+# answer is far worse than silently spending tokens that cost nothing on a free tier — and this is
+# the same lesson as FREETEXT_MAX_TOKENS=4096 (D46), one layer down.
+MIN_SAFE_MAX_TOKENS = 512
+
 
 class LLMError(RuntimeError):
     """Any failure to get usable text out of a provider. Always carries the raw response."""
+
+
+def fast_model() -> str | None:
+    """The default tier: routing, classification, short answers. None means 'use LLM_MODEL'."""
+    return None
+
+
+def heavy_model() -> str | None:
+    """The tier for text a human reads — the CV and the cover letter.
+
+    Falls back to the fast model when `LLM_CV_MODEL` is unset, so a missing setting degrades to a
+    working pipeline rather than a crash. The quality difference is the reason the tier exists:
+    asked for a CV summary, the fast model volunteered "Results-driven … extensive expertise in
+    architecting resilient infrastructure" — two phrases this project's own style rules ban.
+    Whatever is configured here, `free/cv_validate.py` still has to pass it.
+    """
+    return os.getenv("LLM_CV_MODEL") or None
 
 
 @dataclass(frozen=True)
@@ -68,8 +108,17 @@ def _wants_stream(name: str, default: str = "true") -> bool:
     return os.getenv(name, default).strip().lower() not in ("false", "0", "no")
 
 
-def _endpoints() -> list[_Endpoint]:
+def _endpoints(model: str | None = None) -> list[_Endpoint]:
     """The primary endpoint, plus the fallback if one is configured.
+
+    `model` overrides LLM_MODEL for the PRIMARY only. Tiering exists because one model does not
+    suit both jobs: routing and classification want the fast cheap one, while the CV is the single
+    artifact a recruiter reads. The fallback keeps its own model name — it is a different provider
+    on a different road, and its model ids are not the gateway's.
+
+    ⚠️ Never point a tier at `auto/*`. That swaps the MODEL per call rather than the key, and D43
+    records different providers giving different correctness for the same prompt. OmniRoute may
+    rotate keys underneath a fixed model; it must not rotate the model itself.
 
     The fallback exists because the primary is a LOCAL process. OmniRoute runs on
     localhost:20128; when the laptop sleeps, the npm process dies, or the gateway wedges,
@@ -83,7 +132,7 @@ def _endpoints() -> list[_Endpoint]:
             label="primary",
             base_url=_require_env("LLM_BASE_URL"),
             api_key=_require_env("LLM_API_KEY"),
-            model=_require_env("LLM_MODEL"),
+            model=model or _require_env("LLM_MODEL"),
             stream=_wants_stream("LLM_STREAM"),
         )
     ]
@@ -197,7 +246,7 @@ def _ask_endpoint(endpoint: _Endpoint, prompt: str, max_tokens: int) -> str:
     return text.strip()
 
 
-def _ask_openai_compatible(prompt: str, max_tokens: int) -> str:
+def _ask_openai_compatible(prompt: str, max_tokens: int, model: str | None = None) -> str:
     """Try each configured endpoint in order; the first real answer wins.
 
     A single-endpoint chain re-raises the original error UNCHANGED, so the message still
@@ -205,7 +254,7 @@ def _ask_openai_compatible(prompt: str, max_tokens: int) -> str:
     wrapped, and the wrapper keeps every sub-message — a fallback that hides why the
     primary died just moves the debugging one layer further away.
     """
-    endpoints = _endpoints()
+    endpoints = _endpoints(model)
     failures: list[str] = []
     for endpoint in endpoints:
         try:
@@ -223,18 +272,24 @@ def _ask_openai_compatible(prompt: str, max_tokens: int) -> str:
     raise LLMError("every configured endpoint failed:\n  " + "\n  ".join(failures))
 
 
-def ask(prompt: str, max_tokens: int = DEFAULT_MAX_TOKENS) -> str:
+def ask(prompt: str, max_tokens: int = DEFAULT_MAX_TOKENS, model: str | None = None) -> str:
     """Send one prompt, get one string back. Raises LLMError rather than returning junk.
 
     Callers must treat an empty/refused answer as 'no answer' and act accordingly —
     on an employer's form that means leave the field blank, never guess.
+
+    `model` selects a tier explicitly (see `heavy_model()`); omit it for the fast default.
     """
     if not prompt or not prompt.strip():
         raise LLMError("ask() called with an empty prompt")
+
+    # Raise, never honour, a budget below the floor. See MIN_SAFE_MAX_TOKENS: below it the answer
+    # is silently truncated mid-string and nothing in the response shape reveals it.
+    max_tokens = max(int(max_tokens), MIN_SAFE_MAX_TOKENS)
 
     provider = os.getenv("LLM_PROVIDER", DEFAULT_PROVIDER).strip().lower()
     if provider == "anthropic":
         return _ask_anthropic(prompt, max_tokens)
     if provider in ("openrouter", "omnirouter", "openai", "compatible"):
-        return _ask_openai_compatible(prompt, max_tokens)
+        return _ask_openai_compatible(prompt, max_tokens, model)
     raise LLMError(f"unknown LLM_PROVIDER {provider!r}; expected 'openrouter' or 'anthropic'")
