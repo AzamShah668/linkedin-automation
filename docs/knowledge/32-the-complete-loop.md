@@ -46,7 +46,8 @@ never cost an overdue pitch.
 | nudge | `apps/autopilot/nudge.py` | no | Day-3 / Day-7 drafts to Slack |
 | discovery | `tools/daily-discovery.ps1` | no | Currently **disabled** as a task; runs here |
 | apply | `apps/autopilot/run.py apply-all` | submits | Capped `-ApplyMax 8`, once a day |
-| outreach | `apps/autopilot/outreach.py` | **YES** (D48) | Finds a named human and **connects**; reports after |
+| outreach | `apps/autopilot/outreach.py` | **YES** (D48) | Finds a named human, **connects**, writes the 2b pitch, reports after |
+| accepts | `apps/autopilot/accepts.py` | no | Asks LinkedIn who accepted, in plain Python (D49) |
 | packets | `tools/sweep-packets.ps1` | no | Tailored CVs |
 
 ---

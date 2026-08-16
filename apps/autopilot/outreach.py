@@ -63,7 +63,7 @@ import time
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from apps.autopilot import connect, coverage, ledger, sourcing
+from apps.autopilot import connect, coverage, ledger, pitch, sourcing
 from apps.autopilot.answers import REPO
 from apps.autopilot.fill import (
     DEFAULT_USER_DATA_DIR,
@@ -675,6 +675,15 @@ def run(limit: int = 5, dry_run: bool = False, headless: bool = False,
                 sent = connect.connect_one(page, best.username, best.name, gap.company)
                 sends.append(sent)
                 print(f"     {sent.outcome}: {sent.detail}")
+                if sent.ok:
+                    # Write the pitch BEFORE anything can accept. `watch-accepts` sends the exact 2b
+                    # text and is forbidden from inventing one, so an invite with no pitch file is a
+                    # dead end: the person accepts and hears nothing. That is worse than never
+                    # asking, and it is the failure D35 already cost this project fifteen days.
+                    path, written = pitch.write(
+                        _slug(gap.company), best.name, gap.company, gap.role)
+                    print(f"     pitch: {'written' if written else 'already present'} "
+                          f"({path.relative_to(REPO)})")
                 if sent.ok and track_invite(gap.company, gap.role, best):
                     print("     tracked: the CV goes out automatically once they accept")
                 if sent.ok:

@@ -1736,3 +1736,58 @@ cannot raise at all — *the caller has already sent invites it owes the owner a
 **Consequences.** Five real connection requests on the first evening, all confirmed by the Pending
 badge, all handed to stage 2. **220 tests** (was 198). D12 still governs everything else: the CV,
 the pitch, and every nudge remain human-sent.
+
+---
+
+## D49 — An accept with no pitch is worse than never asking (2026-08-16)
+
+**Found by a question, not a test.** Azam asked *"did someone you had requested before accept, and
+do you now need to send the message?"*
+
+`invite_tracker.py` answered **"0 accepted"**. That answer was worthless: the tracker records what
+`watch-accepts` last *observed*, and `watch-accepts` is a headless Claude session that had not run
+since 01:04 — its 18:26 attempt stood down on lock contention. So the honest answer was *"we have
+not looked in eighteen hours"*, which D35 already established is indistinguishable in the log from
+*"we looked and nobody has"*.
+
+**Two things came out of asking LinkedIn instead.**
+
+### 1. Someone had accepted, and nothing knew
+`apps/autopilot/accepts.py` reads the **profiles themselves**, in plain Python over the existing
+Playwright profile — no agent, no quota, nothing that can silently decline to run. It found
+**Shale Francis (Lotus Interworks) had accepted**, confirmed three ways: zero "Pending" markers, a
+`· 1st` badge beside his name, and a Message action present.
+
+It deliberately does **not** send. It marks the accept, which schedules the pitch for a randomised
+business-hours moment; detecting an accept and firing instantly is the robotic pattern the two-stage
+design exists to avoid. *The delay is the point, not an accident.*
+
+⚠️ Its first verdict came from a bare `\b1st\b` search of the page body, which could match a post or
+a sidebar. That was checked against the DOM before anything was scheduled, and it happened to be
+right — but a loose text match must never be the sole basis for messaging a real person. Pending is
+checked **first**, because it is the unambiguous signal.
+
+### 2. 🔴 The pitch did not exist, for 8 of 14 invites
+`watch-accepts` sends the **exact 2b text** from `output/outreach/<slug>/touch-2-linkedin.md` and is
+forbidden from inventing one. `outreach.py` wrote only `contact.md`.
+
+So D48 had automated *asking* without automating *answering*: every new invite was heading for a
+dead end where the person accepts and hears nothing. **That is worse than never having asked** —
+they have now done something and been ignored, which is precisely the fifteen-day failure of D35
+with the roles reversed.
+
+**`apps/autopilot/pitch.py`** closes it. Deterministic, role-family-routed (reusing `families.py`),
+built only from the verified highlight reel and facts we actually hold. `outreach.py` writes the
+pitch **before** anything can accept.
+
+> **It never invents a company detail.** No "I love what you're building", no mission, no funding.
+> A detail is either researched or absent, and an invented one is the most obvious tell in a cold
+> message. These pitches are honest but **generic**: a researched hook is strictly better, and
+> [[30-warm-insider-runbook]] remains the way to get one. This guarantees a floor, not a ceiling.
+
+Tests enforce the tells that have already nearly reached a recruiter from this repo: **no
+em-dashes**, no relative time words (D22), OSS framed at project level, no flattery, and
+"SHALE FRANCIS" greeted as "Hi Shale" rather than shouted back.
+
+**Consequences.** 8 pitches backfilled; every outstanding invite now has something to send. Shale's
+is hand-written and was **not** overwritten by the backfill. **236 tests** (was 220).
