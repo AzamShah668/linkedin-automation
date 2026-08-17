@@ -68,3 +68,4 @@ not ban-inviting mass spam. See [[05-decisions]] for why this framing is non-neg
 A LinkedIn Easy Apply form is 19 fields of dictionary lookup and **one** question that needs a model.
 Today an agent does all twenty, for sixteen minutes. [[22-rewrite-architecture]] explains the fix and
 [[05-decisions]] D26-D28 records the reasoning.
+
