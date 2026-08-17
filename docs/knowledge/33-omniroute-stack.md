@@ -250,3 +250,58 @@ filter to reduce this number** — loosening exactly that is what produced the B
 - `git diff rewrite/phase-0` for `run-pipeline.ps1`, `cv.py` and all six agent runners: **empty**
 - `pipeline.cmd -WhatIf`: still lists **8/8** Claude steps
 - **349 tests** green · 12 PowerShell scripts parse · **16/16** CLI modules start
+
+---
+
+## 12. Second day, 2026-08-17 — the two bugs the first run could not have found
+
+The 00:08 run exercised nine of ten steps. The tenth, `free/dm.py`, had nothing due, so it ran
+green while never opening a message composer. **A step with no work is not a tested step**, and
+when a real accept finally landed both of its remaining defects surfaced inside twenty minutes.
+
+### 12a. `free/dm.py` — "not connected" for someone who had accepted
+
+SHALE FRANCIS accepted at 2026-08-16 19:49; his pitch was due 09:12. The step reported
+`not-connected: no Message button`. The tracker said otherwise, so the page was dumped rather than
+believed — and the Message control turned out to be an `<a>`, never a `<button>`. Full reasoning in
+**D52**; the short version is that the selector could not have matched on any profile ever, and the
+failure presented as a calm, plausible sentence.
+
+The repair is *narrower*, not wider: an exact accessible name of `Message`, plus agreement on the
+`recipient` URN across every matching control, because the sidebar offers one `Message <Name>` link
+per suggested profile and a loosened regex messages a stranger.
+
+Also hardened in the same pass: `mark_sent()` was silent on a non-zero exit — the path that means
+**the pitch was delivered and not recorded**, so the next run sends it again.
+
+### 12b. `free/gmail.py` — the setup asked for work that was already done
+
+`--authorize` said *"no OAuth client JSON"* and pointed at the Google Cloud console. Five
+Desktop-app clients were already in `~/Downloads`. Worse, the Gmail API is enabled **per Google
+Cloud project**, so any of them would have consented cleanly and then 403'd every call, leaving a
+token on disk and a channel that reports zero replies forever. `--authorize` now ends with a real
+`getProfile` call and deletes the token if it fails. **D53.**
+
+### 12c. What the lock proved, for free
+
+At 10:25 the free stack asked for the pipeline lock while the Claude stack's Reply Check held it
+(pid 12928, taken 10:24:24) and stood down with a plain sentence. The two stacks **cannot** collide
+over the single Chromium profile, and that was observed rather than argued.
+
+### 12d. Standing numbers, 2026-08-17 10:24
+
+From `coverage.py` inside the scheduled reply check:
+
+| | |
+|---|---|
+| applications | **41** across 37 companies |
+| reached a named human | **28** |
+| reached **nobody** | **9** |
+
+Six of those nine are last night's free-stack submissions, which is expected — `outreach.py` runs
+after `apply` and works a limited batch per cycle. It is worth watching rather than fixing: if the
+"reached nobody" column grows faster than outreach clears it, the apply step is outrunning the half
+of the pipeline that turns an application into a conversation, which is exactly the imbalance
+**D32** was about.
+
+**397 tests.**

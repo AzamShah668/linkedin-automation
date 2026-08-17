@@ -1921,3 +1921,102 @@ Full detail and measurements in [[33-omniroute-stack]].
 
 **Consequences.** Both stacks work. Gmail needs one browser consent and reports `needs-setup`
 until then; nothing on the free stack is scheduled yet, by design.
+
+---
+
+## D52 — A control found by the wrong role is a confident lie (2026-08-17)
+
+**Context.** SHALE FRANCIS accepted a connection request at 2026-08-16 19:49; the tracker
+scheduled his touch-2 pitch for 09:12 the next morning. Running the delivery step by hand at 10:21
+produced:
+
+```
+[1/1] SHALE FRANCIS (lotus-interworks)
+     not-connected: no Message button; not connected
+```
+
+That contradicted the tracker, which had watched him accept fifteen hours earlier. Two sources
+disagreeing about a person is precisely the situation [[D50]] says never to resolve by picking the
+convenient one, so the page was dumped instead of believed.
+
+**What was actually there.** Thirty-one buttons, none of them Message — and this:
+
+```
+link[7] 'Message' -> /messaging/compose/?profileUrn=...&recipient=ACoAABtyRzk...
+```
+
+`dm.py` searched `get_by_role("button", name=/^message/)`. **The control is an `<a>`.** The
+selector could never have matched, on any profile, for anyone. Every accept this module was ever
+pointed at would have been reported "not connected".
+
+> **A negative produced by the wrong selector is byte-identical to a true negative.**
+
+This is the third instance of the same shape: the Pending badge with an empty `aria-label`
+([[D48]]), the Gmail-only reply check ([[D35]]), and now this. The distinguishing feature is that
+each one *reported* rather than crashed, and the report was calm.
+
+**The trap in fixing it.** The obvious repair — loosen the regex until something matches — walks
+directly into [[D50]]. The right-hand rail carries one link per suggested profile:
+
+```
+link[46] 'Message Anjum Latif'  -> ...&recipient=ACoAADl3N7g...   (a different person entirely)
+link[56] 'Message Dhruv Gupta'  -> ...&recipient=ACoAABJVYgs...
+```
+
+A widened match opens a composer addressed to a stranger and types a pitch about a job at a
+company they have never worked for. **The fix for a blind selector must be more specific, not less.**
+
+**Decision.** `message_control()` anchors on the accessible name being *exactly* `Message` — the
+profile owner's control carries no name, everyone else's is `Message <Name>` — and then requires
+every such control to agree on the `recipient` URN in its href. Disagreement is a **refusal**, not
+a tie-break. `Message with Premium` is excluded separately: it is InMail, not a 1st-degree message,
+and it spends a paid credit.
+
+The recipient URN, once verified, is stronger evidence than any heading, so the composer-name
+check now runs **only** when no href was available to bind the recipient. An earlier draft of that
+check matched a bare `aside` — which is also the tag of the "People also viewed" rail, and would
+have refused every legitimate send while looking like a safety feature.
+
+**Also fixed, same module, same disease.** `mark_sent()` returned `False` silently on a non-zero
+exit from the tracker — the *likeliest* failure of the three, and the only unannounced one. That
+path means the pitch has already reached a real person and was not recorded, so the next run sends
+it **again**. A duplicate pitch to a warm lead is the most embarrassing thing this pipeline could
+do, and it was one quiet return value away. Now loud, with the by-hand remedy printed, and `run()`
+exits 2 if any delivery went unrecorded.
+
+Relatedly, a Send click that cannot be read back afterwards stays `SENT` **on purpose**: between an
+unconfirmed delivery and a duplicate one, the duplicate is worse and it is the one a recruiter
+would notice. The count is reported separately (`n confirmed in-thread, m unconfirmed`) so the
+choice is never silent.
+
+**Consequences.** 394 tests, the selector ones built from a real profile dump including the sidebar
+links. Also proven live in the same hour: the free stack asked for the pipeline lock while the
+Claude stack's Reply Check held it, and stood down cleanly — the two stacks cannot collide over the
+one browser profile.
+
+## D53 — Consent is not access, and the credential probably already exists (2026-08-17)
+
+**Context.** `free/gmail.py --authorize` dead-ended at *"no OAuth client JSON"* and told the owner
+to go build one in the Google Cloud console. Five Desktop-app OAuth clients were already sitting in
+`~/Downloads` from his other projects. The work had been done twice over and was invisible to the
+tool asking for it.
+
+**Decision, part one.** `--list-clients` enumerates Desktop clients already on the machine
+(`~/.credentials` first, so re-running never silently switches Google Cloud project), and
+`--client <path>` installs a chosen one. It **lists and never picks**: these belong to different
+projects and only the owner knows which is tied to the right account. Choosing for him would
+authorise the wrong mailbox and look like success. The file is **copied**, not referenced — one
+Downloads tidy-up would otherwise break every unattended run.
+
+**Decision, part two, which is the real one.** The Gmail API is enabled **per Google Cloud
+project**. A client borrowed from another project completes OAuth consent perfectly and then 403s
+every single call. So a token on disk proves *a human clicked yes* and **nothing whatsoever about
+whether mail can be read** — [[D35]] wearing a new hat, in the one channel [[D35]] was about.
+
+`--authorize` therefore ends with a real `getProfile` call. If that fails it **deletes the token**
+rather than leaving a credential that turns every later run into a 403 reading like an outage, and
+prints the enable URL for that specific project. It distinguishes `SERVICE_DISABLED` from a bad
+credential, because sending someone to a page that already says *Enabled* teaches them the tool is
+broken.
+
+> **A stored credential is not a readable channel. Prove the read.**
