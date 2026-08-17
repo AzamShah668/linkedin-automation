@@ -703,6 +703,8 @@ Message BUTTON when LinkedIn renders an `<a>`, so every accept read "not connect
 first fix reported a send it had not made, because the read-back searched the profile page body
 rather than the thread and the probe string was LinkedIn's own canned greeting. An unconfirmed send
 is now UNVERIFIED and stays due, which is affordable only because `send_dm` also checks the thread
-BEFORE typing. Also: Gmail setup now finds the five Desktop OAuth clients already on the machine
-and ends with a real read, because the Gmail API is per-project and a borrowed client consents
-cleanly then 403s forever (D53). 397 tests. Claude stack diff still empty.
+BEFORE typing. Also: Gmail is now LIVE (D53) - setup finds the five Desktop OAuth clients already on the
+machine and ends with a real read, because the Gmail API is per-project and a borrowed client
+consents cleanly then 403s forever. Its first read called 15 of 40 messages "a person", so it
+now filters on List-Unsubscribe and prints rather than discards the bulk pile: 3 worth a look,
+12 bulk, 25 auto-ack. 405 tests. Claude stack diff still empty. All three brains updated.

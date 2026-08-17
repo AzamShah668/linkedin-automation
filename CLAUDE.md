@@ -619,8 +619,48 @@ py -3 tools/post_creator/dispatch_engine.py --dry-run --post-id N  # preview dis
   ⚠️ Also: a prompt only the primary can accept makes the fallback useless (Groq 413 at 14,463
   tokens vs 12,000); scroll the results **pane**, not the window (7 postings vs 40), and stop when
   the count stops growing rather than after N scrolls.
-  ⏳ **Gmail needs one browser consent** (`--authorize`, scope `gmail.readonly`); until then it says
-  `needs-setup` and the pipeline continues. **Nothing on the free stack is scheduled**, by design.
+  ✅ **Gmail consent done 2026-08-17 10:48** (see the next entry). **Nothing on the free stack is
+  scheduled**, by design.
+
+- **2026-08-17 (later) — the pitch that never sent, and both inboxes now readable. Read D52 / D53
+  + [[33-omniroute-stack]] §12.** The first full free run went 9/9 green, but `free/dm.py` had
+  **nothing due**, so it had never once opened a message composer. *A step with no work is not a
+  tested step* — the moment a real accept landed, two defects surfaced inside twenty minutes.
+  🔴 **`Message` is an `<a>`, not a `<button>`.** `get_by_role("button", name=/^message/)` matched
+  nothing on any profile ever, so **every** accept read `not-connected` — including SHALE FRANCIS,
+  who had accepted 15 hours earlier. A negative from the wrong selector is byte-identical to a true
+  one; the tracker disagreed, so the page was dumped instead of believed. ⚠️ **Fix it by getting
+  MORE specific**: the right rail carries one `Message <Name>` link per suggested profile, so a
+  widened regex opens a composer addressed to a **stranger** (D50's door again). Anchor on the name
+  being exactly `Message`, then require every match to agree on the `recipient=` URN and refuse if
+  they disagree. `Message with Premium` is InMail and spends a paid credit.
+  🔴 **Then the first fix reported a send it had not made.** It printed *"sent, but could not read
+  it back"*, counted it SENT and marked the tracker — reasoning that *between an unconfirmed
+  delivery and a duplicate, the duplicate is worse*. True, and it assumed the click had worked. The
+  inbox eight minutes later: **six conversations, newest a week old, no thread with him at all.**
+  He was recorded as pitched and would never have been pitched again. Three causes: the read-back
+  searched the **profile page body** instead of the thread; the composer was addressed **page-wide**
+  (`get_by_role("textbox")` finds LinkedIn's global nav search field — everything is now scoped
+  inside `.msg-form`); and the probe string was *"Hi Shale, thanks for connecting!"*, which is
+  **LinkedIn's own canned suggestion**. The answer was never a better coin-flip — `send_dm` now
+  checks the thread **before typing as well as after**, which is what makes it safe to call an
+  unconfirmed send `UNVERIFIED`, leave it due and exit 2. ✅ Delivered 10:38 and verified from
+  outside the tool: **7 conversations where there were 6**, sent exactly once.
+  Also: `mark_sent()` was silent on a non-zero exit — the path where the message **already reached
+  a real person** and was not recorded, so the next run sends it again. Loud now, with the by-hand
+  remedy; the batch exits 2 if anything went unrecorded.
+  ✅ **Gmail is live** (D53). `--authorize` used to dead-end at *"no OAuth client JSON"* while
+  **five Desktop clients** sat in `~/Downloads`. ⚠️ **The Gmail API is enabled per Google Cloud
+  project**, so a borrowed client consents perfectly and then 403s forever — a token on disk proves
+  a click and nothing about a readable inbox, which is D35 in new paperwork. Setup now ends with a
+  real `getProfile` and **deletes the token** if that fails. Project **569148103391** was chosen
+  because `Desktop\my assistant` holds a live `gmail.modify` token on it; ours asks
+  `gmail.readonly` only. ⚠️ Its first read called **15 of 40 messages "a person"** (Twilio, Ollama,
+  a beehiiv blast, LinkedIn invite mail) — *a card with 15 items is a card you stop opening, which
+  is how the 16-day reply happened.* Filter is **`List-Unsubscribe`**, not keywords, plus LinkedIn's
+  notifier addresses (already read at source). Bulk is **counted and printed, never discarded**.
+  Live: **15 → 3 worth a look, 12 bulk, 25 auto-ack**; the 3 are Talent500 assessment mails with a
+  24-hour clock. 🔢 **405 tests** (was 349). Claude-stack diff vs `rewrite/phase-0`: still empty.
 
 - **NEXT — in this order. The reordering fact is now: 14 applications, 1 reply, and the reply came from
   the only warm-insider approach the project has made.**

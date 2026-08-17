@@ -3061,3 +3061,70 @@ accept watcher's job. Check the thread, not the watcher's log ([[silent-failure-
 Eighteen reply checks. **Three** inbound classifications in the project's history: Recruiter-A (Other,
 22 days unanswered), ANSR (Assessment, deadline today), Crossing Hurdles (Other, dead end). Only the first
 two are worth Azam's time, and neither needs code.
+
+## State at 2026-08-17 11:00 — both inboxes readable, the pitch delivered
+
+### What changed today
+
+| | Before | Now |
+|---|---|---|
+| Tests | 349 | **405** |
+| Gmail | never authorised, `needs-setup` | **live, read-only, verified by a real read** |
+| `free/dm.py` | 9/9 green but never exercised | **one confirmed delivery**, two bugs out |
+| Claude stack | unchanged | **still unchanged** (`git diff rewrite/phase-0` empty) |
+
+### The delivery, and why it took three attempts
+
+`SHALE FRANCIS` (Lotus Interworks, AI Systems Lab Developer) accepted 2026-08-16 19:49; the pitch
+was due 09:12. The 08-17 00:08 pipeline run reported nine steps green — but `free/dm.py` had
+**nothing due at the time**, so it had never opened a composer. The previous session's own log line
+had already flagged the gap: *"the Lotus Interworks pitch scheduled 08-17 09:12 has not fired —
+there is no Shale Francis thread in the inbox at all."*
+
+1. **10:21** — `not-connected: no Message button`. False. See **D52**: the control is an `<a>`.
+2. **10:32** — `sent, but could not read it back`, tracker marked. **Also false.** Inbox at 10:40:
+   six conversations, newest a week old, no thread with him. The tracker mark was undone from a
+   backup, one record by username.
+3. **10:38** (after the real fix) — `confirmed: the message is in the thread`, then **verified
+   independently** through the inbox: seven conversations where there had been six.
+
+The lesson is in **D52**, and it is uncomfortable: attempt 2 shipped *with a written justification
+for the behaviour that caused it*. A failure direction chosen to avoid one bad outcome buys that
+safety with the other one, and it is only worth choosing once the evidence is reliable.
+
+### Inbox, as of the first real Gmail read
+
+```
+read 40 message(s) from the last 14 days: 3 worth a look, 12 bulk, 25 auto-ack
+```
+
+All three are **Talent500** (`aditi@talent500.co`) about the same *Software Engineer — Data and AI
+Platform* application. The newest says the link **expires in 24 hours**. The Claude stack's reply
+check had flagged the same thread independently at 10:13. It is a ~2-minute screening
+questionnaire and it is the only thing in the inbox on a clock.
+
+⚠️ **Owner action, unchanged from this morning:** answering Recruiter-A on his personal number is
+still the warmest lead in the project and still cannot be automated.
+
+### Coverage, from the 10:24 scheduled reply check
+
+| | |
+|---|---|
+| applications | **41** across 37 companies |
+| reached a named human | **28** |
+| reached **nobody** | **9** |
+
+Six of the nine are the 08-17 00:08 free-stack submissions and are simply waiting their turn —
+`outreach.py` runs after `apply` and works a limited batch per cycle. **Worth watching, not yet
+worth fixing:** if that column grows faster than outreach clears it, the apply step is outrunning
+the half of the pipeline that turns an application into a conversation, which is [[05-decisions]]
+D32 returning.
+
+### Deliberately not done
+
+- **`connect.py` has the same "unconfirmed counts as sent" shape** as the dm bug. Left alone: it
+  has a page-level pre-check, it has confirmed five real invites by the Pending badge, and a
+  duplicate connection request is an account-restriction signal rather than an embarrassment.
+  Editing an account-risk-sensitive sender immediately after getting the same judgement call wrong
+  was the worse risk.
+- **Nothing on the free stack is scheduled.** Still the owner's call.
