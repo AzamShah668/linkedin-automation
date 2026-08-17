@@ -27,12 +27,20 @@ human action.
 
 SETUP (once, needs a browser - the only step in the whole free stack that does)
 --------------------------------------------------------------------------------
-1. Google Cloud console -> new project -> enable the Gmail API.
-2. Create an OAuth client ID of type **Desktop app**; download the JSON.
-3. Save it as `~/.credentials/gmail-client.json` (gitignored, never in the repo).
-4. `py -3 -m apps.autopilot.free.gmail --authorize` and approve in the browser.
+    py -3 -m apps.autopilot.free.gmail --authorize
 
-Until that is done this module reports `needs-setup` and the pipeline carries on. Gmail is the
+It looks for a **Desktop app** OAuth client already on this machine (`~/.credentials`, then
+`~/Downloads`) and lists what it found; pick one with `--client <path>`. Only if there is none do
+you need the Google Cloud console: new project -> enable the Gmail API -> OAuth client ID of type
+Desktop app -> download the JSON.
+
+⚠️ **A stored token is not proof of a readable inbox.** An OAuth client borrowed from another
+project authorises fine and then 403s every call, because the Gmail API is enabled *per Google
+Cloud project*. So `--authorize` finishes with a real `getProfile` call, and if that fails it
+**deletes the token** and prints the exact enable URL. A credential that looks installed and reads
+nothing is this project's oldest failure shape (D35) wearing a new hat.
+
+Until setup is done this module reports `needs-setup` and the pipeline carries on. Gmail is the
 second channel; LinkedIn is where the only real reply has ever arrived, and `replies.py` reads
 that in plain Python with no credentials at all.
 """
@@ -40,9 +48,9 @@ that in plain Python with no credentials at all.
 from __future__ import annotations
 
 import argparse
-import base64
 import json
 import re
+import shutil
 import subprocess
 import sys
 from dataclasses import dataclass, field
@@ -65,6 +73,11 @@ CREDENTIALS_DIR = Path.home() / ".credentials"
 CLIENT_SECRET = CREDENTIALS_DIR / "gmail-client.json"
 TOKEN_PATH = CREDENTIALS_DIR / "gmail-token.json"
 SCOPES = ["https://www.googleapis.com/auth/gmail.readonly"]
+
+# Where a downloaded OAuth client tends to sit. Ordered: an already-installed one wins over a
+# stray download, so re-running --authorize does not silently switch Google Cloud projects.
+CLIENT_SEARCH_DIRS = (CREDENTIALS_DIR, Path.home() / "Downloads")
+CLIENT_GLOBS = ("gmail-client*.json", "client_secret*.json")
 
 # Mail that is about an application but is not a human replying. Ticking a board row for one of
 # these kills the Day-3 nudge for a conversation that never started.
@@ -108,7 +121,6 @@ def _load_service():
     try:
         from google.auth.transport.requests import Request
         from google.oauth2.credentials import Credentials
-        from google_auth_oauthlib.flow import InstalledAppFlow
         from googleapiclient.discovery import build
     except ImportError:
         return None, InboxReport(
@@ -132,10 +144,13 @@ def _load_service():
                                                   f"re-run with --authorize")
     if not creds or not creds.valid:
         if not CLIENT_SECRET.exists():
+            spare = len(discover_clients())
+            hint = (f"{spare} Desktop client(s) are already on this machine - run with "
+                    f"--list-clients") if spare else "run with --authorize for the one-time setup"
             return None, InboxReport(
                 NEEDS_SETUP,
-                f"no OAuth client at {CLIENT_SECRET}. See this module's docstring for the "
-                f"one-time setup; it needs a browser and cannot be done unattended.")
+                f"no OAuth client at {CLIENT_SECRET}; {hint}. Needs a browser once, so it "
+                f"cannot be done unattended.")
         return None, InboxReport(NEEDS_SETUP, "not authorised yet; run with --authorize")
 
     try:
@@ -144,23 +159,153 @@ def _load_service():
         return None, InboxReport(UNREADABLE, f"could not open the Gmail API ({exc})")
 
 
-def authorize() -> int:
+# =================================================================================================
+# Finding an OAuth client that already exists, and proving it actually reads mail
+# =================================================================================================
+
+def is_desktop_client(path: Path) -> bool:
+    """A Desktop-app client, the only kind `run_local_server` can complete.
+
+    A web-app client has a `web` key instead of `installed`; it authorises against registered
+    redirect URIs and fails on a random loopback port with an error that blames the port.
+    """
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return False
+    return isinstance(payload, dict) and "installed" in payload
+
+
+def discover_clients(dirs: tuple[Path, ...] | None = None) -> list[Path]:
+    """Desktop OAuth clients already on this machine, best candidate first.
+
+    Deliberately does not pick one. These belong to different Google Cloud projects and only the
+    owner knows which has the Gmail API enabled and is tied to the right account; choosing for him
+    would authorise the wrong mailbox and look like success.
+    """
+    found: list[Path] = []
+    for folder in dirs if dirs is not None else CLIENT_SEARCH_DIRS:
+        if not folder.is_dir():
+            continue
+        matches: list[Path] = []
+        for pattern in CLIENT_GLOBS:
+            matches.extend(folder.glob(pattern))
+        for path in sorted(set(matches), key=lambda p: p.stat().st_mtime, reverse=True):
+            if is_desktop_client(path) and path not in found:
+                found.append(path)
+    return found
+
+
+def project_number(path: Path) -> str:
+    """The Google Cloud project number, taken from the client id's prefix.
+
+    Needed only to build the 'enable the Gmail API' URL, which is useless without it.
+    """
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return ""
+    client_id = str(payload.get("installed", {}).get("client_id", ""))
+    prefix = client_id.split("-", 1)[0]
+    return prefix if prefix.isdigit() else ""
+
+
+def enable_url(project: str) -> str:
+    base = "https://console.developers.google.com/apis/api/gmail.googleapis.com/overview"
+    return f"{base}?project={project}" if project else base
+
+
+_API_DISABLED = re.compile(
+    r"SERVICE_DISABLED|accessNotConfigured|has not been used in project|is disabled", re.I)
+
+
+def is_api_disabled(error: str) -> bool:
+    """True when the failure is 'Gmail API off in this project', not 'wrong credential'.
+
+    Worth telling apart: one is a two-click fix on a page whose URL we can print, the other means
+    starting over. Both arrive as a generic 403.
+    """
+    return bool(_API_DISABLED.search(error))
+
+
+def install_client(source: Path) -> Path:
+    """Copy a chosen client into place. Copied, not referenced: a file in Downloads is one tidy-up
+    away from breaking every unattended run."""
+    CREDENTIALS_DIR.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(source, CLIENT_SECRET)
+    return CLIENT_SECRET
+
+
+def verify_access(creds) -> tuple[bool, str]:
+    """One real API call. Returns (readable, detail).
+
+    The whole point: OAuth consent proves the human said yes, and nothing about whether the Gmail
+    API is switched on in the project behind the client. Skipping this is how a channel ends up
+    'configured' and permanently silent.
+    """
+    try:
+        from googleapiclient.discovery import build
+        service = build("gmail", "v1", credentials=creds, cache_discovery=False)
+        profile = service.users().getProfile(userId="me").execute()
+    except Exception as exc:                              # noqa: BLE001
+        return False, str(exc)
+    return True, str(profile.get("emailAddress", "unknown address"))
+
+
+def authorize(client: Path | None = None) -> int:
     """One-time browser consent. The only step in the free stack that needs a human."""
     try:
         from google_auth_oauthlib.flow import InstalledAppFlow
     except ImportError:
         print("!! install first: py -3 -m pip install google-api-python-client google-auth-oauthlib")
         return 1
+
+    if client is not None:
+        if not client.is_file():
+            print(f"!! no such file: {client}")
+            return 1
+        if not is_desktop_client(client):
+            print(f"!! {client.name} is not a Desktop-app OAuth client (no 'installed' key).")
+            print("   A web-app client cannot complete a loopback consent flow.")
+            return 1
+        install_client(client)
+        print(f"using {client.name}")
+
     if not CLIENT_SECRET.exists():
+        candidates = [p for p in discover_clients() if p != CLIENT_SECRET]
         print(f"!! no OAuth client JSON at {CLIENT_SECRET}")
-        print("   Google Cloud console -> enable Gmail API -> OAuth client ID (Desktop app)")
-        print("   -> download the JSON and save it at that path.")
+        if candidates:
+            print(f"\n   {len(candidates)} Desktop client(s) already on this machine:")
+            for path in candidates[:8]:
+                print(f"     {path}")
+            print("\n   Pick the one whose Google Cloud project has the Gmail API enabled:")
+            print(f'     py -3 -m apps.autopilot.free.gmail --authorize --client "{candidates[0]}"')
+        else:
+            print("   Google Cloud console -> enable Gmail API -> OAuth client ID (Desktop app)")
+            print("   -> download the JSON and save it at that path.")
         return 1
+
     CREDENTIALS_DIR.mkdir(parents=True, exist_ok=True)
     flow = InstalledAppFlow.from_client_secrets_file(str(CLIENT_SECRET), SCOPES)
     creds = flow.run_local_server(port=0)
+
+    readable, detail = verify_access(creds)
+    if not readable:
+        # Do NOT keep the token. A stored-but-dead credential turns every later run into a 403
+        # that reads like an outage, and the fix is on a page nobody would think to visit.
+        TOKEN_PATH.unlink(missing_ok=True)
+        print("\n!! consent succeeded but the inbox could NOT be read; token discarded.")
+        if is_api_disabled(detail):
+            project = project_number(CLIENT_SECRET)
+            print("   The Gmail API is not enabled in this client's Google Cloud project.")
+            print(f"   Enable it here, wait a minute, then re-run --authorize:\n     {enable_url(project)}")
+        else:
+            print(f"   {detail[:400]}")
+        return 1
+
     TOKEN_PATH.write_text(creds.to_json(), encoding="utf-8")
-    print(f"authorised; token stored at {TOKEN_PATH}")
+    print(f"\nauthorised and VERIFIED by a real read: {detail}")
+    print(f"token stored at {TOKEN_PATH}")
     print("scope is gmail.readonly: this cannot send or delete anything.")
     return 0
 
@@ -224,12 +369,26 @@ def notify(messages: list[Message]) -> None:
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description="Read Gmail for replies. Read-only; sends nothing.")
     ap.add_argument("--authorize", action="store_true", help="one-time browser consent")
+    ap.add_argument("--client", type=Path, default=None,
+                    help="path to a Desktop-app OAuth client JSON to install and use")
+    ap.add_argument("--list-clients", action="store_true",
+                    help="show Desktop OAuth clients already on this machine")
     ap.add_argument("--days", type=int, default=14)
     ap.add_argument("--notify", action="store_true")
     args = ap.parse_args(argv)
 
+    if args.list_clients:
+        found = discover_clients()
+        if not found:
+            print("no Desktop-app OAuth client JSON found in ~/.credentials or ~/Downloads")
+            return 1
+        print(f"{len(found)} Desktop OAuth client(s):")
+        for path in found:
+            print(f"  {path}   (project {project_number(path) or 'unknown'})")
+        return 0
+
     if args.authorize:
-        return authorize()
+        return authorize(args.client)
 
     report = scan(days=args.days)
 
