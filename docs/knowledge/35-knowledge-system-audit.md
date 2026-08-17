@@ -35,16 +35,45 @@ nothing loads them — and are out of scope.
 
 | Store | Real reads | Writes | Read : write |
 |---|---|---|---|
-| Brain 2 | **469** | 218 | 2.2 : 1 |
+| Brain 2 | **469** ✅ calibrated | 218 | 2.2 : 1 |
 | Claude memory | 150 | — | used |
 | Brain 1 | 50 (15 of them today) | 28 | 1.8 : 1 |
-| **Brain 3 — `graphify query`** | **1** | rebuilt every commit | **once, ever** |
+| **Brain 3 — `graphify query`** | ~~1~~ **RETRACTED** — see below | rebuilt every commit | **unproven** |
 
-⚠️ **The first attempt at this measurement said 555 Brain-3 queries.** That was matching the
-instruction string inside `CLAUDE.md`, which loads every session — not invocations. The instruction
-has been carried **564 times** to be executed **once**. Any repeat of this audit must count *tool
-calls*, never string occurrences. This project's own vault already warns about it:
-`the-instrument-can-be-the-bug`.
+**Control status of each row.** Brain 2's 469 was calibrated afterwards against a known positive (it
+correctly finds the 43 reads made in the calibrating session) — **that number holds**. Brain 1's and
+memory's were not calibrated and should be read as lower bounds. Brain 3's was calibrated and
+**failed**.
+
+### 🔴 RETRACTION — the Brain 3 number in this table is not trustworthy
+
+The row above said Brain 3 was **queried once, ever**. **That claim is withdrawn.** It was produced
+by an instrument that was never calibrated, and calibrating it later showed it to be blind.
+
+The correction chain, worth keeping in full because each step looked right at the time:
+
+1. **First measurement: 555 queries.** Wrong — it matched the instruction string `graphify query`
+   inside `CLAUDE.md`, which loads into *every* session. It counted the instruction, not the action.
+2. **Second measurement: 1 query.** Narrowed to `"command":"…graphify…query"`, i.e. inside a tool
+   call. Reported as fact in this document.
+3. **Calibration, run afterwards on a known positive:** I had run **at least 12** queries earlier the
+   same day (the ten-question benchmark in §6, plus two by hand). The pattern found **2**.
+   The benchmark drove `graphify` through a Python `subprocess`, so those ten never appeared as a
+   shell command anywhere in the transcript. **The instrument cannot see script-driven use.**
+4. And `tools/scan_sessions.py` **does** invoke graphify programmatically — so script-driven use is
+   not hypothetical in this repo.
+
+**What can honestly be said:** direct shell invocations of `graphify query` across all transcripts
+number **2**. Script-driven invocations are **not countable by this method**. The raw string appears
+**937** times, almost all of it instruction text. Whether Brain 3 was under-used before today is
+therefore *unproven* — the §6 finding that stands is the benchmark (6/10 by question shape) and the
+broken documented command, both measured directly rather than inferred.
+
+> **A count is only as good as its control.** Any number in this document derived from grepping
+> transcripts should be treated as a lower bound until it has been run against a case whose answer
+> is already known.
+
+See §10 for the six instrument failures of 2026-08-17 and the rule that would have caught all of them.
 
 ### 2a. Brain 2's usage is not what the doctrine claims
 
@@ -311,3 +340,98 @@ designed for the first time.**
 
 See also [[00-INDEX]] · [[34-changelog]] · [[05-decisions]] D52/D53 · vault
 `Patterns/knowledge-needs-a-hook-not-a-rule`.
+
+---
+
+## 10. Six instrument failures in one day, and the single rule that catches all of them
+
+The owner's question: *why did the measuring tools keep giving wrong answers, and how do we fix it?*
+It is the most important finding here, because every conclusion in this document depends on them.
+
+### The six
+
+| # | What I measured | What it said | Truth | Why it lied |
+|---|---|---|---|---|
+| 1 | Brain 3 queries | **555** | 2 direct | matched the *instruction* string in `CLAUDE.md`, loaded every session |
+| 2 | Brain 3 queries, take 2 | **1** | ≥12 that day | blind to `subprocess`-driven calls; only sees shell commands |
+| 3 | Brain 2 reads | **0** | 469 | JSON escapes the separator as `\`; `docs.knowledge` cannot match `docs\knowledge` |
+| 4 | Brain 2 stale paths | 3 files | **1** | 2 were *before/after tables documenting the move*; a path matcher cannot tell "is here" from "used to be here" |
+| 5 | Is the new hook working? | broken | working | PowerShell pipes **UTF-16** to Node; `JSON.parse` failed and the hook exited 0 in silence |
+| 6 | Line counts on 3 files | 76 / 2650 / 262 | 99 / 3325 / 311 | `Measure-Object -Line` disagrees with `wc -l`; briefly looked like 675 archived lines had vanished |
+| 7 | Do these 5 facts exist elsewhere? | 2 exist nowhere | all 5 exist | grep was case-sensitive **and** scoped to `docs/knowledge/`, excluding `CLAUDE.md` |
+
+Plus one shell bug: `ls "…/AZAM RIZWAN/…"/*.md \| xargs basename` split on the space in the username
+and reported **49 phantom orphans** in the pattern index.
+
+### The one shape they share
+
+Not carelessness, and not seven unrelated bugs. **Every one was a proxy trusted without a control.**
+
+I ran a check, got a plausible number, and reported it. No step in between asked *"does this
+instrument find a case whose answer I already know?"*
+
+Four sub-causes, useful because each has a different tell:
+
+- **Mention vs action** (#1, #4). The searched string appears in both the instruction and the deed. A
+  count of *mentions* is not a count of *uses*.
+- **Forgotten encoding** (#3, #5). JSON escapes backslashes; PowerShell pipes UTF-16 to native
+  programs. The data was not the shape the pattern assumed.
+- **Two tools disagreeing** (#6). I believed the first one.
+- **Silently narrowed scope** (#2, #7). Case sensitivity, one directory, one invocation form — then
+  absence treated as proof.
+
+### Why it happened *today* specifically
+
+Normal work is *write code, run tests*. **Tests are self-calibrating**: you watch them fail before
+they pass, so a test that cannot detect the thing announces itself in the red phase.
+
+Today was forensic measurement — roughly fifteen one-off greps and throwaway scripts. **Ad-hoc
+measurement has no red phase.** Nothing ever demonstrates that the instrument can see anything at
+all, so a blind instrument returns a confident zero and reads as a finding.
+
+That is the same structure as [[05-decisions]] D52 (a selector that matched nothing, reporting "not
+connected") and D35 (a channel nobody read, reporting "no replies"). **The failure mode this project
+keeps meeting is not error — it is confident, plausible silence.**
+
+### The rule
+
+> **Before trusting a measurement, run it against a case whose answer you already know.**
+> Then state the control next to the number.
+
+Concretely, each of the seven would have been caught in one extra step:
+
+- Counting queries → first confirm it finds the query you ran ten minutes ago
+- "Zero Brain 2 reads" → first confirm it finds the file you opened at session start
+- "The hook is broken" → first confirm your harness delivers parseable input (echo it)
+- An alarming line count → get it a second way before reporting a loss
+- "Exists nowhere else" → first confirm the search finds it where you *know* it is
+
+**This rule already existed, and where it lived is the point.** `calibrate-a-proxy-on-a-known-positive`
+and `the-instrument-can-be-the-bug` are **Claude memories** (`~/.claude/projects/*/memory/`), written
+2026-08-13/14 — which means their one-line summaries were in the auto-injected index **all day**, and
+they still did not fire. The principle is now also in the vault, as the measurement half of
+`wrong-probe-gives-a-confident-negative`, with all seven of today's cases and a second index entry
+keyed to *"my measurement says something alarming"*.
+
+Deliberately **not** a new note: the finding half and the counting half are one principle, and
+splitting them would create the same duplicate-under-a-different-name failure §4 is about.
+
+⚠️ And a correction inside the correction: the first draft of this section said those were *vault*
+notes. They were not. **Even writing up an instrument failure, I asserted a location without checking
+it.** That is the eighth one.
+
+### What is enforceable, and what is not
+
+**Not enforceable by a hook.** No script can tell whether a number was calibrated; that is reasoning,
+not syntax.
+
+**Enforceable by convention, and cheap:**
+
+1. **Never report a count without naming its control.** "469 reads (control: finds the 3 I made this
+   session)" is auditable. "469 reads" is a claim.
+2. **Prefer structure over prose.** Count JSON fields, not words that appear in sentences.
+3. **Prefer Python to shell for anything with a path** — the username contains a space, and that has
+   now broken three separate scripts.
+4. **When two tools disagree about a number, neither is right until a third agrees.**
+5. **For the recurring case** — counting tool usage across transcripts — write it once, correctly,
+   with a built-in self-test, instead of re-deriving a grep each time.
