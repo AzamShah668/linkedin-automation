@@ -8,4 +8,7 @@ REM
 REM This does NOT replace pipeline.cmd, which still runs the Claude stack on its schedule.
 REM Both take the same pipeline lock, so they cannot collide over the one Chromium profile.
 cd /d "%~dp0"
+REM No Claude session is spawned here at all, but set it anyway: it is the marker for "unattended",
+REM and anything this stack shells out to should inherit that fact rather than guess it.
+set CLAUDE_UNATTENDED=1
 powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0tools\run-pipeline-free.ps1" %*

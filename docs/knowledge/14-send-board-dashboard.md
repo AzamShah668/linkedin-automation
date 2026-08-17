@@ -57,7 +57,8 @@ Two guards, both of which fired correctly in testing:
 
 ### `/controls` — running the pipeline by hand (added 2026-07-26)
 
-The owner's ask: *"all the controls should be within my palm of the hand."* `tools/pipeline_runner.py` is an
+The owner's ask: *"all the controls should be within my palm of the hand."* `backend/pipeline_runner.py`
+(moved there from `tools/` in the 2026-08-11 restructure — see [[28-app-structure]]) is an
 action registry where every action declares a **tier**, and **the tier is enforced server-side** so a stray
 fetch cannot fire outreach:
 
