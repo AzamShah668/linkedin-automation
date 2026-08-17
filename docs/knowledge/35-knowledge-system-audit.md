@@ -231,25 +231,40 @@ by question shape, and the absence of an "I don't know" signal. Freshness was ne
 
 ## 7. The token ledger
 
-| Always-on, every session | words | ~tokens |
+**Every row below was confirmed by asking a fresh `claude -p` session what it actually held** — not
+by measuring files on disk. That distinction mattered: it revealed that `rules/python` sits in the
+loaded folder and is **never loaded**, so an earlier version of this table counted 383 words that
+were not there.
+
+| Always-on, every session | words | ~tokens | in a fresh session? |
+|---|---|---|---|
+| project `CLAUDE.md` | 3,054 | 4,072 | ✅ confirmed |
+| `rules/common` (12 files) | 3,335 | 4,447 | ✅ confirmed |
+| `MEMORY.md` index (65 entries) | 1,552 | 2,069 | ✅ confirmed |
+| global `CLAUDE.md` | 1,321 | 1,761 | ✅ confirmed |
+| `brain1-patterns` hook (48 notes) | 1,132 | 1,509 | ✅ confirmed |
+| `rules/python` | 383 | 511 | ❌ **on disk, never loaded** |
+| **TOTAL** | **10,394** | **~13,858** | |
+
+| | words | tokens |
 |---|---|---|
-| project `CLAUDE.md` | 3,382 | 4,498 |
-| global `CLAUDE.md` | 1,112 | 1,479 |
-| `rules/` (common + web + zh + python) | 6,273 | 8,343 |
-| — of which **`rules/zh/` is a Chinese translation of `rules/common/`** | 1,071 | 1,424 |
-| `MEMORY.md` index | 1,486 | 1,976 |
-| `brain1-patterns` hook (new today) | 955 | 1,270 |
-| **TOTAL** | **13,208** | **17,567** |
+| Start of 2026-08-17 | 17,819 | ~23,700 |
+| End of 2026-08-17 | **10,394** | **~13,858** |
+| **Cut** | **7,425 (42%)** | **~9,842** |
 
-**This morning it was 17,819 words (~23,700 tokens). Net saving: 4,611 words (~6,100 tokens) per
-session**, after paying for the new hook — funded by moving 24 changelog entries out of `CLAUDE.md`
-into [[34-changelog]].
+Where it came from: **24 changelog entries** out of `CLAUDE.md` (−7,600 words) · **`rules/zh`**, a
+Chinese translation of `rules/common` with 10 identical filenames (−1,071) · **`rules/web`**, React /
+Tailwind / GSAP / Core Web Vitals against a frontend of 4 HTML + 5 JS + 2 CSS files with no build
+step (−1,862) · **`CLAUDE.md`'s duplicated Content Hub block** (−30 lines) · global `CLAUDE.md`
+justifications moved into the vault note the hook already surfaces (−330). Paid back: the
+`brain1-patterns` hook (+1,132).
 
-⚠️ **The hook fires on all 96+ scheduled-runner sessions too, and those read Brain 1 zero times.**
-That is ~1,270 wasted tokens per robot run. Gate needed (see §8).
+Both rule sets were **moved, not deleted**, to `~/.claude/rules-disabled/` with the evidence
+recorded. One `mv` restores either. A fresh session confirms both are now absent.
 
-`rules/zh/` is the single largest remaining pure waste: 10 of its 11 filenames are identical to
-`rules/common/`, saying the same thing in Chinese.
+⚠️ **The hook still fires on the five standalone scheduled tasks**, which read Brain 1 zero times.
+`pipeline.cmd` and `pipeline-free.cmd` set `CLAUDE_UNATTENDED=1` and are gated; the five per-step
+runners call their `.ps1` directly and would need an edit to Claude-stack files — see §8.
 
 ---
 
@@ -435,3 +450,61 @@ not syntax.
 4. **When two tools disagree about a number, neither is right until a third agrees.**
 5. **For the recurring case** — counting tool usage across transcripts — write it once, correctly,
    with a built-in self-test, instead of re-deriving a grep each time.
+
+---
+
+## 11. Verified from outside, and what is still unproven
+
+### What a fresh session confirmed
+
+The owner asked whether any of this survives into a **new** session, given every test so far had been
+run by the person who built it, in the session that built it. Three genuinely separate `claude -p`
+processes were spawned and asked what they had received:
+
+| Claim | Fresh session reported |
+|---|---|
+| Brain 1 index injected | `BRAIN1_BLOCK=yes NOTES=48` + the first trigger quoted back |
+| `rules/zh` removed | `CHINESE_RULES=no` |
+| `rules/web` removed | `WEB_RULES=no` |
+| the snapshot rule is live | `SNAPSHOT_RULE=yes` |
+| the Graphify command is fixed | quoted `py -3 -m graphify query "<question>" --budget 2000` |
+| vault auto-backup | **two commits appeared at 17:31 and 17:32** — exactly when those sessions ended |
+| `rules/python` loaded | **`no`** — corrected the token ledger in §7 |
+
+That last row is the value of the exercise: **the only way to know what is in a session's context is
+to ask a session.** Measuring the filesystem measures the wrong thing.
+
+### The `/update-brains` skill
+
+`~/.claude/skills/update-brains/` — a 514-word SKILL.md (loaded only on invoke) wrapping a 237-line
+script that is **executed, never read into context**. Always-on cost: **zero**.
+
+It exists because four of the five failures on 2026-08-17 were mechanical: a missed duplicate, a
+missing index line, unverified links, an unpushed vault. `brains.py` enforces all four. The fifth —
+*is this lesson cross-project?* — stays a judgement, asked out loud in the skill.
+
+Its duplicate check matches on **claim, not filename**, and was calibrated on three controls
+including a true negative. **On its first real run it immediately caught two defects created earlier
+the same day**: `36-state-archive` written but never indexed, and a broken `[[file]]` link.
+A tool that finds a fault in its author's work on first use has earned its place.
+
+### 🔴 Three things this audit does NOT establish
+
+1. **The duplicate guard is skippable.** The skill only runs when invoked. A note written mid-flow
+   bypasses it entirely — which is exactly how the two duplicates were written. A `PreToolUse` hook
+   blocking writes into `Patterns/` above ~70% similarity would close it; deliberately not built,
+   because the underlying behaviour was changed hours ago and a guard against a possibly-fixed
+   behaviour is a guess.
+2. **Nothing here proves the notes will be *read*.** Fresh sessions proved the index is *present*.
+   Presence is mechanical; use is behavioural, and three months of evidence says these notes get
+   written and not opened. One day of fixes does not overturn that.
+3. **The Brain 3 benchmark is self-graded.** Ten questions written by me, scored by me. 6/10 is an
+   indication, not a finding.
+
+**Gaps 2 and 3 have the same fix, and it is not an argument — it is instrumentation.** A
+`PostToolUse` logger appending one line per event (`READ_PATTERN`, `GRAPHIFY <q> → next tool`,
+`DUPLICATE_HIT`, `SKILL`) costs nothing in context and turns both questions into measurements a week
+from now. For Brain 3 it is also the unbiased test: after a query, was the named file read, or did a
+broad grep follow?
+
+Until that data exists, the honest summary is: **the plumbing is verified, the behaviour is not.**

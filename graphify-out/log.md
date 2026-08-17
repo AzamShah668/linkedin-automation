@@ -745,3 +745,19 @@ measured: ledger 41 vs Notion Applied 9, so step 1 sees 22%; but the Recro trap 
 submitted roles have no row at all, and the 3 rows sitting at New are for DIFFERENT reqs, so
 one-per-company-per-role is intact. No 32-row status write made; that is the missing NOTION_TOKEN
 push-back's job, not the reply check's.
+
+## [2026-08-17 18:05] session | knowledge-system audit, and the instruments that lied
+Touched: none
+Audited all five stores (there are five, not three - `~/.claude/projects/*/memory/` is undocumented
+and auto-injected). Always-on context 17,819 -> 10,394 words, a 42% cut, every row confirmed by
+asking a fresh `claude -p` session what it actually held rather than measuring the disk - which is
+how `rules/python` was found present on disk and never loaded. Brain 1 got its first index (48 notes,
+0 orphans), a SessionStart hook that injects it, and an off-disk private backup whose git dir lives
+OUTSIDE the Drive-synced tree, because Drive restored a stale ref and rolled HEAD onto a discarded
+commit. `07-current-state.md` split 2,566 -> 111 lines with the history preserved verbatim in
+`36-state-archive.md`. New `/update-brains` skill: 514 words on invoke, a 237-line script never
+loaded into context; it caught two of my own defects on its first run.
+🔴 Eight instrument failures in one day, all one shape: a proxy trusted without a control. The
+"Brain 3 queried once ever" claim is RETRACTED - the pattern was blind to script-driven calls.
+Rule now recorded: run a measurement against a case whose answer you already know, and state the
+control next to the number. Still unproven: whether any of this changes behaviour next week.
