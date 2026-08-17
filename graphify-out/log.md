@@ -708,3 +708,40 @@ machine and ends with a real read, because the Gmail API is per-project and a bo
 consents cleanly then 403s forever. Its first read called 15 of 40 messages "a person", so it
 now filters on List-Unsubscribe and prints rather than discards the bulk pile: 3 worth a look,
 12 bulk, 25 auto-ack. 405 tests. Claude stack diff still empty. All three brains updated.
+
+## [2026-08-17 19:0x] session | reply check 19 - noise, not a reply
+Touched: none (docs/knowledge/07-current-state.md, output/reply-log/)
+Nineteenth reply check, run to the runbook. Zero new replies; zero status changes; no Slack ping.
+Talent500 sent two more mails and NEITHER is a reply: a webinar advert whose subject says
+"Shortlisted" (body gives it away - "Hi there", Interview Kickstart, "15 Seats Left",
+List-Unsubscribe, aimed at mid-level engineers) and an account-verification OTP. De-dupe rule 6's
+second limb says "a newer message arrived, so alert"; it was read against its stated purpose
+instead, because step 5 alerts per NEW REPLY and neither is one. The lesson to carry: we opened a
+`from:` channel on a domain that is BOTH an ATS brand and a content marketer, and the Claude-stack
+reply check has no List-Unsubscribe filter while `free/gmail.py` (D53) already does. A keyword
+classifier would have called that mail Interview. Also found: talent500.co is not harvestable from
+any contact.md (ansr's carries LinkedIn URLs only), so the 18th run's harvest-don't-retype fix
+covers 8 of 10 domains and two are still hand-supplied - the method is right, the source files are
+incomplete. ANSR questionnaire expires 2026-08-18 03:42 IST and is still the only thing on a clock.
+
+## [2026-08-17 21:30] reply check | 20th run, genuinely quiet, ANSR ~6h out
+Touched: none (docs/knowledge/07-current-state.md)
+Zero new replies - the first run in four with nothing new to classify. No new mail from any
+harvested sender, no new LinkedIn inbound. Notion deliberately NOT written (step 4 fires per reply)
+and NO Slack ping (step 5 fires per NEW reply, and none of this is one); the owner was in the
+session, so the deadline went to him directly rather than as a fourth card on the same 2 minutes of
+work. Verified before believing the zero: control 201 threads, 10-domain OR-group 8 hits all
+previously classified, bounces empty, 20-sender campus/ATS sweep clean, broad 1-day sweep 23 threads
+with zero job traffic, LinkedIn 7 conversations with Showkat's and Shale's threads OPENED by
+thread_id rather than skimmed. Two things worth carrying: (1) the domain harvest nearly returned a
+FALSE ZERO - ripgrep `*/contact.md` matched nothing while `**/contact.md` matched all 28, a calm
+confident negative caught only because 19 prior runs had recorded a non-zero count to disagree with
+it; harvest-don't-retype is only safer than a retyped list if the harvest is checked against a known
+positive. (2) The 19th run's "Azam probably clicked the Talent500 link" inference is WEAKER now, not
+stronger: the wider sweep shows the whole morning was sync-tooling signups (Ideogram, Autosync,
+Obsidian x2, Dropbox + remotely-save + two sign-ins, Microsoft consent), so an account OTP is
+unremarkable inside that cluster. Still consistent with, still not evidence of, completion. Gap
+measured: ledger 41 vs Notion Applied 9, so step 1 sees 22%; but the Recro trap did NOT recur - 8
+submitted roles have no row at all, and the 3 rows sitting at New are for DIFFERENT reqs, so
+one-per-company-per-role is intact. No 32-row status write made; that is the missing NOTION_TOKEN
+push-back's job, not the reply check's.
