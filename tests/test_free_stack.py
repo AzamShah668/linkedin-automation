@@ -161,6 +161,154 @@ def test_only_a_send_counts_as_ok():
         assert dm.Delivery("s", "p", "u", outcome).ok is False
 
 
+# --- the duplicate-send guard ---------------------------------------------------------------
+# mark_sent() failing is WORSE than the send failing: the message has already reached a real
+# person, and an unrecorded delivery means they get the identical pitch again next run. The path
+# that used to be silent was a non-zero exit code from the tracker, which is also the likeliest.
+
+class _Proc:
+    def __init__(self, returncode=0, stdout="", stderr=""):
+        self.returncode, self.stdout, self.stderr = returncode, stdout, stderr
+
+
+def test_a_tracker_refusal_is_loud_and_says_how_to_fix_it(monkeypatch, capsys):
+    monkeypatch.setattr(dm.subprocess, "run",
+                        lambda *a, **k: _Proc(1, "", "no invite with that username"))
+    assert dm.mark_sent("someone-123") is False
+    out = capsys.readouterr().out
+    assert "sent twice" in out, "the consequence must be stated, not just the error"
+    assert "invite_tracker.py mark-sent" in out, "a warning with no remedy is half a warning"
+    assert "someone-123" in out
+
+
+def test_a_crashed_tracker_is_also_loud(monkeypatch, capsys):
+    def boom(*_a, **_k):
+        raise OSError("tracker is gone")
+    monkeypatch.setattr(dm.subprocess, "run", boom)
+    assert dm.mark_sent("someone-123") is False
+    assert "re-sent next run" in capsys.readouterr().out
+
+
+def test_a_clean_exit_records_the_delivery(monkeypatch):
+    monkeypatch.setattr(dm.subprocess, "run", lambda *a, **k: _Proc(0))
+    assert dm.mark_sent("someone-123") is True
+
+
+def test_an_unconfirmed_delivery_is_still_marked_sent():
+    """Between an unconfirmed delivery and a duplicate one, the duplicate is worse - and it is the
+    one a recruiter would notice. So a Send click that could not be read back stays SENT."""
+    unread_back = dm.Delivery("s", "p", "u", dm.SENT, "sent, but could not read it back in the thread")
+    assert unread_back.ok is True
+    assert dm.CONFIRMED not in unread_back.detail, "it must still be countable as unconfirmed"
+
+
+def test_a_confirmed_delivery_carries_the_marker():
+    assert dm.CONFIRMED in dm.Delivery("s", "p", "u", dm.SENT,
+                                       f"{dm.CONFIRMED}: the message is in the thread").detail
+
+
+# --- finding the Message control ---------------------------------------------------------------
+# Taken from a real profile dump, 2026-08-17. dm.py looked for a BUTTON named /message/ and found
+# nothing, so someone who had accepted 15 hours earlier was reported "not connected" and would
+# never have been pitched. The control is an <a>. Loosening the match is how you then message a
+# stranger from the sidebar, so the fix is anchored, not widened.
+
+OWNER_URN = "ACoAABtyRzkBTk1wyC4CwfoeEmVasI1SmY0T_Ig"
+STRANGER_URN = "ACoAADl3N7gBxUebgQFSQvHdAx-yZU1Z7_xHoe0"
+
+
+class _Loc:
+    """Minimal Playwright locator stand-in: a list of (name, href)."""
+
+    def __init__(self, items):
+        self._items = list(items)
+
+    def count(self):
+        return len(self._items)
+
+    @property
+    def first(self):
+        return _Loc(self._items[:1])
+
+    def nth(self, i):
+        return _Loc([self._items[i]])
+
+    def get_attribute(self, attr):
+        return self._items[0][1] if attr == "href" and self._items else None
+
+
+class _Page:
+    """Serves get_by_role('link'|'button', name=<regex>) out of a fixed control list."""
+
+    def __init__(self, links=(), buttons=()):
+        self._by_role = {"link": list(links), "button": list(buttons)}
+
+    def get_by_role(self, role, name=None):
+        return _Loc([(n, h) for n, h in self._by_role.get(role, [])
+                     if name is None or name.search(n)])
+
+
+def compose(urn):
+    return f"/messaging/compose/?profileUrn=urn%3Ali%3Afsd_profile%3A{urn}&recipient={urn}"
+
+
+def test_the_message_control_is_found_even_though_it_is_a_link():
+    page = _Page(links=[("Message", compose(OWNER_URN))])
+    control, urn, why = dm.message_control(page)
+    assert control is not None and why == ""
+    assert urn == OWNER_URN
+
+
+def test_a_button_named_message_still_works():
+    """LinkedIn A/B tests this control; matching only the link would swap one blindness for another."""
+    page = _Page(buttons=[("Message", "")])
+    control, _urn, why = dm.message_control(page)
+    assert control is not None and why == ""
+
+
+def test_sidebar_message_links_are_not_mistaken_for_the_profile_owner():
+    """'Message Anjum Latif' is a suggested profile in the sidebar. Clicking it opens a composer
+    addressed to a stranger - D50 through a different door."""
+    page = _Page(links=[("Message Anjum Latif", compose(STRANGER_URN)),
+                        ("Message Dhruv Gupta", compose("ACoAABJVYgsBc1SNHLEVGjvKUWuM5s2ooCflYGQ"))])
+    control, _urn, why = dm.message_control(page)
+    assert control is None
+    assert "no Message control" in why
+
+
+def test_the_owners_control_is_picked_out_of_a_page_full_of_sidebar_links():
+    page = _Page(links=[
+        ("Message", compose(OWNER_URN)),
+        ("Message", compose(OWNER_URN)),               # LinkedIn renders it twice
+        ("Message with Premium", compose(OWNER_URN)),  # InMail; different name, ignored
+        ("Message Anjum Latif", compose(STRANGER_URN)),
+        ("Message Saket Kumar", compose("ACoAAAMXCfIBY-ul4U0QaXKQEkN9N01zUzzvvJs")),
+    ])
+    control, urn, why = dm.message_control(page)
+    assert control is not None and why == ""
+    assert urn == OWNER_URN, "the recipient must be the profile owner, never a sidebar suggestion"
+
+
+def test_disagreeing_recipients_are_refused_rather_than_guessed():
+    """If two controls both called exactly 'Message' point at different people, the page is not
+    what we think it is. Guessing here sends a real message to the wrong human."""
+    page = _Page(links=[("Message", compose(OWNER_URN)), ("Message", compose(STRANGER_URN))])
+    control, _urn, why = dm.message_control(page)
+    assert control is None
+    assert "refusing to guess" in why
+
+
+def test_no_controls_at_all_reports_why():
+    control, _urn, why = dm.message_control(_Page())
+    assert control is None and why
+
+
+def test_message_with_premium_alone_is_not_a_send_path():
+    """InMail is not a 1st-degree message and spends a paid credit."""
+    control, _urn, why = dm.message_control(_Page(links=[("Message with Premium", compose(OWNER_URN))]))
+    assert control is None and "no Message control" in why
+
+
 # --- the real files on disk ------------------------------------------------------------------
 def test_the_real_withheld_berribot_pitch_is_unreachable():
     """Live guard: this one was withheld by a human decision and must stay that way."""
