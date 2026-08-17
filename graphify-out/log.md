@@ -674,3 +674,35 @@ Touched: none
 
 ## [2026-08-17 00:30] session | the OmniRoute stack, built and tested beside the Claude one
 Touched: none
+
+## [2026-08-17 10:13] reply check | 17th run, ANSR clock down to 24h
+Touched: none
+
+## [2026-08-17 later] reply check | 18th run, a channel unread for 8 days
+Touched: none
+Harvested the from:-list from the 28 contact.md files instead of retyping the hand-maintained 9-domain
+set every prior run had copied forward. That surfaced notifications@ceipalmail.com (Crossing Hurdles),
+never once queried in 16 runs, holding two mails unread since 08-09/08-10. Classified OTHER not Auto-ack:
+neither acknowledges the application, both are templated referrals redirecting to jobs.micro1.ai, so both
+LinkedIn submissions reach nobody - D36's sourcing screen confirmed by the employer's own mail rather
+than by heuristic. Both Notion rows were sitting at `New` after real submissions (ledger lines 10/13 with
+screenshots), so step 1's Status='Applied' filter could never have reached them: corrected to Applied
+with dates 08-09/08-10, Reply ticked, notes written. Third occurrence of the Recro trap; cause unchanged
+and structural (NOTION_TOKEN unset). ANSR and Recruiter-A both correctly skipped by de-dupe rule 6 - no
+newer message since the 10:13 run, and Recruiter-A's thread was opened rather than skimmed. Bounces
+empty, campus/ATS sweep (now incl. micro1.ai + ceipalmail.com) only the 3 known Talent500 mails, broad
+2d sweep no job traffic. One Slack --event reply posted. Gmail read-only; nothing sent, nothing replied to.
+Still open and flagged for the second run: the Lotus Interworks pitch scheduled 08-17 09:12 has not fired
+- there is no Shale Francis thread in the inbox at all.
+
+## [2026-08-17 10:45] session | Shale's pitch delivered; two send-path bugs
+Touched: none
+The pitch the previous run flagged as never fired is now delivered and independently verified in
+the inbox (7 conversations where there were 6). Two bugs stood between: `free/dm.py` looked for a
+Message BUTTON when LinkedIn renders an `<a>`, so every accept read "not connected" (D52); then the
+first fix reported a send it had not made, because the read-back searched the profile page body
+rather than the thread and the probe string was LinkedIn's own canned greeting. An unconfirmed send
+is now UNVERIFIED and stays due, which is affordable only because `send_dm` also checks the thread
+BEFORE typing. Also: Gmail setup now finds the five Desktop OAuth clients already on the machine
+and ends with a real read, because the Gmail API is per-project and a borrowed client consents
+cleanly then 403s forever (D53). 397 tests. Claude stack diff still empty.
