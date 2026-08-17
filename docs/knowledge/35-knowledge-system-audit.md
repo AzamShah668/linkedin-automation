@@ -174,6 +174,30 @@ everything else in this audit.
 *what touches Y*. Use a glob for *where is X*. Never trust a single query's output as complete
 without one corroborating read.
 
+### 6a. Brain 3 was never the broken part — correcting an error in this audit
+
+The owner recalled Graphify being built repeatedly and working. **He was right, and my first reading
+of the multi-project picture was wrong twice.** Verified:
+
+| Project | Nodes | Graph date | Last commit | post-commit hook |
+|---|---|---|---|---|
+| linkdin automation | 1,541 | 2026-08-17 | 2026-08-17 | INSTALLED |
+| football automation | 1,193 | 2026-06-16 | 2026-06-16 | INSTALLED |
+| youtube automation | 639 | 2026-05-30 | 2026-05-30 | INSTALLED |
+| PrivateCloud | — | 2026-06-09 | 2026-06-05 | INSTALLED |
+
+I had claimed (a) only this project had the hooks installed and (b) the other graphs were "stale
+traps describing two-month-old code". **Both false.** Hooks are installed in all four, and every
+graph matches its repo's last commit **to the day** — those projects are dormant, so their maps are
+exactly as fresh as their code. That is the system working correctly.
+
+> **"Old" and "stale" are different claims.** A derived artifact that matches its source is current
+> no matter what its timestamp says. Comparing the artifact's date to *today* asks the wrong
+> question; compare it to the **source's** date.
+
+The genuine Brain 3 defects remain the three above: the wrong command in the docs, the 6/10 hit rate
+by question shape, and the absence of an "I don't know" signal. Freshness was never one of them.
+
 ---
 
 ## 7. The token ledger
