@@ -7,6 +7,18 @@
 > **When you add to this file, replace — do not append.** It previously grew to 2,566 lines by
 > accumulating scheduled-agent run notes, at which point "read it each session" became impossible
 > and got skipped. Run notes go to [[36-state-archive]]; decisions go to [[05-decisions]].
+>
+> 🔴 **NOTHING MAY EXIST ONLY HERE.** This file is a convenience copy of things recorded elsewhere.
+> Before writing a line, ask: *does this expire?*
+> **Perishable** (counts, queue depths, what is due) → fine here, it is the point.
+> **Permanent** (a trap, a decision, a procedure, an instruction) → write it to
+> [[05-decisions]], the relevant runbook, or `~/.claude/projects/*/memory/` **first**, and only then
+> mention it here.
+>
+> Why this line exists: rewriting a snapshot means *judging* what is still current, and a wrong
+> judgement does not delete a fact — it buries it in a 3,325-line archive nobody reads, which is
+> indistinguishable from losing it. The archive protects the bytes; **this rule protects the
+> knowledge.** Checked 2026-08-17: all five permanent items below also live in an uncapped store.
 
 *Last replaced: 2026-08-17 22:30 IST*
 
