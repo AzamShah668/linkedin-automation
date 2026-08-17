@@ -2048,3 +2048,19 @@ credential, because sending someone to a page that already says *Enabled* teache
 broken.
 
 > **A stored credential is not a readable channel. Prove the read.**
+
+**Then the first live read exposed the other half of the problem.** Forty messages, of which the
+classifier called **fifteen "a person"**: Twilio, Ollama, a beehiiv blast in capitals, a Google
+account notice, and six LinkedIn invitation emails. A daily Slack card carrying fifteen items is a
+card you stop opening — and not opening the card is precisely how [[D35]] happened.
+
+The filter is `List-Unsubscribe`, not a keyword list. It is the header bulk senders are required to
+set and one a person typing a reply never has; matching on subject words would eventually swallow a
+recruiter who happens to write *unsubscribe* or shout in capitals. LinkedIn's own notification
+addresses are excluded separately, because `replies.py` reads that inbox directly and `accepts.py`
+polls the invites — alerting on the email copy double-counts a signal already held.
+
+⚠️ **Narrowing "is this a person" is the dangerous direction**, since a filter that hides a real
+reply reproduces D35 from the other end. So bulk mail is **counted and printed, never discarded** —
+quiet, not invisible. Live result: **15 → 3 worth a look, 12 bulk, 25 auto-ack**, and the three are
+the Talent500 assessment mails the Claude stack had independently flagged.

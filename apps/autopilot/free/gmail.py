@@ -86,6 +86,15 @@ AUTO_ACK = re.compile(
     r"|thank you for applying|we have received your application|automated (message|response)",
     re.I)
 
+# Senders whose mail is a notification ABOUT something this pipeline already watches elsewhere.
+# LinkedIn's own mail is the clearest case: `replies.py` reads that inbox directly and `accepts.py`
+# polls the invites, so alerting on the email copy is double-counting a signal we already have.
+NOTIFIER = re.compile(
+    r"(invitations|notifications-noreply|messaging-digest-noreply|jobs-listings|jobalerts-noreply|"
+    r"job-alerts-noreply|inmail-hit-reply)@linkedin\.com"
+    r"|noreply-accounts@google\.com|no-reply@accounts\.google\.com",
+    re.I)
+
 OK, NEEDS_SETUP, UNREADABLE = "ok", "needs-setup", "unreadable"
 
 
@@ -95,10 +104,21 @@ class Message:
     subject: str
     snippet: str
     received: str = ""
+    list_unsubscribe: str = ""
 
     @property
     def is_auto(self) -> bool:
         return bool(AUTO_ACK.search(f"{self.sender} {self.subject} {self.snippet}"))
+
+    @property
+    def is_bulk(self) -> bool:
+        """Newsletter, marketing blast, or a notification we already read at the source.
+
+        `List-Unsubscribe` is the honest signal here, not a keyword list: it is the header bulk
+        senders are required to set and that a person typing a reply never has. Keyword matching on
+        subjects would eventually swallow a recruiter who happens to write "unsubscribe" or shout.
+        """
+        return bool(self.list_unsubscribe.strip()) or bool(NOTIFIER.search(self.sender))
 
 
 @dataclass
@@ -109,7 +129,18 @@ class InboxReport:
 
     @property
     def human_replies(self) -> list[Message]:
-        return [m for m in self.messages if not m.is_auto]
+        """Mail that could plausibly be a person writing to Azam.
+
+        ⚠️ Narrowing this is the dangerous direction. [[D35]] cost fifteen days because a real
+        reply was in a channel nobody read, and a filter that hides one is the same outcome by
+        another route. So `bulk` is never discarded - it is counted and printed, just not alerted
+        on. Nothing becomes invisible; some things become quiet.
+        """
+        return [m for m in self.messages if not m.is_auto and not m.is_bulk]
+
+    @property
+    def bulk(self) -> list[Message]:
+        return [m for m in self.messages if not m.is_auto and m.is_bulk]
 
     @property
     def readable(self) -> bool:
@@ -337,7 +368,7 @@ def scan(days: int = 14, limit: int = 40) -> InboxReport:
         try:
             raw = service.users().messages().get(
                 userId="me", id=message_id, format="metadata",
-                metadataHeaders=["From", "Subject", "Date"]).execute()
+                metadataHeaders=["From", "Subject", "Date", "List-Unsubscribe"]).execute()
         except Exception:
             continue                                  # one unreadable message is not an outage
         payload = raw.get("payload", {})
@@ -346,6 +377,7 @@ def scan(days: int = 14, limit: int = 40) -> InboxReport:
             subject=_header(payload, "Subject"),
             snippet=raw.get("snippet", ""),
             received=_header(payload, "Date"),
+            list_unsubscribe=_header(payload, "List-Unsubscribe"),
         ))
     return report
 
@@ -403,14 +435,22 @@ def main(argv: list[str] | None = None) -> int:
         print("   This is NOT 'no replies'. Nothing was observed.")
         return 2
 
-    human = report.human_replies
-    print(f"{report.detail}; {len(human)} look like a person rather than an auto-ack\n")
+    human, bulk = report.human_replies, report.bulk
+    autos = len(report.messages) - len(human) - len(bulk)
+    print(f"{report.detail}: {len(human)} worth a look, {len(bulk)} bulk, {autos} auto-ack\n")
     for message in human[:15]:
         print(f"  {message.sender[:40]:<40} {message.subject[:60]}")
     if not human:
         print("  nothing that needs a reply")
     elif args.notify:
         notify(human)
+
+    # Printed, never hidden. A filter that silently swallowed a recruiter would recreate D35 from
+    # the other end, so the quiet pile stays visible to anyone reading the log.
+    if bulk:
+        print(f"\n  ...and {len(bulk)} newsletter/notification(s), not alerted on:")
+        for message in bulk[:8]:
+            print(f"    {message.sender[:38]:<38} {message.subject[:52]}")
     return 0
 
 

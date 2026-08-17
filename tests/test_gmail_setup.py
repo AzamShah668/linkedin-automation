@@ -288,3 +288,80 @@ def test_an_unreadable_inbox_exits_two(monkeypatch, capsys):
     monkeypatch.setattr(gmail, "scan", lambda **_k: gmail.InboxReport(gmail.UNREADABLE, "403"))
     assert gmail.main([]) == 2
     assert "NOT 'no replies'" in capsys.readouterr().out
+
+
+# =================================================================================================
+# Separating a person from a newsletter
+#
+# The first live read called 15 of 40 messages "a person": Twilio, Ollama, a beehiiv blast in caps,
+# Google account notices, LinkedIn invitation mail. A daily card with 15 items is one you stop
+# reading, and not reading the card is how the 16-day reply happened in the first place.
+# =================================================================================================
+
+def msg(sender="a@b.com", subject="hello", snippet="", unsub=""):
+    return gmail.Message(sender=sender, subject=subject, snippet=snippet, list_unsubscribe=unsub)
+
+
+def test_list_unsubscribe_marks_bulk():
+    """The header bulk senders are required to set, and one a person typing a reply never has.
+    Keyword-matching subjects would eventually swallow a recruiter who writes 'unsubscribe'."""
+    assert msg(unsub="<https://example.com/u>").is_bulk is True
+
+
+def test_a_plain_message_is_not_bulk():
+    assert msg(sender="recruiter@acme.com", subject="Re: your application").is_bulk is False
+
+
+def test_linkedin_notification_mail_is_bulk():
+    """replies.py reads that inbox directly and accepts.py polls the invites, so alerting on the
+    email copy double-counts a signal we already have."""
+    for sender in ("SHALE FRANCIS via LinkedIn <invitations@linkedin.com>",
+                   "LinkedIn <notifications-noreply@linkedin.com>",
+                   "LinkedIn Job Alerts <jobalerts-noreply@linkedin.com>"):
+        assert msg(sender=sender).is_bulk is True, sender
+
+
+def test_a_recruiter_at_a_normal_company_is_never_bulk():
+    assert msg(sender="Priya <priya@acme-tech.in>", subject="Interview slot?").is_bulk is False
+
+
+def test_an_auto_ack_is_still_an_auto_ack():
+    assert msg(subject="Thank you for applying to Acme").is_auto is True
+
+
+def test_bulk_is_counted_and_never_discarded():
+    """Narrowing what counts as a person is the dangerous direction: a filter that hides a real
+    reply reproduces D35 from the other end. Quiet, not invisible."""
+    report = gmail.InboxReport(gmail.OK, "read 3", [
+        msg(sender="Priya <priya@acme.com>", subject="Re: your application"),
+        msg(sender="Ollama <hello@ollama.com>", unsub="<https://o/u>"),
+        msg(subject="Thank you for applying"),
+    ])
+    assert [m.sender for m in report.human_replies] == ["Priya <priya@acme.com>"]
+    assert len(report.bulk) == 1
+    assert len(report.messages) == 3, "nothing is dropped from the record"
+
+
+def test_the_report_shows_all_three_counts(monkeypatch, capsys):
+    report = gmail.InboxReport(gmail.OK, "read 2 message(s)", [
+        msg(sender="Priya <priya@acme.com>", subject="Re: your application"),
+        msg(sender="Ollama <hello@ollama.com>", unsub="<https://o/u>"),
+    ])
+    monkeypatch.setattr(gmail, "scan", lambda **_k: report)
+    assert gmail.main([]) == 0
+    out = capsys.readouterr().out
+    assert "1 worth a look" in out
+    assert "1 bulk" in out
+    assert "ollama.com" in out, "the quiet pile must still be printed"
+
+
+def test_only_the_worth_a_look_pile_is_notified(monkeypatch):
+    sent = []
+    report = gmail.InboxReport(gmail.OK, "read 2", [
+        msg(sender="Priya <priya@acme.com>", subject="Re: your application"),
+        msg(sender="Ollama <hello@ollama.com>", unsub="<https://o/u>"),
+    ])
+    monkeypatch.setattr(gmail, "scan", lambda **_k: report)
+    monkeypatch.setattr(gmail, "notify", lambda messages: sent.extend(messages))
+    gmail.main(["--notify"])
+    assert [m.sender for m in sent] == ["Priya <priya@acme.com>"]
