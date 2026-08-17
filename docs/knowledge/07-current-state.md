@@ -2884,3 +2884,180 @@ Fifty-two profile polls across eight accept watches. Only `lotus-interworks` car
 because `mark-accepted` wrote one. Framing unchanged, deliberately not re-argued: still a ~5-line fix
 (`cmd_list` stamping, or a `mark-checked` subcommand), still purely additive, still touching nothing
 `ledger.py` can reach. **Not implemented** — the instruction was to follow the runbook exactly.
+
+## Reply check — 2026-08-17 10:13 (seventeenth run; the ANSR clock is down to 24h, and the ledger grew by 6)
+
+Ran per [[11-reply-classifier-runbook]]. **One re-alert (ANSR, third mail, 24-hour clock).** Both channels
+read. Gmail read-only throughout; nothing replied to, nothing sent.
+
+### 🔴 A THIRD Talent500 mail — de-dupe rule 6's second limb fires for the second consecutive run
+
+`aditi@talent500.co`, **2026-08-16 22:12:48Z** (08-17 03:42 IST), subject *"Pending: Azam, 2-minutes to
+complete your job application with Under Armour India"*: **"Your application link expires in 24 hours."**
+
+Classification **unchanged (Assessment)** — same ~2-minute screening questionnaire, same *Complete Your
+Application* link, same gate on the same application. **All three mails are still unread.** `Reply` was
+already ✓, so limb one says skip; a newer message is exactly what arrived, so limb two says alert.
+**Slack `--event reply` posted; `Status` stays `Applied` per step 4; `Reply` stays ✓.**
+
+### The deadline ambiguity NARROWED — and the safe reading is kept anyway
+
+The 08-16 run recorded two irreconcilable readings and adopted the earlier one. The third mail is a
+tiebreaker, and it breaks *against* that choice:
+
+```
+mail 1  08-15 09:40Z  "48 hours"  ->  08-17 09:40Z  = 08-17 15:10 IST   <- the 08-16 safe reading
+mail 2  08-15 22:11Z  "48 hours"  ->  08-17 22:11Z  = 08-18 03:41 IST
+mail 3  08-16 22:12Z  "24 hours"  ->  08-17 22:12Z  = 08-18 03:42 IST
+```
+
+**Two independent countdowns now converge on 08-17 ~22:1xZ**; mail 1 is the outlier. **The actionable
+deadline is still recorded as 2026-08-17 15:10 IST** — a guess that runs short costs nothing, a guess that
+runs long costs the application — but the row now carries the evidence that the true expiry is ~08-18 03:41
+IST. Worth keeping as a shape: *new evidence that moves a deadline later does not license moving the
+action later.*
+
+### 🔴 The ledger grew to 41 while Notion sees 7 — six new submissions today
+
+`output/apply-log/submitted.jsonl` now holds **41** rows. **Six were submitted 2026-08-17** and exist in no
+Notion row: Zetheta Algorithms, Data Eminence, QuietSpark, HCLTech, ColigoMed, GC Technologies. Notion's
+`Status = Applied` returns **7** (the 5 originals + ANSR + Energy Exemplar, the latter corrected on 08-16).
+
+So step 1, followed exactly, sees **7 of 41** — the gap is now **34**, up from 29 yesterday and 30 on 08-15.
+It widens every time the apply step runs, because `NOTION_TOKEN` is not set and nothing pushes back. The
+**08-15 fix direction stands and is now three runs old: step 1 should read `submitted.jsonl`, not the
+board.** Not implemented here — the instruction was to follow the runbook exactly, and this run covered the
+gap by sweep instead.
+
+### Verification done before any zero was believed (standing rule, seventeenth run)
+
+- Bare `newer_than:14d in:inbox` → **201** threads; the 9-domain `from:` OR-group returned **4 live hits**
+  (three Talent500, one Energy Exemplar). Connector and OR-group syntax both proven before any empty result.
+- Domains searched: `infosys.com`, `coderound.ai`, `innovaesi.com`, `goodspace.ai`, `energyexemplar.com`,
+  `talent500.co`, `skillscapital.io`, `miraialpha.in`, **`recro.io` supplied by hand again** (its
+  `contact.md` deliberately carries no address, D36).
+- **The 34 ledger rows with no `contact.md` were covered by a broad `newer_than:2d in:anywhere
+  -from:linkedin.com` sweep** — 16 threads, read by sender: Emergent ×2, Ollama ×2, Skool ×3, beehiiv ×4,
+  VizMedia, and the three Talent500 mails. **Only Talent500 was job traffic.** This fully spans the gap
+  since the 08-16 18:27 check.
+- **Bounces clean** at `newer_than:14d in:anywhere` (mailer-daemon / postmaster / Undeliverable / DSN) →
+  **empty result set**.
+- **Campus + ATS sweep** (18 senders incl. talent500, greenhouse, lever, ashby, workable, smartrecruiters,
+  myworkday, naukricampus, doselect, hackerrank, mettl, imocha, codility, hirevue, epam, micro1, ceipalmail)
+  → **only the three Talent500 mails**, nothing new. Seventeenth run done by hand; "next work" #6 unbuilt.
+- **LinkedIn inbox read in full** — 6 conversations, unchanged. **Recruiter-A's thread was OPENED, not
+  skimmed** (the 08-13 lesson): it still ends at his 07-26 18:58 *"9419280094 / Send ur cv on this number /
+  Wa Alaikum As Salam"*. **No newer message**, so rule 6 correctly skips it. Recruiter-B and Recruiter-C
+  still show `You:` last (16 days). Learnbay remains the sponsored-ad funnel.
+
+### 👀 Out of scope, but observed: the Lotus Interworks pitch does not appear to have fired
+
+The 08-16 accept watch scheduled Shale Francis's touch-2 for **2026-08-17 ~09:12 IST**. This run read the
+LinkedIn inbox at **10:13 IST** and there is **no thread with Shale Francis at all** — a delivered DM would
+sit at the top of the list. That is the accept watcher's job and **nothing was done about it here**, but it
+is the first accept in six weeks and the one thing on the board with a live, already-won opening.
+**Flagging, not acting** — and per [[silent-failure-is-the-house-style]], check the artifact (the thread)
+rather than the watcher's log.
+
+### The tally, and the levers
+
+Seventeen reply checks, **two** genuine replies in the project's history. Neither needs code:
+
+1. 🔴 **ANSR questionnaire — ~2 minutes, and the clock is now explicit.** Third mail, still unread. It dies
+   exactly the way the EPAM test died if today passes.
+2. 🔴 **Recruiter-A — 22 days.** The only reply the outreach design has ever produced, at the company also
+   holding the board's best unworked row (Junior AI Engineer 90, already 1st-degree, **no accept needed**).
+
+## Reply check — 2026-08-17 later (eighteenth run; a channel that had been unread for eight days)
+
+Ran per [[11-reply-classifier-runbook]]. **One new classification, two Notion rows corrected.** Gmail
+read-only throughout; nothing replied to, nothing sent. ANSR and Recruiter-A both correctly skipped by
+de-dupe rule 6 — no newer message on either since the 10:13 run.
+
+### 🔴 The domain list was hand-maintained, and it was missing one — 16 runs of blindness
+
+`notifications@ceipalmail.com` (Crossing Hurdles' Ceipal ATS) is published in
+`output/outreach/crossing-hurdles/contact.md` and has been **harvestable since the folder existed**. Every
+prior run built its `from:` group from a **hand-copied 9-domain list** rather than from the contact files
+the runbook actually specifies, so this sender was never queried. Two mails sat unread for eight days:
+
+```
+08-09 10:48Z  "DevOps Engineer | $60/hr Remote | Micro1 x AI Labs"
+08-10 11:05Z  "AWS Cloud Engineer | $60/hr Remote | Micro1 x AI Labs"
+```
+
+This run harvested the domains **from the 28 `contact.md` files** instead of retyping the list, which is
+what surfaced them. Same shape as D35: *the reply was not missed, it was unobservable* — and again the
+cause was the input set, not the classifier.
+
+### Classified OTHER, deliberately not Auto-ack
+
+Neither mail acknowledges the application. Both are templated **referrals redirecting to a different
+company's job board**: *"Organization: Micro1"*, an `Apply Here` link to `jobs.micro1.ai` carrying a
+referral code, and an application process stated as *"resume evaluation & interview stage"* — i.e. it
+starts from zero over there. Identical bodies, only the role name swapped.
+
+**So both applications reach nobody.** Crossing Hurdles is a lead-gen funnel into Micro1's board, which is
+exactly what the **D36 sourcing screen predicted** for this company (zero employees findable on LinkedIn,
+auto-ack funnelling to micro1 in 3 seconds). That prediction is now **evidence rather than heuristic** —
+and it is the first time the screen's judgment has been confirmed by the employer's own mail.
+
+`Reply` ticked on both (Other → tick, per the Infosys/Recruiter-A precedent; the Energy Exemplar
+*Auto-ack* exception does not apply). There is no human at this company to nudge, so the cadence is
+cancelling nothing real. Slack alerted **once**.
+
+### 🔴 Both rows were sitting at `New` after a real submission — the Recro trap, third occurrence
+
+Step 1 queries `Status = 'Applied'`. **Both Crossing Hurdles rows read `New`**, so the runbook's own step 1
+could never have reached them; they were found only because the domain sweep ran wider than the row set.
+The ledger proves both submissions outright — `submitted.jsonl` lines 10 and 13, with screenshots on disk.
+
+| Row | Sat at `New` | Corrected to |
+|---|---|---|
+| DevOps Engineer ($60/hr Remote), `4444896795` | 8 days | Applied, 2026-08-09 |
+| AWS Cloud Engineer ($60/hr Remote), `4444889874` | 7 days | Applied, 2026-08-10 |
+
+Both were **one `apply-all` sweep from a duplicate submission** — the trap Recro hit on 07-30 and Energy
+Exemplar on 08-16. Three occurrences now; the common cause is unchanged and structural: `NOTION_TOKEN` is
+not set, so nothing writes submissions back to the board.
+
+⚠️ A **third** Crossing Hurdles row (`Platform Engineer`) is still at `New` and has **not** been applied to.
+On this evidence it should not be.
+
+### Verification done before any zero was believed (standing rule, eighteenth run)
+
+- Bare `newer_than:14d in:inbox` → **201** threads. Domain OR-group → **6** hits (3 Talent500, 2 Crossing
+  Hurdles, 1 Energy Exemplar). Connector and `from:` OR-group syntax proven before any empty result.
+- **10 domains, harvested from `contact.md` not retyped**: `infosys.com`, `coderound.ai`, `innovaesi.com`,
+  `goodspace.ai`, `energyexemplar.com`, `skillscapital.io`, `miraialpha.in`, **`ceipalmail.com` (new)**,
+  `talent500.co`, and `recro.io` supplied by hand again (its `contact.md` carries no address, D36).
+- The 34 ledger rows with no `contact.md` covered by `newer_than:2d in:anywhere -from:linkedin.com` → 17
+  threads, read by sender: Ideogram, Google, Emergent, VizMedia, Ollama ×2, Skool ×3, beehiiv ×4, and the
+  three Talent500 mails. **Only Talent500 was job traffic.** Spans the gap since the 10:13 check.
+- **Bounces clean** at `newer_than:14d in:anywhere` → empty result set.
+- **Campus + ATS sweep** (20 senders, now including `micro1.ai` and `ceipalmail.com`) → only the three
+  Talent500 mails. Eighteenth run done by hand; "next work" #6 still unbuilt.
+- **LinkedIn inbox read in full** — 6 conversations, unchanged. Recruiter-A's thread **opened, not skimmed**
+  (the 08-13 lesson): still ends at his 07-26 18:58 *"9419280094 / Send ur cv on this number"*. No newer
+  message, so rule 6 correctly skips it.
+
+### 🔢 The six 08-17 submissions have produced no mail at all
+
+Zetheta, Data Eminence, QuietSpark, HCLTech, ColigoMed, GC Technologies — submitted today, **zero inbound**,
+not even an auto-ack. Ledger unchanged at **41** rows since the 10:13 run. Notion `Applied` now reads **9**
+(7 + the two Crossing Hurdles corrections), against 41 in the ledger — gap **32**, down from 34 only because
+this run corrected two rows by hand. **The 08-15 fix direction stands and is now four runs old: step 1
+should read `submitted.jsonl`, not the board.**
+
+### 👀 Out of scope, unchanged: the Lotus Interworks pitch still has not fired
+
+The 08-16 accept watch scheduled Shale Francis's touch-2 for **2026-08-17 ~09:12 IST**. The 10:13 run found
+no thread; this run, hours later, finds **no thread with Shale Francis at all**. The first accept in six
+weeks, and the pitch is still not out. Flagging for the second consecutive run, **not acting** — it is the
+accept watcher's job. Check the thread, not the watcher's log ([[silent-failure-is-the-house-style]]).
+
+### The tally
+
+Eighteen reply checks. **Three** inbound classifications in the project's history: Recruiter-A (Other,
+22 days unanswered), ANSR (Assessment, deadline today), Crossing Hurdles (Other, dead end). Only the first
+two are worth Azam's time, and neither needs code.
