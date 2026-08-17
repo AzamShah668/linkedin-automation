@@ -54,6 +54,19 @@ NO_PITCH = "no-pitch-file"
 NOT_CONNECTED = "not-connected"
 ERROR = "error"
 
+# The composer was driven but the message could not be found in the thread afterwards.
+#
+# ⚠️ This is NOT a success, and an earlier version of this module got that wrong at real cost. It
+# reported `sent, but could not read it back`, counted it as SENT, and marked the tracker - so the
+# pitch was recorded as delivered to a man who never received it, and would never be sent again.
+# The inbox was checked by hand ten minutes later: six conversations, newest a week old, no thread
+# with him at all. The click had done nothing.
+#
+# The reasoning that produced the bug was "between an unconfirmed delivery and a duplicate one, the
+# duplicate is worse". That is true, and it is not a licence to guess: the answer is to make the
+# check reliable and to look BEFORE sending as well as after, not to assume the happy case.
+UNVERIFIED = "unverified"
+
 # Marker inside a Delivery.detail meaning the message was read back out of the thread, not merely
 # clicked at. "20 confirmed, 0 unconfirmed" is the only shape of report this project trusts.
 CONFIRMED = "confirmed"
@@ -165,6 +178,51 @@ def mark_sent(username: str) -> bool:
 _MESSAGE_EXACT = re.compile(r"^\s*message\s*$", re.I)
 _RECIPIENT = re.compile(r"recipient=([^&]+)")
 
+# Everything below is scoped to the message form on purpose. A page-wide `get_by_role("textbox")`
+# finds LinkedIn's global nav search field, and a page-wide Send can find some other control
+# entirely - which is one way to drive a composer confidently and send nothing at all.
+_FORM_SELECTORS = (".msg-form", "form.msg-form", ".msg-overlay-conversation-bubble .msg-form")
+_EDITOR_SELECTORS = (".msg-form__contenteditable", "div[role='textbox'][contenteditable='true']",
+                     "[contenteditable='true']")
+_SEND_SELECTORS = (".msg-form__send-button", "button.msg-form__send-btn",
+                   "button[type='submit']")
+# The thread itself. A delivered message appears HERE and nowhere else; the surrounding page body
+# is full of unrelated text that can make any probe string look present.
+_THREAD_SELECTORS = (".msg-s-message-list-content", ".msg-s-message-list",
+                     ".msg-s-message-list-container")
+
+
+def _first_present(scope, selectors):
+    """The first selector in priority order that matches something. None if none do."""
+    for selector in selectors:
+        try:
+            found = scope.locator(selector)
+            if found.count():
+                return found.first
+        except Exception:
+            continue
+    return None
+
+
+def _probe(text: str) -> str:
+    """A distinctive slice of the pitch to look for afterwards.
+
+    The first line is a greeting ("Hi Shale, thanks for connecting!") which LinkedIn also suggests
+    as canned copy, so a later line is used: it is specific to this pitch and to nothing else.
+    """
+    lines = [line.strip() for line in text.strip().splitlines() if len(line.strip()) > 30]
+    return lines[1][:60] if len(lines) > 1 else (lines[0][:60] if lines else "")
+
+
+def _thread_text(page) -> str:
+    thread = _first_present(page, _THREAD_SELECTORS)
+    if thread is None:
+        return ""
+    try:
+        return thread.inner_text(timeout=8_000)
+    except Exception:
+        return ""
+
 
 def message_control(page):
     """(locator, recipient_urn, reason). The profile owner's own Message control.
@@ -218,7 +276,7 @@ def send_dm(page, username: str, text: str, expected_person: str = "") -> Delive
         return Delivery("", "", username, NOT_CONNECTED, f"{why}; not connected")
     if not connect._click_through_sticky_nav(page, button):
         return Delivery("", "", username, ERROR, "could not open the message composer")
-    page.wait_for_timeout(2_200)
+    page.wait_for_timeout(2_500)
 
     # Post-condition on WHO, before a single character is typed - but only where it adds evidence.
     # When the control carried an href, `urn` already binds the recipient to this profile and every
@@ -243,40 +301,53 @@ def send_dm(page, username: str, text: str, expected_person: str = "") -> Delive
             return Delivery("", "", username, ERROR,
                             f"composer does not name {expected_person!r}; refusing to type")
 
-    box = page.get_by_role("textbox").filter(visible=True)
-    if not box.count():
+    form = _first_present(page, _FORM_SELECTORS)
+    if form is None:
+        return Delivery("", "", username, ERROR, "composer did not open (no message form)")
+
+    # LOOK BEFORE SENDING. This is the half that was missing, and it is what makes it safe to treat
+    # a failed read-back as a failure rather than a success: a genuine delivery whose confirmation
+    # was flaky gets recognised on the next run instead of duplicated.
+    probe = _probe(text)
+    if probe and probe in _thread_text(page):
+        return Delivery("", "", username, SENT,
+                        f"{CONFIRMED}: this pitch is already in the thread; nothing re-sent")
+
+    editor = _first_present(form, _EDITOR_SELECTORS)
+    if editor is None:
         return Delivery("", "", username, ERROR, "composer opened but no message box appeared")
     try:
-        box.first.click()
+        editor.click()
         # type(), not fill(): the composer is a contenteditable that listens for real key events,
         # and fill() leaves the Send button disabled with the text visibly present. Same family as
         # the location typeahead (D46) - displayed is not accepted.
-        box.first.type(text, delay=8)
-        page.wait_for_timeout(900)
+        editor.type(text, delay=8)
+        page.wait_for_timeout(1_200)
     except Exception as exc:
         return Delivery("", "", username, ERROR, f"could not type the pitch ({type(exc).__name__})")
 
-    send = page.get_by_role("button", name=re.compile(r"^send$", re.I))
-    if not send.count():
-        return Delivery("", "", username, ERROR, "no Send button (is the composer empty?)")
-    if not connect._click_through_sticky_nav(page, send.first):
-        return Delivery("", "", username, ERROR, "could not click Send")
-    page.wait_for_timeout(2_500)
-
-    # Read it back. A click that did not raise is not a message that arrived - the whole history of
-    # this project says to check the artifact, not the action.
-    probe = text.strip().split("\n")[0][:40]
+    # Scoped to the form. A page-wide search for a textbox or a Send button can find the global nav
+    # search field or some other control entirely, which is one way to "successfully" send nothing.
+    send = _first_present(form, _SEND_SELECTORS)
+    if send is None:
+        return Delivery("", "", username, ERROR, "no Send button inside the composer")
     try:
-        body = page.locator("body").inner_text(timeout=8_000)
+        if send.is_disabled():
+            return Delivery("", "", username, ERROR,
+                            "Send is disabled - the text was displayed but not accepted (D46)")
     except Exception:
-        body = ""
-    if probe and probe in body:
-        return Delivery("", "", username, SENT, f"{CONFIRMED}: the message is in the thread")
-    # Still SENT, deliberately. The Send click completed, so the message almost certainly went; if
-    # this were treated as a failure the invite would stay due and the next run would send it
-    # AGAIN. Between an unconfirmed delivery and a duplicate one, the duplicate is worse and it is
-    # the one a recruiter would notice. The count is reported separately so it is never silent.
-    return Delivery("", "", username, SENT, "sent, but could not read it back in the thread")
+        pass
+    if not connect._click_through_sticky_nav(page, send):
+        return Delivery("", "", username, ERROR, "could not click Send")
+
+    # Read it back OUT OF THE THREAD, not out of the page body. The body of a profile page contains
+    # all sorts of text; the thread is the only place a delivered message actually appears.
+    for _attempt in range(3):
+        page.wait_for_timeout(2_500)
+        if probe and probe in _thread_text(page):
+            return Delivery("", "", username, SENT, f"{CONFIRMED}: the message is in the thread")
+    return Delivery("", "", username, UNVERIFIED,
+                    "Send was clicked but the message is NOT in the thread - treat as NOT sent")
 
 
 def run(limit: int = 3, headless: bool = False, dry_run: bool = False,
@@ -309,7 +380,7 @@ def run(limit: int = 3, headless: bool = False, dry_run: bool = False,
         print("\nDRY RUN. No browser opened, nothing sent.")
         return 0
 
-    sent = unconfirmed = unrecorded = 0
+    sent = unrecorded = unverified = 0
     with sync_playwright() as pw:
         context = open_browser(pw, user_data_dir, headless=headless)
         try:
@@ -323,10 +394,12 @@ def run(limit: int = 3, headless: bool = False, dry_run: bool = False,
                 print(f"[{i + 1}/{len(prepared)}] {person} ({invite.get('slug')})")
                 result = send_dm(page, username, text, expected_person=person)
                 print(f"     {result.outcome}: {result.detail}")
+                if result.outcome == UNVERIFIED:
+                    unverified += 1
+                    print("     NOT marked sent. The next run looks in the thread before typing,")
+                    print("     so a delivery this failed to confirm will not be duplicated.")
                 if result.ok:
                     sent += 1
-                    if CONFIRMED not in result.detail:
-                        unconfirmed += 1
                     if mark_sent(username):
                         print("     tracker updated; it will not be sent twice")
                     else:
@@ -338,8 +411,11 @@ def run(limit: int = 3, headless: bool = False, dry_run: bool = False,
         finally:
             context.close()
 
-    print(f"\n{sent} pitch(es) delivered ({sent - unconfirmed} confirmed in-thread, "
-          f"{unconfirmed} unconfirmed)")
+    print(f"\n{sent} pitch(es) delivered and confirmed in-thread")
+    if unverified:
+        print(f"!! {unverified} clicked Send but could NOT be found in the thread afterwards. "
+              f"Treat those as NOT sent; they stay due.")
+        return 2
     if unrecorded:
         print(f"!! {unrecorded} delivered but NOT recorded in the tracker. Mark them by hand "
               f"before the next run or the same person is pitched twice.")

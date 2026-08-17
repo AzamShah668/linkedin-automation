@@ -194,17 +194,38 @@ def test_a_clean_exit_records_the_delivery(monkeypatch):
     assert dm.mark_sent("someone-123") is True
 
 
-def test_an_unconfirmed_delivery_is_still_marked_sent():
-    """Between an unconfirmed delivery and a duplicate one, the duplicate is worse - and it is the
-    one a recruiter would notice. So a Send click that could not be read back stays SENT."""
-    unread_back = dm.Delivery("s", "p", "u", dm.SENT, "sent, but could not read it back in the thread")
-    assert unread_back.ok is True
-    assert dm.CONFIRMED not in unread_back.detail, "it must still be countable as unconfirmed"
+def test_an_unverified_send_is_not_a_send():
+    """PAID FOR LIVE, 2026-08-17. An earlier version reported `sent, but could not read it back`,
+    counted it SENT and marked the tracker. The inbox ten minutes later: six conversations, newest
+    a week old, no thread with him at all. The pitch was recorded as delivered to a man who never
+    got it and would never be sent one."""
+    assert dm.Delivery("s", "p", "u", dm.UNVERIFIED, "not in the thread").ok is False
 
 
 def test_a_confirmed_delivery_carries_the_marker():
     assert dm.CONFIRMED in dm.Delivery("s", "p", "u", dm.SENT,
                                        f"{dm.CONFIRMED}: the message is in the thread").detail
+
+
+# --- the probe used to recognise our own message ------------------------------------------------
+
+def test_the_probe_skips_the_greeting():
+    """'Hi Shale, thanks for connecting!' is also LinkedIn's own canned suggestion, so finding it
+    in a thread proves nothing about whether OUR pitch landed."""
+    probe = dm._probe("Hi Shale, thanks for connecting!\n\n"
+                      "I applied for the AI Systems Lab Developer role and it lines up closely.")
+    assert probe
+    assert "thanks for connecting" not in probe
+
+
+def test_the_probe_survives_a_one_line_pitch():
+    assert dm._probe("A single substantial line of pitch text that is well over thirty chars")
+
+
+def test_an_empty_pitch_has_no_probe():
+    """An empty probe must never be treated as 'found', or every send confirms itself."""
+    assert dm._probe("") == ""
+    assert dm._probe("short") == ""
 
 
 # --- finding the Message control ---------------------------------------------------------------

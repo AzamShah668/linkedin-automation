@@ -1984,10 +1984,38 @@ it **again**. A duplicate pitch to a warm lead is the most embarrassing thing th
 do, and it was one quiet return value away. Now loud, with the by-hand remedy printed, and `run()`
 exits 2 if any delivery went unrecorded.
 
-Relatedly, a Send click that cannot be read back afterwards stays `SENT` **on purpose**: between an
-unconfirmed delivery and a duplicate one, the duplicate is worse and it is the one a recruiter
-would notice. The count is reported separately (`n confirmed in-thread, m unconfirmed`) so the
-choice is never silent.
+**And then the same hour disproved the rest of this entry, which is worth keeping rather than
+tidying away.** The first draft of the fix kept the existing behaviour where a Send click that
+could not be read back still counted as `SENT`, reasoning that *between an unconfirmed delivery and
+a duplicate one, the duplicate is worse.* The reasoning is sound. The application of it was not:
+it assumed the click had worked.
+
+The 10:32 run reported `sent, but could not read it back in the thread` and marked the tracker.
+The inbox, checked by hand eight minutes later: **six conversations, newest a week old, no thread
+with him at all.** Nothing had been sent. The pitch was now recorded as delivered to a man who had
+never received it, and by the tracker's rules would never be sent one — a silent, permanent loss of
+the project's second-ever warm accept, produced by a safety argument.
+
+Three faults behind it:
+
+- **The read-back searched the profile page body**, not the thread. Page bodies contain all kinds
+  of text; a probe can look present for reasons that have nothing to do with delivery.
+- **The composer was addressed page-wide.** `get_by_role("textbox")` finds LinkedIn's global nav
+  search field, and a page-wide `^send$` can find some other control entirely. Everything is now
+  scoped inside `.msg-form`.
+- **The probe was the greeting line** — *"Hi Shale, thanks for connecting!"* — which is also
+  LinkedIn's own canned suggestion. `_probe()` now takes a later, pitch-specific line.
+
+> **A failure direction chosen to avoid one bad outcome is not free; it buys that safety with the
+> other outcome. Only pick it once the evidence is reliable enough to be worth trusting.**
+
+The real answer was never the coin-flip. It was to **look before sending as well as after**:
+`send_dm` now checks the thread for this pitch *before* typing, so a genuine delivery whose
+confirmation was flaky is recognised next run instead of duplicated — which makes it safe to treat
+an unconfirmed send as `UNVERIFIED`, leave the invite due, and exit 2.
+
+**Verified end to end at 10:38**, then verified again independently through the inbox: seven
+conversations where there had been six, SHALE FRANCIS at the top, sent exactly once.
 
 **Consequences.** 394 tests, the selector ones built from a real profile dump including the sidebar
 links. Also proven live in the same hour: the free stack asked for the pipeline lock while the
