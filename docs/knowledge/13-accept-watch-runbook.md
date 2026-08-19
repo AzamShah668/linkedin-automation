@@ -41,6 +41,15 @@ ever typed). **Calling it with no `note` argument works fine.** Do not retry wit
   resolved, skip, mark failed, and say so.
 - **Never send early.** Only rows returned by `invite_tracker.py due` are sendable. The delay is the whole
   point; an instant reply reads as a bot.
+- 🔴 **Re-check the pitch's premise before sending it.** The 2b text is written at **stage 1** and delivered
+  days later, so it can outlive what it claims. `due` only proves the clock elapsed — it says nothing about
+  whether the role still exists. On 2026-08-19 Himaja Madala's pitch came due opening *"I applied for the
+  Cloud Engineer WALK IN Chennai role"*; LinkedIn had **rejected that exact req on 08-18 09:20Z, 2h20m
+  before she accepted at 11:40Z**. Nothing in the two-stage design re-reads the premise between the knock
+  and the pitch, so the send would have gone out blind. Before sending, confirm the role has no rejection
+  in the ledger/Notion. If the premise is dead: **do not rewrite the line yourself** (that is inventing the
+  pitch) — `mark-failed` with a reason, Slack it, and let `pitch.py` regenerate or the owner drop it.
+  `mark-failed` here means *held*, not *delivery failed*; the reason string is what carries that.
 - **Business hours only** (`BUSINESS_HOUR_START`/`END`, default 09:00–21:00 IST). **Enforced in `cmd_due`
   since 2026-07-31** — outside the window `due` returns an empty list and says how many rows it is holding.
   Before that it was only enforced at *scheduling* time, which left a live hole: a due time that lapsed while

@@ -2064,3 +2064,151 @@ polls the invites — alerting on the email copy double-counts a signal already 
 reply reproduces D35 from the other end. So bulk mail is **counted and printed, never discarded** —
 quiet, not invisible. Live result: **15 → 3 worth a look, 12 bulk, 25 auto-ack**, and the three are
 the Talent500 assessment mails the Claude stack had independently flagged.
+
+## D54 — "Green" meant "stood down": the pipeline that applied to nothing (2026-08-19)
+
+**The complaint.** Two days, zero applications, both runs exit 0.
+
+**Four independent causes, none of which raised an error.**
+
+1. **The lock starved the pipeline.** Windows fires every missed task at once on wake. The
+   standalone `Job Hunt - Reply Check` task won the lock in the same second `Job Hunt - Full
+   Pipeline` started and held it ~13 min. `Enter-PipelineLock` defaults to `WaitSeconds=0` —
+   correct for a task that repeats in four hours, **wrong for a once-a-day pipeline, where
+   standing down costs the whole day.** Apply, outreach, replies and nudge all skipped, and the
+   log called it "Not an error".
+   → `run-pipeline.ps1` exports `PIPELINE_LOCK_WAIT_SECONDS=1200`; children inherit it and wait.
+   A standalone task has it unset and keeps the old behaviour. Exclusion re-tested both
+   directions before shipping — see [[powershell-lock-gotchas]].
+
+2. **One Arabic company name stopped every packet build.** `sweep-packets.ps1` ran its board
+   query through an inline `py -3 -c` with no UTF-8 guard; `ALESAYI HOLDING | العيسائي القابضة`
+   raised `UnicodeEncodeError` mid-print. The sentinel did its job — it refused to call a crashed
+   query an empty queue — so the script aborted **every run**, and **53 rows had no packet**.
+   The seven-module UTF-8 fix of 2026-08-17 missed this one *because it was inline*.
+   That company name also contains the `|` field delimiter; both are now handled.
+
+3. **The bank knew the years and not the yes.** 11 of 35 Easy Apply attempts ended
+   `reached-review` — form filled, step would not advance, nothing submitted. The screenshots
+   showed required **Yes/No radios** blank under "This field is required", beside correctly
+   answered numeric screeners. `experience.technology_years` could answer *"how many years of
+   NLP"* but nothing answered *"do you have NLP experience"*. **Same fact, different question
+   shape.** Four entailed capability values added, patterns anchored so they cannot swallow the
+   numeric screener — a word typed into a number field is the wrong-field failure
+   [[answer-bank-proves-source-not-destination]] warns about.
+
+4. **A dead posting was discovered and forgotten.** 22 of 35 rows were closed. `apply-all` marked
+   only submissions, so the next run would re-probe the same 22 corpses and spend its budget the
+   same way. `prune` already recorded them; the batch that actually opens the page now does too.
+
+**Two more found on the way, both about to do outward harm:**
+
+- **Outreach was queuing companies that had already said no.** `coverage.gaps()` reads the ledger
+  and ignored status, so CDOps Tech and Zetheta — rejected 08-18 — sat at positions 3 and 4, about
+  to spend unrecallable invites. The 08-18/19 reply checks had written those rejections to Notion
+  but **could not run Python**, so `board.sqlite3` still said `Applied`: [[mirror-is-not-the-board]]
+  in a new costume. Backfilled 9 rows, matched 1:1 against the ledger by `linkedin_id`, and
+  `gaps()` now reuses `nudge.STOP_STATUSES` rather than defining "stopped" a second time.
+
+- **A pitch outlived its premise.** The TCS touch-2 opened *"I applied for the Cloud Engineer WALK
+  IN Chennai role"*; LinkedIn rejected that req **2h20m before the recruiter accepted the invite**.
+  `due` proves the clock elapsed, never that the claim still holds. The Claude stack caught it
+  because an agent reads a runbook; `free/dm.py` has no agent, so there the check is now code.
+
+**And one stale fact that had already reached an employer.** `freetext.py` hardcoded *"Final-year
+B.Tech Computer Science student"* into the prompt for generated free-text answers, while this same
+repo recorded in three places that the degree is complete and his LinkedIn reads *graduate*.
+"Student" reads as intern-tier on exactly the question meant to sell him.
+
+**The lesson.** Every one of these reported success. `exit 0` meant "the step chose not to run",
+"the query crashed and was honest about it", or "the form was filled and abandoned". The runner
+log already said `Judge this by the individual runner logs, not by this file or an exit code` —
+the instrument was right and nobody was reading it. Related: [[silent-failure-is-the-house-style]],
+[[failed-query-is-not-an-empty-queue]], [[displayed-is-not-accepted]].
+
+## D55 — The OmniRoute stack takes the schedule (2026-08-19)
+
+**Decision.** `pipeline-free.cmd` is now the scheduled pipeline (daily 10:30, task *Job Hunt -
+Free Pipeline (OmniRoute)*). `Job Hunt - Full Pipeline` and `Job Hunt - Sweep Packets` are
+**disabled, not deleted** — D51's constraint still holds, the Claude runners and their branch are
+untouched and one click restores them.
+
+**Why, beyond cost.** The saving was never the strongest argument. Two Claude-stack steps refuse
+to run while a LinkedIn MCP server is alive — that is, **whenever a Claude Code window is open**,
+which is nearly always:
+
+- `daily-discovery.ps1` — last produced rows **2026-08-01**. Eighteen days of no new postings is
+  why 22 of 35 rows in the 08-19 apply batch were dead. The board did not rot; it starved.
+- `sweep-packets.ps1` — 53 rows queued, 0 packets ever built.
+
+A guard meant to prevent browser-profile collisions had quietly become an off switch. The free
+stack is pure Playwright with no MCP, so the guard does not apply and both steps just run.
+
+**Measured, same afternoon, same machine, same board:**
+
+| | Claude stack | Free stack |
+|---|---|---|
+| Applications submitted | **1** of 35 rows walked | **8** — hit the `--limit` cap with rows to spare |
+| Discovery | skipped (MCP guard) | **39 postings → 18 new board rows** |
+| Packets / CVs | 0 (query aborted) | **2 of 2 built, validated first attempt** |
+| Cost | Claude session per step | **₹0** |
+
+**Verification, not vibes.** Gateway health was confirmed with the project's own canary after a
+**bad first measurement**: a hand-rolled urllib probe timed out and I reported the gateway down.
+It was up the whole time — urllib's default User-Agent is banned, which is
+[[the-instrument-can-be-the-bug]] recurring verbatim. Both pinned models then returned an **exact
+echo** of a known string, because HTTP 200 and non-empty is precisely what the first-token-eating
+bug passes.
+
+**Still Claude-backed and still scheduled:** `Reply Check`, `Watch Accepts`, `Flush Approved`.
+They run every 4h/30min and the free pipeline covers their work only once daily, so disabling them
+would trade cost for responsiveness on the one clock that matters — the 3-20h accept→pitch window.
+Converting them to `pipeline-free.cmd -Only <step>` tasks is the next step, not this one.
+
+**One artifact caught by reading it.** The first free CV opened *"B.Tech Computer Science student
+(2022-2026)"*. The bank, the freetext prompt and `master-cv.md` each carried that stale framing
+independently — three sources, one fact, all wrong since the degree completed. Fixed in all three
+and both CVs rebuilt; they now open *"DevOps Engineer with hands-on experience…"*. **A CV that
+passes four automated checks can still undersell the candidate in its first sentence**, which is
+why the artifact gets read and not just counted.
+
+## D56 — "Will it ever stop?" is a different test from "does it work" (2026-08-19)
+
+Asked to re-test the free stack *"so that we are confident it will never die or stop"*. Running it
+again only proves it works twice. So each way it has actually died was reproduced instead.
+
+| Failure mode | Test | Result |
+|---|---|---|
+| Wake stampede steals the lock | rival process holds it 40s, pipeline fires into it | **waits 37s, then runs.** Two days ago: `SKIPPED`, whole day lost |
+| One step crashes | injected a step whose module does not exist | exit 1, **the run continues** and reaches its end marker |
+| Laptop asleep / on battery | task settings audit | `StartWhenAvailable`, battery restrictions off |
+| Run fails outright | task settings audit | 🔴 `RestartCount=0` — **fixed**: 2 retries, 20 min apart, `MultipleInstances=IgnoreNew` |
+| Non-ASCII kills a CLI | `test_console_encoding.py` | 16 pass |
+| **The gateway dies** | pointed the primary at a closed port | 🔴 **the fallback was dead too** |
+| Gateway not running at all | killed it, ran the pipeline | **restarted in 3s**, verified by echo |
+
+**The one that mattered.** `LLM_FALLBACK_MODEL` was `llama-3.3-70b-versatile`, which Groq has
+retired — `404 model_not_found`. Configured in D43, never once exercised, so with OmniRoute down
+the free stack had **no brain at all**: primary unreachable, fallback 404. This is
+[[never-exercised-is-never-checked]] on the component whose entire job is to be there when the
+other one is not. **A fallback nobody has failed over to is a hypothesis, not a fallback.**
+Now `openai/gpt-oss-120b`, chosen by echo test.
+
+⚠️ And the echo test earned its keep twice: `qwen/qwen3.6-27b` "passed" a `PROBE in output` check
+while emitting `<think>` reasoning around the answer. Containment is not correctness — that text
+would have landed inside a CV or an employer's form. The assertion has to be `output == probe`.
+
+**The gateway now starts itself** (Azam's suggestion): `Ensure-Gateway` in the free runner probes
+:20128 and launches the npm shim if nothing answers. Deliberately **not fatal** — the Groq
+fallback is a different provider on a different host, so a gateway that will not start costs
+quality, not the run. The probe is a **TCP connect, not an HTTP GET**, because a hand-rolled HTTP
+probe reported this very gateway down while it was serving perfectly (banned User-Agent) —
+[[the-instrument-can-be-the-bug]], twice in one day.
+
+**Two of my own bugs, both caught by looking rather than assuming:**
+- The first lock-wait shipped **silent** — the stampede test could only prove it waited by
+  subtracting timestamps. A resilience feature invisible in the log is one nobody trusts at 3am.
+  It now names the holder and the budget.
+- `Ensure-Gateway | Out-Null` swallowed `Say`'s output stream along with the return value, so the
+  gateway status reached the log file and never the console. Functions called for their effect
+  must not also return a value.

@@ -3323,3 +3323,63 @@ Both live items need a human and neither needs code:
    test died if tonight passes.
 2. 🔴 **Showkat Gaffar — 22 days**, on a personal number, at the company holding the board's best unworked
    row (Junior AI Engineer 90, already 1st-degree, no accept needed).
+
+## 2026-08-19 — 22nd reply check: eight rejections in one morning, on a channel no `from:` sweep covers
+
+**Result: the project's employer-outcome count went 1 → 9 in a single run.** On 2026-08-18, between
+08:46Z and 12:12Z, LinkedIn delivered **eight rejections** for the 2026-08-15 Easy Apply batch:
+Talentgigs (08:46Z), slice (08:54Z), CloudLeap (09:02Z), Tata Consultancy Services *Cloud Engineer
+walk-in* (09:20Z), ShimentoX Technologies (09:24Z), Discovr AI (09:28Z), Armakuni (09:33Z),
+CDOps Tech (12:12Z). A ninth mail, Hyper Lychee Labs 08:37Z, is `email_jobs_job_application_viewed_01`
+— **viewed, not decided**, so it stays live and was deliberately not classified as a reply.
+
+### Why twenty-one prior checks could not have seen these
+
+The runbook's step 2 builds a `from:` list out of `output/outreach/*/contact.md`. **Every one of these
+eight rejections arrives from `jobs-noreply@linkedin.com`**, which is in no `contact.md` and never will
+be — it is LinkedIn's own notifier, not an employer address. The harvest was run and was correct
+(28 `contact.md` files, matching the known positive; 8 domains, incl. `ceipalmail.com`) and it still
+could not have surfaced a single one of these. **`contact.md` is a list of humans we emailed; the
+Easy Apply outcome channel has no human in it.** This is [[derive-the-input-set-never-retype-it]] one
+layer up: deriving the list correctly does not help when the *source* of the list excludes the channel.
+The fix that worked was the corollary already recorded in `ledger-is-the-send-record` — take the row
+set from `submitted.jsonl` (41 rows) and sweep `from:jobs-noreply@linkedin.com` over the window.
+
+### The classification, and a correction to the Zetheta rule
+
+Each of the eight was confirmed on **three independent signals** before anything was written:
+
+1. LinkedIn's template key `email_jobs_application_rejected_01`, repeated in `lipi`/`trk`/`trkEmail`;
+2. the headline **`Your update from <Company>`**;
+3. the visible body **"Unfortunately, we will not be moving forward with your application"**.
+
+⚠️ **Point 3 refines [[rejection-can-hide-in-a-tracking-token]].** That note was written from Zetheta,
+where grepping the body for "no longer" / "unfortunately" / "not moving forward" returned **nothing**,
+because Zetheta had overwritten the employer message field with an unrelated internship funnel. The
+default LinkedIn rejection **does** carry the plain-English sentence in the HTML. So the rule is not
+"the body is always silent" — it is **"the body is employer-controlled and therefore untrustworthy;
+the template key is not"**. Read the key first, then the body, and expect them to agree; when they
+disagree, as at Zetheta, the key is the status and the body is the intent.
+
+File-to-company mapping was corroborated twice (thread id, then the `Your update from <Company>`
+headline) before writing, because a misattributed rejection is not recoverable from the artifact.
+
+### What was written
+
+Eight **new** Notion rows, because **none of the eight had a row to update** — they are from the 08-15
+batch that reached `board.sqlite3` + the ledger and never Notion (no `NOTION_TOKEN`). Each: `Status =
+Rejected`, `Reply = ✓`, `Applied Date = 2026-08-15`, ledger line + `linkedin_id` + the three signals in
+`Notes`. Same remedy the 08-15 check used for ANSR. **The existing TCS `Gen AI Engineer` row was left
+alone** — same company, different req, never applied to; [[slug-is-not-a-comparison-key]].
+
+### Not done, and why
+
+- 🔴 **No Slack alert was posted.** `py -3 tools/slack_notify.py` requires shell approval that this
+  session did not have; both attempts returned `requires approval`. The eight are recorded in Notion
+  but the owner has **not** been pinged by this run.
+- 🔴 **`database/board.sqlite3` was not updated** — same shell block. The board still shows these eight
+  as live, so a board-driven step could still work a dead row. This is the [[mirror-is-not-the-board]]
+  gap pointing the other way for once: Notion is now ahead of the board.
+- One deliberate deviation: step 5 says alert *per* reply. Eight same-shape rejection cards in one
+  batch is [[alert-noise-is-a-correctness-bug]], so the intended post was **one** card naming all
+  eight. It is queued in the report, not sent.

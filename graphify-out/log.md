@@ -423,6 +423,12 @@ Successfully created and posted the Friday Engineering Lesson ("Why Production R
 High-complexity 3D command center hero image generated via Imagen 3 (`hero_rollback_lesson_1786801062750.png`).
 Updated `dispatch_engine.py` with exact `button:text-is('Post')` targeting and refined photo upload flow.
 
+## [2026-08-19 20:55] session | Live LinkedIn Post Dispatched (PostgreSQL for Everything)
+Touched: none (AST-only graph)
+Successfully created and dispatched Tuesday Project Showcase post ("PostgreSQL for Everything") live to LinkedIn via Playwright.
+Attached high-detail 3D PostgreSQL monolith visual (`hero_postgres_everything.jpg`). Verified live publication on feed.
+
+
 ## [2026-08-11] session | Reply check finds the 16-day-old reply
 Touched: none
 Ninth reply check, and the first ever to write a Reply tick. Gmail zero across the 5 Applied domains
@@ -761,3 +767,37 @@ loaded into context; it caught two of my own defects on its first run.
 "Brain 3 queried once ever" claim is RETRACTED - the pattern was blind to script-driven calls.
 Rule now recorded: run a measurement against a case whose answer you already know, and state the
 control next to the number. Still unproven: whether any of this changes behaviour next week.
+
+## [2026-08-18 21:05] session | accept watch, 11 pending, 0 accepts
+Touched: none
+Probe calibrated on a known positive first (Himaja, accepted 17:10) - her top card reads `1st`,
+so the check can see an accept. All 11 pending then read `3rd` plus LinkedIn's own `Pending`
+badge: a negative from LinkedIn, not an inferred one. Nothing expired, nothing due, no Slack
+post (runbook: silence when there is no news).
+
+## [2026-08-19] session | 22nd reply check: eight rejections found
+Touched: none
+Added `from:jobs-noreply@linkedin.com` to the sweep. Twenty-one prior checks built the from: list
+only from contact.md, which by construction lists humans we emailed and so can never carry an Easy
+Apply outcome. Found 8 rejections dated 2026-08-18 (all from the 08-15 batch) plus 1 "viewed".
+Each confirmed on three agreeing signals - template key, headline, body - and mapped to its
+company twice before writing. 8 new Notion rows, because none existed to update. Slack and
+database/board.sqlite3 NOT updated: no shell approval this session.
+
+## [2026-08-19 16:05] session | accept watch: 0 accepts, TCS pitch held
+Touched: none
+All 11 pending invites re-read live via the LinkedIn MCP: every one shows `· 3rd` AND `Pending`,
+two agreeing signals, so 0 accepts and nothing marked. Note the near-miss: the top card renders
+`Message` next to `Pending` on non-connections, so a Message-button test would have called all 11
+accepted - degree + Pending is the only safe read. Nothing expired (3 expire 08-20).
+The one due pitch, Himaja Madala/TCS, was HELD not sent: it opens "I applied for the Cloud Engineer
+WALK IN Chennai role" and LinkedIn rejected that exact req 08-18 09:20Z, 2h20m BEFORE she accepted.
+Nothing in the two-stage design re-checks a pitch's premise between the knock and the delivery.
+Marked failed with a reason (= held), Slack posted. New guardrail in 13-accept-watch-runbook.
+
+## [2026-08-19 20:55] session | pipeline repair and the OmniRoute switchover
+Touched: none (no wiki pages; knowledge went to Brain 1 Patterns + Brain 2 D54/D55/D56)
+Two days of zero applications traced to four silent causes (lock starvation, a cp1252 crash,
+missing yes/no answers, unrecorded dead postings). Free/OmniRoute stack verified end to end twice
+and given the daily schedule; Claude pipeline task disabled, scripts untouched. 13 applications,
+2 invites, 3 CVs, 419 tests.
